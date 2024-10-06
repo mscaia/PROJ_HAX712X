@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Éditeur de Spyder
 
-Ceci est un script temporaire.
-"""
 
 import csv 
 import matplotlib.pyplot as plt 
