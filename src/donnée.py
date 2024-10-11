@@ -44,18 +44,6 @@ url = "https://data.montpellier3m.fr/sites/default/files/ressources/MMM_EcoCompt
 path_target = "../data/EcoCompt1.json"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
-with open(path_target, 'r') as file:
-    EcoCompt1_brut = file.read()
-EcoCompt1_netoy = "\n".join(line for line in EcoCompt1_brut.splitlines() if line.strip())
-EcoCompt1 = '[' + EcoCompt1_netoy.replace('}{', '},{') + ']'
-try:
-    data = json.loads(EcoCompt1)
-    print("Le JSON a été chargé avec succès.")
-except json.JSONDecodeError as e:
-    print(f"Erreur lors du chargement du JSON : {e}")
-
-
-
 
 
 
