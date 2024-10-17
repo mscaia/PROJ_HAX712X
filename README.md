@@ -41,9 +41,9 @@ PROJ_HAX712X/
 └── requirements.txt             # Python dependencies
 
 ## Datasets
-- **Bike-sharing rides**: [VéloMagg Dataset Link]
-- **Cyclist and pedestrian counting**: [Counting Dataset Link]
-- **Open Street Map**: [OSM Data Link]
+- **Bike-sharing rides**: [https://data.montpellier3m.fr/dataset/courses-des-velos-velomagg-de-montpellier-mediterranee-metropole]
+- **Cyclist and pedestrian counting**: [https://data.montpellier3m.fr/dataset/comptages-velo-et-pieton-issus-des-compteurs-de-velo]
+- **Open Street Map**: [https://www.openstreetmap.org/]
 
 ## Technologies Used
 - **Programming Language**: Python
