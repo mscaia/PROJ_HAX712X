@@ -18,10 +18,10 @@ Our project aims to analyze and visualize bike traffic data in the city of Montp
 
 We are a group of four working collaboratively on this project. Here is the list of our team members:
 
-1. **Member 1** - Role/Responsibility
-2. **Member 2** - Role/Responsibility
-3. **Member 3** - Role/Responsibility
-4. **Member 4** - Role/Responsibility
+1. **ARMAND Charlotte** - Role/Responsibility
+2. **CONDAMY Fabian** - Role/Responsibility
+3. **SCAIA Matteo** - Role/Responsibility
+4. **STETSUN Kateryna** - Role/Responsibility
 
 ## How to Run the Project
 
