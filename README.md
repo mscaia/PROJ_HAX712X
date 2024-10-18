@@ -23,7 +23,44 @@ We are a group of four working collaboratively on this project. Here is the list
 4. **STETSUN Kateryna** - Testing, Documentation
 
 ## Gantt diagram
+gantt
+    title Group Project Retro Planning
+    dateFormat  YYYY-MM-DD
+    axisFormat  %d-%m
+    excludes weekends
 
+    section Getting Started
+    Brainstorming : done, 2024-09-27, 7d
+    Creating GitHub enviroment : crit, 2024-09-27, 1d
+    Task Distribution : done, 2024-10-06, 3d
+    Initial Research :active, 2024-10-09, 7d
+    Datasets loading : done, 2024-10-11, 2d
+    Documentation Draft : active, 2024-10-15, 5d
+
+    Mid-term Snapshot :milestone, 2024-10-25, 1d
+
+    section Critical Tasks
+    Data Gathering & Processing :2024-10-28, 7d
+    Code Structure Design :2024-11-02, 4d
+    Interactive Map Feature :2024-11-06, 10d
+    Traffic Prediction Algorithm :2024-11-16, 7d
+    Backend Integration :2024-11-23, 7d
+
+    section Documentation
+    Docstrings :2024-11-30, 5d
+    API Documentation :2024-12-05, 3d
+    README Preparation :2024-12-08, 2d
+
+    section Testing
+    Unit Tests :2024-11-25, 5d
+    Continuous Integration Setup :2024-11-30, 3d
+    Full Testing :2024-12-03, 4d
+
+    section Delivery
+    Finalize GitHub Repo :2024-12-09, 1d
+    Slide Deck Prep :2024-12-09, 2d
+    Presentation Rehearsal :2024-12-12, 1d
+    Oral Presentation :milestone, 2024-12-13, 1d
 
 
 ## Project Structure
