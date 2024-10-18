@@ -64,6 +64,10 @@ gantt
     Oral Presentation :milestone, 2024-12-13, 1d
 ```
 
+## showing the results you want to create 
+
+![simple picture](images/montpellierpop_1367059_d66066f7c2.gif)
+
 ## Project Structure
 PROJ_HAX712X/
 │
@@ -89,8 +93,47 @@ PROJ_HAX712X/
 
 ## Technologies Used
 - **Programming Language**: Python
-- **Frameworks/Libraries**: [Pandas, Matplotlib, Folium ....]
+- **Frameworks/Libraries**:
+  - **Pandas**: For data manipulation and analysis.
+  - **Matplotlib**: For creating static, animated, and interactive visualizations.
+  - **Folium**: For visualizing data on interactive maps.
+  - **Sphinx**: For generating documentation.
+  - **Quarto**: For creating a website to showcase project results.
 - **Documentation**: Sphinx/Quarto for documentation and website generation.
+
+## Coding Pipeline
+The coding pipeline for this project involves the following steps:
+1. **Data Acquisition**: 
+   - Collect datasets from various sources, including bike-sharing rides, cyclist and pedestrian counting data, and Open Street Map.
+2. **Data Cleaning and Preprocessing**: 
+   - Use **Pandas** for cleaning and preparing the datasets for analysis.
+3. **Data Analysis and Visualization**: 
+   - Implement analysis using **Pandas** and generate visualizations with **Matplotlib** and **Folium**.
+4. **Interactive Features**:
+   - Develop an interactive map feature for predicting bike traffic patterns.
+5. **Documentation**:
+   - Maintain comprehensive documentation using **Sphinx** and **Quarto** to ensure clarity and usability for users.
+6. **Version Control**: 
+   - Use **Git** for version control, ensuring that all code changes are tracked and collaboration among team members is facilitated.
+7. **Continuous Integration**:
+   - Implement CI practices to run tests automatically on each commit to ensure code quality and reliability.
+
+## Ignored Files
+To maintain a clean project structure and avoid committing unnecessary files, the following files and directories are ignored in the version control:
+- **Compiled Files**:
+  - Byte-compiled files such as `__pycache__/`, `*.py[cod]`, and `*$py.class`.
+- **C Extensions**:
+  - Files with the extension `*.so`.
+- **Distribution and Packaging**:
+  - Ignore build artifacts, including `build/`, `dist/`, and various egg-info files.
+- **Testing Artifacts**:
+  - Directories and files related to testing, such as `htmlcov/`, `.tox/`, `.coverage`, and others.
+- **Environment Settings**:
+  - Local environment variables and settings files such as `.env`, `venv/`, and any backup directories.
+- **Documentation Builds**:
+  - Ignore outputs generated during documentation builds, including `docs/_build/` and `/site`.
+- **IDE and Project Specific Files**:
+  - Ignore project-specific configurations from IDEs like Spyder, PyCharm, etc. (e.g., `.idea/`, `.spyderproject`).
 
 ## Getting Started
 1. **Clone the Repository**:
