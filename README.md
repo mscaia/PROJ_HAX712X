@@ -62,7 +62,7 @@ gantt
     Slide Deck Prep :2024-12-09, 2d
     Presentation Rehearsal :2024-12-12, 1d
     Oral Presentation :milestone, 2024-12-13, 1d
-
+```
 
 ## Project Structure
 PROJ_HAX712X/
