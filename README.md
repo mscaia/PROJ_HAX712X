@@ -64,6 +64,9 @@ gantt
     Oral Presentation :milestone, 2024-12-13, 1d
 ```
 
+##showing the results you want to create 
+![simple picture](images/montpellierpop_1367059_d66066f7c2.gif)
+
 ## Project Structure
 PROJ_HAX712X/
 │
