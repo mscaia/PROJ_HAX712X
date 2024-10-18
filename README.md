@@ -1,4 +1,7 @@
-# CycleVision3 - PROJ_HAX712X: Bikes and Bike-Sharing in Montpellier
+# PROJ_HAX712X: Bikes and Bike-Sharing in Montpellier
+
+## Project Name
+**CycleVision3**
 
 ## Project Overview
 This project aims to analyze bike traffic in Montpellier, focusing on the investigation of bike-sharing rides and cyclist/pedestrian counts. We will leverage various datasets to visualize and predict bike traffic patterns, creating an interactive website to showcase our findings.
@@ -64,8 +67,8 @@ gantt
     Oral Presentation :milestone, 2024-12-13, 1d
 ```
 
-## showing the results you want to create 
-
+## Results Visualization
+*image would be different*
 ![simple picture](images/montpellierpop_1367059_d66066f7c2.gif)
 
 ## Project Structure
