@@ -17,10 +17,14 @@ This project aims to analyze bike traffic in Montpellier, focusing on the invest
 
 We are a group of four working collaboratively on this project. Here is the list of our team members:
 
-1. **ARMAND Charlotte** - Video, Map
+1. **ARMAND Charlotte** - Graph, Map, (Vidéo)
 2. **CONDAMY Fabian** - Site WEB
-3. **SCAIA Matteo** - Map, Graphs
+3. **SCAIA Matteo** - Map, Graphs, (Vidéo)
 4. **STETSUN Kateryna** - Testing, Documentation
+
+## Gantt diagram
+
+
 
 ## Project Structure
 PROJ_HAX712X/
