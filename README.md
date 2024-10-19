@@ -16,13 +16,15 @@ This project aims to analyze bike traffic in Montpellier, focusing on the invest
   - An interactive traffic map predicting the next day's bike traffic.
   - Visual representations of bike traffic over different time periods (last month, last year, all years).
 
+- Regroup all the different productions in an interactive website.
+
 ## Team Members
 
 We are a group of four working collaboratively on this project. Here is the list of our team members:
 
-1. **ARMAND Charlotte** - Graph, Map, (Vidéo)
-2. **CONDAMY Fabian** - Site WEB
-3. **SCAIA Matteo** - Map, Graphs, (Vidéo)
+1. **ARMAND Charlotte** - Graphs, Map, (Vidéo)
+2. **CONDAMY Fabian** - Website
+3. **SCAIA Matteo** - Graphs, Map, (Vidéo)
 4. **STETSUN Kateryna** - Testing, Documentation
 
 ## Gantt diagram
@@ -102,7 +104,7 @@ PROJ_HAX712X/
   - **Matplotlib**: For creating static, animated, and interactive visualizations.
   - **Folium**: For visualizing data on interactive maps.
   - **Sphinx**: For generating documentation.
-  - **Quarto**: For creating a website to showcase project results.
+  - **Quarto**: For creating a website to showcase project results and slides.
 - **Documentation**: Sphinx/Quarto for documentation and website generation.
 
 ## Coding Pipeline
