@@ -32,6 +32,18 @@ def arg(k,i,j, w_file):
                 L.append(x[j])
     return L 
 
+# Fonction qui permet de transforme les donnée date du dataframe en donnée exploitable.
+def pd_to_datetime(df, colonne_date):
+    df = df.dropna()
+    df['colonne_date'] = pd.to_datetime(df['colonne_date'])
+    df['Date'] = df['Departure'].dt.date
+    return df
+
+
+
+
+
+
 def json_process(url: str, target_path: str) -> pd.DataFrame:
     """
     Télécharge un fichier JSON depuis une URL, le nettoie et le transforme en un DataFrame.
