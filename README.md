@@ -68,7 +68,7 @@ gantt
 ```
 
 ## Results Visualization
-![simple picture](images/Figure of interest.gif)
+![simple picture](images/1.png)
 
 ## Project Structure
 PROJ_HAX712X/
