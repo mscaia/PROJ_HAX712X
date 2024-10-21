@@ -1,7 +1,4 @@
-# PROJ_HAX712X: Bikes and Bike-Sharing in Montpellier
-
-## Project Name
-**CycleVision3**
+# CycleVision3
 
 ## Project Overview
 This project aims to analyze bike traffic in Montpellier, focusing on the investigation of bike-sharing rides and cyclist/pedestrian counts. We will leverage various datasets to visualize and predict bike traffic patterns, creating an interactive website to showcase our findings.
@@ -71,8 +68,7 @@ gantt
 ```
 
 ## Results Visualization
-*image would be different*
-![simple picture](images/montpellierpop_1367059_d66066f7c2.gif)
+![simple picture](images/Figure of interest.jpg)
 
 ## Project Structure
 PROJ_HAX712X/
@@ -121,8 +117,6 @@ The coding pipeline for this project involves the following steps:
    - Maintain comprehensive documentation using **Sphinx** and **Quarto** to ensure clarity and usability for users.
 6. **Version Control**: 
    - Use **Git** for version control, ensuring that all code changes are tracked and collaboration among team members is facilitated.
-7. **Continuous Integration**:
-   - Implement CI practices to run tests automatically on each commit to ensure code quality and reliability.
 
 ## Ignored Files
 To maintain a clean project structure and avoid committing unnecessary files, the following files and directories are ignored in the version control:
