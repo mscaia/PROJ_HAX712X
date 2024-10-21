@@ -10,9 +10,8 @@ This project aims to analyze bike traffic in Montpellier, focusing on the invest
   - **Open Street Map Data**: Geographic data for visualization.
 
 - Create interactive visualizations, including:
+  - Visual representations of bike traffic over different time periods (by day, by month etc).
   - An interactive traffic map predicting the next day's bike traffic.
-  - Visual representations of bike traffic over different time periods (last month, last year, all years).
-
 - Regroup all the different productions in an interactive website.
 
 ## Team Members
@@ -79,22 +78,38 @@ _In instances where tasks involve multiple individuals but do not include the en
 ![simple picture](images/Figure_of_interest.png)
 
 ## Project Structure
-PROJ_HAX712X/
-│
-├── my_module_name/             # Main code directory
-│   ├── __init__.py             # Module initializer
-│   ├── main.py                  # Main script
-│   └── ...                      # Other Python modules
-│
-├── slides/                      # Directory for presentation slides
-│   ├── presentation.qmd         # Quarto presentation
-│
-├── roadmap/                     # Directory for project planning
-│   ├── README.qmd               # Project outline and planning details
-│
-├── .gitignore                   # Git ignore file
-├── README.md                    # Project README
-└── requirements.txt             # Python dependencies
+```
+main/                                           # Main project directory
+├── Site_Projet/                                # Directory for website files
+│   ├── .gitignore                              # Lists files to be ignored by Git
+│   ├── _quarto.yml                             # Configuration file for Quarto project settings
+│   ├── about.qmd                               # Content for the About page
+│   ├── index.qmd                               # Main homepage content
+│   └── styles.css                              # CSS file for website styling
+├── cache/                                      # Temporary files
+├── data/                                       # Data storage of 3 datasets
+│   ├── CoursesVelomagg.csv                     # Dataset for bike-sharing rides
+│   ├── EcoCompt1.json                          # Dataset for cyclist and pedestrian counts
+│   └── GeolocCompteurs.csv                     # Dataset for geolocation data
+├── images/                                     # Images used in the project
+├── src/                                        # Source code directory
+│   ├── __init__.py                             # Initializes the package
+│   ├── donnée.py                               # Contains data-related functions
+│   └── fonctions_basedonnees.py                # Functions for database operations
+├── visualisation/                              # Visualization outputs
+│   ├── visu.py                                 # Visualization script
+├── .Rhistory                                   # R history file
+├── .gitignore                                  # Git ignore file
+├── README.md                                   # Main project documentation file
+├── carte.py                                    # Script for generating maps
+├── carte_montpellier_trajet.html               # HTML map output
+├── carte_montpellier_trajet_via_BD.html        # HTML map with database route
+├── map.py                                      # Main mapping script
+├── map_trajet_BD.py                            # Script for journey mapping
+├── montpellier_bike_stations_map.html          # Map of bike stations
+├── output.png                                  # Output image file
+└── requirements.txt                            # Project dependencies
+```
 
 ## Datasets
 - **Bike-sharing rides**: [https://data.montpellier3m.fr/dataset/courses-des-velos-velomagg-de-montpellier-mediterranee-metropole]
