@@ -26,6 +26,7 @@ We are a group of four working collaboratively on this project. Here is the list
 
 ## Gantt diagram
 ```mermaid
+%%{init: {'themeVariables': {'taskTextColor': '#000000'}}}%%
 gantt
     title Group Project Retro Planning
     dateFormat  YYYY-MM-DD
@@ -36,19 +37,19 @@ gantt
     Brainstorming (AC, CF, SM, SK): done, 2024-09-27, 7d
     Creating GitHub enviroment (SM) : crit, 2024-09-27, 1d
     Task Distribution (AC, CF, SM, SK): done, 2024-10-06, 3d
-    Initial Research (AC, CF, SM, SK):active, 2024-10-09, 7d
+    Initial Research (AC, CF, SM, SK): done, 2024-10-09, 7d
     Datasets loading (AC, SM): done, 2024-10-11, 2d
-    Documentation Draft (SK): active, 2024-10-15, 5d
+    Documentation Draft (SK): active, 2024-10-15, 6d
 
     Mid-term Snapshot (AC, CB, SM, SK) :milestone, 2024-10-25, 1d
 
 		section Critical Tasks
-		Data Gathering & Processing (AC, SM) : 2024-10-18, 11d
+		Data Gathering & Processing (SM, AC) : active, 2024-10-20, 10d
 		Code Structure Design (AC, SM) : 2024-11-01, 4d
-		Interactive Map Feature (AC, SM) : 2024-11-06, 8d
-		Traffic Prediction Algorithm (AC, SM) : 2024-11-16, 7d
+		Interactive Map Features (AC, SM) : 2024-11-06, 8d
+		Traffic Prediction Algorithm (SM, AC) : 2024-11-16, 7d
 		Visualization of Prediction (AC) : 2024-11-23, 5d
-		Video Creation of Traffic (SM) : 2024-11-28, 5d
+		*Video Creation of Traffic (SM) : 2024-11-28, 5d
 		WEB Integration (CF) : 2024-12-03, 7d
 
 		section Documentation
@@ -57,15 +58,22 @@ gantt
 		README Preparation (SK) : 2024-12-08, 2d
 
 		section Testing
-		Unit Tests (SK) : 2024-11-25, 5d
+    Unit Tests (SK) : 2024-11-25, 6d
 		Full Testing (SK, CF) : 2024-12-03, 4d
   
  		section Delivery
     Finalize GitHub Repo (AC, SM) :2024-12-09, 1d
-    Slide Deck Prep (AC, SK):2024-12-09, 2d
+    Slide Deck Prep (SK, AC):2024-12-09, 2d
     Presentation Rehearsal (AC, CF, SM, SK):2024-12-12, 1d
     Oral Presentation (AC, CF, SM, SK):milestone, 2024-12-13, 1d
 ```
+_For each task, the initials of the responsible team members are provided in parentheses following the task name. The initials correspond to the following members:_  
+  - _Armand Charlotte - AD;_  
+  - _Condamy Fabian - CF;_
+  - _Scaia Matteo - SM;_
+  - _Stetsun Kateryna - SK._ 
+
+_In instances where tasks involve multiple individuals but do not include the entire team, the first initials indicate the primary individual responsible for overseeing the task. Tasks with \* are marked as hypothetical._
 
 ## Results Visualization
 ![simple picture](images/Figure_of_interest.png)
