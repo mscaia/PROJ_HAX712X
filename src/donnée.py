@@ -27,7 +27,6 @@ pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 df_coursesvelomagg = pd.read_csv("../data/CoursesVelomagg.csv")
 #Permet d'enlever les valeurs NaN ou les manques de données
 df_coursesvelomagg_traité = df_coursesvelomagg.dropna()
-df_coursesvelomagg_traité.to_csv('../data/df_coursesvelomagg_traité.csv', index=False)
 
 #2ème jeu de données
 url = "https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_GeolocCompteurs.csv"
