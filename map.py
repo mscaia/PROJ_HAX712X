@@ -66,7 +66,7 @@ folium.Marker(location=[origin[0], origin[1]], popup="Origine").add_to(m)
 folium.Marker(location=[destination[0], destination[1]], popup="Destination").add_to(m)
 
 # Sauvegarder la carte dans un fichier HTML
-m.save("carte_montpellier_trajet.html")
+m.save("./visualisation/carte_montpellier_trajet.html")
 
 # Afficher un message pour indiquer que la carte est prête
 print("La carte a été sauvegardée sous 'carte_montpellier.html'.")

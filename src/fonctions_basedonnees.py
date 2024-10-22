@@ -11,9 +11,6 @@ import unicodedata
 import folium
 import osmnx as ox
 
-#importer les données 
-filename1= 'MMM_MMM_GeolocCompteurs.csv'
-filename2='TAM_MMM_CoursesVelomagg.csv'
 
 #Fonction qui donne le colonne i du tableau voulu: 
 def colonne(i, w_file):
@@ -74,8 +71,8 @@ def nettoyer_adresse_normalise(adresse):
 
 
 # Créer une fonction pour générer la carte pour chaque trajet
-def gen_carte_trajet(ligne,G,m,index_colonne_depart,index_colonne_arrive):
-    origin = ox.geocode(f"{ligne[index_colonne_depart]}, Montpellier, France")  # Première colonne
+def gen_carte_trajet(ligne,G,m, index_colonne_départ, index_colonne_arrive):
+    origin = ox.geocode(f"{ligne[index_colonne_départ]}, Montpellier, France")  # Première colonne
     destination = ox.geocode(f"{ligne[index_colonne_arrive]}, Montpellier, France")  # Deuxième colonne
 
     # Trouver les nœuds les plus proches de l'origine et de la destination
