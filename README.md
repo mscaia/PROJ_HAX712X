@@ -80,7 +80,7 @@ _For each task, the initials of the responsible team members are provided in par
 _In instances where tasks involve multiple individuals but do not include the entire team, the first initials indicate the primary individual responsible for overseeing the task. Tasks with \* are marked as hypothetical._
 
 ## Results Visualization
-![simple picture](images/Figure_of_interest.png)
+![simple picture](images/Figure_of_interest_.png)
 
 ## Project Structure
 ```
