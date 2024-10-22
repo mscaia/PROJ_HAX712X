@@ -69,6 +69,6 @@ folium.Marker(location=[destination[0], destination[1]], popup="Destination").ad
 m.save("carte_montpellier_trajet.html")
 
 # Afficher un message pour indiquer que la carte est prête
-print("La carte a été sauvegardée sous 'carte_montpellier.html'. Ouvrez ce fichier dans votre navigateur pour afficher la carte.")
+print("La carte a été sauvegardée sous 'carte_montpellier.html'.")
 
 

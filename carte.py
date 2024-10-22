@@ -55,4 +55,4 @@ folium.Polygon(
 m.save('montpellier_bike_stations_map.html')
 
 # Afficher un message de confirmation
-print("Carte avec les bornes de vélo enregistrée sous le nom 'montpellier_bike_stations_map.html'. Ouvrez ce fichier dans un navigateur pour voir la carte.")
+print("Carte avec les bornes de vélo enregistrée sous le nom 'montpellier_bike_stations_map.html'.")

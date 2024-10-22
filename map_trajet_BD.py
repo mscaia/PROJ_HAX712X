@@ -34,8 +34,8 @@ date = input("Veuillez choisir une date parmis la liste des dates :")
 
 trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(date)]
 nb_ref  = len(trajets_du_jour)
-
 print("Nous avons ",nb_ref ,"référence a cette date.")
+
 # J'affiche les 40 premier trajets de la datafame sur une carte.
 for i in range(0, 1): 
     print(i)
@@ -46,4 +46,4 @@ for i in range(0, 1):
 m.save("carte_montpellier_trajet_via_BD.html")
 
 # Afficher un message pour indiquer que la carte est prête
-print("La carte a été sauvegardée sous 'carte_montpellier.html'. Ouvrez ce fichier dans votre navigateur pour afficher la carte.")
+print("La carte a été sauvegardée sous 'carte_montpellier.html'.")
