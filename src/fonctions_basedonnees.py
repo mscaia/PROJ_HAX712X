@@ -74,9 +74,9 @@ def nettoyer_adresse_normalise(adresse):
 
 
 # Créer une fonction pour générer la carte pour chaque trajet
-def gen_carte_trajet(ligne,G,m):
-    origin = ox.geocode(f"{ligne[0]}, Montpellier, France")  # Première colonne
-    destination = ox.geocode(f"{ligne[1]}, Montpellier, France")  # Deuxième colonne
+def gen_carte_trajet(ligne,G,m,index_colonne_depart,index_colonne_arrive):
+    origin = ox.geocode(f"{ligne[index_colonne_depart]}, Montpellier, France")  # Première colonne
+    destination = ox.geocode(f"{ligne[index_colonne_arrive]}, Montpellier, France")  # Deuxième colonne
 
     # Trouver les nœuds les plus proches de l'origine et de la destination
     origin_node = ox.nearest_nodes(G, origin[1], origin[0])
