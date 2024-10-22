@@ -14,6 +14,11 @@ This project aims to analyze bike traffic in Montpellier, focusing on the invest
   - An interactive traffic map predicting the next day's bike traffic.
 - Regroup all the different productions in an interactive website.
 
+#### Future Projects:
+- *Compare pollution trends*: Analyze how traffic impacts pollution levels and identify correlations between increased traffic and worsening air quality.
+- *Construction-aware traffic map*: Develop an interactive map that accounts for ongoing road construction and its effects on traffic.
+- *Alternative route suggestions*: Provide less congested route options based on real-time traffic data.
+
 ## Team Members
 
 We are a group of four working collaboratively on this project. Here is the list of our team members:
@@ -38,7 +43,7 @@ gantt
     Task Distribution (AC, CF, SM, SK): done, 2024-10-06, 3d
     Initial Research (AC, CF, SM, SK): done, 2024-10-09, 7d
     Datasets loading (AC, SM): done, 2024-10-11, 2d
-    Documentation Draft (SK): active, 2024-10-15, 6d
+    Documentation Draft (SK): done, 2024-10-15, 6d
 
     Mid-term Snapshot (AC, CB, SM, SK) :milestone, 2024-10-25, 1d
 
@@ -67,7 +72,7 @@ gantt
     Oral Presentation (AC, CF, SM, SK):milestone, 2024-12-13, 1d
 ```
 _For each task, the initials of the responsible team members are provided in parentheses following the task name. The initials correspond to the following members:_  
-  - _Armand Charlotte - AD;_  
+  - _Armand Charlotte - AC;_  
   - _Condamy Fabian - CF;_
   - _Scaia Matteo - SM;_
   - _Stetsun Kateryna - SK._ 
