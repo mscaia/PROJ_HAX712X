@@ -88,7 +88,6 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
 
         # Calculer l'itinéraire aller et retour
         route = ox.shortest_path(G, origin_node, destination_node)
-        route_back = ox.shortest_path(G, destination_node, origin_node)
 
         # Fonction pour convertir un itinéraire (liste de nœuds) en liste de coordonnées géographiques
         def route_to_coords(G, route):
@@ -100,13 +99,9 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
 
         # Obtenir les coordonnées pour l'itinéraire
         route_coords = route_to_coords(G, route)
-        route_back_coords = route_to_coords(G, route_back)
 
         # Ajouter l'itinéraire aller (en rouge) à la carte
         folium.PolyLine(locations=route_coords, color='red', weight=5, opacity=0.75).add_to(m)
-
-        # Ajouter l'itinéraire retour (en bleu) à la carte
-        folium.PolyLine(locations=route_back_coords, color='blue', weight=5, opacity=0.75).add_to(m)
 
         # Ajouter des marqueurs pour l'origine et la destination
         départ_lat, départ_lon = route_coords[0]
