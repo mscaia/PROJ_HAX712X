@@ -28,22 +28,27 @@ liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
 print(Liste_des_dates)
 
-#Interaction avec l'utilisateur
-date = input("Veuillez choisir une date parmis la liste des dates :")
+# Interaction avec l'utilisateur
+date = input("Veuillez choisir une date parmi la liste des dates : ")
 
-
+# Sélectionner les trajets du jour
 trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(date)]
-nb_ref  = len(trajets_du_jour)
-print("Nous avons ",nb_ref ,"référence a cette date.")
+nb_ref = len(trajets_du_jour)
+print(f"Nous avons {nb_ref} référence(s) à cette date.")
 
-# J'affiche les 40 premier trajets de la datafame sur une carte.
-for i in range(0, 1): 
-    print(i)
-    gen_carte_trajet(liste_des_trajet_DBF.iloc[i], G, m,1,2)  # Ajout de la carte de chaque trajet à la carte globale
-
+# Demander si l'utilisateur souhaite tracer les trajets
+a = input("Voulez-vous les tracer (oui/non) ? ")
+if a.lower() == "oui":
+    # Demander combien de trajets afficher
+    min_trajets = int(input("Combien de trajets voulez-vous afficher sur votre journée ? "))
+    
+    # Boucle pour afficher les trajets (limité au nombre de trajets disponibles)
+    for i in range(min(min_trajets, nb_ref)): 
+        print(f"Affichage du trajet {i+1}")
+        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2)  # Ajout de la carte de chaque trajet à la carte globale
 
 # Sauvegarder la carte dans un fichier HTML
-m.save("carte_montpellier_trajet_via_BD.html")
+m.save("./visualisation/carte_montpellier_trajet_via_BD.html")
 
 # Afficher un message pour indiquer que la carte est prête
-print("La carte a été sauvegardée sous 'carte_montpellier.html'.")
+print("La carte a été sauvegardée sous './visualisation/carte_montpellier_trajet_via_BD.html'.")
