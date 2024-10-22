@@ -86,18 +86,18 @@ _In instances where tasks involve multiple individuals but do not include the en
 ## Project Structure
 ```
 main/                                           # Main project directory
-├── Site_Projet/                                # Directory for website files
-│   ├── .gitignore                              # Lists files to be ignored by Git
-│   ├── _quarto.yml                             # Configuration file for Quarto project settings
-│   ├── about.qmd                               # Content for the About page
-│   ├── index.qmd                               # Main homepage content
-│   └── styles.css                              # CSS file for website styling
 ├── cache/                                      # Temporary files
 ├── data/                                       # Data storage of 3 datasets
 │   ├── CoursesVelomagg.csv                     # Dataset for bike-sharing rides
 │   ├── EcoCompt1.json                          # Dataset for cyclist and pedestrian counts
 │   └── GeolocCompteurs.csv                     # Dataset for geolocation data
 ├── images/                                     # Images used in the project
+├── site/                                       # Directory for website files
+│   ├── .gitignore                              # Lists files to be ignored by Git
+│   ├── _quarto.yml                             # Configuration file for Quarto project settings
+│   ├── about.qmd                               # Content for the About page
+│   ├── index.qmd                               # Main homepage content
+│   └── styles.css                              # CSS file for website styling
 ├── src/                                        # Source code directory
 │   ├── __init__.py                             # Initializes the package
 │   ├── donnée.py                               # Contains data-related functions
