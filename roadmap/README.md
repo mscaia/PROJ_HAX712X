@@ -92,6 +92,7 @@ main/                                           # Main project directory
 │   ├── EcoCompt1.json                          # Dataset for cyclist and pedestrian counts
 │   └── GeolocCompteurs.csv                     # Dataset for geolocation data
 ├── images/                                     # Images used in the project
+├── roadmap/                                    # README.md with a full description of the project
 ├── site/                                       # Directory for website files
 │   ├── .gitignore                              # Lists files to be ignored by Git
 │   ├── _quarto.yml                             # Configuration file for Quarto project settings
