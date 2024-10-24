@@ -29,7 +29,7 @@ def arg(k,i,j, w_file):
     L=[]
     with open(w_file) as f:
         for line in f:
-            x=line.split(";")
+            x=line.split(",")
             if x[i]==k:
                 L.append(x[j])
     return L 
