@@ -20,7 +20,7 @@ def colonne(i, w_file):
     L=[]
     with open(w_file) as f:
         for line in f:
-            x=line.split(";")
+            x=line.split(",")
             L.append(x[i])
     return L         
 
