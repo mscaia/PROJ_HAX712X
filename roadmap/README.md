@@ -163,8 +163,4 @@ To maintain a clean project structure and avoid committing unnecessary files, th
 - **IDE and Project Specific Files**:
   - Ignore project-specific configurations from IDEs like Spyder, PyCharm, etc. (e.g., `.idea/`, `.spyderproject`).
 
-## Getting Started
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/mscaia/PROJ_HAX712X.git
-   cd PROJ_HAX712X
+
