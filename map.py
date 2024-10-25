@@ -72,3 +72,15 @@ m.save("carte_montpellier_trajet.html")
 print("La carte a été sauvegardée sous 'carte_montpellier.html'. Ouvrez ce fichier dans votre navigateur pour afficher la carte.")
 
 
+
+#Sur quarto.yml exemple de menu global déroulant avec des pages (à étudier puis adapter dans la fonction de la carte) 
+website:
+  title: "Nested drop down menu"
+  navbar:
+    right:
+      - text: "Menu Title"
+        menu:
+          - text: "Item title"
+            href: whatever.qmd
+          - text: "Item title"
+            href: whatever.qmd
