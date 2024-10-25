@@ -34,7 +34,7 @@ def arg(k,i,j, w_file):
                 L.append(x[j])
     return L 
 
-# Fonction qui permet de transforme les donnée date du dataframe en donnée exploitable.
+# Fonction qui permet de transformer les données date du dataframe en données exploitables.
 def pd_to_datetime(df, colonne_date):
     df = df.dropna()
     df[colonne_date] = pd.to_datetime(df[colonne_date])
@@ -42,7 +42,7 @@ def pd_to_datetime(df, colonne_date):
     df = df.drop(columns=[colonne_date])
     return df
 
-#Fonction qui permet d'enleve les bruits dans les chaines de caractère d'un dataframe
+#Fonction qui permet d'enlever les bruits dans les chaines de caractères d'un dataframe
 def nettoyer_adresse_normalise(adresse):
     """
     Nettoie et normalise une adresse en supprimant les numéros au début, 
