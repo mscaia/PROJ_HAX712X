@@ -106,8 +106,8 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
         # Ajouter des marqueurs pour l'origine et la destination
         départ_lat, départ_lon = route_coords[0]
         arr_lat, arr_lon = route_coords[-1]  # Utiliser le dernier point pour l'arrivée
-        folium.Marker(location=[départ_lat, départ_lon], popup="Départ").add_to(m)
-        folium.Marker(location=[arr_lat, arr_lon], popup="Arrivée").add_to(m)
+        folium.Marker(location=[départ_lat, départ_lon], popup=f"{ligne[index_colonne_départ]},Départ").add_to(m)
+        folium.Marker(location=[arr_lat, arr_lon], popup=f"{ligne[index_colonne_arrive]},arrivé").add_to(m)
 
     except Exception as e:
         print(f"Une erreur est survenue : {e}")

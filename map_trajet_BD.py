@@ -29,7 +29,7 @@ Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
 print(Liste_des_dates)
 
 # Interaction avec l'utilisateur
-date = input("Veuillez choisir une date parmi la liste des dates : ")
+date = input("Veuillez choisir une date parmi la liste des dates (AAAA-MM-JJ) : ")
 
 # Sélectionner les trajets du jour
 trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(date)]
