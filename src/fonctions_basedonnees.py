@@ -11,9 +11,11 @@ import unicodedata
 import folium
 import osmnx as ox
 
-#importer les données 
-filename1= 'MMM_MMM_GeolocCompteurs.csv'
-filename2='TAM_MMM_CoursesVelomagg.csv'
+#importer les données (avec le bon nom) 
+#filename1= 'MMM_MMM_GeolocCompteurs.csv', nom de base 
+filename1= 'GeolocCompteurs.csv' #nom dans data sur le dépot github 
+#filename2='TAM_MMM_CoursesVelomagg.csv', nom de base 
+filename2='CoursesVelomagg.csv' #nom dans le dépot github 
 
 #Fonction qui donne le colonne i du tableau voulu: 
 def colonne(i, w_file):
