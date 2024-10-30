@@ -25,6 +25,12 @@ liste_des_trajet_DBF =liste_des_trajets #pd_to_datetime(df_coursesvelomagg_trait
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].apply(nettoyer_adresse_normalise)
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].apply(nettoyer_adresse_normalise)
 
+# Traite un cas particulier.
+# Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
+
+
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
 print(Liste_des_dates)
 
