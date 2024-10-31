@@ -73,7 +73,13 @@ print("La carte a été sauvegardée sous 'carte_montpellier.html'. Ouvrez ce fi
 
 
 
-#Sur quarto.yml exemple de menu global déroulant avec des pages (à étudier puis adapter dans la fonction de la carte) 
+#Sur quarto.yml exemple de menu déroulant (à mettre au bon endroit dans la fonction puis à tester ) 
+arrets= [liste des arrêts]
+viewof dep=Inputs.select(arrets, {label="Station de départ", width: 300})
+viewof arr=Inputs.select(arrets, {label="Station d'arrivée", width: 300})
+#Pour faire un curseur: viewof nb=Inputs.range([min_trajet, max_trajet], {value:ref(=0?), step:1, label="nombre de vélos par jour/semaine/mois/an"})
+
+#Sur quarto.yml exemple de menu déroulant pour menu global 
 website:
   title: "Nested drop down menu"
   navbar:
