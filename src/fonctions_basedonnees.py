@@ -113,3 +113,13 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
         print(f"Une erreur est survenue : {e}")
     
     return m
+
+
+def coordonne(station):
+    try:
+        # Recherche de l'emplacement en utilisant osmnx
+        location = ox.geocode(f"{station}, Montpellier, France")
+        return location[0], location[1]
+    except Exception as e:
+        print(f"Erreur pour la station {station}: {e}")
+        return None, None
