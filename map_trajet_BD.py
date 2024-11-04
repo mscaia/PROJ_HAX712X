@@ -31,10 +31,13 @@ liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].
 # Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
-liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("Rue Jules Ferry - Gare Saint-Roch", "Gare Saint-Roch")
-liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("Rue Jules Ferry - Gare Saint-Roch", "Gare Saint-Roch")
-
-
+# Remplacer toutes les occurrences se terminant par "Gare Saint-Roch" par "Gare Saint-Roch"
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace(
+    r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
+)
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace(
+    r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
+)
 
 
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()

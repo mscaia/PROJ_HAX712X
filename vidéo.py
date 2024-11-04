@@ -11,7 +11,6 @@ coordonne.cache_clear()
 #Recupère le dataframe créer lors du fichier map_trajet_BD.py
 data = pd.read_csv("./data/video.csv").dropna()
 
-
 # Obtenir les noms de stations uniques (départ et arrivée)
 unique_stations = data['Departure station'].unique()
 
@@ -40,7 +39,7 @@ df.reset_index(drop=True, inplace=True)
 
 
 # Créer le répertoire s'il n'existe pas
-output_dir = "./"
+output_dir = "./visualisation"
 os.makedirs(output_dir, exist_ok=True)
 
 
@@ -50,25 +49,25 @@ G = ox.graph_from_place("Montpellier, France", network_type="all")
 # Initialisation de la figure
 fig, ax = ox.plot_graph(G, show=False, close=False, node_size=0, edge_color="gray", edge_linewidth=0.5)
 
-# Fonction pour calculer les chemins parallèlement
-def get_shortest_path(row):
+# Fonction chemin plus court
+def chemin_court(row):
     try:
         depart_lat, depart_lon = row['latitude_depart'], row['longitude_depart']
         arrivee_lat, arrivee_lon = row['latitude_retour'], row['longitude_retour']
         duration = row['Duration (sec.)']
         
-        start_node = ox.distance.nearest_nodes(G, depart_lon, depart_lat)
-        end_node = ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)
+        noeud_deb = ox.distance.nearest_nodes(G, depart_lon, depart_lat)
+        noeud_fin = ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)
         
-        shortest_path = nx.shortest_path(G, start_node, end_node, weight="length")
-        return shortest_path, duration
+        chemin = nx.shortest_path(G, noeud_deb, noeud_fin, weight="length")
+        return chemin, duration
     except Exception as e:
         print(f"Erreur pour le trajet entre {row['Departure station']} et {row['Return station']}: {e}")
         return None, None
 
 # Calcul des trajets en parallèle
 with ThreadPoolExecutor() as executor:
-    results = list(executor.map(get_shortest_path, [row for _, row in df.iterrows()]))
+    results = list(executor.map(chemin_court, [row for _, row in df.iterrows()]))
 
 # Filtrer les chemins valides
 paths, durations = zip(*[(path, duration) for path, duration in results if path is not None])
