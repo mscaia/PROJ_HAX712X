@@ -31,12 +31,10 @@ liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].
 # Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("Rue Jules Ferry - Gare Saint-Roch", "Gare Saint-Roch")
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("Rue Jules Ferry - Gare Saint-Roch", "Gare Saint-Roch")
 
 
-# Traite un cas particulier.
-# Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
-liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
-liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
 
 
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
@@ -69,4 +67,3 @@ print("La carte a été sauvegardée sous './visualisation/carte_montpellier_tra
 
 data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]
 data.to_csv('./data/video.csv', index=False)
-
