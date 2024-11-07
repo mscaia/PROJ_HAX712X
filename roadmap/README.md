@@ -49,7 +49,7 @@ gantt
     Mid-term Snapshot (AC, CB, SM, SK) :milestone, 2024-10-25, 1d
 
 		section Critical Tasks
-		Data Gathering & Processing (SM, AC) : active, 2024-10-20, 10d
+		Data Gathering & Processing (SM, AC) : done, 2024-10-20, 10d
 		Code Structure Design (AC, SM) : 2024-11-01, 4d
 		Interactive Map Features (AC, SM) : 2024-11-06, 8d
 		Traffic Prediction Algorithm (SM, AC) : 2024-11-16, 7d
