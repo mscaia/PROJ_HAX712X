@@ -94,7 +94,7 @@ def update(frame):
     return lines
 
 # Animation
-max_duration = max(durations) // 4 if durations else 100
+max_duration = max(durations) // 10 if durations else 100
 ani = FuncAnimation(fig, update, frames=range(int(max_duration)), init_func=init, blit=False, repeat=False)
 
 # Sauvegarder la vidéo
