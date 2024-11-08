@@ -6,6 +6,8 @@ import networkx as nx
 import pandas as pd
 from src.fonctions_basedonnees import*
 
+coordonne.cache_clear()
+
 # Ville ciblée pour extraire les données du réseau de routes cyclables
 ville = "Montpellier, France"
 G = ox.graph_from_place(ville, network_type="all")
@@ -16,7 +18,7 @@ m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du cen
 df_coursesvelomagg_traité = pd.read_csv("../data/CoursesVelomagg.csv").dropna()
 
 # Extraire les trajets avec les noms des stations aller et le nom des stations retours
-liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station']]
+liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]
 
 #Convertir + nettoyer les colonnes
 #Convertie les donnée date en datetime pour que la machine puisse comprendre les dates
@@ -29,6 +31,13 @@ liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].
 # Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
+# Remplacer toutes les occurrences se terminant par "Gare Saint-Roch" par "Gare Saint-Roch"
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace(
+    r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
+)
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace(
+    r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
+)
 
 
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
@@ -58,3 +67,6 @@ m.save("./visualisation/carte_montpellier_trajet_via_BD.html")
 
 # Afficher un message pour indiquer que la carte est prête
 print("La carte a été sauvegardée sous './visualisation/carte_montpellier_trajet_via_BD.html'.")
+
+data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]
+data.to_csv('./data/video.csv', index=False)

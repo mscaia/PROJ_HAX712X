@@ -1,7 +1,6 @@
 import csv 
 import matplotlib.pyplot as plt 
 import numpy as np 
-
 import os
 import pooch
 import pandas as pd
@@ -10,7 +9,7 @@ import re
 import unicodedata
 import folium
 import osmnx as ox
-
+from functools import lru_cache
 
 #Fonction qui donne le colonne i du tableau voulu: 
 def colonne(i, w_file):
@@ -113,3 +112,14 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
         print(f"Une erreur est survenue : {e}")
     
     return m
+
+
+@lru_cache(maxsize=None)
+def coordonne(station):
+    try:
+        # Recherche de l'emplacement en utilisant osmnx
+        location = ox.geocode(f"{station}, Montpellier, France")
+        return location[0], location[1]
+    except Exception as e:
+        print(f"Erreur pour la station {station}: {e}")
+        return None, None
