@@ -11,6 +11,12 @@ coordonne.cache_clear()
 #Recupère le dataframe créer lors du fichier map_trajet_BD.py
 data = pd.read_csv("./data/video.csv").dropna()
 
+#Traitement de cette nouvelle base de donnée pour optimiser la vidéo.
+#On enlève les trajets vers AtelierTAM
+data= data[data['Departure station'] != 'AtelierTAM']
+data= data[data['Return station'] != 'AtelierTAM']
+data= data.drop_duplicates(subset=['Departure station','Return station'])
+
 # Obtenir les noms de stations uniques (départ et arrivée)
 unique_stations = data['Departure station'].unique()
 
@@ -84,7 +90,7 @@ def init():
 # Fonction de mise à jour pour chaque frame
 def update(frame):
     for i, path in enumerate(paths):
-        progress = min(frame / (durations[i] // 4), 1)
+        progress = min(frame / (durations[i] // 10), 1)
         num_nodes = int(progress * len(path))
         
         if num_nodes > 1:
