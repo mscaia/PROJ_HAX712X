@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4e6c33dd5e3c29b8a8c8e81d0cd97e99.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -137,8 +137,42 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a></li>
+  <li><a href="#project-objectives" id="toc-project-objectives" class="nav-link" data-scroll-target="#project-objectives">2. Project Objectives</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">3. Data Sources</a></li>
+  <li><a href="#project-workflow" id="toc-project-workflow" class="nav-link" data-scroll-target="#project-workflow">4. Project Workflow</a>
+  <ul class="collapse">
+  <li><a href="#data-cleaning-and-preprocessing" id="toc-data-cleaning-and-preprocessing" class="nav-link" data-scroll-target="#data-cleaning-and-preprocessing">4.1 Data Cleaning and Preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks">Tasks:</a></li>
+  </ul></li>
+  <li><a href="#traffic-visualization-and-mapping" id="toc-traffic-visualization-and-mapping" class="nav-link" data-scroll-target="#traffic-visualization-and-mapping">4.2 Traffic Visualization and Mapping</a>
+  <ul class="collapse">
+  <li><a href="#tasks-1" id="toc-tasks-1" class="nav-link" data-scroll-target="#tasks-1">Tasks:</a></li>
+  </ul></li>
+  <li><a href="#website-development" id="toc-website-development" class="nav-link" data-scroll-target="#website-development">4.3 Website Development</a></li>
+  </ul></li>
+  <li><a href="#function-documentation" id="toc-function-documentation" class="nav-link" data-scroll-target="#function-documentation">5. Function Documentation</a>
+  <ul class="collapse">
+  <li><a href="#colonnei-w_file" id="toc-colonnei-w_file" class="nav-link" data-scroll-target="#colonnei-w_file"><code>colonne(i, w_file)</code></a></li>
+  <li><a href="#argk-i-j-w_file" id="toc-argk-i-j-w_file" class="nav-link" data-scroll-target="#argk-i-j-w_file"><code>arg(k, i, j, w_file)</code></a></li>
+  <li><a href="#pd_to_datetimedf-colonne_date" id="toc-pd_to_datetimedf-colonne_date" class="nav-link" data-scroll-target="#pd_to_datetimedf-colonne_date"><code>pd_to_datetime(df, colonne_date)</code></a></li>
+  <li><a href="#nettoyer_adresse_normaliseadresse" id="toc-nettoyer_adresse_normaliseadresse" class="nav-link" data-scroll-target="#nettoyer_adresse_normaliseadresse"><code>nettoyer_adresse_normalise(adresse)</code></a></li>
+  <li><a href="#gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur" id="toc-gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur" class="nav-link" data-scroll-target="#gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur"><code>gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)</code></a></li>
+  <li><a href="#coordonnestation" id="toc-coordonnestation" class="nav-link" data-scroll-target="#coordonnestation"><code>coordonne(station)</code></a></li>
+  </ul></li>
+  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">6. Future Work</a>
+  <ul class="collapse">
+  <li><a href="#additional-features" id="toc-additional-features" class="nav-link" data-scroll-target="#additional-features">6.1 Additional Features</a></li>
+  </ul></li>
+  <li><a href="#technical-appendix" id="toc-technical-appendix" class="nav-link" data-scroll-target="#technical-appendix">7. Technical Appendix</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -162,8 +196,150 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level1">
+<h1>1. Introduction</h1>
+<p>This project explores and visualizes bike traffic in Montpellier by analyzing data from multiple sources and generating interactive maps. The goal is to provide valuable insights into the city’s bike traffic patterns, which will support urban mobility planning and decision-making.</p>
+</section>
+<section id="project-objectives" class="level1">
+<h1>2. Project Objectives</h1>
+<ul>
+<li><strong>Traffic Analysis</strong>: Analyze bike traffic data to identify trends, peak times, and popular routes.</li>
+<li><strong>Interactive Visualization</strong>: Create dynamic maps that visualize traffic flows across Montpellier.</li>
+<li><strong>Web Integration</strong>: Develop a user-friendly website to showcase data insights and traffic maps.</li>
+</ul>
+</section>
+<section id="data-sources" class="level1">
+<h1>3. Data Sources</h1>
+<p>Our analysis relies on three primary datasets:</p>
+<ul>
+<li><strong>VéloMagg Bike-Sharing Data</strong>: Information on bike-sharing usage within the Montpellier Méditerranée Métropole area.</li>
+<li><strong>Traffic Counts Data</strong>: Sensor data recording bike and pedestrian counts at various locations throughout the city.</li>
+<li><strong>OpenStreetMap (OSM) Data</strong>: Geographic data used to accurately map streets, bike lanes, and important locations.</li>
+</ul>
+</section>
+<section id="project-workflow" class="level1">
+<h1>4. Project Workflow</h1>
+<section id="data-cleaning-and-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning-and-preprocessing">4.1 Data Cleaning and Preprocessing</h2>
+<section id="tasks" class="level3">
+<h3 class="anchored" data-anchor-id="tasks">Tasks:</h3>
+<ul>
+<li><strong>Data Integrity</strong>: Clean the data by removing anomalies, handling missing values, and ensuring consistent formatting.</li>
+<li><strong>Date and Address Formatting</strong>: Convert date fields for temporal analysis and standardize address formatting to enable efficient location-based processing.</li>
+</ul>
+</section>
+</section>
+<section id="traffic-visualization-and-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="traffic-visualization-and-mapping">4.2 Traffic Visualization and Mapping</h2>
+<section id="tasks-1" class="level3">
+<h3 class="anchored" data-anchor-id="tasks-1">Tasks:</h3>
+<ul>
+<li><strong>Map Generation</strong>: Use the Folium library to generate an interactive map of Montpellier, displaying bike stations, routes, and traffic density.</li>
+<li><strong>Route Calculation</strong>: Utilize OSMnx to calculate the routes between bike stations, highlighting the most popular paths and enabling traffic analysis over time.</li>
+</ul>
+</section>
+</section>
+<section id="website-development" class="level2">
+<h2 class="anchored" data-anchor-id="website-development">4.3 Website Development</h2>
+<p>The final deliverable will be an interactive website, presenting all the data visualizations and analytical insights. The website will be developed using Quarto for easy integration of analysis and visualizations into an accessible, interactive interface.</p>
+</section>
+</section>
+<section id="function-documentation" class="level1">
+<h1>5. Function Documentation</h1>
+<section id="colonnei-w_file" class="level3">
+<h3 class="anchored" data-anchor-id="colonnei-w_file"><code>colonne(i, w_file)</code></h3>
+<ul>
+<li><strong>Description</strong>: Extracts data from a specific column <code>i</code> in a CSV file <code>w_file</code>.</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>i</code>: Column index to extract.</li>
+<li><code>w_file</code>: The CSV file to read from.</li>
+</ul></li>
+<li><strong>Returns</strong>: List of values from column <code>i</code>.</li>
+</ul>
+</section>
+<section id="argk-i-j-w_file" class="level3">
+<h3 class="anchored" data-anchor-id="argk-i-j-w_file"><code>arg(k, i, j, w_file)</code></h3>
+<ul>
+<li><strong>Description</strong>: Retrieves values from column <code>j</code> when entries in column <code>i</code> match the criterion <code>k</code>.</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>k</code>: Match criterion in column <code>i</code>.</li>
+<li><code>i</code>: Column to search.</li>
+<li><code>j</code>: Column to retrieve values from.</li>
+<li><code>w_file</code>: The CSV file.</li>
+</ul></li>
+<li><strong>Returns</strong>: List of values in <code>j</code> where column <code>i</code> matches <code>k</code>.</li>
+</ul>
+</section>
+<section id="pd_to_datetimedf-colonne_date" class="level3">
+<h3 class="anchored" data-anchor-id="pd_to_datetimedf-colonne_date"><code>pd_to_datetime(df, colonne_date)</code></h3>
+<ul>
+<li><strong>Description</strong>: Converts a date column to a consistent datetime format for analysis.</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>df</code>: DataFrame containing data.</li>
+<li><code>colonne_date</code>: Date column to be formatted.</li>
+</ul></li>
+<li><strong>Returns</strong>: DataFrame with the date column converted to datetime, adding a new <code>Date</code> column.</li>
+</ul>
+</section>
+<section id="nettoyer_adresse_normaliseadresse" class="level3">
+<h3 class="anchored" data-anchor-id="nettoyer_adresse_normaliseadresse"><code>nettoyer_adresse_normalise(adresse)</code></h3>
+<ul>
+<li><strong>Description</strong>: Cleans and normalizes address strings by removing non-essential characters and standardizing Unicode.</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>adresse</code>: The address string to clean and normalize.</li>
+</ul></li>
+<li><strong>Returns</strong>: Cleaned and normalized address string.</li>
+</ul>
+</section>
+<section id="gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur" class="level3">
+<h3 class="anchored" data-anchor-id="gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur"><code>gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)</code></h3>
+<ul>
+<li><strong>Description</strong>: Generates a map showing bike routes, marking both the start and end stations.</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>ligne</code>: Row containing station data.</li>
+<li><code>G</code>: Graph of Montpellier’s bike routes.</li>
+<li><code>m</code>: Folium map instance.</li>
+<li><code>index_colonne_départ</code>: Start station column.</li>
+<li><code>index_colonne_arrive</code>: End station column.</li>
+<li><code>couleur</code>: Color of the line representing the route.</li>
+</ul></li>
+<li><strong>Returns</strong>: Folium map with the route and markers.</li>
+</ul>
+</section>
+<section id="coordonnestation" class="level3">
+<h3 class="anchored" data-anchor-id="coordonnestation"><code>coordonne(station)</code></h3>
+<ul>
+<li><strong>Description</strong>: Retrieves coordinates for a specified bike station.</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>station</code>: Name of the station.</li>
+</ul></li>
+<li><strong>Returns</strong>: Tuple of latitude and longitude, or an error message if the station is not found.</li>
+</ul>
+</section>
+</section>
+<section id="future-work" class="level1">
+<h1>6. Future Work</h1>
+<section id="additional-features" class="level2">
+<h2 class="anchored" data-anchor-id="additional-features">6.1 Additional Features</h2>
+<ul>
+<li><strong>Pollution and Traffic Correlation</strong>: Investigate correlations between bike traffic patterns and air quality metrics.</li>
+<li><strong>Real-Time Traffic Analysis</strong>: Integrate live data feeds for real-time updates, route suggestions, and traffic monitoring.</li>
+<li><strong>Alternative Routes</strong>: Offer optimized routes with lower traffic density, based on real-time or historical traffic data.</li>
+</ul>
+</section>
+</section>
+<section id="technical-appendix" class="level1">
+<h1>7. Technical Appendix</h1>
+<p>This section provides detailed documentation of the project’s functions and code, ensuring ease of understanding for future development or maintenance. Each function is accompanied by a standardized docstring to support collaboration within the development team.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
