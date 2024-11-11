@@ -1,3 +1,105 @@
 ---
 title: Documentation
 ---
+
+# 1. Introduction
+
+This project explores and visualizes bike traffic in Montpellier by analyzing data from multiple sources and generating interactive maps. The goal is to provide valuable insights into the city's bike traffic patterns, which will support urban mobility planning and decision-making.
+
+# 2. Project Objectives
+
+- **Traffic Analysis**: Analyze bike traffic data to identify trends, peak times, and popular routes.
+- **Interactive Visualization**: Create dynamic maps that visualize traffic flows across Montpellier.
+- **Web Integration**: Develop a user-friendly website to showcase data insights and traffic maps.
+
+# 3. Data Sources
+
+Our analysis relies on three primary datasets:
+
+- **VéloMagg Bike-Sharing Data**: Information on bike-sharing usage within the Montpellier Méditerranée Métropole area.
+- **Traffic Counts Data**: Sensor data recording bike and pedestrian counts at various locations throughout the city.
+- **OpenStreetMap (OSM) Data**: Geographic data used to accurately map streets, bike lanes, and important locations.
+
+# 4. Project Workflow
+
+## 4.1 Data Cleaning and Preprocessing
+
+### Tasks:
+- **Data Integrity**: Clean the data by removing anomalies, handling missing values, and ensuring consistent formatting.
+- **Date and Address Formatting**: Convert date fields for temporal analysis and standardize address formatting to enable efficient location-based processing.
+
+## 4.2 Traffic Visualization and Mapping
+
+### Tasks:
+- **Map Generation**: Use the Folium library to generate an interactive map of Montpellier, displaying bike stations, routes, and traffic density.
+- **Route Calculation**: Utilize OSMnx to calculate the routes between bike stations, highlighting the most popular paths and enabling traffic analysis over time.
+
+## 4.3 Website Development
+
+The final deliverable will be an interactive website, presenting all the data visualizations and analytical insights. The website will be developed using Quarto for easy integration of analysis and visualizations into an accessible, interactive interface.
+
+# 5. Function Documentation
+
+### `colonne(i, w_file)`
+
+- **Description**: Extracts data from a specific column `i` in a CSV file `w_file`.
+- **Parameters**:
+  - `i`: Column index to extract.
+  - `w_file`: The CSV file to read from.
+- **Returns**: List of values from column `i`.
+
+### `arg(k, i, j, w_file)`
+
+- **Description**: Retrieves values from column `j` when entries in column `i` match the criterion `k`.
+- **Parameters**:
+  - `k`: Match criterion in column `i`.
+  - `i`: Column to search.
+  - `j`: Column to retrieve values from.
+  - `w_file`: The CSV file.
+- **Returns**: List of values in `j` where column `i` matches `k`.
+
+### `pd_to_datetime(df, colonne_date)`
+
+- **Description**: Converts a date column to a consistent datetime format for analysis.
+- **Parameters**:
+  - `df`: DataFrame containing data.
+  - `colonne_date`: Date column to be formatted.
+- **Returns**: DataFrame with the date column converted to datetime, adding a new `Date` column.
+
+### `nettoyer_adresse_normalise(adresse)`
+
+- **Description**: Cleans and normalizes address strings by removing non-essential characters and standardizing Unicode.
+- **Parameters**:
+  - `adresse`: The address string to clean and normalize.
+- **Returns**: Cleaned and normalized address string.
+
+### `gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)`
+
+- **Description**: Generates a map showing bike routes, marking both the start and end stations.
+- **Parameters**:
+  - `ligne`: Row containing station data.
+  - `G`: Graph of Montpellier’s bike routes.
+  - `m`: Folium map instance.
+  - `index_colonne_départ`: Start station column.
+  - `index_colonne_arrive`: End station column.
+  - `couleur`: Color of the line representing the route.
+- **Returns**: Folium map with the route and markers.
+
+### `coordonne(station)`
+
+- **Description**: Retrieves coordinates for a specified bike station.
+- **Parameters**:
+  - `station`: Name of the station.
+- **Returns**: Tuple of latitude and longitude, or an error message if the station is not found.
+
+# 6. Future Work
+
+## 6.1 Additional Features
+
+- **Pollution and Traffic Correlation**: Investigate correlations between bike traffic patterns and air quality metrics.
+- **Real-Time Traffic Analysis**: Integrate live data feeds for real-time updates, route suggestions, and traffic monitoring.
+- **Alternative Routes**: Offer optimized routes with lower traffic density, based on real-time or historical traffic data.
+
+# 7. Technical Appendix
+
+This section provides detailed documentation of the project’s functions and code, ensuring ease of understanding for future development or maintenance. Each function is accompanied by a standardized docstring to support collaboration within the development team.
