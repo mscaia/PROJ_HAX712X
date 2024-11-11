@@ -16,6 +16,8 @@ data = pd.read_csv("./data/video.csv").dropna()
 data= data[data['Departure station'] != 'AtelierTAM']
 data= data[data['Return station'] != 'AtelierTAM']
 data= data.drop_duplicates(subset=['Departure station','Return station'])
+data = data.dropna(subset=['Duration (sec.)'])
+
 
 # Obtenir les noms de stations uniques (départ et arrivée)
 unique_stations = data['Departure station'].unique()
@@ -78,14 +80,15 @@ with ThreadPoolExecutor() as executor:
 # Filtrer les chemins valides
 paths, durations = zip(*[(path, duration) for path, duration in results if path is not None])
 
-# Préparer les lignes pour l'animation
-lines = [ax.plot([], [], color="yellow", alpha=0.7, linewidth=1)[0] for _ in paths]
+# Préparer les points pour l'animation
+points = [ax.plot([], [], 'o', color="yellow", alpha=0.7, markersize=3)[0] for _ in paths]
+
 
 # Fonction d'initialisation
 def init():
-    for line in lines:
-        line.set_data([], [])
-    return lines
+    for point in points:
+        point.set_data([], [])
+    return point
 
 # Fonction de mise à jour pour chaque frame
 def update(frame):
@@ -93,11 +96,11 @@ def update(frame):
         progress = min(frame / (durations[i] // 10), 1)
         num_nodes = int(progress * len(path))
         
-        if num_nodes > 1:
+        if num_nodes > 0:
             x, y = zip(*[(G.nodes[node]['x'], G.nodes[node]['y']) for node in path[:num_nodes]])
-            lines[i].set_data(x, y)
+            points[i].set_data(x, y)
     
-    return lines
+    return points
 
 # Animation
 max_duration = max(durations) // 10 if durations else 100
