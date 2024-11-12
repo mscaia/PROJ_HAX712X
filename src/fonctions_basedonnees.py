@@ -70,7 +70,7 @@ def nettoyer_adresse_normalise(adresse):
 
 
 # Créer une fonction pour générer la carte pour chaque trajet
-def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
+def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):
     # Essayer de géocoder les stations de départ et d'arrivée
     try:
         origin = ox.geocode(f"{ligne[index_colonne_départ]}, Montpellier, France")  # Première colonne
@@ -100,7 +100,7 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive):
         route_coords = route_to_coords(G, route)
 
         # Ajouter l'itinéraire aller (en rouge) à la carte
-        folium.PolyLine(locations=route_coords, color='red', weight=5, opacity=0.75).add_to(m)
+        folium.PolyLine(locations=route_coords, color=couleur, weight=5, opacity=0.75).add_to(m)
 
         # Ajouter des marqueurs pour l'origine et la destination
         départ_lat, départ_lon = route_coords[0]

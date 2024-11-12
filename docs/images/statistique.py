@@ -8,16 +8,16 @@ import numpy as np
 # Traitement du dataframe
 #Extraire notre dataframe
 df_coursesvelomagg = pd.read_csv("../data/CoursesVelomagg.csv").dropna()
-df_coursesvelomagg_traité = df_coursesvelomagg.dropna()
+df_coursesvelomagg_traite = df_coursesvelomagg.dropna()
 # Convertir la colonne 'Departure' en datetime
-df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure'])
+df_coursesvelomagg_traite['Departure'] = pd.to_datetime(df_coursesvelomagg_traite['Departure'])
 # Extraire les dates de départ
-df_coursesvelomagg_traité['Date'] = df_coursesvelomagg_traité['Departure'].dt.date
-df_bikes = df_coursesvelomagg_traité
+df_coursesvelomagg_traite['Date'] = df_coursesvelomagg_traite['Departure'].dt.date
+df_bikes = df_coursesvelomagg_traite
 
 # Statistique sur le nombre de trajet effectué par jour
 # Compter le nombre de trajets par jour pour les départs
-trajets_depart = df_coursesvelomagg_traité.groupby('Date').size().reset_index(name='Nombre de trajets')
+trajets_depart = df_coursesvelomagg_traite.groupby('Date').size().reset_index(name='Nombre de trajets')
 # Remplir les NaN par 0 pour les dates sans trajets
 trajets_depart.fillna(0, inplace=True)
 # Afficher le résultat
@@ -39,7 +39,7 @@ plt.show()
 
 # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo
 
-df_bikes = df_coursesvelomagg_traité.set_index('Departure')
+df_bikes = df_coursesvelomagg_traite.set_index('Departure')
 df_bikes["weekday"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6
 print(df_bikes.index.hour)
 

@@ -48,6 +48,8 @@ date = input("Veuillez choisir une date parmi la liste des dates (AAAA-MM-JJ) : 
 
 # Sélectionner les trajets du jour
 trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(date)]
+trajets_du_jour = trajets_du_jour.reset_index(drop=True) #Evite les erreurs pour les index
+
 nb_ref = len(trajets_du_jour)
 print(f"Nous avons {nb_ref} référence(s) à cette date.")
 
@@ -60,7 +62,38 @@ if a.lower() == "oui":
     # Boucle pour afficher les trajets (limité au nombre de trajets disponibles)
     for i in range(min(min_trajets, nb_ref)): 
         print(f"Affichage du trajet {i+1}")
-        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2)  # Ajout de la carte de chaque trajet à la carte globale
+        if trajets_du_jour.loc[i, 'Covered distance (m)']<2000 :
+            gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2,'green')  # Ajout de la carte de chaque trajet à la carte globale
+        elif 2000<trajets_du_jour.loc[i, 'Covered distance (m)']<4000 :
+            gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2, 'blue')  # Ajout de la carte de chaque trajet à la carte globale
+        else:
+             gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2, 'red')  # Ajout de la carte de chaque trajet à la carte globale
+
+# Créer une légende en HTML pour indiquer la signification des couleurs
+legend_html = """
+<div style="
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    width: 200px;
+    height: 120px;
+    background-color: white;
+    border:2px solid grey;
+    z-index:9999;
+    font-size:14px;
+    padding: 10px;
+    ">
+    <b>Légende des distances</b> <br>
+    <i style="background:green; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Moins de 2000 m<br>
+    <i style="background:blue; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Entre 2000 et 4000 m<br>
+    <i style="background:red; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Plus de 4000 m<br>
+</div>
+"""
+
+# Ajouter la légende HTML à la carte
+m.get_root().html.add_child(folium.Element(legend_html))
+
+
 
 # Sauvegarder la carte dans un fichier HTML
 m.save("./visualisation/carte_montpellier_trajet_via_BD.html")
