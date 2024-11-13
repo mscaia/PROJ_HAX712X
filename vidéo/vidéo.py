@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, FFMpegWriter
 from concurrent.futures import ThreadPoolExecutor
 from src.fonctions_basedonnees import *
+import datetime
 coordonne.cache_clear()
 
 #Recupère le dataframe créer lors du fichier map_trajet_BD.py
@@ -15,9 +16,10 @@ data = pd.read_csv("./data/video.csv").dropna()
 #On enlève les trajets vers AtelierTAM
 data= data[data['Departure station'] != 'AtelierTAM']
 data= data[data['Return station'] != 'AtelierTAM']
-data= data.drop_duplicates(subset=['Departure station','Return station'])
 data = data.dropna(subset=['Duration (sec.)'])
-
+data['Departure'] = pd.to_datetime(data['Departure'])
+data = data.sort_values(by='Departure', ascending=True)
+data.reset_index(drop=True, inplace=True)
 
 # Obtenir les noms de stations uniques (départ et arrivée)
 unique_stations = data['Departure station'].unique()
@@ -83,30 +85,46 @@ paths, durations = zip(*[(path, duration) for path, duration in results if path 
 # Préparer les points pour l'animation
 points = [ax.plot([], [], 'o', color="yellow", alpha=0.7, markersize=3)[0] for _ in paths]
 
+# Définir le texte pour l'heure en haut de la vidéo
+start_time = df['Departure'].min()  # Heure de départ la plus ancienne
+time_text = ax.text(0.5, 1.05, '', transform=ax.transAxes, ha='center', fontsize=12, color="black")
+
+# Durée souhaitée de la vidéo en secondes et réglage des FPS
+desired_duration_seconds = 20  # Durée souhaitée de la vidéo
+fps = 30                       # FPS cible pour la vidéo
+total_frames = desired_duration_seconds * fps  # Calcul du nombre total de frames nécessaires
+frame_duration = max(durations) / total_frames  # Durée par frame
+
 
 # Fonction d'initialisation
 def init():
     for point in points:
         point.set_data([], [])
-    return point
+    time_text.set_text('')
+    return points + [time_text]
+
 
 # Fonction de mise à jour pour chaque frame
 def update(frame):
+    # Calculer l'heure actuelle
+    current_time = start_time + datetime.timedelta(seconds=frame * frame_duration)
+    time_text.set_text(current_time.strftime('%Y-%m-%d %H:%M:%S'))
+
     for i, path in enumerate(paths):
-        progress = min(frame / (durations[i] // 10), 1)
+        progress = min(frame / total_frames, 1)  # Progression en fonction de total_frames
         num_nodes = int(progress * len(path))
-        
+
         if num_nodes > 0:
-            x, y = zip(*[(G.nodes[node]['x'], G.nodes[node]['y']) for node in path[:num_nodes]])
-            points[i].set_data(x, y)
-    
-    return points
+            current_node = path[num_nodes - 1]
+            x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
+            points[i].set_data([x], [y])
 
-# Animation
-max_duration = max(durations) // 10 if durations else 100
-ani = FuncAnimation(fig, update, frames=range(int(max_duration)), init_func=init, blit=False, repeat=False)
+    return points + [time_text]
 
-# Sauvegarder la vidéo
-writer = FFMpegWriter(fps=15)
+# Créer et sauvegarder l'animation
+ani = FuncAnimation(fig, update, frames=range(total_frames), init_func=init, blit=False, repeat=False)
+output_dir = "./visualisation"
+os.makedirs(output_dir, exist_ok=True)
+writer = FFMpegWriter(fps=fps)
 ani.save(os.path.join(output_dir, "simulation_trajets.mp4"), writer=writer)
 print("La simulation a été sauvegardée sous forme de vidéo : simulation_trajets.mp4")
