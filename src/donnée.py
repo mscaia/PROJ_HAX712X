@@ -9,6 +9,7 @@ from cycler import cycler
 import pooch  # download data / avoid re-downloading
 from IPython import get_ipython
 import json
+import zipfile
 sns.set_palette("colorblind")
 palette = sns.color_palette("twilight", n_colors=12)
 pd.options.display.max_rows = 8
@@ -44,3 +45,14 @@ url = "https://data.montpellier3m.fr/sites/default/files/ressources/MMM_EcoCompt
 path_target = "../data/EcoCompt1.json"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
+
+# Telechargement du fichier zip archive
+url ="https://data.montpellier3m.fr/node/12668/download"
+path = pooch.retrieve(
+    url=url,
+    known_hash=None,  # Remplace None par le hash du fichier si connu, par exemple "md5:..."
+    fname="fichier.zip",  # Nom du fichier à sauvegarder
+    path="./data"  # Chemin de sauvegarde
+)
+with zipfile.ZipFile(path, 'r') as zip_ref:
+    zip_ref.extractall("./data/extracted")
