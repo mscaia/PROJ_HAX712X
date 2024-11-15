@@ -39,20 +39,19 @@ df_GeolocCompteurs = pd.read_csv("../data/GeolocCompteurs.csv")
 #Permet d'enlever les valeurs NaN ou les manques de données
 df_GeolocCompteurs_traité = df_GeolocCompteurs.dropna()
 
-#3è jeu de données
-
-url = "https://data.montpellier3m.fr/sites/default/files/ressources/MMM_EcoCompt_X2H19070220_archive.json"
-path_target = "../data/EcoCompt1.json"
-path, fname = os.path.split(path_target)
-pooch.retrieve(url, path=path, fname=fname, known_hash=None)
-
-# Telechargement du fichier zip archive
-url ="https://data.montpellier3m.fr/node/12668/download"
+#3ème jeu de données extraction du .zip archive
+# Téléchargement du fichier ZIP depuis l'URL
+url = "https://data.montpellier3m.fr/node/12668/download"
 path = pooch.retrieve(
     url=url,
-    known_hash=None,  # Remplace None par le hash du fichier si connu, par exemple "md5:..."
+    known_hash=None,  # Mettre le hash du fichier si connu, sinon laisser None
     fname="fichier.zip",  # Nom du fichier à sauvegarder
     path="./data"  # Chemin de sauvegarde
 )
+extraction_path = "./data/extracted"
+os.makedirs(extraction_path, exist_ok=True)
 with zipfile.ZipFile(path, 'r') as zip_ref:
-    zip_ref.extractall("./data/extracted")
+    zip_ref.extractall(extraction_path)
+
+# Supprimer le fichier ZIP après extraction
+os.remove(path)
