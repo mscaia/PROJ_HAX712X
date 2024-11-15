@@ -8,6 +8,7 @@ import numpy as np
 # Traitement du dataframe
 #Extraire notre dataframe
 df_coursesvelomagg = pd.read_csv("../data/CoursesVelomagg.csv").dropna()
+df_coursesvelomagg = pd.read_csv("../data/extracted/TAM_MMM_CoursesVelomagg_2021.csv").dropna()
 df_coursesvelomagg_traité = df_coursesvelomagg.dropna()
 # Convertir la colonne 'Departure' en datetime
 df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure'])
