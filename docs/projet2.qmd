@@ -3,109 +3,117 @@ title: Projet 2
 format: html
 execute:
   enabled: true
+  echo: true
+  warning: false
 ---
 
 Ici, les cartes issues de nos principaux travaux.
 
 ```{python}
-#| warning: false
-#| echo: false
+# Map lié à la base de donnée.
 
+import osmnx as ox
+import folium
+import networkx as nx
 import pandas as pd
-import matplotlib.pyplot as plt
-import plotly.express as px
-import calendar
-import kaleido
-import numpy as np
+from src.fonctions_basedonnees import*
+
+coordonne.cache_clear()
+
+# Ville ciblée pour extraire les données du réseau de routes cyclables
+ville = "Montpellier, France"
+G = ox.graph_from_place(ville, network_type="all")
+# Créer une carte globale centrée sur Montpellier
+m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du centre Montpellier
+
+#Extraire notre dataframe
+df_coursesvelomagg_traité = pd.read_csv("../data/CoursesVelomagg.csv").dropna()
+
+# Extraire les trajets avec les noms des stations aller et le nom des stations retours
+liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]
+
+#Convertir + nettoyer les colonnes
+#Convertie les donnée date en datetime pour que la machine puisse comprendre les dates
+liste_des_trajet_DBF =liste_des_trajets #pd_to_datetime(df_coursesvelomagg_traité, 'Departure')
+#Nettoie le dataframe des mauvais caractère qui bruitent l'analyse
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].apply(nettoyer_adresse_normalise)
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].apply(nettoyer_adresse_normalise)
+
+# Traite un cas particulier.
+# Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
+# Remplacer toutes les occurrences se terminant par "Gare Saint-Roch" par "Gare Saint-Roch"
+liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace(
+    r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
+)
+liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace(
+    r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
+)
 
 
-for i in range(5):
-    if i==0 :
-        chemin ="C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/CoursesVelomagg.csv"
-        annee = 2024
-    if i==1 :
-        chemin ="C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/extracted/TAM_MMM_CoursesVelomagg_2021.csv"
-        annee = 2021
-    if i==2 :
-        chemin ="C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/extracted/TAM_MMM_CoursesVelomagg_2022.csv"
-        annee = 2022
-    if i==3 :
-        chemin ="C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/extracted/TAM_MMM_CoursesVelomagg_2023.csv"
-        annee = 2023
-    # Traitement du dataframe
-    #Extraire notre dataframe
-    df_coursesvelomagg = pd.read_csv(chemin)
-    if i==1:
-        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';')
-    df_coursesvelomagg_traité = df_coursesvelomagg
-    # Convertir la colonne 'Departure' en datetime
-    df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure'])
-    # Extraire les dates de départ
-    df_coursesvelomagg_traité['Date'] = df_coursesvelomagg_traité['Departure'].dt.date
-    df_bikes = df_coursesvelomagg_traité
+Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
+print(Liste_des_dates)
 
-    # Statistique sur le nombre de trajet effectué par jour
-    # Compter le nombre de trajets par jour pour les départs
-    trajets_depart = df_coursesvelomagg_traité.groupby('Date').size().reset_index(name='Nombre de trajets')
-    # Remplir les NaN par 0 pour les dates sans trajets
-    trajets_depart.fillna(0, inplace=True)
-    # Afficher le résultat
-    print("Nombre de trajets par jour:")
-    print(trajets_depart)
-    # Visualisation sous forme de diagramme à barres
-    plt.figure(figsize=(12, 6))
-    plt.bar(trajets_depart['Date'], trajets_depart['Nombre de trajets'], color='b', alpha=0.7)
-    plt.title(f"Nombre total de trajets par jour pour {annee}")
-    plt.xlabel('Date')
-    plt.ylabel('Nombre total de trajets')
-    plt.xticks(rotation=45)  # Rotation des étiquettes sur l'axe des x pour une meilleure lisibilité
-    plt.grid(axis='y')  # Ajouter une grille horizontale pour une meilleure lisibilité
-    plt.tight_layout()  # Pour ajuster les marges
-    plt.savefig(f"./images/Nbr_trajet_par_jour_{annee}")
-    plt.show()
+# Interaction avec l'utilisateur
+date = input("Veuillez choisir une date parmi la liste des dates (AAAA-MM-JJ) : ")
+
+# Sélectionner les trajets du jour
+trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(date)]
+trajets_du_jour = trajets_du_jour.reset_index(drop=True) #Evite les erreurs pour les index
+
+nb_ref = len(trajets_du_jour)
+print(f"Nous avons {nb_ref} référence(s) à cette date.")
+
+# Demander si l'utilisateur souhaite tracer les trajets
+a = input("Voulez-vous les tracer (oui/non) ? ")
+if a.lower() == "oui":
+    # Demander combien de trajets afficher
+    min_trajets = int(input("Combien de trajets voulez-vous afficher sur votre journée ? "))
+    
+    # Boucle pour afficher les trajets (limité au nombre de trajets disponibles)
+    for i in range(min(min_trajets, nb_ref)): 
+        print(f"Affichage du trajet {i+1}")
+        if trajets_du_jour.loc[i, 'Covered distance (m)']<2000 :
+            gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2,'green')  # Ajout de la carte de chaque trajet à la carte globale
+        elif 2000<trajets_du_jour.loc[i, 'Covered distance (m)']<4000 :
+            gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2, 'blue')  # Ajout de la carte de chaque trajet à la carte globale
+        else:
+             gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2, 'red')  # Ajout de la carte de chaque trajet à la carte globale
+
+# Créer une légende en HTML pour indiquer la signification des couleurs
+legend_html = """
+<div style="
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    width: 200px;
+    height: 120px;
+    background-color: white;
+    border:2px solid grey;
+    z-index:9999;
+    font-size:14px;
+    padding: 10px;
+    ">
+    <b>Légende des distances</b> <br>
+    <i style="background:green; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Moins de 2000 m<br>
+    <i style="background:blue; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Entre 2000 et 4000 m<br>
+    <i style="background:red; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Plus de 4000 m<br>
+</div>
+"""
+
+# Ajouter la légende HTML à la carte
+m.get_root().html.add_child(folium.Element(legend_html))
 
 
 
-    # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo
+# Sauvegarder la carte dans un fichier HTML
+m.save("../visualisation/carte_montpellier_trajet_via_BD.html")
 
-    df_bikes = df_coursesvelomagg_traité.set_index('Departure')
-    df_bikes["weekday"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6
-    print(df_bikes.index.hour)
+# Afficher un message pour indiquer que la carte est prête
+print("La carte a été sauvegardée sous '../visualisation/carte_montpellier_trajet_via_BD.html'.")
 
-    # Regroupement par jour de la semaine et heure
-    df_polar = (
-        df_bikes.groupby(["weekday", df_bikes.index.hour])["Covered distance (m)"]
-        .count()
-        .reset_index(name='Count')  # Renommer la colonne résultante
-    )
-
-    # Modification de la colonne "weekday" pour obtenir les abréviations
-    df_polar["weekday"] = df_polar["weekday"].apply(lambda x: calendar.day_abbr[x])
-
-    # Définition des couleurs
-    n_colors = 8  # Nombre de couleurs
-    colors = px.colors.sample_colorscale(
-        "mrybm", [n / (n_colors - 1) for n in range(n_colors)]
-    )
-
-    # Conversion des heures en degrés (0 à 360 degrés)
-    df_polar['heure'] = df_polar['Departure'] * 15  # Chaque heure = 15 degrés
-
-    # Création de la figure
-    fig = px.line_polar(
-        df_polar,
-        r="Count",  # Utilisez le nombre de trajets comme rayon
-        theta="heure",  # Utilisez l'heure comme angle
-        color="weekday",
-        line_close=True,
-        range_r=[0, df_polar["Count"].max() + 50],
-        start_angle=0,
-        color_discrete_sequence=colors,
-        template="seaborn",
-        title=f"Trajet journalier {annee}",
-    )
-    fig.update_layout(polar=dict(angularaxis=dict(tickvals=list(range(0, 360, 15)), ticktext=[f"{i}:00" for i in range(24)])))
-    # Sauvegarde de la figure
-    fig.write_html(f"C:/Users/Fabian/HAX712X/PROJ_HAX712X/images/graphique_distance_jour_{annee}.html")
-    fig.show()
+data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]
+data.to_csv('../data/video.csv', index=False)
 ```
+

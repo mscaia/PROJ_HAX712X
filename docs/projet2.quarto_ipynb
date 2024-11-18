@@ -5,19 +5,20 @@
       "metadata": {},
       "source": [
         "---\n",
-        "title: Projet 1\n",
+        "title: Projet 2\n",
+        "format: html\n",
+        "execute:\n",
+        "  enabled: true\n",
+        "  echo: true\n",
+        "  warning: false\n",
         "---\n",
         "\n",
         "\n",
         "\n",
         "\n",
-        "Ci-dessous, quelques éléments d'analyse des données.\n",
-        "\n",
-        "<iframe src=\"./images/graphique_distance_jour.html\" width=\"100%\" height=\"600\"></iframe>\n",
-        "\n",
-        "Le graphique ci-dessus montre [...]\n"
+        "Ici, les cartes issues de nos principaux travaux.\n"
       ],
-      "id": "0e945eb4"
+      "id": "57980b0f"
     },
     {
       "cell_type": "code",
@@ -40,7 +41,7 @@
         "m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du centre Montpellier\n",
         "\n",
         "#Extraire notre dataframe\n",
-        "df_coursesvelomagg_traité = pd.read_csv(\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/CoursesVelomagg.csv\").dropna()\n",
+        "df_coursesvelomagg_traité = pd.read_csv(\"../data/CoursesVelomagg.csv\").dropna()\n",
         "\n",
         "# Extraire les trajets avec les noms des stations aller et le nom des stations retours\n",
         "liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]\n",
@@ -121,15 +122,15 @@
         "\n",
         "\n",
         "# Sauvegarder la carte dans un fichier HTML\n",
-        "m.save(\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/visualisation/carte_montpellier_trajet_via_BD.html\")\n",
+        "m.save(\"../visualisation/carte_montpellier_trajet_via_BD.html\")\n",
         "\n",
         "# Afficher un message pour indiquer que la carte est prête\n",
-        "print(\"La carte a été sauvegardée sous './visualisation/carte_montpellier_trajet_via_BD.html'.\")\n",
+        "print(\"La carte a été sauvegardée sous '../visualisation/carte_montpellier_trajet_via_BD.html'.\")\n",
         "\n",
         "data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]\n",
-        "data.to_csv('C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/video.csv', index=False)"
+        "data.to_csv('../data/video.csv', index=False)"
       ],
-      "id": "6bea0dc8",
+      "id": "6fed963d",
       "execution_count": null,
       "outputs": []
     }
@@ -139,7 +140,7 @@
       "name": "python3",
       "language": "python",
       "display_name": "Python 3 (ipykernel)",
-      "path": "C:\\Users\\Fabian\\anaconda3\\envs\\creation_cartes\\share\\jupyter\\kernels\\python3"
+      "path": "C:\\Users\\Fabian\\anaconda3\\envs\\HAX712X\\share\\jupyter\\kernels\\python3"
     }
   },
   "nbformat": 4,
