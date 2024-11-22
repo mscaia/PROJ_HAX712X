@@ -56,8 +56,16 @@ os.makedirs(output_dir, exist_ok=True)
 # Charger le réseau routier de Montpellier depuis OpenStreetMap
 G = ox.graph_from_place("Montpellier, France", network_type="all")
 
+# Date du jour
+date = data.loc[0, 'Departure'].strftime("%Y-%m-%d")  # Format YYYY-MM-DD
+titre = f"Visualisation des trajets du {date}"
+
+
 # Initialisation de la figure
 fig, ax = ox.plot_graph(G, show=False, close=False, node_size=0, edge_color="gray", edge_linewidth=0.5)
+
+# Ajouter un texte dans la vidéo
+titre_ds_video = fig.text(0.5, 0.95, titre, fontsize=16, color="blue", ha="center", va="top")
 
 # Fonction chemin plus court
 def chemin_court(row):
@@ -85,31 +93,22 @@ paths, durations = zip(*[(path, duration) for path, duration in results if path 
 # Préparer les points pour l'animation
 points = [ax.plot([], [], 'o', color="yellow", alpha=0.7, markersize=3)[0] for _ in paths]
 
-# Définir le texte pour l'heure en haut de la vidéo
-start_time = df['Departure'].min()  # Heure de départ la plus ancienne
-time_text = ax.text(0.5, 1.05, '', transform=ax.transAxes, ha='center', fontsize=12, color="black")
-
 # Durée souhaitée de la vidéo en secondes et réglage des FPS
-desired_duration_seconds = 20  # Durée souhaitée de la vidéo
+dure_cible = 20  # Durée souhaitée de la vidéo
 fps = 30                       # FPS cible pour la vidéo
-total_frames = desired_duration_seconds * fps  # Calcul du nombre total de frames nécessaires
-frame_duration = max(durations) / total_frames  # Durée par frame
+total_frames = dure_cible * fps  # Calcul du nombre total de frames nécessaires
+dure_frame = max(durations) / total_frames  # Durée par frame
 
 
 # Fonction d'initialisation
 def init():
     for point in points:
         point.set_data([], [])
-    time_text.set_text('')
-    return points + [time_text]
+    return points 
 
 
 # Fonction de mise à jour pour chaque frame
 def update(frame):
-    # Calculer l'heure actuelle
-    current_time = start_time + datetime.timedelta(seconds=frame * frame_duration)
-    time_text.set_text(current_time.strftime('%Y-%m-%d %H:%M:%S'))
-
     for i, path in enumerate(paths):
         progress = min(frame / total_frames, 1)  # Progression en fonction de total_frames
         num_nodes = int(progress * len(path))
@@ -119,7 +118,7 @@ def update(frame):
             x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
             points[i].set_data([x], [y])
 
-    return points + [time_text]
+    return points 
 
 # Créer et sauvegarder l'animation
 ani = FuncAnimation(fig, update, frames=range(total_frames), init_func=init, blit=False, repeat=False)
