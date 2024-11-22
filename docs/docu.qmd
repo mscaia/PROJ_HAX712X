@@ -1,34 +1,29 @@
 ---
 title: Documentation
+format: html
 ---
 
 # 1. Introduction
 
-Ce projet, intitulé **CycleVision3**, vise à analyser le trafic cycliste à Montpellier, en se concentrant particulièrement sur l'étude des trajets effectués via le système de vélos en libre-service, ainsi que sur les données de comptage des cyclistes et des piétons. À travers l'exploitation de plusieurs jeux de données, l'objectif est de créer des visualisations interactives permettant de prédire les tendances du trafic cycliste dans la ville, tout en offrant un accès simplifié à ces analyses via un site web interactif.
+**CycleVision3** est un projet visant à analyser et prédire les flux cyclistes à Montpellier en exploitant des données provenant de trois sources principales :  
 
-L'analyse s'appuie sur trois principales sources de données :
+- **VéloMagg** : Historique des trajets effectués avec les vélos en libre-service.  
+- **Capteurs cyclistes et piétons** : Mesures de flux réalisées aux points stratégiques de la ville.  
+- **OpenStreetMap (OSM)** : Données géographiques ouvertes pour la cartographie et la contextualisation des trajets.  
 
-- **VéloMagg** : Un jeu de données contenant des informations sur les trajets effectués avec les vélos en libre-service, fournies par Montpellier Méditerranée Métropole.
-- **Comptage des cyclistes et piétons** : Des données issues des compteurs installés pour surveiller le flux de cyclistes et de piétons dans la ville.
-- **Données Open Street Map** : Des données géographiques ouvertes, utilisées pour la visualisation cartographique et pour contextualiser les trajets de manière géospatiale.
+L’objectif principal est de produire des **visualisations interactives**, incluant une **carte prédictive** des flux cyclistes, accessible via un site web. Ces outils permettront d’identifier les tendances de mobilité et d’offrir des solutions pratiques pour améliorer les infrastructures urbaines et promouvoir l’usage du vélo.  
 
-L'objectif principal de ce projet est de regrouper toutes ces informations et de les rendre accessibles sous forme de visualisations interactives, offrant ainsi un outil puissant pour l'analyse du trafic cycliste et la planification urbaine. L'une des fonctionnalités clés sera la création d'une carte prédictive du trafic cycliste, permettant de prévoir les flux de vélos pour la journée suivante, sur la base des données historiques et des tendances observées.
-
-Ce projet a pour ambition de contribuer à une meilleure compréhension du trafic cycliste dans une grande agglomération et pourrait potentiellement être adapté à d'autres villes, offrant ainsi une solution générique pour l'analyse du trafic cycliste urbain.
-
-Les résultats de ce projet devraient permettre non seulement d'améliorer la gestion du trafic cycliste mais aussi d'offrir aux autorités locales des outils de planification plus précis pour favoriser l'utilisation du vélo comme mode de transport durable.
-
-#### Contexte et objectifs
-
-Le développement de ce projet s'inscrit dans un contexte où les enjeux de mobilité durable et de gestion intelligente des infrastructures urbaines sont de plus en plus cruciaux. L'augmentation de la fréquentation cycliste dans les grandes villes, associée à une volonté d'encourager les comportements écoresponsables, nécessite des outils adaptés pour analyser et prédire les flux de circulation. Ce projet, à travers son site web interactif, cherche à répondre à ces besoins en fournissant des visualisations précises et en temps réel du trafic cycliste.
+En associant innovation technologique et utilité sociale, **CycleVision3** se veut un modèle reproductible pour d’autres villes, contribuant ainsi à une mobilité urbaine durable et intelligente.
 
 # 2. Project Setup
+
+
 
 - **Traffic Analysis**: Analyze bike traffic data to identify trends, peak times, and popular routes.
 - **Interactive Visualization**: Create dynamic maps that visualize traffic flows across Montpellier.
 - **Web Integration**: Develop a user-friendly website to showcase data insights and traffic maps.
 
-## 2.1 Structure du projet
+## 2.1 Structure du projet [WILL BE FINISHED AT THE END]
 
 La structure du projet est organisée de manière à assurer une séparation claire des différentes composantes nécessaires au bon déroulement de l'analyse et à la création des visualisations. Voici un aperçu de l'organisation des fichiers et répertoires :
 
@@ -93,17 +88,17 @@ Avant de commencer le développement et l'analyse des données, il est nécessai
    ```
    Cela lancera un serveur local où vous pourrez visualiser le site et tester les fonctionnalités interactives.
 
-## 2.3 Configuration des fichiers
+## 2.3 Configuration des fichiers [**Sphinx** - CHEKED]
 
-Le projet est configuré de manière à utiliser **Quarto** pour la création du site web interactif et **Sphinx** pour la documentation générée automatiquement. Le fichier `_quarto.yml` contient les paramètres de configuration du projet Quarto, tandis que le fichier `index.qmd` contient le contenu principal de la page d'accueil du site.
+Le projet est configuré de manière à utiliser **Quarto** pour la création du site web interactif et [**Sphinx** pour la documentation générée automatiquement]. Le fichier `_quarto.yml` contient les paramètres de configuration du projet Quarto, tandis que le fichier `index.qmd` contient le contenu principal de la page d'accueil du site.
 
-## 2.4 Base de données et traitement des données
+## 2.4 Base de données et traitement des données [SHOULD BE RECHEKED AFTER]
 
 Le répertoire `data/` contient les trois principaux jeux de données utilisés dans ce projet :
 
 - **CoursesVelomagg.csv** : Contient les informations sur les trajets effectués avec les vélos en libre-service.
-- **EcoCompt1.json** : Données de comptage des cyclistes et piétons provenant des capteurs installés dans la ville.
-- **GeolocCompteurs.csv** : Données géospatiales pour localiser les capteurs de comptage des vélos et piétons.
+- **video.csv** : 
+- **video_avec_coord.csv** : 
 
 Le traitement de ces données est effectué dans le répertoire `src/`, où les scripts comme `donnée.py` et `fonctions_basedonnees.py` contiennent les fonctions nécessaires pour charger, nettoyer et manipuler les données.
 
@@ -113,24 +108,26 @@ Une fois l'environnement configuré et les données traitées, il suffit de lanc
 
 Le répertoire `visualisation/` contient les scripts et sorties graphiques générées au fur et à mesure du traitement des données, notamment les cartes des trajets cyclistes et les prévisions de trafic.
 
-## 2.6 Documentation et tests
+## 2.6 Documentation et tests [FINISH AND RECHECKED]
 
 Pour garantir la qualité du code et la conformité aux exigences du projet, des tests unitaires sont fournis pour vérifier le bon fonctionnement des différentes fonctionnalités. La documentation technique est générée via **Sphinx** et **Quarto**, offrant ainsi une vue d'ensemble sur la structure du code, les API disponibles et la méthodologie utilisée.
 
+# 3. Description des Données [RECHECK ABOOUT THE DATASETS WITH GUYS]
 
-# 3. Data Description
+L’analyse repose sur l’exploitation de trois ensembles de données principaux, chacun jouant un rôle clé dans l’étude des trajets cyclistes à Montpellier :
 
-Our analysis relies on three primary datasets:
+- **Données des trajets en vélos en libre-service (VéloMagg)** : Ces données fournissent des informations détaillées sur l’utilisation des vélos en libre-service dans la métropole de Montpellier. Elles constituent une base essentielle pour analyser les tendances et les flux de déplacements cyclistes.  
+  *Source*: [Trajets à vélos en libre-service](https://data.montpellier3m.fr/dataset/courses-des-velos-velomagg-de-montpellier-mediterranee-metropole)  
 
-- **VéloMagg Bike-Sharing Data**: Information on bike-sharing usage within the Montpellier Méditerranée Métropole area.
-- **Traffic Counts Data**: Sensor data recording bike and pedestrian counts at various locations throughout the city.
-- **OpenStreetMap (OSM) Data**: Geographic data used to accurately map streets, bike lanes, and important locations.
+- **Données de comptage cycliste et piéton** : Ces données, collectées par des capteurs placés à divers emplacements stratégiques, permettent de mesurer les flux de cyclistes et de piétons dans la ville. Elles enrichissent l'analyse en fournissant une perspective quantitative sur la fréquentation des infrastructures.  
+  *Source*: [Comptages vélo et piéton issus des compteurs de vélo](https://data.montpellier3m.fr/dataset/comptages-velo-et-pieton-issus-des-compteurs-de-velo)  
 
-- [Trajets à vélos en libre-service](https://data.montpellier3m.fr/dataset/courses-des-velos-velomagg-de-montpellier-mediterranee-metropole)
-- [Comptages vélo et piéton issus des compteurs de vélo](https://data.montpellier3m.fr/dataset/comptages-velo-et-pieton-issus-des-compteurs-de-velo)
-- [OpenStreetMap](https://www.openstreetmap.org/#map=6/46.45/2.21)
+- **Données géographiques OpenStreetMap (OSM)** : Ces données géographiques offrent une cartographie précise des rues, pistes cyclables et points d’intérêt de la ville. Elles sont cruciales pour la visualisation et la spatialisation des trajets étudiés.  
+  *Source*: [OpenStreetMap](https://www.openstreetmap.org/#map=6/46.45/2.21)  
 
-# 4. Project Workflow
+Ces trois ensembles de données, complémentaires par nature, permettent une analyse approfondie et multidimensionnelle du trafic cycliste à Montpellier.
+
+# 4. Project Workflow [CHECK WHOLE SECTION - ENG]
 
 ## 4.1 Data Cleaning and Preprocessing
 
@@ -148,7 +145,71 @@ Our analysis relies on three primary datasets:
 
 The final deliverable will be an interactive website, presenting all the data visualizations and analytical insights. The website will be developed using Quarto for easy integration of analysis and visualizations into an accessible, interactive interface.
 
-# 5. Data Processing Pipeline
+# 5. Pipeline de Traitement des Données
+
+Le traitement des données constitue une étape clé du projet **CycleVision3**, permettant de transformer les données brutes en informations exploitables pour l’analyse et la modélisation du trafic cycliste. La méthodologie suit une structure modulaire pour garantir flexibilité et robustesse. Voici les principales étapes de notre pipeline :
+
+## 5.1 Acquisition des données
+
+Les ensembles de données ont été collectés auprès de sources officielles :
+
+- **Données VéloMagg** : Historique des trajets effectués via le système de vélos en libre-service.
+- **Comptages cyclistes et piétons** : Relevés par des capteurs aux points stratégiques de la ville.
+- **Données OpenStreetMap (OSM)** : Informations géographiques pour la cartographie.
+
+Ces fichiers ont été extraits au format `.csv` et `.json` et chargés à l’aide de la bibliothèque `pandas`. Une validation initiale a été effectuée pour vérifier l’intégrité des fichiers (taille, colonnes attendues, etc.).
+
+## 5.2 Prétraitement
+L’étape de prétraitement vise à préparer les données pour l’analyse. Les principales opérations incluent :
+
+  <ul>
+    <li>**Nettoyage des données** : Suppression des valeurs manquantes et des doublons.</li>
+    <li>**Transformation des variables** : Normalisation des données temporelles pour harmoniser les différents jeux de données.</li>
+    <li>**Filtrage géographique** : Limitation aux trajets effectués dans Montpellier.</li>
+  </ul>
+
+## 5.3 Analyse exploratoire
+Une exploration préliminaire a permis de dégager des tendances :
+
+  <ul>
+    <li>Analyse temporelle des flux de cyclistes (par heure, jour, mois).</li>
+    <li>Cartographie des zones à fort trafic à l’aide de `Folium`.</li>
+    <li>Visualisation des variations de densité de trafic.</li>
+  </ul>
+
+Ces étapes ont permis d’orienter les choix algorithmiques pour la prédiction.
+
+## 5.4 Modélisation
+Un algorithme de prédiction du trafic a été conçu en se basant sur des variables clés :
+
+  <ul>
+    <li>Données historiques des trajets.</li>
+    <li>Localisation et fréquence des trajets.</li>
+    <li>Influence potentielle des heures de pointe et des jours fériés.</li>
+  </ul>
+
+L’implémentation repose sur des modèles de régression supervisée. Une attention particulière a été portée à la validation croisée pour assurer la fiabilité des prédictions.
+
+## 5.5 Visualisation
+Les résultats sont intégrés dans des visualisations interactives :
+
+  <ul>
+    <li>Cartes dynamiques illustrant les trajets par zones.</li>
+    <li>Tableau de bord synthétisant les flux par période.</li>
+  </ul>
+
+L’ensemble de ces visualisations est hébergé sur le site web interactif du projet.
+
+## 5.6 Intégration
+Le pipeline est conçu pour être adaptable :
+
+  <ul>
+    <li>**Portabilité** : Facilité d’application à d’autres villes disposant de systèmes similaires.</li>
+    <li>**Scalabilité** : Support de nouveaux ensembles de données (ex. pollution ou météo).</li>
+  </ul>
+
+## Perspectives
+Pour enrichir le pipeline, des pistes futures incluent l’intégration de données en temps réel et l’optimisation de la performance pour traiter des volumes massifs de données.
 
 # 6. Technical Documentation
 
@@ -162,8 +223,13 @@ Nous avons utilisé `csv` pour extraire et traiter les données brutes contenues
 </details>
 
 <details> <summary>`matplotlib.pyplot`</summary>
-`matplotlib.pyplot` est utilisée pour produire des graphiques statiques et analyser visuellement les données.
-Cette bibliothèque nous permet de visualiser les tendances, les répartitions et les relations dans les données à l’aide de graphiques tels que les histogrammes, les courbes ou les nuages de points.
+`matplotlib.pyplot` est utilisée pour produire des graphiques statiques et des visualisations animées.
+Dans ce projet, elle permet de créer des graphiques dynamiques illustrant les trajectoires cyclistes et d’exporter ces visualisations sous forme de vidéos à l'aide des modules `FuncAnimation` et `FFMpegWriter`.
+</details>
+
+<details> <summary>`matplotlib.animation.FuncAnimation` et `FFMpegWriter`</summary>
+Ces modules de la bibliothèque `matplotlib.animation` permettent de créer des animations et d'exporter celles-ci sous forme de fichiers vidéo.
+Dans le projet, ils sont utilisés pour générer des animations illustrant les variations temporelles du trafic cycliste et les enregistrer sous un format visuel accessible.
 </details>
 
 <details> <summary>`numpy`</summary>
@@ -208,12 +274,27 @@ Nous avons utilisé `folium` pour visualiser les trajets et itinéraires des vé
 
 <details> <summary>`osmnx`</summary>
 `osmnx` est utilisée pour le géocodage et l’analyse des réseaux géographiques.
-Cette bibliothèque permet de calculer des itinéraires, de géocoder les points d’intérêt et d’extraire des données à partir d’OpenStreetMap pour analyser les réseaux routiers.
+Cette bibliothèque permet d’extraire des données géographiques d’OpenStreetMap, de construire des graphes routiers, et d’analyser les itinéraires et les trajets cyclistes dans le cadre de ce projet.
 </details>
 
 <details> <summary>`functools.lru_cache`</summary>
 `functools.lru_cache` est une fonctionnalité de Python pour optimiser les performances.
 En mettant en cache les résultats des fonctions fréquemment appelées, `functools.lru_cache` améliore les performances et réduit le temps de calcul pour des opérations répétées.
+</details>
+
+<details> <summary>`networkx`</summary>
+`networkx` est une bibliothèque dédiée à la création, la manipulation et l'analyse de graphes complexes.
+Dans ce projet, elle est utilisée pour représenter et étudier les réseaux cyclistes, notamment pour visualiser les trajets et calculer les chemins les plus courts entre les nœuds.
+</details>
+
+<details> <summary>`concurrent.futures.ThreadPoolExecutor`</summary>
+`ThreadPoolExecutor` est une fonctionnalité du module standard `concurrent.futures` pour exécuter des tâches en parallèle.
+Elle est utilisée pour optimiser le traitement des données et accélérer le rendu des animations dans le cadre de ce projet.
+</details>
+
+<details> <summary>`datetime`</summary>
+`datetime` est un module intégré pour manipuler les dates et les heures.
+Dans le projet, il est employé pour traiter les données temporelles des trajets cyclistes et synchroniser les animations avec les horodatages.
 </details>
 
 ## 6.2 Functions
@@ -460,9 +541,9 @@ Cette fonction permet de géocoder le nom d'une station pour obtenir ses coordon
   ```
 </details>
 
-### 6.2.2 Préduction
+### 6.2.2 Préduction [DOCUM FROM CA - PUT HERE]
 
-### 6.2.3 Video 
+### 6.2.3 Video [VIDEO FUNCTION]
 
 ## 6.3 Class
 
@@ -470,24 +551,26 @@ Cette fonction permet de géocoder le nom d'une station pour obtenir ses coordon
 
 # 7. Testing
 
+[tests]
+
 # 8. Performance Analysis
+
+[analys testing here]
 
 # 9. User Guide
 
+
+
 # 10. Travaux futurs
 
-Bien que ce projet ait permis de poser les bases d'une analyse approfondie du trafic cycliste à Montpellier, plusieurs pistes de développement restent ouvertes pour enrichir et étendre cette étude. Voici quelques axes possibles pour les travaux futurs :
+Ce projet constitue une première étape dans l'analyse du trafic cycliste à Montpellier. Plusieurs pistes peuvent être explorées pour enrichir et élargir cette étude :
 
-- **Amélioration de la précision des prédictions** : Une direction importante consiste à améliorer les modèles de prédiction du trafic en utilisant des techniques d'apprentissage automatique avancées, telles que les réseaux de neurones ou l'apprentissage par renforcement. Cela pourrait permettre de mieux anticiper les variations du trafic en fonction de facteurs contextuels tels que la météo ou les événements locaux.
-  
-- **Intégration de données en temps réel** : L'ajout de données en temps réel, comme les informations sur la circulation, les conditions météorologiques ou même les perturbations du réseau de transport (par exemple, les travaux de construction), pourrait rendre les prévisions plus dynamiques et réactives aux conditions changeantes.
+- **Renforcement des modèles de prédiction** : Une amélioration des modèles actuels pourrait être réalisée en intégrant des données supplémentaires, comme les conditions météorologiques ou les événements locaux, afin d'obtenir des prévisions plus précises.
 
-- **Analyse comparative entre différentes villes** : Une extension naturelle de ce projet serait d'appliquer la même méthodologie à d'autres villes. Cela permettrait de comparer les tendances du trafic cycliste entre différentes régions et d'identifier des modèles communs ou des différences spécifiques aux contextes locaux.
+- **Ajout de données en temps réel** : L'intégration de données en temps réel, telles que les flux de trafic ou les perturbations temporaires, pourrait rendre les analyses plus dynamiques et adaptées à l'évolution des conditions.
 
-- **Développement d'une carte de trafic basée sur les événements** : Un projet complémentaire consisterait à intégrer des informations sur les événements urbains (concerts, manifestations, événements sportifs, etc.) dans le système de prédiction du trafic. Cela permettrait de prédire des hausses de trafic liées à ces événements, offrant ainsi des informations précieuses aux utilisateurs.
+- **Application à d'autres contextes urbains** : Étendre cette méthodologie à d'autres villes permettrait de comparer les tendances cyclistes et d'identifier des spécificités locales ou des modèles universels.
 
-- **Optimisation de l'interface utilisateur** : L'interface du site Web pourrait être améliorée en offrant davantage de fonctionnalités interactives, telles que la planification d'itinéraires en fonction des prévisions de trafic ou des suggestions d'itinéraires alternatifs pour éviter les zones congestionnées.
+- **Amélioration de l'expérience utilisateur** : Le site Web pourrait être enrichi de fonctionnalités interactives supplémentaires, telles que la visualisation des prévisions de trafic ou des recommandations d'itinéraires alternatifs.
 
-- **Étude de l'impact environnemental** : Une analyse plus poussée pourrait être menée sur l'impact du trafic cycliste sur la qualité de l'air et la pollution. Cette étude pourrait inclure la corrélation entre le trafic vélo et les niveaux de pollution pour proposer des solutions visant à réduire les émissions dans les zones les plus fréquentées.
-
-Ces directions futures ne sont pas exhaustives et peuvent évoluer en fonction des avancées technologiques et des retours d'expérience des utilisateurs. Elles témoignent de l'ambition du projet d'offrir des solutions durables et efficaces pour la gestion du trafic cycliste en milieu urbain.
+Ces propositions, bien qu'ambitieuses, restent accessibles et permettent d'assurer la pertinence et la durabilité du projet tout en renforçant son impact pour les usagers et les décideurs locaux.
