@@ -3,7 +3,7 @@ title: Projet 2
 format: html
 execute:
   enabled: true
-  echo: true
+  echo: false
   warning: false
 jupyter: python3
 ---
@@ -15,7 +15,7 @@ import osmnx as ox
 import folium
 import pandas as pd
 import ipywidgets as widgets
-from IPython.display import display, clear_output
+from IPython.display import display, clear_output, HTML
 from src.fonctions_basedonnees import *
 
 # Effacer le cache
@@ -24,7 +24,6 @@ coordonne.cache_clear()
 # Configuration initiale
 ville = "Montpellier, France"
 G = ox.graph_from_place(ville, network_type="all")
-m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)
 
 # Charger le DataFrame
 df_coursesvelomagg_traité = pd.read_csv("../data/CoursesVelomagg.csv").dropna()
@@ -47,6 +46,7 @@ Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
 # Widgets interactifs
 date_selector = widgets.Dropdown(
     options=Liste_des_dates,
+    value=Liste_des_dates[0],  # Première date par défaut
     description="Date:",
     style={'description_width': 'initial'}
 )
@@ -58,7 +58,7 @@ trajet_toggle = widgets.Checkbox(
 )
 
 trajet_slider = widgets.IntSlider(
-    value=1,
+    value=5,
     min=1,
     max=10,
     step=1,
@@ -70,18 +70,25 @@ button_display = widgets.Button(description="Afficher la carte")
 
 output = widgets.Output()
 
-def update_map(change):
+def update_map(change=None):
     with output:
         clear_output()
+        
+        # Récupérer les valeurs sélectionnées
         selected_date = date_selector.value
         tracer = trajet_toggle.value
         nb_trajets = trajet_slider.value
-
+        
+        # Filtrer les trajets du jour
         trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(selected_date)]
         trajets_du_jour = trajets_du_jour.reset_index(drop=True)
-
         nb_ref = len(trajets_du_jour)
+
+        # Message à l'utilisateur
         print(f"Nous avons {nb_ref} référence(s) pour la date {selected_date}.")
+        
+        # Générer la carte
+        m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)
         
         if tracer:
             print(f"Traçage des {min(nb_trajets, nb_ref)} trajets:")
@@ -94,7 +101,7 @@ def update_map(change):
                 else:
                     gen_carte_trajet(trajet, G, m, 1, 2, 'red')
             
-            # Légende
+            # Ajouter une légende à la carte
             legend_html = """
             <div style="
                 position: fixed;
@@ -115,15 +122,17 @@ def update_map(change):
             </div>
             """
             m.get_root().html.add_child(folium.Element(legend_html))
-            m.save("../visualisation/carte_montpellier_trajet_via_BD.html")
-            print("Carte sauvegardée dans '../visualisation/carte_montpellier_trajet_via_BD.html'.")
-        else:
-            print("Traçage non activé.")
+        
+        # Convertir la carte en HTML et l'afficher dynamiquement
+        html = m._repr_html_()
+        display(HTML(html))
 
 button_display.on_click(update_map)
 
 # Affichage des widgets
 display(date_selector, trajet_toggle, trajet_slider, button_display, output)
 
+# Afficher la première carte par défaut
+update_map()
 ```
 
