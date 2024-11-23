@@ -11,7 +11,7 @@
     "href": "projet1.html",
     "title": "Projet 1",
     "section": "",
-    "text": "Ci-dessous, quelques éléments d’analyse des données. \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLe graphique ci-dessus montre […]"
+    "text": "Ci-dessous, quelques éléments d’analyse des données.\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport plotly.express as px\nimport calendar\nimport kaleido\nimport numpy as np\n\n\nfor i in range(5):\n    if i==0 :\n        chemin =\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/CoursesVelomagg.csv\"\n        annee = 2024\n    if i==1 :\n        chemin =\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/extracted/TAM_MMM_CoursesVelomagg_2021.csv\"\n        annee = 2021\n    if i==2 :\n        chemin =\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/extracted/TAM_MMM_CoursesVelomagg_2022.csv\"\n        annee = 2022\n    if i==3 :\n        chemin =\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/extracted/TAM_MMM_CoursesVelomagg_2023.csv\"\n        annee = 2023\n    # Traitement du dataframe\n    #Extraire notre dataframe\n    df_coursesvelomagg = pd.read_csv(chemin)\n    if i==1:\n        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';')\n    df_coursesvelomagg_traité = df_coursesvelomagg\n    # Convertir la colonne 'Departure' en datetime\n    df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure'])\n    # Extraire les dates de départ\n    df_coursesvelomagg_traité['Date'] = df_coursesvelomagg_traité['Departure'].dt.date\n    df_bikes = df_coursesvelomagg_traité\n\n    # Statistique sur le nombre de trajet effectué par jour\n    # Compter le nombre de trajets par jour pour les départs\n    trajets_depart = df_coursesvelomagg_traité.groupby('Date').size().reset_index(name='Nombre de trajets')\n    # Remplir les NaN par 0 pour les dates sans trajets\n    trajets_depart.fillna(0, inplace=True)\n    # Afficher le résultat\n    print(\"Nombre de trajets par jour:\")\n    print(trajets_depart)\n    # Visualisation sous forme de diagramme à barres\n    plt.figure(figsize=(12, 6))\n    plt.bar(trajets_depart['Date'], trajets_depart['Nombre de trajets'], color='b', alpha=0.7)\n    plt.title(f\"Nombre total de trajets par jour pour {annee}\")\n    plt.xlabel('Date')\n    plt.ylabel('Nombre total de trajets')\n    plt.xticks(rotation=45)  # Rotation des étiquettes sur l'axe des x pour une meilleure lisibilité\n    plt.grid(axis='y')  # Ajouter une grille horizontale pour une meilleure lisibilité\n    plt.tight_layout()  # Pour ajuster les marges\n    plt.savefig(f\"./images/Nbr_trajet_par_jour_{annee}\")\n    plt.show()\n\n\n\n    # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo\n\n    df_bikes = df_coursesvelomagg_traité.set_index('Departure')\n    df_bikes[\"weekday\"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6\n    print(df_bikes.index.hour)\n\n    # Regroupement par jour de la semaine et heure\n    df_polar = (\n        df_bikes.groupby([\"weekday\", df_bikes.index.hour])[\"Covered distance (m)\"]\n        .count()\n        .reset_index(name='Count')  # Renommer la colonne résultante\n    )\n\n    # Modification de la colonne \"weekday\" pour obtenir les abréviations\n    df_polar[\"weekday\"] = df_polar[\"weekday\"].apply(lambda x: calendar.day_abbr[x])\n\n    # Définition des couleurs\n    n_colors = 8  # Nombre de couleurs\n    colors = px.colors.sample_colorscale(\n        \"mrybm\", [n / (n_colors - 1) for n in range(n_colors)]\n    )\n\n    # Conversion des heures en degrés (0 à 360 degrés)\n    df_polar['heure'] = df_polar['Departure'] * 15  # Chaque heure = 15 degrés\n\n    # Création de la figure\n    fig = px.line_polar(\n        df_polar,\n        r=\"Count\",  # Utilisez le nombre de trajets comme rayon\n        theta=\"heure\",  # Utilisez l'heure comme angle\n        color=\"weekday\",\n        line_close=True,\n        range_r=[0, df_polar[\"Count\"].max() + 50],\n        start_angle=0,\n        color_discrete_sequence=colors,\n        template=\"seaborn\",\n        title=f\"Trajet journalier {annee}\",\n    )\n    fig.update_layout(polar=dict(angularaxis=dict(tickvals=list(range(0, 360, 15)), ticktext=[f\"{i}:00\" for i in range(24)])))\n    # Sauvegarde de la figure\n    fig.write_html(f\"C:/Users/Fabian/HAX712X/PROJ_HAX712X/images/graphique_distance_jour_{annee}.html\")\n    fig.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLe graphique ci-dessus montre […]"
   },
   {
     "objectID": "docu.html",
@@ -56,11 +56,11 @@
     "text": "Email\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile"
   },
   {
-    "objectID": "auteurs.html#authors",
-    "href": "auteurs.html#authors",
+    "objectID": "auteurs.html#auteurs",
+    "href": "auteurs.html#auteurs",
     "title": "Contributeurs",
     "section": "",
-    "text": "ARMAND Charlotte\nMail\nGit\nCONDAMY Fabian\nMail\nGit\nSCAIA Matteo\nMail\nGit\nSTETSUN Kateryna\nMail\nGit"
+    "text": "Email\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile"
   },
   {
     "objectID": "index.html",
@@ -84,18 +84,11 @@
     "text": "Stations de vélos à Montpellier."
   },
   {
-    "objectID": "index.html#test-importation-fichier-html",
-    "href": "index.html#test-importation-fichier-html",
-    "title": "Visualisation des trajets en vélo dans la ville de Montpellier.",
-    "section": "Test importation fichier HTML",
-    "text": "Test importation fichier HTML"
-  },
-  {
     "objectID": "index.html#test-importation-fichier-python",
     "href": "index.html#test-importation-fichier-python",
     "title": "Visualisation des trajets en vélo dans la ville de Montpellier.",
     "section": "Test Importation fichier Python",
-    "text": "Test Importation fichier Python\n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2023-12-01                241\n1    2023-12-02                331\n2    2023-12-03                262\n3    2023-12-04                175\n4    2023-12-05                272\n..          ...                ...\n241  2024-09-26                609\n242  2024-09-27                682\n243  2024-09-28                679\n244  2024-09-29                742\n245  2024-09-30                567\n\n[246 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nIndex([23, 23, 23, 23, 23, 23, 23, 22, 22, 22,\n       ...\n        0,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n      dtype='int32', name='Departure', length=126786)"
+    "text": "Test Importation fichier Python\n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2023-12-01                241\n1    2023-12-02                331\n2    2023-12-03                262\n3    2023-12-04                175\n4    2023-12-05                272\n..          ...                ...\n241  2024-09-26                609\n242  2024-09-27                682\n243  2024-09-28                679\n244  2024-09-29                742\n245  2024-09-30                567\n\n[246 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nInt64Index([23, 23, 23, 23, 23, 23, 23, 22, 22, 22,\n            ...\n             0,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n           dtype='int64', name='Departure', length=126786)"
   },
   {
     "objectID": "index.html#contact",
@@ -109,13 +102,6 @@
     "href": "projet2.html",
     "title": "Projet 2",
     "section": "",
-    "text": "Ici, les cartes issues de nos principaux travaux.\n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2023-12-01                242\n1    2023-12-02                338\n2    2023-12-03                263\n3    2023-12-04                178\n4    2023-12-05                281\n..          ...                ...\n241  2024-09-26                612\n242  2024-09-27                684\n243  2024-09-28                681\n244  2024-09-29                743\n245  2024-09-30                583\n\n[246 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nIndex([23, 23, 23, 23, 23, 23, 23, 22, 22, 22,\n       ...\n        0,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n      dtype='int32', name='Departure', length=128504)\n\n\n                                                \n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2020-11-01                323\n1    2020-11-02                404\n2    2020-11-03                463\n3    2020-11-04                450\n4    2020-11-05                458\n..          ...                ...\n447  2022-01-27                813\n448  2022-01-28                864\n449  2022-01-29                844\n450  2022-01-30                973\n451  2022-01-31                643\n\n[452 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nIndex([23, 23, 23, 23, 23, 22, 22, 22, 22, 22,\n       ...\n        1,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n      dtype='int32', name='Departure', length=403320)\n\n\n                                                \n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2021-09-01               1227\n1    2021-09-02               1310\n2    2021-09-03                905\n3    2021-09-04               1390\n4    2021-09-05               1465\n..          ...                ...\n359  2022-12-27                310\n360  2022-12-28                226\n361  2022-12-29                283\n362  2022-12-30                300\n363  2022-12-31                317\n\n[364 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nIndex([23, 23, 23, 23, 23, 23, 23, 23, 23, 22,\n       ...\n        0,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n      dtype='int32', name='Departure', length=347157)\n\n\n                                                \n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2023-01-01                521\n1    2023-01-02                252\n2    2023-01-03                295\n3    2023-01-04                384\n4    2023-01-05                459\n..          ...                ...\n329  2023-11-26                371\n330  2023-11-27                304\n331  2023-11-28                311\n332  2023-11-29                325\n333  2023-11-30                361\n\n[334 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nIndex([23, 23, 23, 23, 23, 23, 23, 23, 23, 23,\n       ...\n        0,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n      dtype='int32', name='Departure', length=235544)\n\n\n                                                \n\n\nNombre de trajets par jour:\n           Date  Nombre de trajets\n0    2023-01-01                521\n1    2023-01-02                252\n2    2023-01-03                295\n3    2023-01-04                384\n4    2023-01-05                459\n..          ...                ...\n329  2023-11-26                371\n330  2023-11-27                304\n331  2023-11-28                311\n332  2023-11-29                325\n333  2023-11-30                361\n\n[334 rows x 2 columns]\n\n\n\n\n\n\n\n\n\nIndex([23, 23, 23, 23, 23, 23, 23, 23, 23, 23,\n       ...\n        0,  0,  0,  0,  0,  0,  0,  0,  0,  0],\n      dtype='int32', name='Departure', length=235544)"
-  },
-  {
-    "objectID": "auteurs.html#auteurs",
-    "href": "auteurs.html#auteurs",
-    "title": "Contributeurs",
-    "section": "",
-    "text": "Email\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile\n\n\n\n\n\nEmail\nGitHub Profile"
+    "text": "Ici, les cartes issues de nos principaux travaux."
   }
 ]
