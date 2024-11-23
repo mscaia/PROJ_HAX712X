@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,10 +69,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4e6c33dd5e3c29b8a8c8e81d0cd97e99.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -143,34 +177,48 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a></li>
-  <li><a href="#project-objectives" id="toc-project-objectives" class="nav-link" data-scroll-target="#project-objectives">2. Project Objectives</a></li>
-  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">3. Data Sources</a></li>
-  <li><a href="#project-workflow" id="toc-project-workflow" class="nav-link" data-scroll-target="#project-workflow">4. Project Workflow</a>
+  <li><a href="#project-setup" id="toc-project-setup" class="nav-link" data-scroll-target="#project-setup">2. Project Setup</a>
   <ul class="collapse">
-  <li><a href="#data-cleaning-and-preprocessing" id="toc-data-cleaning-and-preprocessing" class="nav-link" data-scroll-target="#data-cleaning-and-preprocessing">4.1 Data Cleaning and Preprocessing</a>
+  <li><a href="#structure-du-projet-will-be-finished-at-the-end" id="toc-structure-du-projet-will-be-finished-at-the-end" class="nav-link" data-scroll-target="#structure-du-projet-will-be-finished-at-the-end">2.1 Structure du projet [WILL BE FINISHED AT THE END]</a></li>
+  <li><a href="#installation-et-dépendances" id="toc-installation-et-dépendances" class="nav-link" data-scroll-target="#installation-et-dépendances">2.2 Installation et dépendances</a>
   <ul class="collapse">
-  <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks">Tasks:</a></li>
+  <li><a href="#étapes-de-préparation" id="toc-étapes-de-préparation" class="nav-link" data-scroll-target="#étapes-de-préparation">Étapes de Préparation :</a></li>
   </ul></li>
-  <li><a href="#traffic-visualization-and-mapping" id="toc-traffic-visualization-and-mapping" class="nav-link" data-scroll-target="#traffic-visualization-and-mapping">4.2 Traffic Visualization and Mapping</a>
+  <li><a href="#configuration-des-fichiers-sphinx---cheked" id="toc-configuration-des-fichiers-sphinx---cheked" class="nav-link" data-scroll-target="#configuration-des-fichiers-sphinx---cheked">2.3 Configuration des fichiers [<strong>Sphinx</strong> - CHEKED]</a></li>
+  <li><a href="#base-de-données-et-traitement-des-données-should-be-recheked-after" id="toc-base-de-données-et-traitement-des-données-should-be-recheked-after" class="nav-link" data-scroll-target="#base-de-données-et-traitement-des-données-should-be-recheked-after">2.4 Base de données et traitement des données [SHOULD BE RECHEKED AFTER]</a></li>
+  <li><a href="#exécution-du-projet" id="toc-exécution-du-projet" class="nav-link" data-scroll-target="#exécution-du-projet">2.5 Exécution du projet</a></li>
+  <li><a href="#documentation-et-tests-finish-and-rechecked" id="toc-documentation-et-tests-finish-and-rechecked" class="nav-link" data-scroll-target="#documentation-et-tests-finish-and-rechecked">2.6 Documentation et tests [FINISH AND RECHECKED]</a></li>
+  </ul></li>
+  <li><a href="#description-des-données-recheck-aboout-the-datasets-with-team" id="toc-description-des-données-recheck-aboout-the-datasets-with-team" class="nav-link" data-scroll-target="#description-des-données-recheck-aboout-the-datasets-with-team">3. Description des Données [RECHECK ABOOUT THE DATASETS WITH TEAM]</a>
   <ul class="collapse">
-  <li><a href="#tasks-1" id="toc-tasks-1" class="nav-link" data-scroll-target="#tasks-1">Tasks:</a></li>
+  <li><a href="#prétraitement-et-nettoyage-des-données" id="toc-prétraitement-et-nettoyage-des-données" class="nav-link" data-scroll-target="#prétraitement-et-nettoyage-des-données">4.1 Prétraitement et Nettoyage des Données</a></li>
+  <li><a href="#visualisation-et-cartographie-du-trafic" id="toc-visualisation-et-cartographie-du-trafic" class="nav-link" data-scroll-target="#visualisation-et-cartographie-du-trafic">4.2 Visualisation et Cartographie du Trafic</a></li>
+  <li><a href="#développement-de-linterface-web" id="toc-développement-de-linterface-web" class="nav-link" data-scroll-target="#développement-de-linterface-web">4.3 Développement de l’Interface Web</a></li>
   </ul></li>
-  <li><a href="#website-development" id="toc-website-development" class="nav-link" data-scroll-target="#website-development">4.3 Website Development</a></li>
-  </ul></li>
-  <li><a href="#function-documentation" id="toc-function-documentation" class="nav-link" data-scroll-target="#function-documentation">5. Function Documentation</a>
+  <li><a href="#pipeline-de-traitement-des-données" id="toc-pipeline-de-traitement-des-données" class="nav-link" data-scroll-target="#pipeline-de-traitement-des-données">5. Pipeline de Traitement des Données</a>
   <ul class="collapse">
-  <li><a href="#colonnei-w_file" id="toc-colonnei-w_file" class="nav-link" data-scroll-target="#colonnei-w_file"><code>colonne(i, w_file)</code></a></li>
-  <li><a href="#argk-i-j-w_file" id="toc-argk-i-j-w_file" class="nav-link" data-scroll-target="#argk-i-j-w_file"><code>arg(k, i, j, w_file)</code></a></li>
-  <li><a href="#pd_to_datetimedf-colonne_date" id="toc-pd_to_datetimedf-colonne_date" class="nav-link" data-scroll-target="#pd_to_datetimedf-colonne_date"><code>pd_to_datetime(df, colonne_date)</code></a></li>
-  <li><a href="#nettoyer_adresse_normaliseadresse" id="toc-nettoyer_adresse_normaliseadresse" class="nav-link" data-scroll-target="#nettoyer_adresse_normaliseadresse"><code>nettoyer_adresse_normalise(adresse)</code></a></li>
-  <li><a href="#gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur" id="toc-gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur" class="nav-link" data-scroll-target="#gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur"><code>gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)</code></a></li>
-  <li><a href="#coordonnestation" id="toc-coordonnestation" class="nav-link" data-scroll-target="#coordonnestation"><code>coordonne(station)</code></a></li>
+  <li><a href="#acquisition-des-données" id="toc-acquisition-des-données" class="nav-link" data-scroll-target="#acquisition-des-données">5.1 Acquisition des données</a></li>
+  <li><a href="#prétraitement" id="toc-prétraitement" class="nav-link" data-scroll-target="#prétraitement">5.2 Prétraitement</a></li>
+  <li><a href="#analyse-exploratoire" id="toc-analyse-exploratoire" class="nav-link" data-scroll-target="#analyse-exploratoire">5.3 Analyse exploratoire</a></li>
+  <li><a href="#modélisation" id="toc-modélisation" class="nav-link" data-scroll-target="#modélisation">5.4 Modélisation</a></li>
+  <li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation">5.5 Visualisation</a></li>
+  <li><a href="#intégration" id="toc-intégration" class="nav-link" data-scroll-target="#intégration">5.6 Intégration</a></li>
   </ul></li>
-  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">6. Future Work</a>
+  <li><a href="#documentation-technique-du-projet" id="toc-documentation-technique-du-projet" class="nav-link" data-scroll-target="#documentation-technique-du-projet">6. Documentation Technique du Projet</a>
   <ul class="collapse">
-  <li><a href="#additional-features" id="toc-additional-features" class="nav-link" data-scroll-target="#additional-features">6.1 Additional Features</a></li>
+  <li><a href="#bibliothèques-utilisées" id="toc-bibliothèques-utilisées" class="nav-link" data-scroll-target="#bibliothèques-utilisées">6.1 Bibliothèques utilisées</a></li>
+  <li><a href="#functions-utilisées" id="toc-functions-utilisées" class="nav-link" data-scroll-target="#functions-utilisées">6.2 Functions utilisées</a>
+  <ul class="collapse">
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map">6.2.1 Map</a></li>
+  <li><a href="#préduction-docum-from-ca---put-here" id="toc-préduction-docum-from-ca---put-here" class="nav-link" data-scroll-target="#préduction-docum-from-ca---put-here">6.2.2 Préduction [DOCUM FROM CA - PUT HERE]</a></li>
+  <li><a href="#video" id="toc-video" class="nav-link" data-scroll-target="#video">6.2.3 Video</a></li>
   </ul></li>
-  <li><a href="#technical-appendix" id="toc-technical-appendix" class="nav-link" data-scroll-target="#technical-appendix">7. Technical Appendix</a></li>
+  <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class">6.3 Class</a></li>
+  </ul></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">7. Testing</a></li>
+  <li><a href="#performance-analysis" id="toc-performance-analysis" class="nav-link" data-scroll-target="#performance-analysis">8. Performance Analysis</a></li>
+  <li><a href="#user-guide" id="toc-user-guide" class="nav-link" data-scroll-target="#user-guide">9. User Guide</a></li>
+  <li><a href="#travaux-futurs" id="toc-travaux-futurs" class="nav-link" data-scroll-target="#travaux-futurs">10. Travaux futurs</a></li>
   </ul>
 </nav>
     </div>
@@ -198,145 +246,660 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level1">
 <h1>1. Introduction</h1>
-<p>This project explores and visualizes bike traffic in Montpellier by analyzing data from multiple sources and generating interactive maps. The goal is to provide valuable insights into the city’s bike traffic patterns, which will support urban mobility planning and decision-making.</p>
-</section>
-<section id="project-objectives" class="level1">
-<h1>2. Project Objectives</h1>
+<p>Le projet <strong>CycleVision3</strong> a pour objectif d’analyser et de prédire les flux cyclistes dans la ville de Montpellier à l’aide de données issues de trois sources principales :</p>
 <ul>
-<li><strong>Traffic Analysis</strong>: Analyze bike traffic data to identify trends, peak times, and popular routes.</li>
-<li><strong>Interactive Visualization</strong>: Create dynamic maps that visualize traffic flows across Montpellier.</li>
-<li><strong>Web Integration</strong>: Develop a user-friendly website to showcase data insights and traffic maps.</li>
+<li><strong>VéloMagg</strong> : Historique des trajets réalisés avec le système de vélos en libre-service.<br>
+</li>
+<li><strong>Capteurs de flux cyclistes et piétons</strong> : Données collectées à partir de dispositifs installés aux points stratégiques de la ville.<br>
+</li>
+<li><strong>OpenStreetMap (OSM)</strong> : Données géographiques ouvertes, utilisées pour la cartographie et la contextualisation des trajets.</li>
+</ul>
+<p>L’ambition du projet est de développer des <strong>visualisations interactives</strong>, notamment une <strong>carte prédictive des flux cyclistes</strong>, accessibles via un site web dédié. Ces outils visent à :<br>
+- <strong>Identifier les tendances de mobilité</strong> pour mieux comprendre les habitudes des usagers.<br>
+- <strong>Proposer des solutions pratiques</strong> afin d’optimiser les infrastructures urbaines et de promouvoir l’usage du vélo comme moyen de transport durable.</p>
+<p>En combinant innovation technologique et impact sociétal, <strong>CycleVision3</strong> s’inscrit dans une démarche adaptable à d’autres contextes urbains. Ce projet contribue ainsi à la réflexion autour de la mobilité intelligente et durable, répondant aux enjeux croissants des villes contemporaines.</p>
+</section>
+<section id="project-setup" class="level1">
+<h1>2. Project Setup</h1>
+<section id="structure-du-projet-will-be-finished-at-the-end" class="level2">
+<h2 class="anchored" data-anchor-id="structure-du-projet-will-be-finished-at-the-end">2.1 Structure du projet [WILL BE FINISHED AT THE END]</h2>
+<p>La structure du projet est conçue pour garantir une séparation claire des composantes essentielles à l’analyse et à la création des visualisations. Voici un aperçu de l’organisation des fichiers et répertoires :</p>
+<details>
+<summary>
+Voir le structure
+</summary>
+<pre><code>main/                                           # Répertoire principal du projet
+├── .github/workflows/                          # Configuration pour l'intégration continue
+├── analyse_donnee/                             # Scripts pour l'analyse des données
+├── cache/                                      # Fichiers temporaires
+├── data/                                       # Données des 3 jeux de données
+│   ├── extracted/                              # Données extraites
+│   ├── CoursesVelomagg.csv                     # Données des trajets VéloMagg
+│   ├── video.csv                               # Données vidéo brutes
+│   └── video_avec_coord.csv                    # Données vidéo enrichies avec coordonnées
+├── docs/                                       # Répertoire des fichiers du site web
+│   ├── .gitignore                              # Liste des fichiers à ignorer par Git
+│   ├──                                         # 
+│   ├──                                         # 
+│   ├──                                         # 
+│   └── styles.css                              # Fichier CSS pour la mise en forme du site
+├── images/                                     # Images utilisées dans le projet
+├── map/                                        # Scripts pour les cartes interactives
+├── roadmap/                                    # Fichier README.md avec la description .......
+├── slide/                                      # 
+├── src/                                        # Répertoire contenant le code source
+│   ├── __init__.py                             # Initialisation du package
+│   ├── donnée.py                               # Fonctions de traitement des données
+│   └── fonctions_basedonnees.py                # Fonctions pour les bases de données
+├── vidéo/                                      # 
+├── visualisation/                              # Résultats des visualisations
+├──.DS_Store                                    # 
+├──
+├──
+├── .Rhistory                                   # Fichier d'historique R
+├── .gitignore                                  # Fichier Git ignore
+├── README.md                                   # Documentation principale du projet
+└── requirements.txt                            # Dépendances du projet</code></pre>
+</details>
+</section>
+<section id="installation-et-dépendances" class="level2">
+<h2 class="anchored" data-anchor-id="installation-et-dépendances">2.2 Installation et dépendances</h2>
+<p>Avant de commencer le développement et l’analyse des données, il est nécessaire de configurer l’environnement de travail en installant toutes les dépendances nécessaires. Voici les étapes à suivre pour préparer le projet :</p>
+<section id="étapes-de-préparation" class="level3">
+<h3 class="anchored" data-anchor-id="étapes-de-préparation">Étapes de Préparation :</h3>
+<ol type="1">
+<li><p><strong>Cloner le Dépôt Git</strong> :<br>
+Téléchargez le projet en exécutant :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/mscaia/PROJ_HAX712X.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><strong>Installer les Dépendances</strong> :<br>
+Installez les bibliothèques nécessaires :</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><strong>Prévisualiser le Site Web</strong> :<br>
+Vérifiez l’environnement en lançant le serveur Quarto :</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</section>
+</section>
+<section id="configuration-des-fichiers-sphinx---cheked" class="level2">
+<h2 class="anchored" data-anchor-id="configuration-des-fichiers-sphinx---cheked">2.3 Configuration des fichiers [<strong>Sphinx</strong> - CHEKED]</h2>
+<p>Le projet est configuré de manière à utiliser <strong>Quarto</strong> pour la création du site web interactif et [<strong>Sphinx</strong> pour la documentation générée automatiquement]. Le fichier <code>_quarto.yml</code> contient les paramètres de configuration du projet Quarto, tandis que le fichier <code>index.qmd</code> contient le contenu principal de la page d’accueil du site.</p>
+</section>
+<section id="base-de-données-et-traitement-des-données-should-be-recheked-after" class="level2">
+<h2 class="anchored" data-anchor-id="base-de-données-et-traitement-des-données-should-be-recheked-after">2.4 Base de données et traitement des données [SHOULD BE RECHEKED AFTER]</h2>
+<p>Les principaux jeux de données sont stockés dans le répertoire <code>data/</code> et comprennent : - <strong>CoursesVelomagg.csv</strong> : Historique des trajets en vélos libres.<br>
+- <strong>video.csv</strong> et <strong>video_avec_coord.csv</strong> : Données vidéo pour l’analyse spatiale.</p>
+<p>Les scripts situés dans <code>src/</code> effectuent : - Le nettoyage des données.<br>
+- La conversion des formats pour l’analyse.</p>
+</section>
+<section id="exécution-du-projet" class="level2">
+<h2 class="anchored" data-anchor-id="exécution-du-projet">2.5 Exécution du projet</h2>
+<p>L’exécution du projet génère des visualisations interactives et des cartes prédictives grâce à : - <strong>Folium</strong> : Création de cartes interactives.<br>
+- <strong>Matplotlib</strong> : Graphiques statistiques.</p>
+<p>Les résultats sont stockés dans <code>visualisation/</code> et incluent des cartes des trajets et des prévisions de trafic.</p>
+</section>
+<section id="documentation-et-tests-finish-and-rechecked" class="level2">
+<h2 class="anchored" data-anchor-id="documentation-et-tests-finish-and-rechecked">2.6 Documentation et tests [FINISH AND RECHECKED]</h2>
+<p>Pour garantir la qualité du code, le projet intègre : - <strong>Tests Unitaires</strong> : Vérification des fonctionnalités principales.<br>
+- <strong>Documentation Technique</strong> : Générée avec <strong>Sphinx</strong> et <strong>Quarto</strong> pour détailler les API, les méthodes et les résultats.</p>
+</section>
+</section>
+<section id="description-des-données-recheck-aboout-the-datasets-with-team" class="level1">
+<h1>3. Description des Données [RECHECK ABOOUT THE DATASETS WITH TEAM]</h1>
+<p>L’analyse repose sur l’exploitation de trois ensembles de données principaux, chacun jouant un rôle clé dans l’étude des trajets cyclistes à Montpellier :</p>
+<ul>
+<li><p><strong>Données des trajets en vélos en libre-service (VéloMagg)</strong> : Ces données fournissent des informations détaillées sur l’utilisation des vélos en libre-service dans la métropole de Montpellier. Elles constituent une base essentielle pour analyser les tendances et les flux de déplacements cyclistes.<br>
+<em>Source</em>: <a href="https://data.montpellier3m.fr/dataset/courses-des-velos-velomagg-de-montpellier-mediterranee-metropole">Trajets à vélos en libre-service</a></p></li>
+<li><p><strong>Données de comptage cycliste et piéton</strong> : Ces données, collectées par des capteurs placés à divers emplacements stratégiques, permettent de mesurer les flux de cyclistes et de piétons dans la ville. Elles enrichissent l’analyse en fournissant une perspective quantitative sur la fréquentation des infrastructures.<br>
+<em>Source</em>: <a href="https://data.montpellier3m.fr/dataset/comptages-velo-et-pieton-issus-des-compteurs-de-velo">Comptages vélo et piéton issus des compteurs de vélo</a></p></li>
+<li><p><strong>Données géographiques OpenStreetMap (OSM)</strong> : Ces données géographiques offrent une cartographie précise des rues, pistes cyclables et points d’intérêt de la ville. Elles sont cruciales pour la visualisation et la spatialisation des trajets étudiés.<br>
+<em>Source</em>: <a href="https://www.openstreetmap.org/#map=6/46.45/2.21">OpenStreetMap</a></p></li>
+</ul>
+<p>Ces trois ensembles de données, complémentaires par nature, permettent une analyse approfondie et multidimensionnelle du trafic cycliste à Montpellier. # 4. Workflow du Projet</p>
+<section id="prétraitement-et-nettoyage-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="prétraitement-et-nettoyage-des-données">4.1 Prétraitement et Nettoyage des Données</h2>
+<section id="étapes-réalisées" class="level4">
+<h4 class="anchored" data-anchor-id="étapes-réalisées">Étapes réalisées :</h4>
+<p>Le nettoyage et le prétraitement des données ont constitué une étape fondamentale pour assurer la qualité et la cohérence des données utilisées dans l’analyse. Les principales actions entreprises sont les suivantes : - <strong>Validation des données</strong> : Identification et traitement des anomalies, telles que les valeurs aberrantes et les doublons, avec une gestion des valeurs manquantes en fonction de leur impact sur l’analyse. - <strong>Formatage temporel et géographique</strong> : Conversion des champs de dates pour permettre une analyse chronologique, et standardisation des adresses et coordonnées géographiques pour optimiser la géolocalisation.</p>
+<p>Cette phase a permis de préparer des données propres et fiables, essentielles pour l’analyse et la création des visualisations.</p>
+</section>
+</section>
+<section id="visualisation-et-cartographie-du-trafic" class="level2">
+<h2 class="anchored" data-anchor-id="visualisation-et-cartographie-du-trafic">4.2 Visualisation et Cartographie du Trafic</h2>
+<section id="étapes-réalisées-1" class="level4">
+<h4 class="anchored" data-anchor-id="étapes-réalisées-1">Étapes réalisées :</h4>
+<p>Les données traitées ont été intégrées dans des visualisations interactives et des cartes dynamiques pour illustrer le trafic cycliste à Montpellier. Les actions clés incluent : - <strong>Création de cartes interactives</strong> : Utilisation de la bibliothèque <code>Folium</code> pour développer une carte dynamique présentant les stations de vélos, les itinéraires fréquentés, et les zones de densité de trafic. - <strong>Calcul des itinéraires</strong> : Emploi de la bibliothèque <code>OSMnx</code> pour déterminer les itinéraires entre les stations, mettant en évidence les parcours les plus utilisés et permettant l’analyse des variations temporelles du trafic.</p>
+<p>Ces visualisations ont été des outils essentiels pour la compréhension des tendances du trafic cycliste, facilitant l’analyse et la prise de décisions éclairées pour les phases suivantes du projet.</p>
+</section>
+</section>
+<section id="développement-de-linterface-web" class="level2">
+<h2 class="anchored" data-anchor-id="développement-de-linterface-web">4.3 Développement de l’Interface Web</h2>
+<p>Le projet s’est concrétisé par la création d’un site web interactif développé avec <code>Quarto</code>, intégrant : - Les visualisations interactives produites lors de l’analyse. - Une carte prédictive du trafic cycliste, permettant d’estimer les flux de vélos pour le lendemain en fonction des données historiques.</p>
+<p>Cette interface a été conçue pour offrir une navigation fluide et intuitive, rendant les résultats accessibles aux utilisateurs de vélos. Elle constitue un outil complet pour l’analyse des données et la planification urbaine, tout en favorisant la promotion de la mobilité durable.</p>
+</section>
+</section>
+<section id="pipeline-de-traitement-des-données" class="level1">
+<h1>5. Pipeline de Traitement des Données</h1>
+<p>Le traitement des données est un élément central du projet <strong>CycleVision3</strong>, transformant les données brutes en informations exploitables pour l’analyse et la modélisation du trafic cycliste. La méthodologie adoptée repose sur une structure modulaire, garantissant flexibilité et robustesse. Les étapes principales du pipeline sont détaillées ci-dessous :</p>
+<section id="acquisition-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="acquisition-des-données">5.1 Acquisition des données</h2>
+<p>Les ensembles de données ont été obtenus à partir de sources officielles :</p>
+<ul>
+<li><strong>Données VéloMagg</strong> : Historique des trajets réalisés via le système de vélos en libre-service.</li>
+<li><strong>Comptages cyclistes et piétons</strong> : Données de comptage obtenues par des capteurs installés à des points stratégiques de la ville.</li>
+<li><strong>Données OpenStreetMap (OSM)</strong> : Informations géographiques utilisées pour la cartographie des trajets.</li>
+</ul>
+<p>Les fichiers ont été extraits sous les formats <code>.csv</code> et <code>.json</code> et chargés à l’aide de la bibliothèque <code>pandas</code>. Une validation initiale a été réalisée pour vérifier l’intégrité des fichiers (taille, colonnes attendues, etc.).</p>
+</section>
+<section id="prétraitement" class="level2">
+<h2 class="anchored" data-anchor-id="prétraitement">5.2 Prétraitement</h2>
+<p>L’étape de prétraitement vise à rendre les données prêtes pour l’analyse. Les principales opérations incluent :</p>
+<ul>
+<li><strong>Nettoyage des données</strong> : Suppression des valeurs manquantes et des doublons afin de garantir la cohérence des données.</li>
+<li><strong>Transformation des variables</strong> : Normalisation des données temporelles pour assurer une harmonisation des différents jeux de données.</li>
+</ul>
+<p>Ces étapes ont permis de préparer un jeu de données fiable pour l’analyse et la modélisation.</p>
+</section>
+<section id="analyse-exploratoire" class="level2">
+<h2 class="anchored" data-anchor-id="analyse-exploratoire">5.3 Analyse exploratoire</h2>
+<p>Une analyse préliminaire des données a permis de dégager plusieurs tendances importantes :</p>
+<ul>
+<li><strong>Analyse temporelle des flux</strong> : Identification des variations du trafic cycliste selon l’heure, le jour et le mois.</li>
+<li><strong>Cartographie du trafic</strong> : Création de cartes interactives avec <code>Folium</code> pour visualiser les zones de forte densité de trafic.</li>
+<li><strong>Visualisation des variations de trafic</strong> : Observation des fluctuations de la densité du trafic à travers la ville.</li>
+</ul>
+<p>Cette analyse exploratoire a guidé les choix méthodologiques pour les étapes suivantes, notamment la modélisation du trafic.</p>
+</section>
+<section id="modélisation" class="level2">
+<h2 class="anchored" data-anchor-id="modélisation">5.4 Modélisation</h2>
+<p>Un algorithme de prédiction du trafic cycliste a été conçu en prenant en compte plusieurs variables clés :</p>
+<ul>
+<li><strong>Données historiques des trajets</strong> : Utilisation des trajets passés pour identifier des tendances.</li>
+<li><strong>Localisation et fréquence des trajets</strong> : Analyse des points de départ et d’arrivée, ainsi que des fréquences de passage.</li>
+</ul>
+<p>Le modèle repose sur l’analyse des données disponibles pour estimer les flux futurs de trafic, en se basant sur les tendances observées dans les trajets passés et leur répartition géographique.</p>
+</section>
+<section id="visualisation" class="level2">
+<h2 class="anchored" data-anchor-id="visualisation">5.5 Visualisation</h2>
+<p>Les résultats du projet sont présentés à travers diverses visualisations interactives, permettant une exploration approfondie des données :</p>
+<ul>
+<li><strong>Cartes des trajets</strong> : Visualisation des trajets réalisés par les cyclistes, avec une mise en évidence des zones de forte densité de trafic.</li>
+<li><strong>Cartes prédictives</strong> : Représentation des trajectoires prévues pour le trafic cycliste basé sur les données historiques.</li>
+<li><strong>Carte des stations de vélos de Montpellier</strong> : Localisation des stations de vélos en libre-service à travers la ville, permettant une meilleure compréhension des points d’accès aux vélos.</li>
+<li><strong>Visualisation vidéo</strong> : Une vidéo illustrant l’évolution du trafic cycliste sur une journée complète, générée à partir des données du projet.</li>
+</ul>
+<p>Toutes ces visualisations sont accessibles directement via le site web interactif du projet, offrant ainsi une interface intuitive pour l’exploration des flux cyclistes et des prédictions.</p>
+</section>
+<section id="intégration" class="level2">
+<h2 class="anchored" data-anchor-id="intégration">5.6 Intégration</h2>
+<p>Le pipeline a été conçu pour être flexible et évolutif afin de répondre aux besoins futurs du projet :</p>
+<ul>
+<li><strong>Portabilité</strong> : Le système peut être facilement adapté à d’autres villes disposant de systèmes de vélos en libre-service similaires, permettant ainsi une application étendue de la méthodologie.</li>
+<li><strong>Scalabilité</strong> : Le pipeline est conçu pour intégrer de nouveaux types de données, tels que celles concernant la pollution de l’air ou les conditions météorologiques, pour affiner les prédictions et les analyses.</li>
 </ul>
 </section>
-<section id="data-sources" class="level1">
-<h1>3. Data Sources</h1>
-<p>Our analysis relies on three primary datasets:</p>
+</section>
+<section id="documentation-technique-du-projet" class="level1">
+<h1>6. Documentation Technique du Projet</h1>
+<section id="bibliothèques-utilisées" class="level2">
+<h2 class="anchored" data-anchor-id="bibliothèques-utilisées">6.1 Bibliothèques utilisées</h2>
+<p>Dans le cadre de ce projet, plusieurs bibliothèques ont été utilisées pour répondre aux différents besoins techniques et analytiques. Voici une présentation des bibliothèques principales et leur rôle.</p>
+<details>
+<summary>
+<code>csv</code>
+</summary>
+La bibliothèque <code>csv</code> permet de lire et d’écrire des fichiers CSV, un format commun pour manipuler des données tabulaires.<br>
+Nous avons utilisé <code>csv</code> pour extraire et traiter les données brutes contenues dans des fichiers au format CSV. Cela est particulièrement utile pour manipuler des ensembles de données simples où une lecture ligne par ligne est nécessaire.
+</details>
+<details>
+<summary>
+<code>matplotlib.pyplot</code>
+</summary>
+<code>matplotlib.pyplot</code> est utilisée pour produire des graphiques statiques et des visualisations animées.<br>
+Dans ce projet, elle permet de créer des graphiques dynamiques illustrant les trajectoires cyclistes et d’exporter ces visualisations sous forme de vidéos à l’aide des modules <code>FuncAnimation</code> et <code>FFMpegWriter</code>.
+</details>
+<details>
+<summary>
+<code>matplotlib.animation.FuncAnimation</code> et <code>FFMpegWriter</code>
+</summary>
+Ces modules de la bibliothèque <code>matplotlib.animation</code> permettent de créer des animations et d’exporter celles-ci sous forme de fichiers vidéo.<br>
+Dans le projet, ils sont utilisés pour générer des animations illustrant les variations temporelles du trafic cycliste et les enregistrer sous un format visuel accessible.
+</details>
+<details>
+<summary>
+<code>numpy</code>
+</summary>
+<code>numpy</code> est une bibliothèque puissante pour effectuer des calculs numériques avancés, notamment des opérations matricielles.<br>
+Les opérations matricielles et les calculs numériques complexes nécessaires à l’analyse des données sont simplifiés grâce à <code>numpy</code>, qui garantit également des performances élevées.
+</details>
+<details>
+<summary>
+<code>os</code>
+</summary>
+<code>os</code> fournit des fonctions pour interagir avec le système d’exploitation, notamment pour gérer les fichiers et les répertoires.<br>
+Nous avons utilisé <code>os</code> pour gérer les chemins des fichiers, vérifier l’existence des répertoires, et manipuler les ressources locales du système.
+</details>
+<details>
+<summary>
+<code>pooch</code>
+</summary>
+<code>pooch</code> facilite le téléchargement et la mise en cache des fichiers nécessaires à l’exécution du projet.<br>
+Cette bibliothèque permet de garantir un accès fiable aux données externes en les téléchargeant automatiquement et en les stockant localement pour une réutilisation future.
+</details>
+<details>
+<summary>
+<code>pandas</code>
+</summary>
+<code>pandas</code> est essentielle pour manipuler et analyser des données tabulaires de manière efficace.<br>
+<code>pandas</code> est utilisée pour nettoyer, transformer et analyser des ensembles de données complexes, offrant des fonctionnalités avancées comme le traitement des séries temporelles et des jointures de tables.
+</details>
+<details>
+<summary>
+<code>json</code>
+</summary>
+<code>json</code> est utilisée pour manipuler des données au format JSON, un standard de stockage et d’échange d’informations structurées.<br>
+Nous utilisons <code>json</code> pour lire et écrire des données structurées, notamment pour gérer les configurations et les résultats intermédiaires dans des fichiers légers.
+</details>
+<details>
+<summary>
+<code>re</code>
+</summary>
+La bibliothèque <code>re</code> permet de travailler avec des expressions régulières pour manipuler des chaînes de caractères.<br>
+Grâce à <code>re</code>, nous avons pu extraire des informations spécifiques des chaînes de caractères et nettoyer les données textuelles de manière efficace.
+</details>
+<details>
+<summary>
+<code>unicodedata</code>
+</summary>
+<code>unicodedata</code> est utilisée pour normaliser les chaînes de caractères Unicode.<br>
+Cette bibliothèque est essentielle pour traiter les caractères spéciaux et garantir la cohérence des chaînes de caractères provenant de différentes sources.
+</details>
+<details>
+<summary>
+<code>folium</code>
+</summary>
+<code>folium</code> est une bibliothèque dédiée à la création de cartes interactives.<br>
+Nous avons utilisé <code>folium</code> pour visualiser les trajets et itinéraires des vélos sur des cartes interactives, permettant une meilleure compréhension géographique des données.
+</details>
+<details>
+<summary>
+<code>osmnx</code>
+</summary>
+<code>osmnx</code> est utilisée pour le géocodage et l’analyse des réseaux géographiques.<br>
+Cette bibliothèque permet d’extraire des données géographiques d’OpenStreetMap, de construire des graphes routiers, et d’analyser les itinéraires et les trajets cyclistes dans le cadre de ce projet.
+</details>
+<details>
+<summary>
+<code>functools.lru_cache</code>
+</summary>
+<code>functools.lru_cache</code> est une fonctionnalité de Python pour optimiser les performances.<br>
+En mettant en cache les résultats des fonctions fréquemment appelées, <code>functools.lru_cache</code> améliore les performances et réduit le temps de calcul pour des opérations répétées.
+</details>
+<details>
+<summary>
+<code>networkx</code>
+</summary>
+<code>networkx</code> est une bibliothèque dédiée à la création, la manipulation et l’analyse de graphes complexes.<br>
+Dans ce projet, elle est utilisée pour représenter et étudier les réseaux cyclistes, notamment pour visualiser les trajets et calculer les chemins les plus courts entre les nœuds.
+</details>
+<details>
+<summary>
+<code>concurrent.futures.ThreadPoolExecutor</code>
+</summary>
+<code>ThreadPoolExecutor</code> est une fonctionnalité du module standard <code>concurrent.futures</code> pour exécuter des tâches en parallèle.<br>
+Elle est utilisée pour optimiser le traitement des données et accélérer le rendu des animations dans le cadre de ce projet.
+</details>
+<details>
+<summary>
+<code>datetime</code>
+</summary>
+<code>datetime</code> est un module intégré pour manipuler les dates et les heures.<br>
+Dans le projet, il est employé pour traiter les données temporelles des trajets cyclistes et synchroniser les animations avec les horodatages.
+</details>
+</section>
+<section id="functions-utilisées" class="level2">
+<h2 class="anchored" data-anchor-id="functions-utilisées">6.2 Functions utilisées</h2>
+<section id="map" class="level3">
+<h3 class="anchored" data-anchor-id="map">6.2.1 Map</h3>
+<section id="fonctions-de-traitement-des-données" class="level4">
+<h4 class="anchored" data-anchor-id="fonctions-de-traitement-des-données">Fonctions de traitement des données</h4>
+<details>
+<summary>
+<code>colonne(i, w_file)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Cette fonction permet d’extraire une colonne spécifique d’un fichier CSV. Elle prend en entrée un indice <code>i</code>, représentant la colonne à extraire, ainsi que le chemin du fichier <code>w_file</code>. La fonction ouvre le fichier, parcourt chaque ligne et récupère l’élément situé à la position <code>i</code> dans chaque ligne.</p>
+<p><strong>Paramètres</strong>:<br>
+- <code>i</code> (int) : L’indice de la colonne à extraire.<br>
+- <code>w_file</code> (str) : Le chemin d’accès au fichier CSV.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>L</code> (list) : Une liste contenant les valeurs de la colonne spécifiée.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> colonne(i, w_file):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> []</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(w_file) <span class="im">as</span> f:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> line.split(<span class="st">","</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            L.append(x[i])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> L</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Exemple d’utilisation</strong>:<br>
+Supposons un fichier <code>data.csv</code> contenant :</p>
+<pre class="csv"><code>name,age,city
+Alice,30,Paris
+Bob,25,Lyon</code></pre>
+<p>Appeler <code>colonne(1, "data.csv")</code> retourne <code>[30, 25]</code>.</p>
+[PUT ILLUSTRATION OF FUNCTION HERE]
+</details>
+<details>
+<summary>
+<code>arg(k, i, j, w_file)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Cette fonction extrait les données correspondant à une clé <code>k</code> dans un fichier CSV et retourne les valeurs des colonnes spécifiées par <code>i</code> et <code>j</code>.</p>
+<p><strong>Paramètres</strong>:<br>
+- <code>k</code> (str) : La clé utilisée pour filtrer les données.<br>
+- <code>i</code> (int) : L’indice de la colonne contenant les clés.<br>
+- <code>j</code> (int) : L’indice de la colonne à retourner.<br>
+- <code>w_file</code> (str) : Le chemin d’accès au fichier CSV.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>L</code> (list) : Une liste contenant les valeurs correspondantes.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> arg(k, i, j, w_file):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> []</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(w_file) <span class="im">as</span> f:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> line.split(<span class="st">","</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> x[i] <span class="op">==</span> k:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                L.append(x[j])</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> L</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<strong>Exemple d’utilisation</strong>:<br>
+Pour le fichier <code>data.csv</code> ci-dessus, appeler <code>arg("Alice", 0, 2, "data.csv")</code> retourne <code>[Paris]</code>.
+</details>
+</section>
+<section id="fonctions-dadresse-et-de-géocodage" class="level4">
+<h4 class="anchored" data-anchor-id="fonctions-dadresse-et-de-géocodage">Fonctions d’adresse et de géocodage</h4>
+<details>
+<summary>
+<code>nettoyer_adresse_normalise(adresse)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Nettoie et normalise une adresse en supprimant les caractères spéciaux, doublons, et autres anomalies.</p>
+<p><strong>Paramètres</strong>:<br>
+- <code>adresse</code> (str) : L’adresse à normaliser.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>adresse</code> (str) : L’adresse nettoyée et normalisée.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nettoyer_adresse_normalise(adresse):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Nettoie et normalise une adresse en supprimant les numéros au début, </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">    en normalisant les caractères Unicode.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Paramètre :</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">    adresse (str) : La chaîne d'adresse à normaliser.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Retourne :</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">    str : L'adresse nettoyée et normalisée.</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tenter de corriger l'encodage si nécessaire</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Encode la chaîne en latin1 puis décode en utf-8</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        adresse <span class="op">=</span> adresse.encode(<span class="st">'latin1'</span>).decode(<span class="st">'utf-8'</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> (<span class="pp">UnicodeEncodeError</span>, <span class="pp">UnicodeDecodeError</span>):</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span>  <span class="co"># Ignore les erreurs d'encodage si elles se produisent</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Supprimer les numéros ou autres formats non pertinents (ex: 057 au début)</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    adresse <span class="op">=</span> re.sub(<span class="vs">r'^\d+\s*'</span>, <span class="st">''</span>, adresse)  <span class="co"># Enlève les numéros au début</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Normalisation des caractères Unicode</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    adresse <span class="op">=</span> unicodedata.normalize(<span class="st">'NFKD'</span>, adresse)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Retourner l'adresse nettoyée et normalisée</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> adresse  <span class="co"># Enlever les espaces supplémentaires aux extrémités</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Exemple avant/après</strong>:<br>
+- Avant : <code>"  12, Rue de la République  "</code><br>
+- Après : <code>"12 rue de la république"</code></p>
+[PUT ILLUSTRATION OF CLEANED ADDRESS HERE]
+</details>
+<details>
+<summary>
+<code>coordonne(station)</code>
+</summary>
+<p><strong>Description :</strong><br>
+Cette fonction permet de géocoder le nom d’une station pour obtenir ses coordonnées géographiques (latitude et longitude). Elle utilise la bibliothèque <code>osmnx</code> pour rechercher l’emplacement correspondant à la station spécifiée dans la ville de Montpellier, France.</p>
+<strong>Paramètres :</strong>
 <ul>
-<li><strong>VéloMagg Bike-Sharing Data</strong>: Information on bike-sharing usage within the Montpellier Méditerranée Métropole area.</li>
-<li><strong>Traffic Counts Data</strong>: Sensor data recording bike and pedestrian counts at various locations throughout the city.</li>
-<li><strong>OpenStreetMap (OSM) Data</strong>: Geographic data used to accurately map streets, bike lanes, and important locations.</li>
+<li>
+<code>station</code> (str) : Le nom de la station à géocoder.
+</li>
 </ul>
-</section>
-<section id="project-workflow" class="level1">
-<h1>4. Project Workflow</h1>
-<section id="data-cleaning-and-preprocessing" class="level2">
-<h2 class="anchored" data-anchor-id="data-cleaning-and-preprocessing">4.1 Data Cleaning and Preprocessing</h2>
-<section id="tasks" class="level3">
-<h3 class="anchored" data-anchor-id="tasks">Tasks:</h3>
+<strong>Retourne :</strong>
 <ul>
-<li><strong>Data Integrity</strong>: Clean the data by removing anomalies, handling missing values, and ensuring consistent formatting.</li>
-<li><strong>Date and Address Formatting</strong>: Convert date fields for temporal analysis and standardize address formatting to enable efficient location-based processing.</li>
+<li>
+<code>latitude</code> (float) : La latitude de la station.
+</li>
+<li>
+<code>longitude</code> (float) : La longitude de la station.
+</li>
 </ul>
+<p><strong>Code de la fonction :</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> coordonne(station):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Recherche de l'emplacement en utilisant osmnx</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        location <span class="op">=</span> ox.geocode(<span class="ss">f"</span><span class="sc">{</span>station<span class="sc">}</span><span class="ss">, Montpellier, France"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> location[<span class="dv">0</span>], location[<span class="dv">1</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Erreur pour la station </span><span class="sc">{</span>station<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>, <span class="va">None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
-</section>
-<section id="traffic-visualization-and-mapping" class="level2">
-<h2 class="anchored" data-anchor-id="traffic-visualization-and-mapping">4.2 Traffic Visualization and Mapping</h2>
-<section id="tasks-1" class="level3">
-<h3 class="anchored" data-anchor-id="tasks-1">Tasks:</h3>
+<section id="fonctions-liées-à-la-carte" class="level4">
+<h4 class="anchored" data-anchor-id="fonctions-liées-à-la-carte">Fonctions liées à la carte</h4>
+<details>
+<summary>
+<code>gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Génère une carte interactive pour visualiser un trajet spécifique sur un graphe <code>G</code> en utilisant une bibliothèque de cartographie.</p>
+<strong>Paramètres</strong>:<br>
+
 <ul>
-<li><strong>Map Generation</strong>: Use the Folium library to generate an interactive map of Montpellier, displaying bike stations, routes, and traffic density.</li>
-<li><strong>Route Calculation</strong>: Utilize OSMnx to calculate the routes between bike stations, highlighting the most popular paths and enabling traffic analysis over time.</li>
+<li>
+<code>ligne</code> (list) : Une ligne contenant les noms des stations de départ et d’arrivée.
+</li>
+<li>
+<code>G</code> (Graph) : Le graphe représentant le réseau de rues de la ville.
+</li>
+<li>
+<code>m</code> (Map) : L’objet de la carte sur lequel le trajet sera tracé.
+</li>
+<li>
+<code>index_colonne_départ</code> (int) : L’indice de la colonne contenant le nom de la station de départ.
+</li>
+<li>
+<code>index_colonne_arrive</code> (int) : L’indice de la colonne contenant le nom de la station d’arrivée.
+</li>
+<li>
+<code>couleur</code> (str) : La couleur de la ligne représentant le trajet.
+</li>
 </ul>
+<p><strong>Retourne</strong>:<br>
+- <code>map</code> (Map) : Une carte avec le trajet ajouté.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Essayer de géocoder les stations de départ et d'arrivée</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        origin <span class="op">=</span> ox.geocode(<span class="ss">f"</span><span class="sc">{</span>ligne[index_colonne_départ]<span class="sc">}</span><span class="ss">, Montpellier, France"</span>)  <span class="co"># Première colonne</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        destination <span class="op">=</span> ox.geocode(<span class="ss">f"</span><span class="sc">{</span>ligne[index_colonne_arrive]<span class="sc">}</span><span class="ss">, Montpellier, France"</span>)  <span class="co"># Deuxième colonne</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vérifier si le géocodage a réussi</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> origin <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> destination <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Erreur de géocodage pour les stations : </span><span class="sc">{</span>ligne[index_colonne_départ]<span class="sc">}</span><span class="ss"> ou </span><span class="sc">{</span>ligne[index_colonne_arrive]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> m</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Trouver les nœuds les plus proches de l'origine et de la destination</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        origin_node <span class="op">=</span> ox.nearest_nodes(G, origin[<span class="dv">1</span>], origin[<span class="dv">0</span>])  <span class="co"># longitude, latitude</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        destination_node <span class="op">=</span> ox.nearest_nodes(G, destination[<span class="dv">1</span>], destination[<span class="dv">0</span>])  <span class="co"># longitude, latitude</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculer l'itinéraire aller et retour</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        route <span class="op">=</span> ox.shortest_path(G, origin_node, destination_node)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Fonction pour convertir un itinéraire (liste de nœuds) en liste de coordonnées géographiques</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> route_to_coords(G, route):</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            route_coords <span class="op">=</span> []</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> node <span class="kw">in</span> route:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                point <span class="op">=</span> (G.nodes[node][<span class="st">'y'</span>], G.nodes[node][<span class="st">'x'</span>])  <span class="co"># latitude, longitude</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                route_coords.append(point)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> route_coords</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Obtenir les coordonnées pour l'itinéraire</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        route_coords <span class="op">=</span> route_to_coords(G, route)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Ajouter l'itinéraire aller (en rouge) à la carte</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        folium.PolyLine(locations<span class="op">=</span>route_coords, color<span class="op">=</span>couleur, weight<span class="op">=</span><span class="dv">5</span>, opacity<span class="op">=</span><span class="fl">0.75</span>).add_to(m)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Ajouter des marqueurs pour l'origine et la destination</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        départ_lat, départ_lon <span class="op">=</span> route_coords[<span class="dv">0</span>]</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        arr_lat, arr_lon <span class="op">=</span> route_coords[<span class="op">-</span><span class="dv">1</span>]  <span class="co"># Utiliser le dernier point pour l'arrivée</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        folium.Marker(location<span class="op">=</span>[départ_lat, départ_lon], popup<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ligne[index_colonne_départ]<span class="sc">}</span><span class="ss">,Départ"</span>).add_to(m)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>        folium.Marker(location<span class="op">=</span>[arr_lat, arr_lon], popup<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ligne[index_colonne_arrive]<span class="sc">}</span><span class="ss">,arrivé"</span>).add_to(m)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Une erreur est survenue : </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+[PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
+</details>
+</section>
+<section id="fonctions-utilitaires" class="level4">
+<h4 class="anchored" data-anchor-id="fonctions-utilitaires">Fonctions utilitaires</h4>
+<details>
+<summary>
+<code>pd_to_datetime(df, colonne_date)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Convertit une colonne d’un DataFrame Pandas en type datetime. Supprime les valeurs non valides.</p>
+<p><strong>Paramètres</strong>:<br>
+- <code>df</code> (DataFrame) : DataFrame Pandas.<br>
+- <code>colonne_date</code> (str) : Nom de la colonne à convertir.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>df</code> (DataFrame) : DataFrame avec la colonne convertie.</p>
+<p><strong>Code de la fonction :</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> pd_to_datetime(df, colonne_date):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.dropna()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df[colonne_date] <span class="op">=</span> pd.to_datetime(df[colonne_date])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'Date'</span>] <span class="op">=</span> df[colonne_date].dt.date</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop(columns<span class="op">=</span>[colonne_date])</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 </section>
-<section id="website-development" class="level2">
-<h2 class="anchored" data-anchor-id="website-development">4.3 Website Development</h2>
-<p>The final deliverable will be an interactive website, presenting all the data visualizations and analytical insights. The website will be developed using Quarto for easy integration of analysis and visualizations into an accessible, interactive interface.</p>
+<section id="préduction-docum-from-ca---put-here" class="level3">
+<h3 class="anchored" data-anchor-id="préduction-docum-from-ca---put-here">6.2.2 Préduction [DOCUM FROM CA - PUT HERE]</h3>
+</section>
+<section id="video" class="level3">
+<h3 class="anchored" data-anchor-id="video">6.2.3 Video</h3>
+<details>
+<summary>
+<code>chemin_court(row)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Calcule le chemin le plus court entre deux stations à l’aide du graphe routier de Montpellier, basé sur leurs coordonnées géographiques.</p>
+<p><strong>Paramètres</strong>:<br>
+- <code>row</code> (pandas.Series) : Une ligne du DataFrame contenant les coordonnées des stations de départ et d’arrivée.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>chemin</code> (list) : Une liste d’identifiants de nœuds représentant le chemin.<br>
+- <code>duration</code> (float) : La durée du trajet en secondes.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> chemin_court(row):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        depart_lat, depart_lon <span class="op">=</span> row[<span class="st">'latitude_depart'</span>], row[<span class="st">'longitude_depart'</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        arrivee_lat, arrivee_lon <span class="op">=</span> row[<span class="st">'latitude_retour'</span>], row[<span class="st">'longitude_retour'</span>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        duration <span class="op">=</span> row[<span class="st">'Duration (sec.)'</span>]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        noeud_deb <span class="op">=</span> ox.distance.nearest_nodes(G, depart_lon, depart_lat)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        noeud_fin <span class="op">=</span> ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        chemin <span class="op">=</span> nx.shortest_path(G, noeud_deb, noeud_fin, weight<span class="op">=</span><span class="st">"length"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> chemin, duration</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Erreur pour le trajet entre </span><span class="sc">{</span>row[<span class="st">'Departure station'</span>]<span class="sc">}</span><span class="ss"> et </span><span class="sc">{</span>row[<span class="st">'Return station'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>, <span class="va">None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Exemple d’utilisation</strong>:<br>
+Pour une ligne contenant les colonnes <code>latitude_depart</code>, <code>longitude_depart</code>, etc., cette fonction renvoie le chemin le plus court entre deux points.</p>
+[PUT ILLUSTRATION OF GRAPH ROUTE HERE]
+</details>
+<details>
+<summary>
+<code>init()</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Initialise les points de départ pour chaque trajet dans la visualisation.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>points</code> (list) : Une liste d’objets matplotlib représentant les points animés.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init():</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> point <span class="kw">in</span> points:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        point.set_data([], [])</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    time_text.set_text(<span class="st">''</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points <span class="op">+</span> [time_text]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+[PUT ILLUSTRATION OF INITIALIZATION STEP HERE]
+</details>
+<details>
+<summary>
+<code>update(frame)</code>
+</summary>
+<p><strong>Description</strong>:<br>
+Met à jour les positions des points dans l’animation en fonction de la progression du chemin pour chaque trajet.</p>
+<p><strong>Paramètres</strong>:<br>
+- <code>frame</code> (int) : L’indice actuel de la frame dans l’animation.</p>
+<p><strong>Retourne</strong>:<br>
+- <code>points</code> (list) : Les points mis à jour pour la frame actuelle.</p>
+<p><strong>Code de la fonction</strong>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update(frame):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculer l'heure actuelle</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    current_time <span class="op">=</span> start_time <span class="op">+</span> datetime.timedelta(seconds<span class="op">=</span>frame <span class="op">*</span> frame_duration)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    time_text.set_text(current_time.strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, path <span class="kw">in</span> <span class="bu">enumerate</span>(paths):</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        progress <span class="op">=</span> <span class="bu">min</span>(frame <span class="op">/</span> total_frames, <span class="dv">1</span>)  <span class="co"># Progression en fonction de total_frames</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        num_nodes <span class="op">=</span> <span class="bu">int</span>(progress <span class="op">*</span> <span class="bu">len</span>(path))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> num_nodes <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>            current_node <span class="op">=</span> path[num_nodes <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>            x, y <span class="op">=</span> G.nodes[current_node][<span class="st">'x'</span>], G.nodes[current_node][<span class="st">'y'</span>]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>            points[i].set_data([x], [y])</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points <span class="op">+</span> [time_text]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<strong>Exemple d’utilisation</strong>:<br>
+Chaque frame de l’animation appelle cette fonction pour mettre à jour les points. La progression est calculée en fonction de <code>frame</code> et du nombre total de frames.
+</details>
 </section>
 </section>
-<section id="function-documentation" class="level1">
-<h1>5. Function Documentation</h1>
-<section id="colonnei-w_file" class="level3">
-<h3 class="anchored" data-anchor-id="colonnei-w_file"><code>colonne(i, w_file)</code></h3>
+<section id="class" class="level2">
+<h2 class="anchored" data-anchor-id="class">6.3 Class</h2>
+<p>[HERE IS A TEXT ABOUT CLASS]</p>
+</section>
+</section>
+<section id="testing" class="level1">
+<h1>7. Testing</h1>
+<p>[tests]</p>
+</section>
+<section id="performance-analysis" class="level1">
+<h1>8. Performance Analysis</h1>
+<p>[analys testing here]</p>
+</section>
+<section id="user-guide" class="level1">
+<h1>9. User Guide</h1>
+</section>
+<section id="travaux-futurs" class="level1">
+<h1>10. Travaux futurs</h1>
+<p>Ce projet constitue une première étape dans l’analyse du trafic cycliste à Montpellier. Plusieurs pistes peuvent être explorées pour enrichir et élargir cette étude :</p>
 <ul>
-<li><strong>Description</strong>: Extracts data from a specific column <code>i</code> in a CSV file <code>w_file</code>.</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>i</code>: Column index to extract.</li>
-<li><code>w_file</code>: The CSV file to read from.</li>
-</ul></li>
-<li><strong>Returns</strong>: List of values from column <code>i</code>.</li>
+<li><p><strong>Renforcement des modèles de prédiction</strong> : Une amélioration des modèles actuels pourrait être réalisée en intégrant des données supplémentaires, comme les conditions météorologiques ou les événements locaux, afin d’obtenir des prévisions plus précises.</p></li>
+<li><p><strong>Ajout de données en temps réel</strong> : L’intégration de données en temps réel, telles que les flux de trafic ou les perturbations temporaires, pourrait rendre les analyses plus dynamiques et adaptées à l’évolution des conditions.</p></li>
+<li><p><strong>Application à d’autres contextes urbains</strong> : Étendre cette méthodologie à d’autres villes permettrait de comparer les tendances cyclistes et d’identifier des spécificités locales ou des modèles universels.</p></li>
+<li><p><strong>Amélioration de l’expérience utilisateur</strong> : Le site Web pourrait être enrichi de fonctionnalités interactives supplémentaires, telles que la visualisation des prévisions de trafic ou des recommandations d’itinéraires alternatifs.</p></li>
 </ul>
-</section>
-<section id="argk-i-j-w_file" class="level3">
-<h3 class="anchored" data-anchor-id="argk-i-j-w_file"><code>arg(k, i, j, w_file)</code></h3>
-<ul>
-<li><strong>Description</strong>: Retrieves values from column <code>j</code> when entries in column <code>i</code> match the criterion <code>k</code>.</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>k</code>: Match criterion in column <code>i</code>.</li>
-<li><code>i</code>: Column to search.</li>
-<li><code>j</code>: Column to retrieve values from.</li>
-<li><code>w_file</code>: The CSV file.</li>
-</ul></li>
-<li><strong>Returns</strong>: List of values in <code>j</code> where column <code>i</code> matches <code>k</code>.</li>
-</ul>
-</section>
-<section id="pd_to_datetimedf-colonne_date" class="level3">
-<h3 class="anchored" data-anchor-id="pd_to_datetimedf-colonne_date"><code>pd_to_datetime(df, colonne_date)</code></h3>
-<ul>
-<li><strong>Description</strong>: Converts a date column to a consistent datetime format for analysis.</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>df</code>: DataFrame containing data.</li>
-<li><code>colonne_date</code>: Date column to be formatted.</li>
-</ul></li>
-<li><strong>Returns</strong>: DataFrame with the date column converted to datetime, adding a new <code>Date</code> column.</li>
-</ul>
-</section>
-<section id="nettoyer_adresse_normaliseadresse" class="level3">
-<h3 class="anchored" data-anchor-id="nettoyer_adresse_normaliseadresse"><code>nettoyer_adresse_normalise(adresse)</code></h3>
-<ul>
-<li><strong>Description</strong>: Cleans and normalizes address strings by removing non-essential characters and standardizing Unicode.</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>adresse</code>: The address string to clean and normalize.</li>
-</ul></li>
-<li><strong>Returns</strong>: Cleaned and normalized address string.</li>
-</ul>
-</section>
-<section id="gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur" class="level3">
-<h3 class="anchored" data-anchor-id="gen_carte_trajetligne-g-m-index_colonne_départ-index_colonne_arrive-couleur"><code>gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)</code></h3>
-<ul>
-<li><strong>Description</strong>: Generates a map showing bike routes, marking both the start and end stations.</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>ligne</code>: Row containing station data.</li>
-<li><code>G</code>: Graph of Montpellier’s bike routes.</li>
-<li><code>m</code>: Folium map instance.</li>
-<li><code>index_colonne_départ</code>: Start station column.</li>
-<li><code>index_colonne_arrive</code>: End station column.</li>
-<li><code>couleur</code>: Color of the line representing the route.</li>
-</ul></li>
-<li><strong>Returns</strong>: Folium map with the route and markers.</li>
-</ul>
-</section>
-<section id="coordonnestation" class="level3">
-<h3 class="anchored" data-anchor-id="coordonnestation"><code>coordonne(station)</code></h3>
-<ul>
-<li><strong>Description</strong>: Retrieves coordinates for a specified bike station.</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>station</code>: Name of the station.</li>
-</ul></li>
-<li><strong>Returns</strong>: Tuple of latitude and longitude, or an error message if the station is not found.</li>
-</ul>
-</section>
-</section>
-<section id="future-work" class="level1">
-<h1>6. Future Work</h1>
-<section id="additional-features" class="level2">
-<h2 class="anchored" data-anchor-id="additional-features">6.1 Additional Features</h2>
-<ul>
-<li><strong>Pollution and Traffic Correlation</strong>: Investigate correlations between bike traffic patterns and air quality metrics.</li>
-<li><strong>Real-Time Traffic Analysis</strong>: Integrate live data feeds for real-time updates, route suggestions, and traffic monitoring.</li>
-<li><strong>Alternative Routes</strong>: Offer optimized routes with lower traffic density, based on real-time or historical traffic data.</li>
-</ul>
-</section>
-</section>
-<section id="technical-appendix" class="level1">
-<h1>7. Technical Appendix</h1>
-<p>This section provides detailed documentation of the project’s functions and code, ensuring ease of understanding for future development or maintenance. Each function is accompanied by a standardized docstring to support collaboration within the development team.</p>
+<p>Ces propositions, bien qu’ambitieuses, restent accessibles et permettent d’assurer la pertinence et la durabilité du projet tout en renforçant son impact pour les usagers et les décideurs locaux.</p>
 
 
 </section>
