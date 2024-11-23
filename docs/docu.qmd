@@ -5,40 +5,36 @@ format: html
 
 # 1. Introduction
 
-**CycleVision3** est un projet visant à analyser et prédire les flux cyclistes à Montpellier en exploitant des données provenant de trois sources principales :  
+Le projet **CycleVision3** a pour objectif d’analyser et de prédire les flux cyclistes dans la ville de Montpellier à l’aide de données issues de trois sources principales :  
 
-- **VéloMagg** : Historique des trajets effectués avec les vélos en libre-service.  
-- **Capteurs cyclistes et piétons** : Mesures de flux réalisées aux points stratégiques de la ville.  
-- **OpenStreetMap (OSM)** : Données géographiques ouvertes pour la cartographie et la contextualisation des trajets.  
+- **VéloMagg** : Historique des trajets réalisés avec le système de vélos en libre-service.  
+- **Capteurs de flux cyclistes et piétons** : Données collectées à partir de dispositifs installés aux points stratégiques de la ville.  
+- **OpenStreetMap (OSM)** : Données géographiques ouvertes, utilisées pour la cartographie et la contextualisation des trajets.  
 
-L’objectif principal est de produire des **visualisations interactives**, incluant une **carte prédictive** des flux cyclistes, accessible via un site web. Ces outils permettront d’identifier les tendances de mobilité et d’offrir des solutions pratiques pour améliorer les infrastructures urbaines et promouvoir l’usage du vélo.  
+L’ambition du projet est de développer des **visualisations interactives**, notamment une **carte prédictive des flux cyclistes**, accessibles via un site web dédié. Ces outils visent à :  
+- **Identifier les tendances de mobilité** pour mieux comprendre les habitudes des usagers.  
+- **Proposer des solutions pratiques** afin d’optimiser les infrastructures urbaines et de promouvoir l’usage du vélo comme moyen de transport durable.  
 
-En associant innovation technologique et utilité sociale, **CycleVision3** se veut un modèle reproductible pour d’autres villes, contribuant ainsi à une mobilité urbaine durable et intelligente.
+En combinant innovation technologique et impact sociétal, **CycleVision3** s’inscrit dans une démarche adaptable à d’autres contextes urbains. Ce projet contribue ainsi à la réflexion autour de la mobilité intelligente et durable, répondant aux enjeux croissants des villes contemporaines.
 
 # 2. Project Setup
 
-
-
-- **Traffic Analysis**: Analyze bike traffic data to identify trends, peak times, and popular routes.
-- **Interactive Visualization**: Create dynamic maps that visualize traffic flows across Montpellier.
-- **Web Integration**: Develop a user-friendly website to showcase data insights and traffic maps.
-
 ## 2.1 Structure du projet [WILL BE FINISHED AT THE END]
 
-La structure du projet est organisée de manière à assurer une séparation claire des différentes composantes nécessaires au bon déroulement de l'analyse et à la création des visualisations. Voici un aperçu de l'organisation des fichiers et répertoires :
+La structure du projet est conçue pour garantir une séparation claire des composantes essentielles à l’analyse et à la création des visualisations. Voici un aperçu de l’organisation des fichiers et répertoires :
 
 <details> <summary>Voir le structure</summary>
 
 ```
 main/                                           # Répertoire principal du projet
-├── .github/workflows/                          # 
-├── analyse_donnee/                             # 
+├── .github/workflows/                          # Configuration pour l'intégration continue
+├── analyse_donnee/                             # Scripts pour l'analyse des données
 ├── cache/                                      # Fichiers temporaires
-├── data/                                       # Stockage des données des 3 jeux de données
-│   ├── extracted/                              # 
-│   ├── CoursesVelomagg.csv                     # Données sur les trajets de vélos en libre-service
-│   ├── video.csv                               # 
-│   └── video_avec_coord.csv                    # 
+├── data/                                       # Données des 3 jeux de données
+│   ├── extracted/                              # Données extraites
+│   ├── CoursesVelomagg.csv                     # Données des trajets VéloMagg
+│   ├── video.csv                               # Données vidéo brutes
+│   └── video_avec_coord.csv                    # Données vidéo enrichies avec coordonnées
 ├── docs/                                       # Répertoire des fichiers du site web
 │   ├── .gitignore                              # Liste des fichiers à ignorer par Git
 │   ├──                                         # 
@@ -46,13 +42,13 @@ main/                                           # Répertoire principal du proje
 │   ├──                                         # 
 │   └── styles.css                              # Fichier CSS pour la mise en forme du site
 ├── images/                                     # Images utilisées dans le projet
-├── map/                                        # 
+├── map/                                        # Scripts pour les cartes interactives
 ├── roadmap/                                    # Fichier README.md avec la description .......
 ├── slide/                                      # 
 ├── src/                                        # Répertoire contenant le code source
 │   ├── __init__.py                             # Initialisation du package
-│   ├── donnée.py                               # Contient les fonctions liées aux données
-│   └── fonctions_basedonnees.py                # Fonctions pour les opérations sur la base de données
+│   ├── donnée.py                               # Fonctions de traitement des données
+│   └── fonctions_basedonnees.py                # Fonctions pour les bases de données
 ├── vidéo/                                      # 
 ├── visualisation/                              # Résultats des visualisations
 ├──.DS_Store                                    # 
@@ -69,24 +65,24 @@ main/                                           # Répertoire principal du proje
 
 Avant de commencer le développement et l'analyse des données, il est nécessaire de configurer l'environnement de travail en installant toutes les dépendances nécessaires. Voici les étapes à suivre pour préparer le projet :
 
-1. **Cloner le dépôt Git** : 
-   La première étape consiste à cloner le dépôt du projet depuis GitHub à l'aide de la commande suivante :
+### Étapes de Préparation :
+1. **Cloner le Dépôt Git** :  
+   Téléchargez le projet en exécutant :
    ```bash
    git clone https://github.com/mscaia/PROJ_HAX712X.git
    ```
-   
-2. **Installer les dépendances** :
-   Le projet repose sur plusieurs bibliothèques Python pour l'analyse des données, la création de visualisations interactives et la génération du site web. Pour installer ces bibliothèques, utilisez la commande suivante :
+
+2. **Installer les Dépendances** :  
+   Installez les bibliothèques nécessaires :
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Vérification de l'environnement** :
-   Après l'installation des dépendances, vous pouvez vérifier que tout fonctionne correctement en exécutant un script de test ou en accédant au site web via `quarto` :
+3. **Prévisualiser le Site Web** :  
+   Vérifiez l’environnement en lançant le serveur Quarto :
    ```bash
    quarto preview
    ```
-   Cela lancera un serveur local où vous pourrez visualiser le site et tester les fonctionnalités interactives.
 
 ## 2.3 Configuration des fichiers [**Sphinx** - CHEKED]
 
@@ -94,25 +90,29 @@ Le projet est configuré de manière à utiliser **Quarto** pour la création du
 
 ## 2.4 Base de données et traitement des données [SHOULD BE RECHEKED AFTER]
 
-Le répertoire `data/` contient les trois principaux jeux de données utilisés dans ce projet :
+Les principaux jeux de données sont stockés dans le répertoire `data/` et comprennent :
+- **CoursesVelomagg.csv** : Historique des trajets en vélos libres.  
+- **video.csv** et **video_avec_coord.csv** : Données vidéo pour l’analyse spatiale.
 
-- **CoursesVelomagg.csv** : Contient les informations sur les trajets effectués avec les vélos en libre-service.
-- **video.csv** : 
-- **video_avec_coord.csv** : 
-
-Le traitement de ces données est effectué dans le répertoire `src/`, où les scripts comme `donnée.py` et `fonctions_basedonnees.py` contiennent les fonctions nécessaires pour charger, nettoyer et manipuler les données.
+Les scripts situés dans `src/` effectuent :
+- Le nettoyage des données.  
+- La conversion des formats pour l’analyse.  
 
 ## 2.5 Exécution du projet
 
-Une fois l'environnement configuré et les données traitées, il suffit de lancer le script principal pour générer les visualisations interactives et les cartes prédictives du trafic cycliste. Le projet utilise **Folium** pour la visualisation sur carte et **Matplotlib** pour les graphiques statistiques.
+L’exécution du projet génère des visualisations interactives et des cartes prédictives grâce à :
+- **Folium** : Création de cartes interactives.  
+- **Matplotlib** : Graphiques statistiques.  
 
-Le répertoire `visualisation/` contient les scripts et sorties graphiques générées au fur et à mesure du traitement des données, notamment les cartes des trajets cyclistes et les prévisions de trafic.
+Les résultats sont stockés dans `visualisation/` et incluent des cartes des trajets et des prévisions de trafic.
 
 ## 2.6 Documentation et tests [FINISH AND RECHECKED]
 
-Pour garantir la qualité du code et la conformité aux exigences du projet, des tests unitaires sont fournis pour vérifier le bon fonctionnement des différentes fonctionnalités. La documentation technique est générée via **Sphinx** et **Quarto**, offrant ainsi une vue d'ensemble sur la structure du code, les API disponibles et la méthodologie utilisée.
+Pour garantir la qualité du code, le projet intègre :
+- **Tests Unitaires** : Vérification des fonctionnalités principales.  
+- **Documentation Technique** : Générée avec **Sphinx** et **Quarto** pour détailler les API, les méthodes et les résultats.
 
-# 3. Description des Données [RECHECK ABOOUT THE DATASETS WITH GUYS]
+# 3. Description des Données [RECHECK ABOOUT THE DATASETS WITH TEAM]
 
 L’analyse repose sur l’exploitation de trois ensembles de données principaux, chacun jouant un rôle clé dans l’étude des trajets cyclistes à Montpellier :
 
@@ -126,293 +126,269 @@ L’analyse repose sur l’exploitation de trois ensembles de données principau
   *Source*: [OpenStreetMap](https://www.openstreetmap.org/#map=6/46.45/2.21)  
 
 Ces trois ensembles de données, complémentaires par nature, permettent une analyse approfondie et multidimensionnelle du trafic cycliste à Montpellier.
+# 4. Workflow du Projet
 
-# 4. Project Workflow [CHECK WHOLE SECTION - ENG]
+## 4.1 Prétraitement et Nettoyage des Données
 
-## 4.1 Data Cleaning and Preprocessing
+#### Étapes réalisées :
+Le nettoyage et le prétraitement des données ont constitué une étape fondamentale pour assurer la qualité et la cohérence des données utilisées dans l’analyse. Les principales actions entreprises sont les suivantes :
+- **Validation des données** : Identification et traitement des anomalies, telles que les valeurs aberrantes et les doublons, avec une gestion des valeurs manquantes en fonction de leur impact sur l’analyse.
+- **Formatage temporel et géographique** : Conversion des champs de dates pour permettre une analyse chronologique, et standardisation des adresses et coordonnées géographiques pour optimiser la géolocalisation.
 
-### Tasks:
-- **Data Integrity**: Clean the data by removing anomalies, handling missing values, and ensuring consistent formatting.
-- **Date and Address Formatting**: Convert date fields for temporal analysis and standardize address formatting to enable efficient location-based processing.
+Cette phase a permis de préparer des données propres et fiables, essentielles pour l’analyse et la création des visualisations.
 
-## 4.2 Traffic Visualization and Mapping
+## 4.2 Visualisation et Cartographie du Trafic
 
-### Tasks:
-- **Map Generation**: Use the Folium library to generate an interactive map of Montpellier, displaying bike stations, routes, and traffic density.
-- **Route Calculation**: Utilize OSMnx to calculate the routes between bike stations, highlighting the most popular paths and enabling traffic analysis over time.
+#### Étapes réalisées :
+Les données traitées ont été intégrées dans des visualisations interactives et des cartes dynamiques pour illustrer le trafic cycliste à Montpellier. Les actions clés incluent :
+- **Création de cartes interactives** : Utilisation de la bibliothèque `Folium` pour développer une carte dynamique présentant les stations de vélos, les itinéraires fréquentés, et les zones de densité de trafic.
+- **Calcul des itinéraires** : Emploi de la bibliothèque `OSMnx` pour déterminer les itinéraires entre les stations, mettant en évidence les parcours les plus utilisés et permettant l’analyse des variations temporelles du trafic.
 
-## 4.3 Website Development
+Ces visualisations ont été des outils essentiels pour la compréhension des tendances du trafic cycliste, facilitant l’analyse et la prise de décisions éclairées pour les phases suivantes du projet.
 
-The final deliverable will be an interactive website, presenting all the data visualizations and analytical insights. The website will be developed using Quarto for easy integration of analysis and visualizations into an accessible, interactive interface.
+## 4.3 Développement de l’Interface Web
+
+Le projet s’est concrétisé par la création d’un site web interactif développé avec `Quarto`, intégrant :
+- Les visualisations interactives produites lors de l’analyse.
+- Une carte prédictive du trafic cycliste, permettant d’estimer les flux de vélos pour le lendemain en fonction des données historiques.
+
+Cette interface a été conçue pour offrir une navigation fluide et intuitive, rendant les résultats accessibles aux utilisateurs de vélos. Elle constitue un outil complet pour l’analyse des données et la planification urbaine, tout en favorisant la promotion de la mobilité durable.
 
 # 5. Pipeline de Traitement des Données
 
-Le traitement des données constitue une étape clé du projet **CycleVision3**, permettant de transformer les données brutes en informations exploitables pour l’analyse et la modélisation du trafic cycliste. La méthodologie suit une structure modulaire pour garantir flexibilité et robustesse. Voici les principales étapes de notre pipeline :
+Le traitement des données est un élément central du projet **CycleVision3**, transformant les données brutes en informations exploitables pour l’analyse et la modélisation du trafic cycliste. La méthodologie adoptée repose sur une structure modulaire, garantissant flexibilité et robustesse. Les étapes principales du pipeline sont détaillées ci-dessous :
 
 ## 5.1 Acquisition des données
 
-Les ensembles de données ont été collectés auprès de sources officielles :
+Les ensembles de données ont été obtenus à partir de sources officielles :
 
-- **Données VéloMagg** : Historique des trajets effectués via le système de vélos en libre-service.
-- **Comptages cyclistes et piétons** : Relevés par des capteurs aux points stratégiques de la ville.
-- **Données OpenStreetMap (OSM)** : Informations géographiques pour la cartographie.
+- **Données VéloMagg** : Historique des trajets réalisés via le système de vélos en libre-service.
+- **Comptages cyclistes et piétons** : Données de comptage obtenues par des capteurs installés à des points stratégiques de la ville.
+- **Données OpenStreetMap (OSM)** : Informations géographiques utilisées pour la cartographie des trajets.
 
-Ces fichiers ont été extraits au format `.csv` et `.json` et chargés à l’aide de la bibliothèque `pandas`. Une validation initiale a été effectuée pour vérifier l’intégrité des fichiers (taille, colonnes attendues, etc.).
+Les fichiers ont été extraits sous les formats `.csv` et `.json` et chargés à l’aide de la bibliothèque `pandas`. Une validation initiale a été réalisée pour vérifier l’intégrité des fichiers (taille, colonnes attendues, etc.).
 
 ## 5.2 Prétraitement
-L’étape de prétraitement vise à préparer les données pour l’analyse. Les principales opérations incluent :
 
-  <ul>
-    <li>**Nettoyage des données** : Suppression des valeurs manquantes et des doublons.</li>
-    <li>**Transformation des variables** : Normalisation des données temporelles pour harmoniser les différents jeux de données.</li>
-    <li>**Filtrage géographique** : Limitation aux trajets effectués dans Montpellier.</li>
-  </ul>
+L’étape de prétraitement vise à rendre les données prêtes pour l’analyse. Les principales opérations incluent :
+
+- **Nettoyage des données** : Suppression des valeurs manquantes et des doublons afin de garantir la cohérence des données.
+- **Transformation des variables** : Normalisation des données temporelles pour assurer une harmonisation des différents jeux de données.
+
+Ces étapes ont permis de préparer un jeu de données fiable pour l’analyse et la modélisation.
 
 ## 5.3 Analyse exploratoire
-Une exploration préliminaire a permis de dégager des tendances :
 
-  <ul>
-    <li>Analyse temporelle des flux de cyclistes (par heure, jour, mois).</li>
-    <li>Cartographie des zones à fort trafic à l’aide de `Folium`.</li>
-    <li>Visualisation des variations de densité de trafic.</li>
-  </ul>
+Une analyse préliminaire des données a permis de dégager plusieurs tendances importantes :
 
-Ces étapes ont permis d’orienter les choix algorithmiques pour la prédiction.
+- **Analyse temporelle des flux** : Identification des variations du trafic cycliste selon l’heure, le jour et le mois.
+- **Cartographie du trafic** : Création de cartes interactives avec `Folium` pour visualiser les zones de forte densité de trafic.
+- **Visualisation des variations de trafic** : Observation des fluctuations de la densité du trafic à travers la ville.
+
+Cette analyse exploratoire a guidé les choix méthodologiques pour les étapes suivantes, notamment la modélisation du trafic.
 
 ## 5.4 Modélisation
-Un algorithme de prédiction du trafic a été conçu en se basant sur des variables clés :
 
-  <ul>
-    <li>Données historiques des trajets.</li>
-    <li>Localisation et fréquence des trajets.</li>
-    <li>Influence potentielle des heures de pointe et des jours fériés.</li>
-  </ul>
+Un algorithme de prédiction du trafic cycliste a été conçu en prenant en compte plusieurs variables clés :
 
-L’implémentation repose sur des modèles de régression supervisée. Une attention particulière a été portée à la validation croisée pour assurer la fiabilité des prédictions.
+- **Données historiques des trajets** : Utilisation des trajets passés pour identifier des tendances.
+- **Localisation et fréquence des trajets** : Analyse des points de départ et d’arrivée, ainsi que des fréquences de passage.
+
+Le modèle repose sur l’analyse des données disponibles pour estimer les flux futurs de trafic, en se basant sur les tendances observées dans les trajets passés et leur répartition géographique.
 
 ## 5.5 Visualisation
-Les résultats sont intégrés dans des visualisations interactives :
 
-  <ul>
-    <li>Cartes dynamiques illustrant les trajets par zones.</li>
-    <li>Tableau de bord synthétisant les flux par période.</li>
-  </ul>
+Les résultats du projet sont présentés à travers diverses visualisations interactives, permettant une exploration approfondie des données :
 
-L’ensemble de ces visualisations est hébergé sur le site web interactif du projet.
+- **Cartes des trajets** : Visualisation des trajets réalisés par les cyclistes, avec une mise en évidence des zones de forte densité de trafic.
+- **Cartes prédictives** : Représentation des trajectoires prévues pour le trafic cycliste basé sur les données historiques.
+- **Carte des stations de vélos de Montpellier** : Localisation des stations de vélos en libre-service à travers la ville, permettant une meilleure compréhension des points d’accès aux vélos.
+- **Visualisation vidéo** : Une vidéo illustrant l’évolution du trafic cycliste sur une journée complète, générée à partir des données du projet.
+
+Toutes ces visualisations sont accessibles directement via le site web interactif du projet, offrant ainsi une interface intuitive pour l'exploration des flux cyclistes et des prédictions.
 
 ## 5.6 Intégration
-Le pipeline est conçu pour être adaptable :
 
-  <ul>
-    <li>**Portabilité** : Facilité d’application à d’autres villes disposant de systèmes similaires.</li>
-    <li>**Scalabilité** : Support de nouveaux ensembles de données (ex. pollution ou météo).</li>
-  </ul>
+Le pipeline a été conçu pour être flexible et évolutif afin de répondre aux besoins futurs du projet :
 
-## Perspectives
-Pour enrichir le pipeline, des pistes futures incluent l’intégration de données en temps réel et l’optimisation de la performance pour traiter des volumes massifs de données.
+- **Portabilité** : Le système peut être facilement adapté à d’autres villes disposant de systèmes de vélos en libre-service similaires, permettant ainsi une application étendue de la méthodologie.
+- **Scalabilité** : Le pipeline est conçu pour intégrer de nouveaux types de données, tels que celles concernant la pollution de l’air ou les conditions météorologiques, pour affiner les prédictions et les analyses.
 
-# 6. Technical Documentation
+# 6. Documentation Technique du Projet
 
 ## 6.1 Bibliothèques utilisées
 
 Dans le cadre de ce projet, plusieurs bibliothèques ont été utilisées pour répondre aux différents besoins techniques et analytiques. Voici une présentation des bibliothèques principales et leur rôle.
 
 <details> <summary>`csv`</summary>
-La bibliothèque `csv` permet de lire et d’écrire des fichiers CSV, un format commun pour manipuler des données tabulaires.
+La bibliothèque `csv` permet de lire et d’écrire des fichiers CSV, un format commun pour manipuler des données tabulaires.  
 Nous avons utilisé `csv` pour extraire et traiter les données brutes contenues dans des fichiers au format CSV. Cela est particulièrement utile pour manipuler des ensembles de données simples où une lecture ligne par ligne est nécessaire.
 </details>
 
 <details> <summary>`matplotlib.pyplot`</summary>
-`matplotlib.pyplot` est utilisée pour produire des graphiques statiques et des visualisations animées.
+`matplotlib.pyplot` est utilisée pour produire des graphiques statiques et des visualisations animées.  
 Dans ce projet, elle permet de créer des graphiques dynamiques illustrant les trajectoires cyclistes et d’exporter ces visualisations sous forme de vidéos à l'aide des modules `FuncAnimation` et `FFMpegWriter`.
 </details>
 
 <details> <summary>`matplotlib.animation.FuncAnimation` et `FFMpegWriter`</summary>
-Ces modules de la bibliothèque `matplotlib.animation` permettent de créer des animations et d'exporter celles-ci sous forme de fichiers vidéo.
+Ces modules de la bibliothèque `matplotlib.animation` permettent de créer des animations et d'exporter celles-ci sous forme de fichiers vidéo.  
 Dans le projet, ils sont utilisés pour générer des animations illustrant les variations temporelles du trafic cycliste et les enregistrer sous un format visuel accessible.
 </details>
 
 <details> <summary>`numpy`</summary>
-`numpy` est une bibliothèque puissante pour effectuer des calculs numériques avancés, notamment des opérations matricielles.
+`numpy` est une bibliothèque puissante pour effectuer des calculs numériques avancés, notamment des opérations matricielles.  
 Les opérations matricielles et les calculs numériques complexes nécessaires à l’analyse des données sont simplifiés grâce à `numpy`, qui garantit également des performances élevées.
 </details>
 
 <details> <summary>`os`</summary>
-`os` fournit des fonctions pour interagir avec le système d’exploitation, notamment pour gérer les fichiers et les répertoires.
+`os` fournit des fonctions pour interagir avec le système d’exploitation, notamment pour gérer les fichiers et les répertoires.  
 Nous avons utilisé `os` pour gérer les chemins des fichiers, vérifier l’existence des répertoires, et manipuler les ressources locales du système.
 </details>
 
 <details> <summary>`pooch`</summary>
-`pooch` facilite le téléchargement et la mise en cache des fichiers nécessaires à l’exécution du projet.
+`pooch` facilite le téléchargement et la mise en cache des fichiers nécessaires à l’exécution du projet.  
 Cette bibliothèque permet de garantir un accès fiable aux données externes en les téléchargeant automatiquement et en les stockant localement pour une réutilisation future.
 </details>
 
 <details> <summary>`pandas`</summary>
-`pandas` est essentielle pour manipuler et analyser des données tabulaires de manière efficace.
+`pandas` est essentielle pour manipuler et analyser des données tabulaires de manière efficace.  
 `pandas` est utilisée pour nettoyer, transformer et analyser des ensembles de données complexes, offrant des fonctionnalités avancées comme le traitement des séries temporelles et des jointures de tables.
 </details>
 
 <details> <summary>`json`</summary>
-`json` est utilisée pour manipuler des données au format JSON, un standard de stockage et d’échange d’informations structurées.
+`json` est utilisée pour manipuler des données au format JSON, un standard de stockage et d’échange d’informations structurées.  
 Nous utilisons `json` pour lire et écrire des données structurées, notamment pour gérer les configurations et les résultats intermédiaires dans des fichiers légers.
 </details>
 
 <details> <summary>`re`</summary>
-La bibliothèque `re` permet de travailler avec des expressions régulières pour manipuler des chaînes de caractères.
+La bibliothèque `re` permet de travailler avec des expressions régulières pour manipuler des chaînes de caractères.  
 Grâce à `re`, nous avons pu extraire des informations spécifiques des chaînes de caractères et nettoyer les données textuelles de manière efficace.
 </details>
 
 <details> <summary>`unicodedata`</summary>
-`unicodedata` est utilisée pour normaliser les chaînes de caractères Unicode. 
+`unicodedata` est utilisée pour normaliser les chaînes de caractères Unicode.  
 Cette bibliothèque est essentielle pour traiter les caractères spéciaux et garantir la cohérence des chaînes de caractères provenant de différentes sources.
 </details>
 
 <details> <summary>`folium`</summary>
-`folium` est une bibliothèque dédiée à la création de cartes interactives. 
+`folium` est une bibliothèque dédiée à la création de cartes interactives.  
 Nous avons utilisé `folium` pour visualiser les trajets et itinéraires des vélos sur des cartes interactives, permettant une meilleure compréhension géographique des données.
 </details>
 
 <details> <summary>`osmnx`</summary>
-`osmnx` est utilisée pour le géocodage et l’analyse des réseaux géographiques.
+`osmnx` est utilisée pour le géocodage et l’analyse des réseaux géographiques.  
 Cette bibliothèque permet d’extraire des données géographiques d’OpenStreetMap, de construire des graphes routiers, et d’analyser les itinéraires et les trajets cyclistes dans le cadre de ce projet.
 </details>
 
 <details> <summary>`functools.lru_cache`</summary>
-`functools.lru_cache` est une fonctionnalité de Python pour optimiser les performances.
+`functools.lru_cache` est une fonctionnalité de Python pour optimiser les performances.  
 En mettant en cache les résultats des fonctions fréquemment appelées, `functools.lru_cache` améliore les performances et réduit le temps de calcul pour des opérations répétées.
 </details>
 
 <details> <summary>`networkx`</summary>
-`networkx` est une bibliothèque dédiée à la création, la manipulation et l'analyse de graphes complexes.
+`networkx` est une bibliothèque dédiée à la création, la manipulation et l'analyse de graphes complexes.  
 Dans ce projet, elle est utilisée pour représenter et étudier les réseaux cyclistes, notamment pour visualiser les trajets et calculer les chemins les plus courts entre les nœuds.
 </details>
 
 <details> <summary>`concurrent.futures.ThreadPoolExecutor`</summary>
-`ThreadPoolExecutor` est une fonctionnalité du module standard `concurrent.futures` pour exécuter des tâches en parallèle.
+`ThreadPoolExecutor` est une fonctionnalité du module standard `concurrent.futures` pour exécuter des tâches en parallèle.  
 Elle est utilisée pour optimiser le traitement des données et accélérer le rendu des animations dans le cadre de ce projet.
 </details>
 
 <details> <summary>`datetime`</summary>
-`datetime` est un module intégré pour manipuler les dates et les heures.
+`datetime` est un module intégré pour manipuler les dates et les heures.  
 Dans le projet, il est employé pour traiter les données temporelles des trajets cyclistes et synchroniser les animations avec les horodatages.
 </details>
 
-## 6.2 Functions
+## 6.2 Functions utilisées
 
 ### 6.2.1 Map 
 
+#### Fonctions de traitement des données
+
 <details> 
   <summary>`colonne(i, w_file)`</summary>
+**Description**:  
+Cette fonction permet d'extraire une colonne spécifique d'un fichier CSV. Elle prend en entrée un indice `i`, représentant la colonne à extraire, ainsi que le chemin du fichier `w_file`. La fonction ouvre le fichier, parcourt chaque ligne et récupère l'élément situé à la position `i` dans chaque ligne.  
 
-<strong>Description :</strong>  
-Cette fonction permet d'extraire une colonne spécifique d'un fichier CSV. Elle prend en entrée un indice `i`, représentant la colonne à extraire, ainsi que le chemin du fichier `w_file`. La fonction ouvre le fichier, parcourt chaque ligne et récupère l'élément situé à la position `i` dans chaque ligne. Le résultat est une liste contenant toutes les valeurs de la colonne souhaitée.
+**Paramètres**:  
+- `i` (int) : L'indice de la colonne à extraire.  
+- `w_file` (str) : Le chemin d'accès au fichier CSV.  
 
-<strong>Paramètres :</strong> 
-  <ul>
-    <li>`i` (int) : L'indice de la colonne à extraire.</li>
-    <li>`w_file` (str) : Le chemin d'accès au fichier CSV.</li>
-  </ul>
+**Retourne**:  
+- `L` (list) : Une liste contenant les valeurs de la colonne spécifiée.  
 
-  <strong>Retourne :</strong> 
-  <ul>
-    <li>`L` (list) : Une liste contenant les valeurs de la colonne spécifiée.</li>
-  </ul>
-
-  <strong>Code de la fonction :</strong>
-  
-  ```python
-  def colonne(i, w_file):
-    L=[]
+**Code de la fonction**:  
+```python
+def colonne(i, w_file):
+    L = []
     with open(w_file) as f:
         for line in f:
-            x=line.split(",")
+            x = line.split(",")
             L.append(x[i])
-    return L 
-  ```
+    return L
+```
+
+**Exemple d'utilisation**:  
+Supposons un fichier `data.csv` contenant :  
+```csv
+name,age,city
+Alice,30,Paris
+Bob,25,Lyon
+```  
+Appeler `colonne(1, "data.csv")` retourne `[30, 25]`.  
+
+[PUT ILLUSTRATION OF FUNCTION HERE]
 </details>
 
 <details> 
   <summary>`arg(k, i, j, w_file)`</summary>
-  
-<strong>Description :</strong>  
-Cette fonction retourne toutes les valeurs dans la colonne `j` lorsque l'argument dans la colonne `i` est égal à `k`. Elle est utile pour filtrer un ensemble de données en fonction d'une condition donnée dans une colonne spécifique, puis extraire les valeurs correspondantes dans une autre colonne.
 
-<strong>Paramètres :</strong> 
-  <ul>
-    <li>`k` (str) : La valeur de la colonne `i` que l'on souhaite rechercher.</li>
-    <li>`i` (int) : L'indice de la colonne à vérifier.</li>
-    <li>`j` (int) : L'indice de la colonne dont les valeurs seront extraites.</li>
-    <li>`w_file` (str) : Le chemin d'accès au fichier CSV.</li>
-  </ul>
+**Description**:  
+Cette fonction extrait les données correspondant à une clé `k` dans un fichier CSV et retourne les valeurs des colonnes spécifiées par `i` et `j`.  
 
-<strong>Retourne :</strong> 
-  <ul>
-    <li>`L` (list) : Une liste des valeurs de la colonne `j` correspondant à la condition `x[i] == k`.</li>
-  </ul>
-  
-  <strong>Code de la fonction :</strong>
+**Paramètres**:  
+- `k` (str) : La clé utilisée pour filtrer les données.  
+- `i` (int) : L'indice de la colonne contenant les clés.  
+- `j` (int) : L'indice de la colonne à retourner.  
+- `w_file` (str) : Le chemin d'accès au fichier CSV.  
 
-  ```python
-  def arg(k,i,j, w_file):
-    L=[]
+**Retourne**:  
+- `L` (list) : Une liste contenant les valeurs correspondantes.  
+
+**Code de la fonction**:  
+```python
+def arg(k, i, j, w_file):
+    L = []
     with open(w_file) as f:
         for line in f:
-            x=line.split(",")
-            if x[i]==k:
+            x = line.split(",")
+            if x[i] == k:
                 L.append(x[j])
-    return L 
-  ```
+    return L
+```
+
+**Exemple d'utilisation**:  
+Pour le fichier `data.csv` ci-dessus, appeler `arg("Alice", 0, 2, "data.csv")` retourne `[Paris]`.  
 </details>
 
-<details> 
-  <summary>`pd_to_datetime(df, colonne_date)`</summary>
-
-<strong>Description :</strong>    
-Cette fonction transforme une colonne de dates dans un DataFrame en un format exploitable. Elle supprime les valeurs manquantes, convertit la colonne de dates en format `datetime` et crée une nouvelle colonne `Date` contenant uniquement la date, en supprimant la colonne initiale des dates.
-
-<strong>Paramètres :</strong> 
-  <ul>
-    <li>`df` (DataFrame) : Le DataFrame contenant la colonne de dates.</li>
-    <li>`colonne_date` (str) : Le nom de la colonne de dates à convertir.</li>
-  </ul>
-
-<strong>Retourne :</strong> 
-  <ul>
-    <li>`df` (DataFrame) : Le DataFrame modifié avec la colonne `Date` et la colonne initiale supprimée.</li>
-  </ul>
-
-  <strong>Code de la fonction :</strong>
-
-  ```python
-  def pd_to_datetime(df, colonne_date):
-    df = df.dropna()
-    df[colonne_date] = pd.to_datetime(df[colonne_date])
-    df['Date'] = df[colonne_date].dt.date
-    df = df.drop(columns=[colonne_date])
-    return df
-  ```
-</details>
+#### Fonctions d'adresse et de géocodage
 
 <details> 
   <summary>`nettoyer_adresse_normalise(adresse)`</summary>
 
-<strong>Description :</strong>  
-Cette fonction nettoie et normalise une adresse en supprimant les numéros au début et en corrigeant les caractères Unicode. Elle utilise des expressions régulières pour enlever les numéros de début d'adresse et applique une normalisation Unicode pour garantir une uniformité des caractères.
+**Description**:  
+Nettoie et normalise une adresse en supprimant les caractères spéciaux, doublons, et autres anomalies.  
 
-<strong>Paramètres :</strong> 
-  <ul>
-    <li>`adresse` (str) : La chaîne de caractères représentant l'adresse à nettoyer et normaliser.</li>
-  </ul>
+**Paramètres**:  
+- `adresse` (str) : L'adresse à normaliser.  
 
-<strong>Retourne :</strong> 
-  <ul>
-    <li>str : L'adresse nettoyée et normalisée.</li>
-  </ul>
+**Retourne**:  
+- `adresse` (str) : L’adresse nettoyée et normalisée.  
 
-  <strong>Code de la fonction :</strong>
-
-  ```python
-  def nettoyer_adresse_normalise(adresse):
+**Code de la fonction**:  
+```python
+def nettoyer_adresse_normalise(adresse):
     """
     Nettoie et normalise une adresse en supprimant les numéros au début, 
     en normalisant les caractères Unicode.
@@ -438,16 +414,55 @@ Cette fonction nettoie et normalise une adresse en supprimant les numéros au d�
     
     # Retourner l'adresse nettoyée et normalisée
     return adresse  # Enlever les espaces supplémentaires aux extrémités
+```
+
+**Exemple avant/après**:  
+- Avant : `"  12, Rue de la République  "`  
+- Après : `"12 rue de la république"`  
+
+[PUT ILLUSTRATION OF CLEANED ADDRESS HERE]
+</details>
+
+<details> 
+  <summary>`coordonne(station)`</summary>
+
+<strong>Description :</strong>  
+Cette fonction permet de géocoder le nom d'une station pour obtenir ses coordonnées géographiques (latitude et longitude). Elle utilise la bibliothèque `osmnx` pour rechercher l'emplacement correspondant à la station spécifiée dans la ville de Montpellier, France.
+
+<strong>Paramètres :</strong> 
+  <ul>
+    <li>`station` (str) : Le nom de la station à géocoder.</li>
+  </ul>
+
+<strong>Retourne :</strong> 
+  <ul>
+    <li>`latitude` (float) : La latitude de la station.</li>
+    <li>`longitude` (float) : La longitude de la station.</li>
+  </ul>
+
+  <strong>Code de la fonction :</strong>
+
+  ```python
+  def coordonne(station):
+    try:
+        # Recherche de l'emplacement en utilisant osmnx
+        location = ox.geocode(f"{station}, Montpellier, France")
+        return location[0], location[1]
+    except Exception as e:
+        print(f"Erreur pour la station {station}: {e}")
+        return None, None
   ```
 </details>
+
+#### Fonctions liées à la carte
 
 <details> 
   <summary>`gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive, couleur)`</summary>
 
-<strong>Description :</strong>  
-Cette fonction génère une carte représentant le trajet entre deux points de départ et d'arrivée. Elle utilise le géocodage pour convertir les noms des stations en coordonnées géographiques, puis calcule l'itinéraire le plus court entre les deux stations sur un graphe de rue. Les itinéraires sont ajoutés à la carte, ainsi que des marqueurs pour les stations de départ et d'arrivée.
+**Description**:  
+Génère une carte interactive pour visualiser un trajet spécifique sur un graphe `G` en utilisant une bibliothèque de cartographie.  
 
-<strong>Paramètres :</strong> 
+**Paramètres**:  
   <ul>
     <li>`ligne` (list) : Une ligne contenant les noms des stations de départ et d'arrivée.</li>
     <li>`G` (Graph) : Le graphe représentant le réseau de rues de la ville.</li>
@@ -455,17 +470,14 @@ Cette fonction génère une carte représentant le trajet entre deux points de d
     <li>`index_colonne_départ` (int) : L'indice de la colonne contenant le nom de la station de départ.</li>
     <li>`index_colonne_arrive` (int) : L'indice de la colonne contenant le nom de la station d'arrivée.</li>
     <li>`couleur` (str) : La couleur de la ligne représentant le trajet.</li>
-  </ul>
+  </ul> 
 
-<strong>Retourne :</strong> 
-  <ul>
-    <li>`m` (Map) : La carte avec l'itinéraire ajouté.</li>
-  </ul>
+**Retourne**:  
+- `map` (Map) : Une carte avec le trajet ajouté.  
 
-  <strong>Code de la fonction :</strong>
-
-  ```python
-  def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):
+**Code de la fonction**:  
+```python
+def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):
     # Essayer de géocoder les stations de départ et d'arrivée
     try:
         origin = ox.geocode(f"{ligne[index_colonne_départ]}, Montpellier, France")  # Première colonne
@@ -507,43 +519,133 @@ Cette fonction génère une carte représentant le trajet entre deux points de d
         print(f"Une erreur est survenue : {e}")
     
     return m
-  ```
+```
+[PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
 </details>
 
+#### Fonctions utilitaires
+
 <details> 
-  <summary>`coordonne(station)`</summary>
+  <summary>`pd_to_datetime(df, colonne_date)`</summary>
 
-<strong>Description :</strong>  
-Cette fonction permet de géocoder le nom d'une station pour obtenir ses coordonnées géographiques (latitude et longitude). Elle utilise la bibliothèque `osmnx` pour rechercher l'emplacement correspondant à la station spécifiée dans la ville de Montpellier, France.
+**Description**:  
+Convertit une colonne d'un DataFrame Pandas en type datetime. Supprime les valeurs non valides.  
 
-<strong>Paramètres :</strong> 
-  <ul>
-    <li>`station` (str) : Le nom de la station à géocoder.</li>
-  </ul>
+**Paramètres**:  
+- `df` (DataFrame) : DataFrame Pandas.  
+- `colonne_date` (str) : Nom de la colonne à convertir.  
 
-<strong>Retourne :</strong> 
-  <ul>
-    <li>`latitude` (float) : La latitude de la station.</li>
-    <li>`longitude` (float) : La longitude de la station.</li>
-  </ul>
+**Retourne**:  
+- `df` (DataFrame) : DataFrame avec la colonne convertie.  
 
   <strong>Code de la fonction :</strong>
 
   ```python
-  def coordonne(station):
-    try:
-        # Recherche de l'emplacement en utilisant osmnx
-        location = ox.geocode(f"{station}, Montpellier, France")
-        return location[0], location[1]
-    except Exception as e:
-        print(f"Erreur pour la station {station}: {e}")
-        return None, None
+  def pd_to_datetime(df, colonne_date):
+    df = df.dropna()
+    df[colonne_date] = pd.to_datetime(df[colonne_date])
+    df['Date'] = df[colonne_date].dt.date
+    df = df.drop(columns=[colonne_date])
+    return df
   ```
 </details>
 
 ### 6.2.2 Préduction [DOCUM FROM CA - PUT HERE]
 
-### 6.2.3 Video [VIDEO FUNCTION]
+### 6.2.3 Video
+
+<details> 
+  <summary>`chemin_court(row)`</summary>
+
+**Description**:  
+Calcule le chemin le plus court entre deux stations à l'aide du graphe routier de Montpellier, basé sur leurs coordonnées géographiques.
+
+**Paramètres**:  
+- `row` (pandas.Series) : Une ligne du DataFrame contenant les coordonnées des stations de départ et d'arrivée.
+
+**Retourne**:  
+- `chemin` (list) : Une liste d'identifiants de nœuds représentant le chemin.  
+- `duration` (float) : La durée du trajet en secondes.  
+
+**Code de la fonction**:  
+```python
+def chemin_court(row):
+    try:
+        depart_lat, depart_lon = row['latitude_depart'], row['longitude_depart']
+        arrivee_lat, arrivee_lon = row['latitude_retour'], row['longitude_retour']
+        duration = row['Duration (sec.)']
+        
+        noeud_deb = ox.distance.nearest_nodes(G, depart_lon, depart_lat)
+        noeud_fin = ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)
+        
+        chemin = nx.shortest_path(G, noeud_deb, noeud_fin, weight="length")
+        return chemin, duration
+    except Exception as e:
+        print(f"Erreur pour le trajet entre {row['Departure station']} et {row['Return station']}: {e}")
+        return None, None
+```
+
+**Exemple d'utilisation**:  
+Pour une ligne contenant les colonnes `latitude_depart`, `longitude_depart`, etc., cette fonction renvoie le chemin le plus court entre deux points.  
+
+[PUT ILLUSTRATION OF GRAPH ROUTE HERE]
+</details>
+
+<details> 
+  <summary>`init()`</summary>
+
+**Description**:  
+Initialise les points de départ pour chaque trajet dans la visualisation.  
+
+**Retourne**:  
+- `points` (list) : Une liste d'objets matplotlib représentant les points animés.  
+
+**Code de la fonction**:  
+```python
+def init():
+    for point in points:
+        point.set_data([], [])
+    time_text.set_text('')
+    return points + [time_text]
+```
+
+[PUT ILLUSTRATION OF INITIALIZATION STEP HERE]
+</details>
+
+<details> 
+  <summary>`update(frame)`</summary>
+
+**Description**:  
+Met à jour les positions des points dans l'animation en fonction de la progression du chemin pour chaque trajet.
+
+**Paramètres**:  
+- `frame` (int) : L'indice actuel de la frame dans l'animation.  
+
+**Retourne**:  
+- `points` (list) : Les points mis à jour pour la frame actuelle.  
+
+**Code de la fonction**:  
+```python
+def update(frame):
+    # Calculer l'heure actuelle
+    current_time = start_time + datetime.timedelta(seconds=frame * frame_duration)
+    time_text.set_text(current_time.strftime('%Y-%m-%d %H:%M:%S'))
+
+    for i, path in enumerate(paths):
+        progress = min(frame / total_frames, 1)  # Progression en fonction de total_frames
+        num_nodes = int(progress * len(path))
+
+        if num_nodes > 0:
+            current_node = path[num_nodes - 1]
+            x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
+            points[i].set_data([x], [y])
+
+    return points + [time_text]
+```
+
+**Exemple d'utilisation**:  
+Chaque frame de l'animation appelle cette fonction pour mettre à jour les points. La progression est calculée en fonction de `frame` et du nombre total de frames.  
+</details>
 
 ## 6.3 Class
 
