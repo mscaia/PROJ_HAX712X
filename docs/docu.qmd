@@ -747,6 +747,68 @@ Convertit une colonne d'un DataFrame Pandas en type datetime. Supprime les valeu
   ```
 </details>
 
+
+<details>
+  <summary>`jour_semaine(j)`<summary>
+
+**Description**: 
+Crée une liste des données uniquement pour les jours correspondant au jour `j`
+
+**Paramètres**:
+  <ul>
+    <li>`j` (int) : Le numéro du jour de la semaine voulu (0 pour lundi, ..., 6 pour dimanche)
+  <\ul>
+
+**Retourne**:
+- (list): une liste des données prises un jour `j`
+
+**Code de la fonction**: 
+```python
+def jour_semaine(j):
+    Lundi=[]
+    Mardi=[]
+    Mercredi=[]
+    Jeudi=[]
+    Vendredi=[]
+    Samedi=[]
+    Dimanche=[]
+    for i in range (len(donnees_utiles)): 
+        date=datetime.strptime(donnees_utiles[i][1], '%Y-%m-%d')
+        jour=date.weekday()
+        if jour==0:
+            Lundi.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+        elif jour==1:
+            Mardi.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+        elif jour==2:
+            Mercredi.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+        elif jour==3:
+            Jeudi.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+        elif jour==4:
+            Vendredi.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+        elif jour==5:
+            Samedi.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+        else:
+            Dimanche.append([donnees_utiles[i][0], donnees_utiles[i][2]])
+    if j==0:
+        return Lundi
+    elif j==1:
+        return Mardi 
+    elif j==2:
+        return Mercredi 
+    elif j==3:
+        return Jeudi
+    elif j==4:
+        return Vendredi 
+    elif j==5:
+        return Samedi 
+    else:
+        return Dimanche 
+```
+[PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
+<\details>
+ 
+
+
 ### 6.2.2 Préduction [DOCUM FROM CA - PUT HERE]
 
 ### 6.2.3 Video
