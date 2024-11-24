@@ -300,7 +300,7 @@ Elle est utilisée pour optimiser le traitement des données et accélérer le r
 Dans le projet, il est employé pour traiter les données temporelles des trajets cyclistes et synchroniser les animations avec les horodatages.
 </details>
 
-## 6.2 Functions utilisées
+## 6.2 Fonctions utilisées
 
 ### 6.2.1 Map 
 
@@ -583,6 +583,141 @@ def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec 
 ```
 [PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
 </details>
+
+
+<details>
+  <summary>`map_trajets(j, h)`<summary>
+
+**Description**: 
+Génère une carte représentant tout les trajets moyens empruntés le jour `j` à l'heure `h` représentés par couleur en fonction de l'intensité. 
+
+**Paramètres**:
+  <ul>
+    <li>`j` (int) : Le numéro du jour de la semaine voulu (0 pour lundi, ..., 6 pour dimanche)
+    <li>`h` (int): Le numéro de l'heure dans la journée qu'on veut observer (de 0 à 23)
+  <\ul>
+
+**Retourne**:
+- (list, str): une liste des stations de départ et d'arrivée de tous les trajets qui n'ont pas été tracés et un message avec le nom de la fonction créée
+
+**Code de la fonction**: 
+```python
+def map_trajets(j, h):
+    trajets=trajets_parcourus(j, h)
+    stations_dict = {station[0]: station[1] for station in stations}
+    N=nb_tot_jour(j)
+    
+    
+    ville = "Montpellier, France"
+    location = ox.geocode(ville)
+
+    # marge de distances supplémentaire
+    graphe = ox.graph_from_point(location, dist=10000, network_type="bike", simplify=True)
+
+    # Initialisation
+    carte = folium.Map(location=location, zoom_start=13)
+
+    #nb passages 
+    edges_passages = defaultdict(int)
+
+    for trajet in trajets:
+        try:
+            start, end = trajet[0]
+            intensity = trajet[1]/N
+            if start in stations_dict and end in stations_dict:
+                lon_start, lat_start = stations_dict[start]
+                lon_end, lat_end = stations_dict[end]
+
+                # Trouver les nœuds les plus proches dans le graphe
+                try:
+                    start_node = ox.distance.nearest_nodes(graphe, lon_start, lat_start)
+                    end_node = ox.distance.nearest_nodes(graphe, lon_end, lat_end)
+
+                    # Calculer le chemin entre les deux nœuds
+                    path = nx.shortest_path(graphe, start_node, end_node, weight="length")
+
+                    # Ajouter chaque segment du chemin au compteur de passages
+                    for u, v in zip(path[:-1], path[1:]):
+                        edges_passages[(u, v)] += intensity
+                        edges_passages[(v, u)] += intensity  #on compte les passages dans les deux sens 
+                except nx.NetworkXNoPath:
+                    print(f"Aucun chemin entre {start} et {end}")
+        except Exception as e:
+            print(f"Erreur lors du traitement du trajet {trajet}: {e}")
+
+    #couleurs en fonction du nb de passages
+    for (u, v), passage_count in edges_passages.items():
+        # récup coordonnées des segments
+        coords = [
+            (graphe.nodes[u]['y'], graphe.nodes[u]['x']),
+            (graphe.nodes[v]['y'], graphe.nodes[v]['x'])
+        ]
+
+        # Calcul de la couleur
+        if passage_count < 0.5:
+           color= "#0000ff" 
+        else:     
+            max_intensity = 4  # Ajuster selon les données
+            passage_clamped = max(0, min(passage_count, max_intensity))  # Limiter à une plage raisonnable
+            red = int(255 * (passage_clamped / max_intensity))
+            green = int(255 * (1 - passage_clamped / max_intensity))
+            color = f"#{red:02x}{green:02x}00"
+
+
+        # Ajouter le segment
+        folium.PolyLine(
+            locations=coords,
+            color=color,
+            weight=4,  # Épaisseur fixe
+            opacity=0.8,
+            tooltip=f"Passages: {passage_count}"
+        ).add_to(carte)
+
+    # Ajout des stations comme marqueurs
+    for station in stations:
+        try:
+            (lon, lat) = station[1]
+            for k in name_sta: 
+                if k[0]==station[0]: 
+                    name= k[1]
+            folium.Marker(
+                location=(lat, lon),
+                popup=f"{name}: {lon}, {lat}",
+                icon=folium.Icon(color="gray")
+            ).add_to(carte)
+        except Exception as e:
+            print(f"Erreur lors de l'ajout de la station {station}: {e}")
+
+    # légende 
+    legend_html = """
+    <div style="
+        position: fixed;
+        bottom: 50px;
+        left: 50px;
+        width: 200px;
+        height: 140px;
+        background-color: white;
+        border:2px solid grey;
+        z-index:9999;
+        font-size:14px;
+        padding: 10px;
+        ">
+        <b>Nombre de passages:</b><br>
+        <i style="background: #0000ff; width: 20px; height: 10px; display: inline-block;"></i> Très faible (&lt;1)<br>
+        <i style="background: #00ff00; width: 20px; height: 10px; display: inline-block;"></i> Faible (1-2)<br>
+        <i style="background: #80ff00; width: 20px; height: 10px; display: inline-block;"></i> Modérée (3-5)<br>
+        <i style="background: #ff0000; width: 20px; height: 10px; display: inline-block;"></i> Forte (&gt;5)<br>
+    </div>
+    """
+    carte.get_root().html.add_child(folium.Element(legend_html))
+
+    # Save la carte
+    nom = f"trajets_couleurs_cumulées_j{j}_h{h}.html"
+    carte.save(nom)
+    return f"Carte enregistrée sous '{nom}'."
+```
+[PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
+<\details>
 
 
 #### Fonctions utilitaires
