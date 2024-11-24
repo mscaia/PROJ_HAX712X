@@ -523,6 +523,68 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,co
 [PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
 </details>
 
+
+
+<details>
+  <summary>`map_jour(j, style)`<summary>
+
+**Description**: 
+ Génère une carte interactive pour visualiser l'intensité mesurée à chaque coordonnée sur un jour 'j'
+
+**Paramètres**:
+  <ul>
+    <li>`j` (int) : Le numéro du jour de la semaine voulu (0 pour lundi, ..., 6 pour dimanche)
+    <li>`style` (int): lestyle d'affichage voulu: 0 si on veut que les points des coordonnées, 1 si on veut aussi la 'chaleur'
+  <\ul>
+
+**Retourne**:
+- (str) un message avec le nom de la fonction créée
+
+**Code de la fonction**: 
+```python
+def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
+    data = mean_intens(j)
+    intensities = [d[0] for d in data]
+    min_in = min(intensities)
+    max_in = max(intensities)
+
+    # centrer 
+    ville = "Montpellier, France"
+    location = ox.geocode(ville)
+    m = folium.Map(location=location, zoom_start=12)
+
+
+    # Ajouter les points sur la carte
+    for intensity, coord in data:
+        lon, lat = coord[1], coord[0]# Inversion des valeurs
+        if abs(lon-location[0])<1 and abs(lat-location[1])<1:
+            color = intensity_to_color(intensity, min_in, max_in)
+            folium.CircleMarker(
+                location=[lon, lat],
+                radius=8,
+                color=color,
+                fill=True,
+                fill_color=color,
+                fill_opacity=0.6
+                ).add_to(m)
+        
+    #choix de chaleur ou non
+    if style==0:
+        nom=f'intensity_{j}.html'
+        m.save(nom)
+        return "La carte a été générée et sauvegardée sous le nom", nom
+    
+    else:
+        heat_data = [[coord[1], coord[0], intensity] for intensity, coord in data]
+        HeatMap(heat_data).add_to(m)
+        nom=f'intensity_{j}_heat.html'
+        m.save(nom)
+        return"La carte a été générée et sauvegardée sous le nom", nom 
+```
+[PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
+</details>
+
+
 #### Fonctions utilitaires
 
 <details> 
@@ -675,4 +737,6 @@ Ce projet constitue une première étape dans l'analyse du trafic cycliste à Mo
 
 - **Amélioration de l'expérience utilisateur** : Le site Web pourrait être enrichi de fonctionnalités interactives supplémentaires, telles que la visualisation des prévisions de trafic ou des recommandations d'itinéraires alternatifs.
 
+
 Ces propositions, bien qu'ambitieuses, restent accessibles et permettent d'assurer la pertinence et la durabilité du projet tout en renforçant son impact pour les usagers et les décideurs locaux.
+
