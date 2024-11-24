@@ -808,6 +808,33 @@ def jour_semaine(j):
 <\details>
  
 
+<details>
+  <summary>`coor_unique(j)`<summary>
+
+**Description**: 
+Crée une liste des coordonnées de façon unique pour les jours correspondant au jour `j`
+
+**Paramètres**:
+  <ul>
+    <li>`j` (int) : Le numéro du jour de la semaine voulu (0 pour lundi, ..., 6 pour dimanche)
+  <\ul>
+
+**Retourne**:
+- (list): une liste des coordonnées actives sur un jour `j`
+
+**Code de la fonction**: 
+```python
+def coor_unique(j):
+    L=jour_semaine(j)
+    co=[]
+    for i in L:
+        if i[1] not in co:
+            co.append(i[1])
+    return co
+```
+[PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
+<\details>
+
 
 ### 6.2.2 Préduction [DOCUM FROM CA - PUT HERE]
 
