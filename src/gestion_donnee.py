@@ -7,7 +7,7 @@ class GestionnaireDonnees:
     """
     Une classe pour gérer le téléchargement, la lecture et le traitement des jeux de données.
     """
-    def __init__(self, repertoire_telechargement="./donnees"):
+    def __init__(self, repertoire_telechargement="./data"):
         self.repertoire_telechargement = repertoire_telechargement
         os.makedirs(self.repertoire_telechargement, exist_ok=True)
 
