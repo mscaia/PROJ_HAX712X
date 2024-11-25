@@ -28,7 +28,7 @@ class GestionnaireDonnees:
 
     def extraire_zip(self, chemin_zip, dossier_extraction=None):
         if dossier_extraction is None:
-            dossier_extraction = os.path.join(self.repertoire_telechargement, "extrait")
+            dossier_extraction = os.path.join(self.repertoire_telechargement, "extracted")
         os.makedirs(dossier_extraction, exist_ok=True)
         with zipfile.ZipFile(chemin_zip, 'r') as zip_ref:
             zip_ref.extractall(dossier_extraction)
