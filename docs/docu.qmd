@@ -678,7 +678,7 @@ def map_trajets(j, h):
             color = f"#{red:02x}{green:02x}00"
 
 
-        # Ajouter le segment
+        # Ajouter chaque segment
         folium.PolyLine(
             locations=coords,
             color=color,
@@ -868,7 +868,7 @@ def nb_tot_jour(j):
     D=[]
     for file in files:
         with open(file, 'r', encoding='utf-8') as f:
-            lecteur = csv.reader(f, delimiter=';')  # Définir le séparateur si nécessaire
+            lecteur = csv.reader(f, delimiter=';')  # Séparateur ';' dans les 'files'
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
                 dat, heur = ligne[0].split(' ')
