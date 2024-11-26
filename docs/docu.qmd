@@ -12,8 +12,9 @@ Le projet **CycleVision3** a pour objectif d’analyser et de prédire les flux 
 - **OpenStreetMap (OSM)** : Données géographiques ouvertes, utilisées pour la cartographie et la contextualisation des trajets.  
 
 L’ambition du projet est de développer des **visualisations interactives**, notamment une **carte prédictive des flux cyclistes**, accessibles via un site web dédié. Ces outils visent à :  
-- **Identifier les tendances de mobilité** pour mieux comprendre les habitudes des usagers.  
-- **Proposer des solutions pratiques** afin d’optimiser les infrastructures urbaines et de promouvoir l’usage du vélo comme moyen de transport durable.  
+
+- *Identifier les tendances de mobilité* pour mieux comprendre les habitudes des usagers.  
+- *Proposer des solutions pratiques* afin d’optimiser les infrastructures urbaines et de promouvoir l’usage du vélo comme moyen de transport durable.  
 
 En combinant innovation technologique et impact sociétal, **CycleVision3** s’inscrit dans une démarche adaptable à d’autres contextes urbains. Ce projet contribue ainsi à la réflexion autour de la mobilité intelligente et durable, répondant aux enjeux croissants des villes contemporaines.
 
@@ -91,16 +92,19 @@ Le projet est configuré de manière à utiliser **Quarto** pour la création du
 ## 2.4 Base de données et traitement des données [SHOULD BE RECHEKED AFTER]
 
 Les principaux jeux de données sont stockés dans le répertoire `data/` et comprennent :
+
 - **CoursesVelomagg.csv** : Historique des trajets en vélos libres.  
 - **video.csv** et **video_avec_coord.csv** : Données vidéo pour l’analyse spatiale.
 
 Les scripts situés dans `src/` effectuent :
+
 - Le nettoyage des données.  
 - La conversion des formats pour l’analyse.  
 
 ## 2.5 Exécution du projet
 
 L’exécution du projet génère des visualisations interactives et des cartes prédictives grâce à :
+
 - **Folium** : Création de cartes interactives.  
 - **Matplotlib** : Graphiques statistiques.  
 
@@ -109,6 +113,7 @@ Les résultats sont stockés dans `visualisation/` et incluent des cartes des tr
 ## 2.6 Documentation et tests [FINISH AND RECHECKED]
 
 Pour garantir la qualité du code, le projet intègre :
+
 - **Tests Unitaires** : Vérification des fonctionnalités principales.  
 - **Documentation Technique** : Générée avec **Sphinx** et **Quarto** pour détailler les API, les méthodes et les résultats.
 
@@ -126,12 +131,14 @@ L’analyse repose sur l’exploitation de trois ensembles de données principau
   *Source*: [OpenStreetMap](https://www.openstreetmap.org/#map=6/46.45/2.21)  
 
 Ces trois ensembles de données, complémentaires par nature, permettent une analyse approfondie et multidimensionnelle du trafic cycliste à Montpellier.
+
 # 4. Workflow du Projet
 
 ## 4.1 Prétraitement et Nettoyage des Données
 
 #### Étapes réalisées :
 Le nettoyage et le prétraitement des données ont constitué une étape fondamentale pour assurer la qualité et la cohérence des données utilisées dans l’analyse. Les principales actions entreprises sont les suivantes :
+
 - **Validation des données** : Identification et traitement des anomalies, telles que les valeurs aberrantes et les doublons, avec une gestion des valeurs manquantes en fonction de leur impact sur l’analyse.
 - **Formatage temporel et géographique** : Conversion des champs de dates pour permettre une analyse chronologique, et standardisation des adresses et coordonnées géographiques pour optimiser la géolocalisation.
 
@@ -141,6 +148,7 @@ Cette phase a permis de préparer des données propres et fiables, essentielles 
 
 #### Étapes réalisées :
 Les données traitées ont été intégrées dans des visualisations interactives et des cartes dynamiques pour illustrer le trafic cycliste à Montpellier. Les actions clés incluent :
+
 - **Création de cartes interactives** : Utilisation de la bibliothèque `Folium` pour développer une carte dynamique présentant les stations de vélos, les itinéraires fréquentés, et les zones de densité de trafic.
 - **Calcul des itinéraires** : Emploi de la bibliothèque `OSMnx` pour déterminer les itinéraires entre les stations, mettant en évidence les parcours les plus utilisés et permettant l’analyse des variations temporelles du trafic.
 
@@ -149,6 +157,7 @@ Ces visualisations ont été des outils essentiels pour la compréhension des te
 ## 4.3 Développement de l’Interface Web
 
 Le projet s’est concrétisé par la création d’un site web interactif développé avec `Quarto`, intégrant :
+
 - Les visualisations interactives produites lors de l’analyse.
 - Une carte prédictive du trafic cycliste, permettant d’estimer les flux de vélos pour le lendemain en fonction des données historiques.
 
@@ -220,9 +229,39 @@ Le pipeline a été conçu pour être flexible et évolutif afin de répondre au
 
 Dans le cadre de ce projet, plusieurs bibliothèques ont été utilisées pour répondre aux différents besoins techniques et analytiques. Voici une présentation des bibliothèques principales et leur rôle.
 
+<details> <summary>`concurrent.futures.ThreadPoolExecutor`</summary>
+`ThreadPoolExecutor` est une fonctionnalité du module standard `concurrent.futures` pour exécuter des tâches en parallèle.  
+Elle est utilisée pour optimiser le traitement des données et accélérer le rendu des animations dans le cadre de ce projet.
+</details>
+
 <details> <summary>`csv`</summary>
 La bibliothèque `csv` permet de lire et d’écrire des fichiers CSV, un format commun pour manipuler des données tabulaires.  
 Nous avons utilisé `csv` pour extraire et traiter les données brutes contenues dans des fichiers au format CSV. Cela est particulièrement utile pour manipuler des ensembles de données simples où une lecture ligne par ligne est nécessaire.
+</details>
+
+<details> <summary>`datetime`</summary>
+`datetime` est un module intégré pour manipuler les dates et les heures.  
+Dans le projet, il est employé pour traiter les données temporelles des trajets cyclistes et synchroniser les animations avec les horodatages.
+</details>
+
+<details> <summary>`folium`</summary>
+`folium` est une bibliothèque dédiée à la création de cartes interactives.  
+Nous avons utilisé `folium` pour visualiser les trajets et itinéraires des vélos sur des cartes interactives, permettant une meilleure compréhension géographique des données.
+</details>
+
+<details> <summary>`functools.lru_cache`</summary>
+`functools.lru_cache` est une fonctionnalité de Python pour optimiser les performances.  
+En mettant en cache les résultats des fonctions fréquemment appelées, `functools.lru_cache` améliore les performances et réduit le temps de calcul pour des opérations répétées.
+</details>
+
+<details> <summary>`json`</summary>
+`json` est utilisée pour manipuler des données au format JSON, un standard de stockage et d’échange d’informations structurées.  
+Nous utilisons `json` pour lire et écrire des données structurées, notamment pour gérer les configurations et les résultats intermédiaires dans des fichiers légers.
+</details>
+
+<details> <summary>`matplotlib.animation.FuncAnimation` et `FFMpegWriter`</summary>
+Ces modules de la bibliothèque `matplotlib.animation` permettent de créer des animations et d'exporter celles-ci sous forme de fichiers vidéo.  
+Dans le projet, ils sont utilisés pour générer des animations illustrant les variations temporelles du trafic cycliste et les enregistrer sous un format visuel accessible.
 </details>
 
 <details> <summary>`matplotlib.pyplot`</summary>
@@ -230,9 +269,9 @@ Nous avons utilisé `csv` pour extraire et traiter les données brutes contenues
 Dans ce projet, elle permet de créer des graphiques dynamiques illustrant les trajectoires cyclistes et d’exporter ces visualisations sous forme de vidéos à l'aide des modules `FuncAnimation` et `FFMpegWriter`.
 </details>
 
-<details> <summary>`matplotlib.animation.FuncAnimation` et `FFMpegWriter`</summary>
-Ces modules de la bibliothèque `matplotlib.animation` permettent de créer des animations et d'exporter celles-ci sous forme de fichiers vidéo.  
-Dans le projet, ils sont utilisés pour générer des animations illustrant les variations temporelles du trafic cycliste et les enregistrer sous un format visuel accessible.
+<details> <summary>`networkx`</summary>
+`networkx` est une bibliothèque dédiée à la création, la manipulation et l'analyse de graphes complexes.  
+Dans ce projet, elle est utilisée pour représenter et étudier les réseaux cyclistes, notamment pour visualiser les trajets et calculer les chemins les plus courts entre les nœuds.
 </details>
 
 <details> <summary>`numpy`</summary>
@@ -245,9 +284,9 @@ Les opérations matricielles et les calculs numériques complexes nécessaires �
 Nous avons utilisé `os` pour gérer les chemins des fichiers, vérifier l’existence des répertoires, et manipuler les ressources locales du système.
 </details>
 
-<details> <summary>`pooch`</summary>
-`pooch` facilite le téléchargement et la mise en cache des fichiers nécessaires à l’exécution du projet.  
-Cette bibliothèque permet de garantir un accès fiable aux données externes en les téléchargeant automatiquement et en les stockant localement pour une réutilisation future.
+<details> <summary>`osmnx`</summary>
+`osmnx` est utilisée pour le géocodage et l’analyse des réseaux géographiques.  
+Cette bibliothèque permet d’extraire des données géographiques d’OpenStreetMap, de construire des graphes routiers, et d’analyser les itinéraires et les trajets cyclistes dans le cadre de ce projet.
 </details>
 
 <details> <summary>`pandas`</summary>
@@ -255,9 +294,9 @@ Cette bibliothèque permet de garantir un accès fiable aux données externes en
 `pandas` est utilisée pour nettoyer, transformer et analyser des ensembles de données complexes, offrant des fonctionnalités avancées comme le traitement des séries temporelles et des jointures de tables.
 </details>
 
-<details> <summary>`json`</summary>
-`json` est utilisée pour manipuler des données au format JSON, un standard de stockage et d’échange d’informations structurées.  
-Nous utilisons `json` pour lire et écrire des données structurées, notamment pour gérer les configurations et les résultats intermédiaires dans des fichiers légers.
+<details> <summary>`pooch`</summary>
+`pooch` facilite le téléchargement et la mise en cache des fichiers nécessaires à l’exécution du projet.  
+Cette bibliothèque permet de garantir un accès fiable aux données externes en les téléchargeant automatiquement et en les stockant localement pour une réutilisation future.
 </details>
 
 <details> <summary>`re`</summary>
@@ -270,34 +309,9 @@ Grâce à `re`, nous avons pu extraire des informations spécifiques des chaîne
 Cette bibliothèque est essentielle pour traiter les caractères spéciaux et garantir la cohérence des chaînes de caractères provenant de différentes sources.
 </details>
 
-<details> <summary>`folium`</summary>
-`folium` est une bibliothèque dédiée à la création de cartes interactives.  
-Nous avons utilisé `folium` pour visualiser les trajets et itinéraires des vélos sur des cartes interactives, permettant une meilleure compréhension géographique des données.
-</details>
-
-<details> <summary>`osmnx`</summary>
-`osmnx` est utilisée pour le géocodage et l’analyse des réseaux géographiques.  
-Cette bibliothèque permet d’extraire des données géographiques d’OpenStreetMap, de construire des graphes routiers, et d’analyser les itinéraires et les trajets cyclistes dans le cadre de ce projet.
-</details>
-
-<details> <summary>`functools.lru_cache`</summary>
-`functools.lru_cache` est une fonctionnalité de Python pour optimiser les performances.  
-En mettant en cache les résultats des fonctions fréquemment appelées, `functools.lru_cache` améliore les performances et réduit le temps de calcul pour des opérations répétées.
-</details>
-
-<details> <summary>`networkx`</summary>
-`networkx` est une bibliothèque dédiée à la création, la manipulation et l'analyse de graphes complexes.  
-Dans ce projet, elle est utilisée pour représenter et étudier les réseaux cyclistes, notamment pour visualiser les trajets et calculer les chemins les plus courts entre les nœuds.
-</details>
-
-<details> <summary>`concurrent.futures.ThreadPoolExecutor`</summary>
-`ThreadPoolExecutor` est une fonctionnalité du module standard `concurrent.futures` pour exécuter des tâches en parallèle.  
-Elle est utilisée pour optimiser le traitement des données et accélérer le rendu des animations dans le cadre de ce projet.
-</details>
-
-<details> <summary>`datetime`</summary>
-`datetime` est un module intégré pour manipuler les dates et les heures.  
-Dans le projet, il est employé pour traiter les données temporelles des trajets cyclistes et synchroniser les animations avec les horodatages.
+<details> <summary>`zipfile`</summary>
+La bibliothèque `zipfile` permet de travailler avec des fichiers au format ZIP, un format couramment utilisé pour la compression et l'archivage de fichiers.  
+Nous avons utilisé `zipfile` pour extraire des fichiers compressés afin de récupérer les données nécessaires à notre projet. Cette bibliothèque offre une interface simple pour l'extraction, la création et la gestion des archives ZIP, ce qui facilite le traitement des données compressées.
 </details>
 
 ## 6.2 Fonctions utilisées
@@ -525,8 +539,8 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,co
 
 
 
-<details>
-  <summary>`map_jour(j, style)`<summary>
+<details> 
+  <summary>`map_jour(j, style)`</summary>
 
 **Description**: 
  Génère une carte interactive pour visualiser l'intensité mesurée à chaque coordonnée sur un jour 'j'
@@ -585,8 +599,8 @@ def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec 
 </details>
 
 
-<details>
-  <summary>`map_trajets(j, h)`<summary>
+<details> 
+  <summary>`map_trajets(j, h)`</summary>
 
 **Description**: 
 Génère une carte représentant tout les trajets moyens empruntés le jour `j` à l'heure `h` représentés par couleur en fonction de l'intensité. 
@@ -717,7 +731,7 @@ def map_trajets(j, h):
     return f"Carte enregistrée sous '{nom}'."
 ```
 [PUT ILLUSTRATION OF TRAJECTORY MAP HERE]
-<\details>
+</details>
 
 
 #### Fonctions utilitaires
@@ -748,8 +762,8 @@ Convertit une colonne d'un DataFrame Pandas en type datetime. Supprime les valeu
 </details>
 
 
-<details>
-  <summary>`jour_semaine(j)`<summary>
+<details> 
+  <summary>`jour_semaine(j)`</summary>
 
 **Description**: 
 Crée une liste des données uniquement pour les jours correspondant au jour `j`
@@ -804,11 +818,11 @@ def jour_semaine(j):
     else:
         return Dimanche 
 ```
-<\details>
+</details>
  
 
-<details>
-  <summary>`coor_unique(j)`<summary>
+<details> 
+  <summary>`coor_unique(j)`</summary>
 
 **Description**: 
 Crée une liste des coordonnées de façon unique pour les jours correspondant au jour `j`
@@ -831,11 +845,11 @@ def coor_unique(j):
             co.append(i[1])
     return co
 ```
-<\details>
+</details>
 
 
-<details>
-  <summary>`nb_tot_jour(j)`<summary>
+<details> 
+  <summary>`nb_tot_jour(j)`</summary>
 
 **Description**: 
 Compte le nombre de jours correspondant au jour `j`
@@ -869,7 +883,7 @@ def nb_tot_jour(j):
                                 D.append(dat)
     return len(D)
 ```
-<\details>
+</details>
 
 
 ### 6.2.2 Préduction [DOCUM FROM CA - PUT HERE]
@@ -962,16 +976,167 @@ def update(frame):
             x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
             points[i].set_data([x], [y])
 
-    return points + [time_text]
+    return points
 ```
 
 **Exemple d'utilisation**:  
 Chaque frame de l'animation appelle cette fonction pour mettre à jour les points. La progression est calculée en fonction de `frame` et du nombre total de frames.  
 </details>
 
-## 6.3 Class
+## 6.3 Class "GestionnaireDonnees"
 
-[HERE IS A TEXT ABOUT CLASS]
+La classe `GestionnaireDonnees` a été créée pour gérer le téléchargement, la lecture et le traitement des jeux de données. Elle centralise les fonctions nécessaires à la gestion des données pour notre projet, en permettant le téléchargement de fichiers depuis des URLs, l'extraction de fichiers compressés, et le chargement de fichiers CSV tout en nettoyant les données manquantes. Elle simplifie ainsi les tâches courantes liées à la gestion des données dans notre système.
+
+La classe `GestionnaireDonnees` a été créée pour gérer le téléchargement, la lecture et le traitement des jeux de données. Elle permet de :
+- Télécharger des fichiers depuis des URLs.
+- Extraire des fichiers compressés.
+- Charger des fichiers CSV tout en nettoyant les données manquantes.
+
+Cette classe centralise les fonctions nécessaires à la gestion des données pour notre projet et offre une solution modulaire pour ces tâches.
+
+#### Méthodes
+
+<details>
+<summary>`__init__(repertoire_telechargement="./data")`</summary>
+
+**Description**:  
+Initialise le répertoire de téléchargement pour stocker les fichiers téléchargés. Si le répertoire n'existe pas, il sera automatiquement créé.
+
+**Paramètres**:  
+- `repertoire_telechargement` (str) : Le chemin où les fichiers seront téléchargés. Par défaut, "./data".
+
+**Retourne**:  
+- Rien. Cette méthode configure uniquement les attributs d'instance.
+
+**Code de la fonction**:
+```python
+def __init__(self, repertoire_telechargement="./data"):
+    self.repertoire_telechargement = repertoire_telechargement
+    os.makedirs(self.repertoire_telechargement, exist_ok=True)
+```
+
+**Explication**:  
+Le constructeur utilise la fonction `os.makedirs` pour s'assurer que le répertoire de téléchargement existe avant toute opération. Cela évite des erreurs lors des téléchargements futurs.
+
+**Exemple d'utilisation**:
+```python
+gestionnaire = GestionnaireDonnees()
+print(gestionnaire.repertoire_telechargement)  # "./data"
+```
+</details>
+
+
+
+<details>
+<summary>`telecharger_fichier(url, nom_fichier)`</summary>
+
+**Description**:  
+Télécharge un fichier à partir d'une URL donnée et l'enregistre dans le répertoire de téléchargement.
+
+**Paramètres**:  
+- `url` (str) : L'URL du fichier à télécharger.  
+- `nom_fichier` (str) : Le nom du fichier une fois téléchargé.
+
+**Retourne**:  
+- `chemin` (str) : Le chemin complet du fichier téléchargé.
+
+**Code de la fonction**:
+```python
+def telecharger_fichier(self, url, nom_fichier):
+    chemin = pooch.retrieve(
+        url=url,
+        known_hash=None,
+        fname=nom_fichier,
+        path=self.repertoire_telechargement
+    )
+    return chemin
+```
+
+**Explication**:  
+Cette méthode utilise `pooch.retrieve` pour télécharger un fichier depuis une URL et le sauvegarder dans le répertoire défini. Le chemin complet du fichier est renvoyé.
+
+**Exemple d'utilisation**:
+```python
+gestionnaire = GestionnaireDonnees()
+chemin = gestionnaire.telecharger_fichier("https://example.com/data.csv", "data.csv")
+print(chemin)  # "./data/data.csv"
+```
+</details>
+
+
+
+<details>
+<summary>`charger_csv(chemin_fichier, supprimer_na=True)`</summary>
+
+**Description**:  
+Charge un fichier CSV dans un DataFrame Pandas, avec la possibilité de supprimer les lignes contenant des valeurs manquantes.
+
+**Paramètres**:  
+- `chemin_fichier` (str) : Le chemin du fichier CSV à charger.  
+- `supprimer_na` (bool) : Indique si les lignes contenant des valeurs manquantes doivent être supprimées (par défaut, `True`).
+
+**Retourne**:  
+- `dataframe` (pd.DataFrame) : Le DataFrame contenant les données du fichier CSV.
+
+**Code de la fonction**:
+```python
+def charger_csv(self, chemin_fichier, supprimer_na=True):
+    dataframe = pd.read_csv(chemin_fichier)
+    if supprimer_na:
+        dataframe = dataframe.dropna()
+    return dataframe
+```
+
+**Explication**:  
+Cette méthode permet de charger un fichier CSV dans un DataFrame Pandas tout en offrant la possibilité de supprimer les lignes contenant des données manquantes, garantissant ainsi la qualité des données.
+
+**Exemple d'utilisation**:
+```python
+gestionnaire = GestionnaireDonnees()
+df = gestionnaire.charger_csv("./data/data.csv", supprimer_na=True)
+print(df.head())
+```
+</details>
+
+
+
+<details>
+<summary>`extraire_zip(chemin_zip, dossier_extraction=None)`</summary>
+
+**Description**:  
+Extrait le contenu d'un fichier ZIP dans un répertoire spécifié.
+
+**Paramètres**:  
+- `chemin_zip` (str) : Le chemin du fichier ZIP à extraire.  
+- `dossier_extraction` (str) : Le répertoire où les fichiers extraits seront stockés. Par défaut, les fichiers sont extraits dans un sous-dossier nommé `extracted` dans le répertoire de téléchargement.
+
+**Retourne**:  
+- `dossier_extraction` (str) : Le chemin du dossier contenant les fichiers extraits.
+
+**Code de la fonction**:
+```python
+def extraire_zip(self, chemin_zip, dossier_extraction=None):
+    if dossier_extraction is None:
+        dossier_extraction = os.path.join(self.repertoire_telechargement, "extracted")
+    os.makedirs(dossier_extraction, exist_ok=True)
+    with zipfile.ZipFile(chemin_zip, 'r') as zip_ref:
+        zip_ref.extractall(dossier_extraction)
+    os.remove(chemin_zip)
+    return dossier_extraction
+```
+
+**Explication**:  
+Cette méthode extrait un fichier ZIP dans un répertoire spécifié ou, si aucun répertoire n'est précisé, dans un sous-dossier nommé `extracted`. Après extraction, le fichier ZIP est supprimé pour économiser de l'espace disque.
+
+**Exemple d'utilisation**:
+```python
+gestionnaire = GestionnaireDonnees()
+chemin_extraction = gestionnaire.extraire_zip("./data/archive.zip")
+print(chemin_extraction)  # "./data/extracted/"
+```
+</details>
+
+En résumé, la classe `GestionnaireDonnees` centralise les opérations courantes liées à la gestion des données dans notre projet, rendant le processus plus fluide et réutilisable. Elle offre des méthodes pour télécharger des fichiers, charger des données à partir de CSV et extraire des fichiers ZIP, ce qui constitue la base de notre système de traitement des données.
 
 # 7. Testing
 
@@ -981,8 +1146,29 @@ Chaque frame de l'animation appelle cette fonction pour mettre à jour les point
 
 [analys testing here]
 
-# 9. User Guide
+# 9. Guide de l’utilisateur
 
+Ce guide fournit des instructions pour utiliser les fonctionnalités principales du projet **CycleVision3**.
+
+## 9.1 Accès à l’interface web
+1. Ouvrez un navigateur web (Chrome, Firefox, etc.).
+2. Entrez l’adresse suivante : [https://mscaia.github.io/PROJ_HAX712X/].
+3. Explorez les sections disponibles :
+
+## 9.2 Téléchargement et traitement des données
+1. Téléchargez les jeux de données sur la page X
+2. Utilisez le menu pour :
+   - Charger un fichier CSV.
+   - Prétraiter les données directement dans l’interface.
+
+## 9.3 Génération de rapports
+
+
+## 9.4 Utilisation des prédictions
+
+
+## 9.5 Dépannage
+Si vous rencontrez des problèmes n'hésitez pas à [nous contacter](auteurs.qmd).
 
 
 # 10. Travaux futurs
