@@ -24,7 +24,7 @@ En combinant innovation technologique et impact sociétal, **CycleVision3** s’
 
 La structure du projet est conçue pour garantir une séparation claire des composantes essentielles à l’analyse et à la création des visualisations. Voici un aperçu de l’organisation des fichiers et répertoires :
 
-<details> <summary>Voir le structure</summary>
+<details> <summary>Voir la structure</summary>
 
 ```
 main/                                           # Répertoire principal du projet
@@ -117,7 +117,7 @@ Pour garantir la qualité du code, le projet intègre :
 - **Tests Unitaires** : Vérification des fonctionnalités principales.  
 - **Documentation Technique** : Générée avec **Sphinx** et **Quarto** pour détailler les API, les méthodes et les résultats.
 
-# 3. Description des Données [RECHECK ABOOUT THE DATASETS WITH TEAM]
+# 3. Description des Données [RECHECK ABOUT THE DATASETS WITH TEAM]
 
 L’analyse repose sur l’exploitation de trois ensembles de données principaux, chacun jouant un rôle clé dans l’étude des trajets cyclistes à Montpellier :
 
@@ -886,7 +886,60 @@ def nb_tot_jour(j):
 </details>
 
 
-### 6.2.2 Préduction [DOCUM FROM CA - PUT HERE]
+### 6.2.2 Prédiction 
+
+<details>
+  <summary>`mean_intens(j)`</summary>
+**Description**:
+Cette fonction donne l'intensité moyenne par coordonnée mesurée sur un jour `j`. 
+
+**Paramètre**:
+  <ul>
+    <li>`j` (int): Le numéro du jour de la semaine (0 pour lundi, ..., 6 pour dimanche)
+  </ul>
+
+**Retourne**:
+- `M` (matrix): Une matrice contenant les valeurs des intensités pour chaque coordonnée sur le jour `j` en moyenne. 
+
+**Code de la fonction**:
+```python
+def mean_intens(j):
+    N=0 
+    L=jour_semaine(j)
+    M=[]
+    for i in L: 
+        N=0 
+        sum=i[0]
+        n=0 
+        k=0 
+        for h in L:
+            if h[1]==i[1]:
+                sum+=h[0]
+                N+=1 
+        if len(M)>0:
+            while n==0 and k<len(M):
+                if i[1]==M[k][1]:
+                    n=1
+                k+=1
+        if n==0:
+            i[0]=sum/N
+            M.append(i)
+    return M 
+```
+
+**Exemple d'utilisation**:
+Supposons que les données soient: 
+```csv
+coordinate, date, intensity
+[3.48, 43.8], 2022-03-12, 26
+[3.47, 43.7], 2022-03-19, 32
+[3.48, 43.8], 2202-03-19, 15
+```
+Comme le 12 et le 19 mars 2022 sont des samedis:
+Appeler `mean_intens(5)` retourne `[[[3.48, 43.8], 20.5], [[3.47, 43.7], 32]]`
+
+</details>
+
 
 ### 6.2.3 Video
 
