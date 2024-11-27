@@ -940,6 +940,148 @@ Appeler `mean_intens(5)` retourne `[[[3.48, 43.8], 20.5], [[3.47, 43.7], 32]]`
 
 </details>
 
+<details>
+  <summary>`intensity_to_color(intens, min_in, max_in):`</summary>
+**Description**:
+Cette fonction associe une couleur à une intensité en fonction de sa "position" par rapport aux intensités maximales et minimales 
+
+
+**Paramètre**:
+  <ul>
+    <li>`intens` (int): Valeur de l'intensité qu'on cherche à associer à une couleur
+    <li>`min_int` (int): Valeur de l'intensité minimale
+    <li>`max_int` (int): Valeur de l'intensité maximale 
+  </ul>
+
+**Retourne**:
+- `rgba(x, y, z, 1) ` (list): Une liste contenant le code couleur associé à l'intensité représentée 
+
+
+**Code de la fonction**:
+```python
+def intensity_to_color(intens, min_in, max_in):  
+    norm_in = (intens - min_in) / (max_in - min_in)
+    color = plt.cm.RdYlGn_r(norm_in)  # Colormap GnYlRd(vert à rouge)
+    return 'rgba({}, {}, {}, {})'.format(int(color[0] * 255), int(color[1] * 255), int(color[2] * 255), 1)
+
+```
+
+**Exemple d'utilisation**:
+Suppososns qu'on veuille représenter la valeur 12 sur une échelle allant de 6 à 18
+
+Appeler `intensity_to_color(12, 6, 18)` retourne `rgba(254, 254, 189, 1)`
+
+</details>
+
+
+<details>
+  <summary>`poids_par_heure(j):`</summary>
+**Description**:
+Cette fonction classe les trajets d'un jour `j` par heure 
+
+**Paramètre**:
+- `j` (int): Numéro du jour de la semaine (0 pour lundi, ..., 6 pour dimanche)
+
+**Retourne**:
+-`pourcentage de trajets par heure M` avec M (matrix): [[station départ, station arrivée], nombre de trajets *100/nombre total de trajets sur `j`]
+
+**Code de la fonction**:
+```python
+def poids_par_h(j):
+    heures = {heure: 0 for heure in range(24)}
+    D=[]
+    for file in files:
+        with open(file, 'r', encoding='utf-8') as f:
+            lecteur = csv.reader(f, delimiter=';')  
+            next(lecteur) #ignorer l'entête 
+            for ligne in lecteur: 
+                dat, heur = ligne[0].split(' ')
+                date=datetime.strptime(dat, '%Y-%m-%d')
+                jour=date.weekday()
+                if jour==j:
+                    dep=ligne[2].split(' ')[0]
+                    arr=ligne[3].split(' ')[0]
+                    if dep!='' and arr!='':
+                        if dep in Sta and arr in Sta:
+                            if dat not in D:
+                                D.append(dat)
+                            heure = int(heur.split(':')[0])  # Extraire l'heure
+                            heures[heure] += 1 # Incrémenter le compteur pour cette heure
+    N=len(D)
+    H=[heures[h]/N for h in heures]
+    t=sum(H[h] for h in heures)
+    return 'pourcentage de trajets par heure', [[h, H[h]*100/t] for h in heures]
+
+```
+
+**Exemple d'utilisation**:
+Supposons qu'il y ait 750 trajets un jeudi dont 300 entre midi et 13h, 200 entre 18h et 19h et 250 entre 8h et 9h 
+
+Appeler `poids_par_heure` retourne `[[0, 0],[1, 0],[2, 0],[3, 0],[4, 0],[5, 0], [6, 0],[7, 0], [8, 33.33], [9, 0],[10, 0],[11, 0],[12, 40],[13, 0],[14, 0],[15, 0],[16, 0],[17, 0],[18, 26.66],[19, 0],[20, 0],[21, 0],[22, 0],[23, 0]]`
+
+</details>
+
+
+<details>
+  <summary>`trajets_parcourus(j, h):`</summary>
+**Description**:
+Cette fonction classe les trajets d'un jour `j` à une heure `h` avec leur multiplicité moyenne. 
+
+**Paramètre**:
+  <ul>
+    <li>`j` (int): Numéro du jour de la semaine (0 pour lundi, ..., 6 pour dimanche)
+    <li>`h` (int): Numéro de l'heure dans la journée (0 pour 00:00-00:59, ..., 23 pour 23:00-23:59]
+  </ul>
+
+**Retourne**:
+-`F` (matrix): [[station départ, station arrivée], multiplicité à l'heure `h` dans le jour `j`]
+
+**Code de la fonction**:
+```python
+def trajets_parcourus(j,h):
+    D=[]
+    T=[]
+    U=[]
+    F=[]
+    for file in files:
+        with open(file, 'r', encoding='utf-8') as f:
+            lecteur = csv.reader(f, delimiter=';')  # Définir le séparateur si nécessaire
+            next(lecteur) #ignorer l'entête 
+            for ligne in lecteur: 
+                dat, heur = ligne[0].split(' ')
+                dep=ligne[2].split(' ')[0]
+                arr=ligne[3].split(' ')[0]
+                date=datetime.strptime(dat, '%Y-%m-%d')
+                jour=date.weekday()
+                if jour==j:
+                    if dep!='' and arr!='':
+                        if dep in Sta and arr in Sta:
+                            D.append([heur, dep, arr])
+    #return D #récupération de tous les trajets pour les jours j
+    for j in D:
+        H=int(j[0].split(':')[0])
+        if H==h:
+            T.append([j[1],j[2]])
+    #return T #récupérations de tous les trajets pour les jours j à l'heure h
+    for I in T:
+        if I not in U:
+            U.append(I) 
+    #return U #récupération de tous les trajets de façon unique
+    for s in U:
+        c=0
+        for t in T:
+            if t==s:
+                c+=1
+        F.append([s,c])
+    return F
+```
+
+**Exemple d'utilisation**:
+Supposons qu'il y ait 25 trajets un jeudi entre midi et 13h faisant Comédie-Fac des sciences
+Appeler `trajets_parcourus(3, 12)` retourne une matrice dont l'une des lignes est `[['Comédie', 'Fac des sciences'], 25]`
+
+</details>
+
 
 ### 6.2.3 Video
 
