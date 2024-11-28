@@ -20,10 +20,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -66,14 +100,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
-
 
 
 <link rel="stylesheet" href="styles.css">
@@ -101,21 +127,21 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Le vélo à Montpellier.</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Projets</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-travaux" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Travaux</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projets">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-travaux">    
         <li>
     <a class="dropdown-item" href="./projet1.html">
- <span class="dropdown-text">Projet 1</span></a>
+ <span class="dropdown-text">Analyse des données</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./projet2.html">
- <span class="dropdown-text">Projet 2</span></a>
+ <span class="dropdown-text">Cartes</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./projet3.html">
- <span class="dropdown-text">Projet 3</span></a>
+ <span class="dropdown-text">Vidéo</span></a>
   </li>  
     </ul>
   </li>
@@ -171,43 +197,92 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Ici, les cartes issues de nos principaux travaux.</p>
-<div id="af98ba5a" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"53fc1c799eb84a2b98dbf51e33f1d6f6","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
+<div id="72a6016b" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> osmnx <span class="im">as</span> ox</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shiny <span class="im">import</span> App, render, ui</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.fonctions_basedonnees <span class="im">import</span> <span class="op">*</span>  <span class="co"># Assurez-vous que ces fonctions sont accessibles</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Effacer le cache</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>coordonne.cache_clear()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuration initiale</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ville <span class="op">=</span> <span class="st">"Montpellier, France"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ox.graph_from_place(ville, network_type<span class="op">=</span><span class="st">"all"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le DataFrame</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df_coursesvelomagg_traité <span class="op">=</span> pd.read_csv(<span class="st">"../data/CoursesVelomagg.csv"</span>).dropna()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>liste_des_trajets <span class="op">=</span> df_coursesvelomagg_traité[[<span class="st">'Departure'</span>, <span class="st">'Departure station'</span>, <span class="st">'Return station'</span>, <span class="st">'Covered distance (m)'</span>, <span class="st">'Duration (sec.)'</span>]]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Nettoyer et normaliser les colonnes</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF <span class="op">=</span> liste_des_trajets.copy()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Departure station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure station'</span>].<span class="bu">apply</span>(nettoyer_adresse_normalise)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Return station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Return station'</span>].<span class="bu">apply</span>(nettoyer_adresse_normalise)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Remplacements spécifiques</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Departure station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure station'</span>].replace(<span class="st">"FacdesSciences"</span>, <span class="st">"Faculté des sciences"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Return station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Return station'</span>].replace(<span class="st">"FacdesSciences"</span>, <span class="st">"Faculté des sciences"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Departure station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure station'</span>].replace(<span class="vs">r".*Gare Saint-Roch$"</span>, <span class="st">"Gare Saint-Roch"</span>, regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Return station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Return station'</span>].replace(<span class="vs">r".*Gare Saint-Roch$"</span>, <span class="st">"Gare Saint-Roch"</span>, regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des dates disponibles</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Liste_des_dates <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure'</span>].<span class="bu">str</span>[:<span class="dv">10</span>].unique()</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Liste_des_dates <span class="op">=</span> Liste_des_dates.tolist()</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>app_ui <span class="op">=</span> ui.page_fluid(</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    ui.panel_title(<span class="st">"Carte interactive des trajets"</span>),</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    ui.input_select(</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"date_select"</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Choisissez une date :"</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        choices<span class="op">=</span>liste_des_trajet_DBF[<span class="st">'Departure'</span>].<span class="bu">str</span>[:<span class="dv">10</span>].unique().tolist(),  <span class="co"># Conversion explicite en liste</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    ui.input_checkbox(<span class="st">"tracer"</span>, <span class="st">"Tracer les trajets ?"</span>),</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    ui.input_slider(<span class="st">"nb_trajets"</span>, <span class="st">"Nombre de trajets :"</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">1</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">10</span>, value<span class="op">=</span><span class="dv">5</span>),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    ui.input_action_button(<span class="st">"tracer_btn"</span>, <span class="st">"Afficher la carte"</span>),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    ui.output_ui(<span class="st">"carte_output"</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> server(<span class="bu">input</span>, output, session):</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">@output</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">@render.ui</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> carte_output():</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">input</span>.tracer_btn() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Récupérer les valeurs des widgets</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            selected_date <span class="op">=</span> <span class="bu">input</span>.date_select()</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>            tracer <span class="op">=</span> <span class="bu">input</span>.tracer()</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>            nb_trajets <span class="op">=</span> <span class="bu">input</span>.nb_trajets()</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Filtrer les trajets pour la date sélectionnée</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>            trajets_du_jour <span class="op">=</span> liste_des_trajet_DBF[liste_des_trajet_DBF[<span class="st">'Departure'</span>].<span class="bu">str</span>.startswith(selected_date)].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            nb_ref <span class="op">=</span> <span class="bu">len</span>(trajets_du_jour)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Créer la carte centrée sur Montpellier</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>            m <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">43.6114</span>, <span class="fl">3.8767</span>], zoom_start<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> tracer:</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">min</span>(nb_trajets, nb_ref)):</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>                    trajet <span class="op">=</span> trajets_du_jour.iloc[i]</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># Déterminer la couleur en fonction de la distance</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>                    color <span class="op">=</span> <span class="st">'green'</span> <span class="cf">if</span> trajet[<span class="st">'Covered distance (m)'</span>] <span class="op">&lt;</span> <span class="dv">2000</span> <span class="cf">else</span> <span class="st">'blue'</span> <span class="cf">if</span> trajet[<span class="st">'Covered distance (m)'</span>] <span class="op">&lt;</span> <span class="dv">4000</span> <span class="cf">else</span> <span class="st">'red'</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>                    gen_carte_trajet(trajet, G, m, <span class="dv">1</span>, <span class="dv">2</span>, color)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Convertir la carte Folium en HTML</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>            folium_html <span class="op">=</span> m._repr_html_()</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Renvoyer le contenu HTML directement dans Shiny</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ui.HTML(folium_html)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ui.tags.div(<span class="st">"Cliquez sur 'Afficher la carte' pour générer une carte."</span>)</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Créer et exécuter l'application Shiny</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1d9165fbb83744d9961171a5a1dd930b","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"c9eec20dcd0345ef9e87514fceacbe03","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1b2b2bc8103e48f3b6df74e95b19238e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"4363f769c7b446f182cdee1b0e9f30fc","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-</div>
+<p>L’application Shiny de notre carte interactive : <a href="https://cyclevision3map.shinyapps.io/shiny_app/" target="_blank">Accéder à l’application Shiny</a></p>
 
 
 
 </main> <!-- /main -->
-<script type="application/vnd.jupyter.widget-state+json">
-
-{"state":{"03068d4e7d0f40c18ae113b09b4aef58":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"SliderStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"SliderStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","description_width":"initial","handle_color":null}},"163b52d691724277b081be091475b184":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"1b2b2bc8103e48f3b6df74e95b19238e":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ButtonModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ButtonModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ButtonView","button_style":"","description":"Afficher la carte","disabled":false,"icon":"","layout":"IPY_MODEL_5252c9b67055482b9809e579be135647","style":"IPY_MODEL_d4fb2ef85e6a43e790ea7827649af802","tabbable":null,"tooltip":null}},"1d9165fbb83744d9961171a5a1dd930b":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"CheckboxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"CheckboxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"CheckboxView","description":"Tracer les trajets ?","description_allow_html":false,"disabled":false,"indent":true,"layout":"IPY_MODEL_983fab8fad2245dbbf2b7cd1ab57624b","style":"IPY_MODEL_6a6fbeaa91d04605afd366c8b9084806","tabbable":null,"tooltip":null,"value":false}},"4363f769c7b446f182cdee1b0e9f30fc":{"model_module":"@jupyter-widgets/output","model_module_version":"1.0.0","model_name":"OutputModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/output","_model_module_version":"1.0.0","_model_name":"OutputModel","_view_count":null,"_view_module":"@jupyter-widgets/output","_view_module_version":"1.0.0","_view_name":"OutputView","layout":"IPY_MODEL_ebf86a64669b423cb41b991cf939628f","msg_id":"","outputs":[{"name":"stdout","output_type":"stream","text":"Nous avons 249 référence(s) pour la date 2023-12-31.\n"},{"data":{"text/html":"<div style=\"width:100%;\"><div style=\"position:relative;width:100%;height:0;padding-bottom:60%;\"><span style=\"color:#565656\">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe srcdoc=\"&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n    \n    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;\n    \n        &lt;script&gt;\n            L_NO_TOUCH = false;\n            L_DISABLE_3D = false;\n        &lt;/script&gt;\n    \n    &lt;style&gt;html, body {width: 100%;height: 100%;margin: 0;padding: 0;}&lt;/style&gt;\n    &lt;style&gt;#map {position:absolute;top:0;bottom:0;right:0;left:0;}&lt;/style&gt;\n    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;&gt;&lt;/script&gt;\n    &lt;script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;&gt;&lt;/script&gt;\n    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;\n    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;\n    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/&gt;\n    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/&gt;\n    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/&gt;\n    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/&gt;\n    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/&gt;\n    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/&gt;\n    \n            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,\n                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;\n            &lt;style&gt;\n                #map_8a36f9484d89817195d8ea2a1548e270 {\n                    position: relative;\n                    width: 100.0%;\n                    height: 100.0%;\n                    left: 0.0%;\n                    top: 0.0%;\n                }\n                .leaflet-container { font-size: 1rem; }\n            &lt;/style&gt;\n        \n&lt;/head&gt;\n&lt;body&gt;\n    \n    \n            &lt;div class=&quot;folium-map&quot; id=&quot;map_8a36f9484d89817195d8ea2a1548e270&quot; &gt;&lt;/div&gt;\n        \n&lt;/body&gt;\n&lt;script&gt;\n    \n    \n            var map_8a36f9484d89817195d8ea2a1548e270 = L.map(\n                &quot;map_8a36f9484d89817195d8ea2a1548e270&quot;,\n                {\n                    center: [43.6114, 3.8767],\n                    crs: L.CRS.EPSG3857,\n                    zoom: 13,\n                    zoomControl: true,\n                    preferCanvas: false,\n                }\n            );\n\n            \n\n        \n    \n            var tile_layer_9d0a7686469f23a20525f6f892be5a30 = L.tileLayer(\n                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,\n                {&quot;attribution&quot;: &quot;\\u0026copy; \\u003ca href=\\&quot;https://www.openstreetmap.org/copyright\\&quot;\\u003eOpenStreetMap\\u003c/a\\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}\n            );\n        \n    \n            tile_layer_9d0a7686469f23a20525f6f892be5a30.addTo(map_8a36f9484d89817195d8ea2a1548e270);\n        \n&lt;/script&gt;\n&lt;/html&gt;\" style=\"position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;\" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div>","text/plain":"<IPython.core.display.HTML object>"},"metadata":{},"output_type":"display_data"}],"tabbable":null,"tooltip":null}},"5252c9b67055482b9809e579be135647":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"53fc1c799eb84a2b98dbf51e33f1d6f6":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"DropdownModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"DropdownModel","_options_labels":["2023-12-31","2023-12-30","2023-12-29","2023-12-28","2023-12-27","2023-12-26","2023-12-25","2023-12-24","2023-12-23","2023-12-22","2023-12-21","2023-12-20","2023-12-19","2023-12-18","2023-12-17","2023-12-16","2023-12-15","2023-12-14","2023-12-13","2023-12-12","2023-12-11","2023-12-10","2023-12-09","2023-12-08","2023-12-07","2023-12-06","2023-12-05","2023-12-04","2023-12-03","2023-12-02","2023-12-01","2024-01-31","2024-01-30","2024-01-29","2024-01-28","2024-01-27","2024-01-26","2024-01-25","2024-01-24","2024-01-23","2024-01-22","2024-01-21","2024-01-20","2024-01-19","2024-01-18","2024-01-17","2024-01-16","2024-01-15","2024-01-14","2024-01-13","2024-01-12","2024-01-11","2024-01-10","2024-01-09","2024-01-08","2024-01-07","2024-01-06","2024-01-05","2024-01-04","2024-01-03","2024-01-02","2024-01-01","2024-03-31","2024-03-30","2024-03-29","2024-03-28","2024-03-27","2024-03-26","2024-03-25","2024-03-24","2024-03-23","2024-03-22","2024-03-21","2024-03-20","2024-03-19","2024-03-18","2024-03-17","2024-03-16","2024-03-15","2024-03-14","2024-03-13","2024-03-12","2024-03-11","2024-03-10","2024-03-09","2024-03-08","2024-03-07","2024-03-06","2024-03-05","2024-03-04","2024-03-03","2024-03-02","2024-03-01","2024-05-31","2024-05-30","2024-05-29","2024-05-28","2024-05-27","2024-05-26","2024-05-25","2024-05-24","2024-05-23","2024-05-22","2024-05-21","2024-05-20","2024-05-19","2024-05-18","2024-05-17","2024-05-16","2024-05-15","2024-05-14","2024-05-13","2024-05-12","2024-05-11","2024-05-10","2024-05-09","2024-05-08","2024-05-07","2024-05-06","2024-05-05","2024-05-04","2024-05-03","2024-05-02","2024-05-01","2024-06-30","2024-06-29","2024-06-28","2024-06-27","2024-06-26","2024-06-25","2024-06-24","2024-06-23","2024-06-22","2024-06-21","2024-06-20","2024-06-19","2024-06-18","2024-06-17","2024-06-16","2024-06-15","2024-06-14","2024-06-13","2024-06-12","2024-06-11","2024-06-10","2024-06-09","2024-06-08","2024-06-07","2024-06-06","2024-06-05","2024-06-04","2024-06-03","2024-06-02","2024-06-01","2024-07-31","2024-07-30","2024-07-29","2024-07-28","2024-07-27","2024-07-26","2024-07-25","2024-07-24","2024-07-23","2024-07-22","2024-07-21","2024-07-20","2024-07-19","2024-07-18","2024-07-17","2024-07-16","2024-07-15","2024-07-14","2024-07-13","2024-07-12","2024-07-11","2024-07-10","2024-07-09","2024-07-08","2024-07-07","2024-07-06","2024-07-05","2024-07-04","2024-07-03","2024-07-02","2024-07-01","2024-08-31","2024-08-30","2024-08-29","2024-08-28","2024-08-27","2024-08-26","2024-08-25","2024-08-24","2024-08-23","2024-08-22","2024-08-21","2024-08-20","2024-08-19","2024-08-18","2024-08-17","2024-08-16","2024-08-15","2024-08-14","2024-08-13","2024-08-12","2024-08-11","2024-08-10","2024-08-09","2024-08-08","2024-08-07","2024-08-06","2024-08-05","2024-08-04","2024-08-03","2024-08-02","2024-08-01","2024-09-30","2024-09-29","2024-09-28","2024-09-27","2024-09-26","2024-09-25","2024-09-24","2024-09-23","2024-09-22","2024-09-21","2024-09-20","2024-09-19","2024-09-18","2024-09-17","2024-09-16","2024-09-15","2024-09-14","2024-09-13","2024-09-12","2024-09-11","2024-09-10","2024-09-09","2024-09-08","2024-09-07","2024-09-06","2024-09-05","2024-09-04","2024-09-03","2024-09-02","2024-09-01"],"_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"DropdownView","description":"Date:","description_allow_html":false,"disabled":false,"index":0,"layout":"IPY_MODEL_a633ee2771aa4066aa63ffeef6cee7d7","style":"IPY_MODEL_fdfc1e2335e845c888570c1374c94557","tabbable":null,"tooltip":null}},"6a6fbeaa91d04605afd366c8b9084806":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"CheckboxStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"CheckboxStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"initial"}},"983fab8fad2245dbbf2b7cd1ab57624b":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"a633ee2771aa4066aa63ffeef6cee7d7":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"c9eec20dcd0345ef9e87514fceacbe03":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"IntSliderModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"IntSliderModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"IntSliderView","behavior":"drag-tap","continuous_update":true,"description":"Nombre de trajets:","description_allow_html":false,"disabled":false,"layout":"IPY_MODEL_163b52d691724277b081be091475b184","max":10,"min":1,"orientation":"horizontal","readout":true,"readout_format":"d","step":1,"style":"IPY_MODEL_03068d4e7d0f40c18ae113b09b4aef58","tabbable":null,"tooltip":null,"value":5}},"d4fb2ef85e6a43e790ea7827649af802":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ButtonStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ButtonStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","button_color":null,"font_family":null,"font_size":null,"font_style":null,"font_variant":null,"font_weight":null,"text_color":null,"text_decoration":null}},"ebf86a64669b423cb41b991cf939628f":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"fdfc1e2335e845c888570c1374c94557":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"DescriptionStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"DescriptionStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","description_width":"initial"}}},"version_major":2,"version_minor":0}
-
-</script>
-
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

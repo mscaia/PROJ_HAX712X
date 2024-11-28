@@ -1,9 +1,11 @@
 ---
 title: Projet 2
 format: html
+engine: shiny
+runtime: shiny
 execute:
-  enabled: true
-  echo: false
+  enabled: false
+  echo: true
   warning: false
 jupyter: python3
 ---
@@ -14,9 +16,8 @@ Ici, les cartes issues de nos principaux travaux.
 import osmnx as ox
 import folium
 import pandas as pd
-import ipywidgets as widgets
-from IPython.display import display, clear_output, HTML
-from src.fonctions_basedonnees import *
+from shiny import App, render, ui
+from src.fonctions_basedonnees import *  # Assurez-vous que ces fonctions sont accessibles
 
 # Effacer le cache
 coordonne.cache_clear()
@@ -42,97 +43,57 @@ liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].
 
 # Liste des dates disponibles
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
+Liste_des_dates = Liste_des_dates.tolist()
 
-# Widgets interactifs
-date_selector = widgets.Dropdown(
-    options=Liste_des_dates,
-    value=Liste_des_dates[0],  # Première date par défaut
-    description="Date:",
-    style={'description_width': 'initial'}
+app_ui = ui.page_fluid(
+    ui.panel_title("Carte interactive des trajets"),
+    ui.input_select(
+        "date_select",
+        "Choisissez une date :",
+        choices=liste_des_trajet_DBF['Departure'].str[:10].unique().tolist(),  # Conversion explicite en liste
+    ),
+    ui.input_checkbox("tracer", "Tracer les trajets ?"),
+    ui.input_slider("nb_trajets", "Nombre de trajets :", min=1, max=10, value=5),
+    ui.input_action_button("tracer_btn", "Afficher la carte"),
+    ui.output_ui("carte_output")
 )
 
-trajet_toggle = widgets.Checkbox(
-    value=False,
-    description="Tracer les trajets ?",
-    style={'description_width': 'initial'}
-)
+def server(input, output, session):
+    @output
+    @render.ui
+    def carte_output():
+        if input.tracer_btn() > 0:
+            # Récupérer les valeurs des widgets
+            selected_date = input.date_select()
+            tracer = input.tracer()
+            nb_trajets = input.nb_trajets()
 
-trajet_slider = widgets.IntSlider(
-    value=5,
-    min=1,
-    max=10,
-    step=1,
-    description="Nombre de trajets:",
-    style={'description_width': 'initial'}
-)
+            # Filtrer les trajets pour la date sélectionnée
+            trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(selected_date)].reset_index(drop=True)
+            nb_ref = len(trajets_du_jour)
 
-button_display = widgets.Button(description="Afficher la carte")
+            # Créer la carte centrée sur Montpellier
+            m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)
 
-output = widgets.Output()
+            if tracer:
+                for i in range(min(nb_trajets, nb_ref)):
+                    trajet = trajets_du_jour.iloc[i]
+                    # Déterminer la couleur en fonction de la distance
+                    color = 'green' if trajet['Covered distance (m)'] < 2000 else 'blue' if trajet['Covered distance (m)'] < 4000 else 'red'
+                    gen_carte_trajet(trajet, G, m, 1, 2, color)
 
-def update_map(change=None):
-    with output:
-        clear_output()
-        
-        # Récupérer les valeurs sélectionnées
-        selected_date = date_selector.value
-        tracer = trajet_toggle.value
-        nb_trajets = trajet_slider.value
-        
-        # Filtrer les trajets du jour
-        trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(selected_date)]
-        trajets_du_jour = trajets_du_jour.reset_index(drop=True)
-        nb_ref = len(trajets_du_jour)
+            # Convertir la carte Folium en HTML
+            folium_html = m._repr_html_()
 
-        # Message à l'utilisateur
-        print(f"Nous avons {nb_ref} référence(s) pour la date {selected_date}.")
-        
-        # Générer la carte
-        m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)
-        
-        if tracer:
-            print(f"Traçage des {min(nb_trajets, nb_ref)} trajets:")
-            for i in range(min(nb_trajets, nb_ref)):
-                trajet = trajets_du_jour.iloc[i]
-                if trajet['Covered distance (m)'] < 2000:
-                    gen_carte_trajet(trajet, G, m, 1, 2, 'green')
-                elif 2000 < trajet['Covered distance (m)'] < 4000:
-                    gen_carte_trajet(trajet, G, m, 1, 2, 'blue')
-                else:
-                    gen_carte_trajet(trajet, G, m, 1, 2, 'red')
-            
-            # Ajouter une légende à la carte
-            legend_html = """
-            <div style="
-                position: fixed;
-                bottom: 50px;
-                left: 50px;
-                width: 200px;
-                height: 120px;
-                background-color: white;
-                border:2px solid grey;
-                z-index:9999;
-                font-size:14px;
-                padding: 10px;
-                ">
-                <b>Légende des distances</b> <br>
-                <i style="background:green; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Moins de 2000 m<br>
-                <i style="background:blue; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Entre 2000 et 4000 m<br>
-                <i style="background:red; width: 10px; height: 10px; float: left; margin-right: 10px;"></i> Plus de 4000 m<br>
-            </div>
-            """
-            m.get_root().html.add_child(folium.Element(legend_html))
-        
-        # Convertir la carte en HTML et l'afficher dynamiquement
-        html = m._repr_html_()
-        display(HTML(html))
+            # Renvoyer le contenu HTML directement dans Shiny
+            return ui.HTML(folium_html)
+        else:
+            return ui.tags.div("Cliquez sur 'Afficher la carte' pour générer une carte.")
 
-button_display.on_click(update_map)
-
-# Affichage des widgets
-display(date_selector, trajet_toggle, trajet_slider, button_display, output)
-
-# Afficher la première carte par défaut
-update_map()
+# Créer et exécuter l'application Shiny
+app = App(app_ui, server)
 ```
+
+
+L'application Shiny de notre carte interactive : [Accéder à l'application Shiny](https://cyclevision3map.shinyapps.io/shiny_app/){target="_blank"}
 
