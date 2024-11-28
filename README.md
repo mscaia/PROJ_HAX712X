@@ -35,6 +35,6 @@ Before beginning development and data analysis, you need to set up the working e
    ```bash
    quarto preview
    ```
-## 🔒 Licence
+## 🔒 License
 
-This project is licensed under the terms specified in the [LICENSE file](https://github.com/mscaia/PROJ_HAX712X/blob/main/LICENCE). Please refer to the file for more details.
+This project is licensed under the terms specified in the [file "LICENCE"](https://github.com/mscaia/PROJ_HAX712X/blob/main/LICENCE). Please refer to the file for more details.
