@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -197,88 +163,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Ici, les cartes issues de nos principaux travaux.</p>
-<div id="72a6016b" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> osmnx <span class="im">as</span> ox</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shiny <span class="im">import</span> App, render, ui</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.fonctions_basedonnees <span class="im">import</span> <span class="op">*</span>  <span class="co"># Assurez-vous que ces fonctions sont accessibles</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Effacer le cache</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>coordonne.cache_clear()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuration initiale</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ville <span class="op">=</span> <span class="st">"Montpellier, France"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> ox.graph_from_place(ville, network_type<span class="op">=</span><span class="st">"all"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le DataFrame</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df_coursesvelomagg_traité <span class="op">=</span> pd.read_csv(<span class="st">"../data/CoursesVelomagg.csv"</span>).dropna()</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>liste_des_trajets <span class="op">=</span> df_coursesvelomagg_traité[[<span class="st">'Departure'</span>, <span class="st">'Departure station'</span>, <span class="st">'Return station'</span>, <span class="st">'Covered distance (m)'</span>, <span class="st">'Duration (sec.)'</span>]]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Nettoyer et normaliser les colonnes</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF <span class="op">=</span> liste_des_trajets.copy()</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Departure station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure station'</span>].<span class="bu">apply</span>(nettoyer_adresse_normalise)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Return station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Return station'</span>].<span class="bu">apply</span>(nettoyer_adresse_normalise)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Remplacements spécifiques</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Departure station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure station'</span>].replace(<span class="st">"FacdesSciences"</span>, <span class="st">"Faculté des sciences"</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Return station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Return station'</span>].replace(<span class="st">"FacdesSciences"</span>, <span class="st">"Faculté des sciences"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Departure station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure station'</span>].replace(<span class="vs">r".*Gare Saint-Roch$"</span>, <span class="st">"Gare Saint-Roch"</span>, regex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>liste_des_trajet_DBF[<span class="st">'Return station'</span>] <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Return station'</span>].replace(<span class="vs">r".*Gare Saint-Roch$"</span>, <span class="st">"Gare Saint-Roch"</span>, regex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Liste des dates disponibles</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Liste_des_dates <span class="op">=</span> liste_des_trajet_DBF[<span class="st">'Departure'</span>].<span class="bu">str</span>[:<span class="dv">10</span>].unique()</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Liste_des_dates <span class="op">=</span> Liste_des_dates.tolist()</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>app_ui <span class="op">=</span> ui.page_fluid(</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    ui.panel_title(<span class="st">"Carte interactive des trajets"</span>),</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    ui.input_select(</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"date_select"</span>,</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Choisissez une date :"</span>,</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        choices<span class="op">=</span>liste_des_trajet_DBF[<span class="st">'Departure'</span>].<span class="bu">str</span>[:<span class="dv">10</span>].unique().tolist(),  <span class="co"># Conversion explicite en liste</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    ui.input_checkbox(<span class="st">"tracer"</span>, <span class="st">"Tracer les trajets ?"</span>),</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    ui.input_slider(<span class="st">"nb_trajets"</span>, <span class="st">"Nombre de trajets :"</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">1</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">10</span>, value<span class="op">=</span><span class="dv">5</span>),</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    ui.input_action_button(<span class="st">"tracer_btn"</span>, <span class="st">"Afficher la carte"</span>),</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    ui.output_ui(<span class="st">"carte_output"</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> server(<span class="bu">input</span>, output, session):</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">@output</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">@render.ui</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> carte_output():</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">input</span>.tracer_btn() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Récupérer les valeurs des widgets</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            selected_date <span class="op">=</span> <span class="bu">input</span>.date_select()</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>            tracer <span class="op">=</span> <span class="bu">input</span>.tracer()</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>            nb_trajets <span class="op">=</span> <span class="bu">input</span>.nb_trajets()</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Filtrer les trajets pour la date sélectionnée</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>            trajets_du_jour <span class="op">=</span> liste_des_trajet_DBF[liste_des_trajet_DBF[<span class="st">'Departure'</span>].<span class="bu">str</span>.startswith(selected_date)].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            nb_ref <span class="op">=</span> <span class="bu">len</span>(trajets_du_jour)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Créer la carte centrée sur Montpellier</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>            m <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">43.6114</span>, <span class="fl">3.8767</span>], zoom_start<span class="op">=</span><span class="dv">13</span>)</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> tracer:</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">min</span>(nb_trajets, nb_ref)):</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>                    trajet <span class="op">=</span> trajets_du_jour.iloc[i]</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># Déterminer la couleur en fonction de la distance</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>                    color <span class="op">=</span> <span class="st">'green'</span> <span class="cf">if</span> trajet[<span class="st">'Covered distance (m)'</span>] <span class="op">&lt;</span> <span class="dv">2000</span> <span class="cf">else</span> <span class="st">'blue'</span> <span class="cf">if</span> trajet[<span class="st">'Covered distance (m)'</span>] <span class="op">&lt;</span> <span class="dv">4000</span> <span class="cf">else</span> <span class="st">'red'</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>                    gen_carte_trajet(trajet, G, m, <span class="dv">1</span>, <span class="dv">2</span>, color)</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Convertir la carte Folium en HTML</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>            folium_html <span class="op">=</span> m._repr_html_()</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Renvoyer le contenu HTML directement dans Shiny</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ui.HTML(folium_html)</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ui.tags.div(<span class="st">"Cliquez sur 'Afficher la carte' pour générer une carte."</span>)</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Créer et exécuter l'application Shiny</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>L’application Shiny de notre carte interactive : <a href="https://cyclevision3map.shinyapps.io/shiny_app/" target="_blank">Accéder à l’application Shiny</a></p>
+<iframe src="https://cyclevision3map.shinyapps.io/shiny_app/" width="100%" height="600px" frameborder="0">
+</iframe>
 
 
 
