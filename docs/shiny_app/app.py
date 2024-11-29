@@ -165,6 +165,27 @@ def server(input, output, session):
                         gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 'Departure station', 'Return station', 'red')  # Ajout de la carte de chaque trajet à la carte globale
             # Convertir la carte Folium en HTML
             folium_html = m._repr_html_()
+            # Ajouter la légende directement au HTML généré
+            folium_html += """
+            <div style="
+                position: fixed;
+                bottom: 50px;
+                left: 50px;
+                width: 200px;
+                height: 120px;
+                background-color: white;
+                border:2px solid grey;
+                z-index:9999;
+                font-size:14px;
+                padding: 10px;
+                ">
+                <b>Légende des distances</b> <br>
+                <i style="background:green; width: 10px; height: 10px; display: inline-block; margin-right: 10px;"></i> Moins de 2000 m<br>
+                <i style="background:blue; width: 10px; height: 10px; display: inline-block; margin-right: 10px;"></i> Entre 2000 et 4000 m<br>
+                <i style="background:red; width: 10px; height: 10px; display: inline-block; margin-right: 10px;"></i> Plus de 4000 m<br>
+                </div>
+            """
+
 
             # Renvoyer le contenu HTML directement dans Shiny
             return ui.HTML(folium_html)
