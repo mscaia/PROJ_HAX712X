@@ -18,7 +18,7 @@ G = ox.graph_from_place(ville, network_type="all")
 m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du centre Montpellier
 
 #Extraire notre dataframe
-df_coursesvelomagg_traité = pd.read_csv("../data/CoursesVelomagg.csv").dropna()
+df_coursesvelomagg_traité = pd.read_csv("C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/CoursesVelomagg.csv").dropna()
 
 # Extraire les trajets avec les noms des stations aller et le nom des stations retours
 liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]
