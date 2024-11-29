@@ -73,8 +73,8 @@ def nettoyer_adresse_normalise(adresse):
 def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):
     # Essayer de géocoder les stations de départ et d'arrivée
     try:
-        origin = ox.geocode(f"{ligne[index_colonne_départ]}, Montpellier, France")  # Première colonne
-        destination = ox.geocode(f"{ligne[index_colonne_arrive]}, Montpellier, France")  # Deuxième colonne
+        origin = ox.geocode(f"{ligne['Departure station']}, Montpellier, France") # Départs
+        destination = ox.geocode(f"{ligne['Return station']}, Montpellier, France") # Arrivées
         
         # Vérifier si le géocodage a réussi
         if origin is None or destination is None:
