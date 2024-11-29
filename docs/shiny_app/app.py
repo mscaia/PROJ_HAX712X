@@ -30,6 +30,11 @@ liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
 Liste_des_dates = Liste_des_dates.tolist()
 
+# Recherche du problème
+ligne_test = liste_des_trajet_DBF.iloc[0]
+print("Valeur pour l'index 1 :", ligne_test[1])
+print("Valeur pour l'index 2 :", ligne_test[2])
+
 app_ui = ui.page_fluid(
     ui.panel_title("Carte interactive des trajets"),
     ui.input_select(
@@ -66,11 +71,11 @@ def server(input, output, session):
                     trajet = trajets_du_jour.iloc[i]
                     print(f"Affichage du trajet {i+1}")
                     if trajets_du_jour.loc[i, 'Covered distance (m)']<2000 :
-                        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2,'green')  # Ajout de la carte de chaque trajet à la carte globale
+                        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 'Departure station', 'Return station','green')  # Ajout de la carte de chaque trajet à la carte globale
                     elif 2000<trajets_du_jour.loc[i, 'Covered distance (m)']<4000 :
-                        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2, 'blue')  # Ajout de la carte de chaque trajet à la carte globale
+                        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 'Departure station', 'Return station', 'blue')  # Ajout de la carte de chaque trajet à la carte globale
                     else:
-                        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 1, 2, 'red')  # Ajout de la carte de chaque trajet à la carte globale
+                        gen_carte_trajet(trajets_du_jour.iloc[i], G, m, 'Departure station', 'Return station', 'red')  # Ajout de la carte de chaque trajet à la carte globale
             # Convertir la carte Folium en HTML
             folium_html = m._repr_html_()
 
