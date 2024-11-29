@@ -13,44 +13,50 @@ from folium.plugins import HeatMap #a rajouter dans 6.1
 import osmnx as ox
 from collections import defaultdict #a rajouter dans 6.1
 import networkx as nx
+import pandas as pd
+
 
 #%%
-fichiers=['MMM_EcoCompt_ED223110495.json','MMM_EcoCompt_ED223110496.json',
-          'MMM_EcoCompt_ED223110497.json','MMM_EcoCompt_ED223110500.json',
-          'MMM_EcoCompt_ED223110501.json','MMM_EcoCompt_X2H19070220.json',
-          'MMM_EcoCompt_X2H20042632.json','MMM_EcoCompt_X2H20042633.json',
-          'MMM_EcoCompt_X2H20042634.json','MMM_EcoCompt_X2H20042635.json',
-          'MMM_EcoCompt_X2H20063161.json','MMM_EcoCompt_X2H20063162.json',
-          'MMM_EcoCompt_X2H20063163.json','MMM_EcoCompt_X2H20063164.json',
-          'MMM_EcoCompt_X2H20104132.json','MMM_EcoCompt_X2H21070341.json',
-          'MMM_EcoCompt_X2H21070342.json','MMM_EcoCompt_X2H21070343.json',
-          'MMM_EcoCompt_X2H21070344.json','MMM_EcoCompt_X2H21070345.json',
-          'MMM_EcoCompt_X2H21070346.json','MMM_EcoCompt_X2H21070347.json',
-          'MMM_EcoCompt_X2H21070348.json','MMM_EcoCompt_X2H21070349.json',
-          'MMM_EcoCompt_X2H21070350.json','MMM_EcoCompt_X2H21070351.json',
-          'MMM_EcoCompt_X2H21111120.json','MMM_EcoCompt_X2H21111121.json',
-          'MMM_EcoCompt_X2H22043029.json','MMM_EcoCompt_X2H22043030.json',
-          'MMM_EcoCompt_X2H22043031.json','MMM_EcoCompt_X2H22043032.json',
-          'MMM_EcoCompt_X2H22043033.json','MMM_EcoCompt_X2H22043034.json',
-          'MMM_EcoCompt_X2H22043035.json','MMM_EcoCompt_X2H22104765.json',
-          'MMM_EcoCompt_X2H22104766.json','MMM_EcoCompt_X2H22104767.json',
-          'MMM_EcoCompt_X2H22104768.json','MMM_EcoCompt_X2H22104769.json',
-          'MMM_EcoCompt_X2H22104770.json','MMM_EcoCompt_X2H22104771.json',
-          'MMM_EcoCompt_X2H22104772.json','MMM_EcoCompt_X2H22104773.json',
-          'MMM_EcoCompt_X2H22104774.json','MMM_EcoCompt_X2H22104775.json',
-          'MMM_EcoCompt_X2H22104776.json','MMM_EcoCompt_X2H22104777.json',
-          'MMM_EcoCompt_XTH19101158.json','MMM_EcoCompt_XTH21015106.json',
-          'MMM_EcoCompt_XTH24072390.json','MMM_EcoCompt_XAH23111501.json',
-          'MMM_EcoCompt_XTH19101158_2020.json', 'MMM_EcoCompt_X2H20063164_2020.json', 
-          'MMM_EcoCompt_X2H20063163_2020.json', 'MMM_EcoCompt_X2H20063162_2020.json', 
-          'MMM_EcoCompt_X2H20063161_2020.json', 'MMM_EcoCompt_X2H20042635_2020.json', 
-          'MMM_EcoCompt_X2H20042634_2020.json', 'MMM_EcoCompt_X2H20042633_2020.json', 
-          'MMM_EcoCompt_X2H20042632_2020.json', 'MMM_EcoCompt_X2H19070220_2020.json']
+fichiers = [
+    './data/json/MMM_EcoCompt_ED223110495.json', './data/json/MMM_EcoCompt_ED223110496.json',
+    './data/json/MMM_EcoCompt_ED223110497.json', './data/json/MMM_EcoCompt_ED223110500.json',
+    './data/json/MMM_EcoCompt_ED223110501.json', './data/json/MMM_EcoCompt_X2H19070220.json',
+    './data/json/MMM_EcoCompt_X2H20042632.json', './data/json/MMM_EcoCompt_X2H20042633.json',
+    './data/json/MMM_EcoCompt_X2H20042634.json', './data/json/MMM_EcoCompt_X2H20042635.json',
+    './data/json/MMM_EcoCompt_X2H20063161.json', './data/json/MMM_EcoCompt_X2H20063162.json',
+    './data/json/MMM_EcoCompt_X2H20063163.json', './data/json/MMM_EcoCompt_X2H20063164.json',
+    './data/json/MMM_EcoCompt_X2H20104132.json', './data/json/MMM_EcoCompt_X2H21070341.json',
+    './data/json/MMM_EcoCompt_X2H21070342.json', './data/json/MMM_EcoCompt_X2H21070343.json',
+    './data/json/MMM_EcoCompt_X2H21070344.json', './data/json/MMM_EcoCompt_X2H21070345.json',
+    './data/json/MMM_EcoCompt_X2H21070346.json', './data/json/MMM_EcoCompt_X2H21070347.json',
+    './data/json/MMM_EcoCompt_X2H21070348.json', './data/json/MMM_EcoCompt_X2H21070349.json',
+    './data/json/MMM_EcoCompt_X2H21070350.json', './data/json/MMM_EcoCompt_X2H21070351.json',
+    './data/json/MMM_EcoCompt_X2H21111120.json', './data/json/MMM_EcoCompt_X2H21111121.json',
+    './data/json/MMM_EcoCompt_X2H22043029.json', './data/json/MMM_EcoCompt_X2H22043030.json',
+    './data/json/MMM_EcoCompt_X2H22043031.json', './data/json/MMM_EcoCompt_X2H22043032.json',
+    './data/json/MMM_EcoCompt_X2H22043033.json', './data/json/MMM_EcoCompt_X2H22043034.json',
+    './data/json/MMM_EcoCompt_X2H22043035.json', './data/json/MMM_EcoCompt_X2H22104765.json',
+    './data/json/MMM_EcoCompt_X2H22104766.json', './data/json/MMM_EcoCompt_X2H22104767.json',
+    './data/json/MMM_EcoCompt_X2H22104768.json', './data/json/MMM_EcoCompt_X2H22104769.json',
+    './data/json/MMM_EcoCompt_X2H22104770.json', './data/json/MMM_EcoCompt_X2H22104771.json',
+    './data/json/MMM_EcoCompt_X2H22104772.json', './data/json/MMM_EcoCompt_X2H22104773.json',
+    './data/json/MMM_EcoCompt_X2H22104774.json', './data/json/MMM_EcoCompt_X2H22104775.json',
+    './data/json/MMM_EcoCompt_X2H22104776.json', './data/json/MMM_EcoCompt_X2H22104777.json',
+    './data/json/MMM_EcoCompt_XTH19101158.json', './data/json/MMM_EcoCompt_XTH21015106.json',
+    './data/json/MMM_EcoCompt_XTH24072390.json', './data/json/MMM_EcoCompt_XAH23111501.json',
+    './data/json/MMM_EcoCompt_XTH19101158_2020.json', './data/json/MMM_EcoCompt_X2H20063164_2020.json',
+    './data/json/MMM_EcoCompt_X2H20063163_2020.json', './data/json/MMM_EcoCompt_X2H20063162_2020.json',
+    './data/json/MMM_EcoCompt_X2H20063161_2020.json', './data/json/MMM_EcoCompt_X2H20042635_2020.json',
+    './data/json/MMM_EcoCompt_X2H20042634_2020.json', './data/json/MMM_EcoCompt_X2H20042633_2020.json',
+    './data/json/MMM_EcoCompt_X2H20042632_2020.json', './data/json/MMM_EcoCompt_X2H19070220_2020.json'
+]
 
 
-files=['TAM_MMM_CoursesVelomagg_2023_simp.csv','TAM_MMM_CoursesVelomagg.csv', 
-            'TAM_MMM_CoursesVelomagg_2021_simp.csv', 'TAM_MMM_CoursesVelomagg_2022_simp.csv']
 
+files=['./data/extracted/TAM_MMM_CoursesVelomagg_2023.csv','./data/CoursesVelomagg.csv', 
+            './data/extracted/TAM_MMM_CoursesVelomagg_2021.csv', './data/extracted/TAM_MMM_CoursesVelomagg_2022.csv']
+
+print(files)
 #a changer par rapport au github  
 #%%
 donnee=[]
@@ -376,12 +382,12 @@ def nb_tot_jour(j):
             lecteur = csv.reader(f, delimiter=';')  # Définir le séparateur si nécessaire
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
-                dat, heur = ligne[0].split(' ')
+                dat, heur = ligne[2].split(' ')
                 date=datetime.strptime(dat, '%Y-%m-%d')
                 jour=date.weekday()
                 if jour==j:
-                    dep=ligne[2].split(' ')[0]
-                    arr=ligne[3].split(' ')[0]
+                    dep=ligne[5].split(' ')[0]
+                    arr=ligne[6].split(' ')[0]
                     if dep!='' and arr!='':
                         if dep in Sta and arr in Sta:
                             if dat not in D:
@@ -399,12 +405,12 @@ def poids_par_h(j):
             lecteur = csv.reader(f, delimiter=';')  
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
-                dat, heur = ligne[0].split(' ')
+                dat, heur = ligne[2].split(' ')
                 date=datetime.strptime(dat, '%Y-%m-%d')
                 jour=date.weekday()
                 if jour==j:
-                    dep=ligne[2].split(' ')[0]
-                    arr=ligne[3].split(' ')[0]
+                    dep=ligne[5].split(' ')[0]
+                    arr=ligne[6].split(' ')[0]
                     if dep!='' and arr!='':
                         if dep in Sta and arr in Sta:
                             if dat not in D:
@@ -450,9 +456,10 @@ def trajets_parcourus(j,h):
             lecteur = csv.reader(f, delimiter=';')  # Définir le séparateur si nécessaire
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
-                dat, heur = ligne[0].split(' ')
-                dep=ligne[2].split(' ')[0]
-                arr=ligne[3].split(' ')[0]
+                print(ligne)
+                dat, heur = ligne[2].split(' ')
+                dep=ligne[5].split(' ')[0]
+                arr=ligne[6].split(' ')[0]
                 date=datetime.strptime(dat, '%Y-%m-%d')
                 jour=date.weekday()
                 if jour==j:
