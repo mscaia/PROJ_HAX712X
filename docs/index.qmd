@@ -13,7 +13,7 @@ CycleVision3 est un projet qui vise à décrire le trafic cycliste à Montpellie
 - [Comptages vélo et piéton issus des compteurs de vélo](https://data.montpellier3m.fr/dataset/comptages-velo-et-pieton-issus-des-compteurs-de-velo)
 - [OpenStreetMap](https://www.openstreetmap.org/#map=6/46.45/2.21)
   
-Il s'agit principalement d'un projet de visualisation, avec des cartes (dont certaines sont interactives) et une vidéo. Les principaux projets sont disponibles dans l'onglet éponyme. 
+Il s'agit principalement d'un projet de visualisation, avec des cartes (dont certaines sont interactives) et une vidéo. Les principaux projets sont disponibles dans l'onglet travaux. 
 
 
 ## Stations de vélos à Montpellier.
@@ -27,6 +27,7 @@ import osmnx as ox
 import folium
 import requests
 import json
+from IPython.display import display
 
 # Définir l'endroit
 ville = "Montpellier, France"
@@ -80,12 +81,9 @@ for station in data:
         icon=folium.Icon(color='blue', icon='info-sign')
     ).add_to(m)
 
-# Sauvegarder la carte dans un fichier HTML dans un dossier du site
-output_path = "./montpellier_bike_stations_map.html"  # Adaptez le chemin si nécessaire
-m.save(output_path)
+display(m)
 ```
 
-<iframe src="montpellier_bike_stations_map.html" width="100%" height="600"></iframe>
 
 
 ## Contact
