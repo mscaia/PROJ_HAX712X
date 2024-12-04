@@ -120,13 +120,6 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Auteurs</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/mscaia/PROJ_HAX712X"> <i class="bi bi-images/logogithub.png" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-</ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
@@ -137,15 +130,8 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#carte-des-intensités" id="toc-carte-des-intensités" class="nav-link active" data-scroll-target="#carte-des-intensités">Carte des intensités</a></li>
-  <li><a href="#carte-des-trajets" id="toc-carte-des-trajets" class="nav-link" data-scroll-target="#carte-des-trajets">Carte des trajets</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -173,55 +159,64 @@ ul.task-list li input[type="checkbox"] {
 <p>L’application Shiny de notre carte interactive : <a href="https://cyclevision3map.shinyapps.io/shiny_app/" target="_blank">Accéder à l’application Shiny</a></p>
 <iframe src="https://cyclevision3map.shinyapps.io/shiny_app/" width="100%" height="600px" frameborder="0">
 </iframe>
-<section id="carte-des-intensités" class="level2">
-<h2 class="anchored" data-anchor-id="carte-des-intensités">Carte des intensités</h2>
+
+<!-- Carte des intensités -->
+<h2 class="anchored">
+Carte des intensités
+</h2>
 <form>
-<p><label for="date">Sélectionner une date:</label> <select id="date"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="03">Jeudi</option> <option value="03">Vendredi</option> <option value="03">Samedi</option> <option value="03">Dimanche</option> </select></p>
-<p><label for="heure">Sélectionner une heure:</label> <select id="heure"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="02">03:00</option> <option value="02">04:00</option> <option value="02">05:00</option> <option value="02">06:00</option> <option value="02">07:00</option> <option value="02">08:00</option> <option value="02">09:00</option> <option value="02">10:00</option> <option value="02">11:00</option> <option value="02">12:00</option> <option value="02">13:00</option> <option value="02">14:00</option> <option value="02">15:00</option> <option value="02">16:00</option> <option value="02">17:00</option> <option value="02">18:00</option> <option value="02">19:00</option> <option value="02">20:00</option> <option value="02">21:00</option> <option value="02">22:00</option> <option value="02">23:00</option> </select></p>
-<button type="button" onclick="afficherCarte()">
+<p><label for="date-intensity">Sélectionner une date:</label> <select id="date-intensity"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select></p>
+<p><label for="heure-intensity">Sélectionner une heure:</label> <select id="heure-intensity"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="03">03:00</option> <option value="04">04:00</option> <option value="05">05:00</option> <option value="06">06:00</option> <option value="07">07:00</option> <option value="08">08:00</option> <option value="09">09:00</option> <option value="10">10:00</option> <option value="11">11:00</option> <option value="12">12:00</option> <option value="13">13:00</option> <option value="14">14:00</option> <option value="15">15:00</option> <option value="16">16:00</option> <option value="17">17:00</option> <option value="18">18:00</option> <option value="19">19:00</option> <option value="20">20:00</option> <option value="21">21:00</option> <option value="22">22:00</option> <option value="23">23:00</option> </select></p>
+<button type="button" onclick="afficherCarte('intensity')">
 Afficher la carte
 </button>
 </form>
-<div id="carte">
+<div id="carte-intensity">
+
+</div>
+<!-- Carte des trajets -->
+<h2 class="anchored">
+Carte des trajets
+</h2>
+<form>
+<p><label for="date-trajets">Sélectionner une date:</label> <select id="date-trajets"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select></p>
+<p><label for="heure-trajets">Sélectionner une heure:</label> <select id="heure-trajets"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="03">03:00</option> <option value="04">04:00</option> <option value="05">05:00</option> <option value="06">06:00</option> <option value="07">07:00</option> <option value="08">08:00</option> <option value="09">09:00</option> <option value="10">10:00</option> <option value="11">11:00</option> <option value="12">12:00</option> <option value="13">13:00</option> <option value="14">14:00</option> <option value="15">15:00</option> <option value="16">16:00</option> <option value="17">17:00</option> <option value="18">18:00</option> <option value="19">19:00</option> <option value="20">20:00</option> <option value="21">21:00</option> <option value="22">22:00</option> <option value="23">23:00</option> </select></p>
+<button type="button" onclick="afficherCarte('trajets')">
+Afficher la carte
+</button>
+</form>
+<div id="carte-trajets">
 
 </div>
 <script>
-function afficherCarte() {
-    const date = document.getElementById('date').value;
-    const heure = document.getElementById('heure').value;
+        function afficherCarte(type) {
+            // Sélectionner les bons éléments en fonction du type
+            const date = document.getElementById(`date-${type}`).value;
+            const heure = document.getElementById(`heure-${type}`).value;
+            const carteDiv = document.getElementById(`carte-${type}`);
 
-    // Générer le nom du fichier HTML en fonction de la date et de l'heure sélectionnées
-    const fichierCarte = `intensity_${date}_${heure}.html`;
+            // Générer le chemin du fichier correspondant
+            const fichierCarte = (type === 'intensity') 
+                ? `projet2_files/cartes_intensity/intensity_${date}_${heure}.html`
+                : `projet2_files/cartes_trajets/trajets_${date}_${heure}.html`;
 
-    // Récupérer la div qui contient l'iframe
-    const carteDiv = document.getElementById('carte');
-    
-    // Supprimer l'iframe existante (si elle existe)
-    carteDiv.innerHTML = '';
+            // Supprimer l'iframe existante (si elle existe)
+            carteDiv.innerHTML = '';
 
-    // Créer une nouvelle iframe et ajouter à la div
-    const iframe = document.createElement('iframe');
-    iframe.src = `projet2_files/cartes_intensity/${fichierCarte}`;
-    iframe.width = '100%';
-    iframe.height = '500px';
+            // Créer une nouvelle iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = fichierCarte;
+            iframe.width = '100%';
+            iframe.height = '500px';
 
-    // Ajouter l'iframe à la div
-    carteDiv.appendChild(iframe);
-}
-</script>
-</section>
-<section id="carte-des-trajets" class="level2">
-<h2 class="anchored" data-anchor-id="carte-des-trajets">Carte des trajets</h2>
-<form>
-<p><label for="date">Sélectionner une date:</label> <select id="date"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="03">Jeudi</option> <option value="03">Vendredi</option> <option value="03">Samedi</option> <option value="03">Dimanche</option> </select></p>
-<p><label for="heure">Sélectionner une heure:</label> <select id="heure"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="02">03:00</option> <option value="02">04:00</option> <option value="02">05:00</option> <option value="02">06:00</option> <option value="02">07:00</option> <option value="02">08:00</option> <option value="02">09:00</option> <option value="02">10:00</option> <option value="02">11:00</option> <option value="02">12:00</option> <option value="02">13:00</option> <option value="02">14:00</option> <option value="02">15:00</option> <option value="02">16:00</option> <option value="02">17:00</option> <option value="02">18:00</option> <option value="02">19:00</option> <option value="02">20:00</option> <option value="02">21:00</option> <option value="02">22:00</option> <option value="02">23:00</option> </select></p>
-<button type="button" onclick="afficherCarte()">
-Afficher la carte
-</button>
-</form>
+            // Ajouter l'iframe à la div
+            carteDiv.appendChild(iframe);
+        }
+    </script>
 
 
-</section>
+
+
 
 </main> <!-- /main -->
 <footer style="background-color: #f8f9fa; color: #6c757d; text-align: center; padding: 10px 0;">
