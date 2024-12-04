@@ -1,0 +1,43 @@
+name: Update and Deploy Site
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  push:  # Déclencher le workflow lors d'un push
+    branches:
+      - main
+  workflow_dispatch:  # Permet de lancer manuellement le workflow
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Étape 1 : Vérifier le dépôt
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Étape 2 : Configurer Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+
+    # Étape 3 : Installer Quarto
+    - name: Install Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+
+    # Étape 4 : Installer les dépendances Python
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    # Étape 5 : Générer le site
+    - name: Render site
+      run: quarto render
+
+    # Étape 6 : Déployer sur GitHub Pages avec l'action peaceiris
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs
