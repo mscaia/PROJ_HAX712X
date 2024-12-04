@@ -13,6 +13,20 @@ from functools import lru_cache
 
 #Fonction qui donne le colonne i du tableau voulu: 
 def colonne(i, w_file):
+    """
+    Description :
+    La fonction `colonne` extrait toutes les valeurs d'une colonne spécifique d'un fichier CSV et les retourne sous forme de liste.
+
+    Paramètres :
+    - i : int
+        L'indice (0-based) de la colonne à extraire.
+    - w_file : str
+        Le chemin vers le fichier CSV à lire.
+
+    Retourne :
+    - list
+        Une liste contenant les valeurs extraites de la colonne spécifiée. Chaque valeur est une chaîne de caractères (str).
+    """
     L=[]
     with open(w_file) as f:
         for line in f:
@@ -22,6 +36,25 @@ def colonne(i, w_file):
 
 #Fonction qui retourne toutes les valeurs dans la colonne j quand l'argument de la colonne i est k 
 def arg(k,i,j, w_file):
+    """
+    Description :
+    La fonction `arg` extrait des valeurs spécifiques d'une colonne dans un fichier CSV en fonction d'une condition appliquée sur une autre colonne.
+
+    Paramètres :
+    - k : str
+        La valeur cible pour la condition.
+    - i : int
+        L'indice de la colonne à vérifier pour la condition.
+    - j : int
+        L'indice de la colonne à extraire.
+    - w_file : str
+        Le chemin vers le fichier CSV à lire.
+
+    Retourne :
+    - list
+        Une liste contenant les valeurs extraites de la colonne `j` lorsque la condition `x[i] == k` est satisfaite.
+    """
+
     L=[]
     with open(w_file) as f:
         for line in f:
@@ -32,6 +65,20 @@ def arg(k,i,j, w_file):
 
 # Fonction qui permet de transforme les donnée date du dataframe en donnée exploitable.
 def pd_to_datetime(df, colonne_date):
+    """
+    Description :
+    La fonction `pd_to_datetime` convertit une colonne de dates dans un DataFrame pandas en un format datetime, crée une nouvelle colonne avec uniquement la date, et supprime la colonne d'origine.
+
+    Paramètres :
+    - df : pandas.DataFrame
+        Le DataFrame contenant les données.
+    - colonne_date : str
+        Le nom de la colonne contenant les dates à convertir.
+
+    Retourne :
+    - pandas.DataFrame
+        Le DataFrame modifié avec une colonne 'Date' contenant les dates extraites, et sans la colonne d'origine `colonne_date`.
+    """
     df = df.dropna()
     df[colonne_date] = pd.to_datetime(df[colonne_date])
     df['Date'] = df[colonne_date].dt.date
@@ -41,6 +88,7 @@ def pd_to_datetime(df, colonne_date):
 #Fonction qui permet d'enleve les bruits dans les chaines de caractère d'un dataframe
 def nettoyer_adresse_normalise(adresse):
     """
+    Description :
     Nettoie et normalise une adresse en supprimant les numéros au début, 
     en normalisant les caractères Unicode.
     
@@ -71,6 +119,20 @@ def nettoyer_adresse_normalise(adresse):
 
 # Créer une fonction pour générer la carte pour chaque trajet
 def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):
+    """
+    Description :
+    La fonction `pd_to_datetime` convertit une colonne de dates dans un DataFrame pandas en un format datetime, crée une nouvelle colonne avec uniquement la date, et supprime la colonne d'origine.
+
+    Paramètres :
+    - df : pandas.DataFrame
+        Le DataFrame contenant les données.
+    - colonne_date : str
+        Le nom de la colonne contenant les dates à convertir.
+
+    Retourne :
+    - pandas.DataFrame
+        Le DataFrame modifié avec une colonne 'Date' contenant les dates extraites, et sans la colonne d'origine `colonne_date`.
+    """
     # Essayer de géocoder les stations de départ et d'arrivée
     try:
         origin = ox.geocode(f"{ligne[index_colonne_départ]}, Montpellier, France")  # Première colonne
@@ -116,6 +178,18 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,co
 
 @lru_cache(maxsize=None)
 def coordonne(station):
+    """
+    Description :
+    La fonction `coordonne` utilise le géocodage pour obtenir les coordonnées géographiques (latitude, longitude) d'une station donnée dans la ville de Montpellier, France.
+
+    Paramètres :
+    - station : str
+        Le nom de la station dont on souhaite obtenir les coordonnées.
+
+    Retourne :
+    - tuple
+        Un tuple contenant la latitude et la longitude de la station. Si une erreur survient pendant le géocodage, la fonction retourne `(None, None)`.
+    """
     try:
         # Recherche de l'emplacement en utilisant osmnx
         location = ox.geocode(f"{station}, Montpellier, France")

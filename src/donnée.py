@@ -5,7 +5,7 @@ sys.path.insert(0, racine_du_projet)
 # Import de la classe GestionnaireDonnees
 from src.gestion_donnee import *
 
-# Crée une instance de GestionnaireDonnees
+# Créer une instance de GestionnaireDonnees
 gestionnaire = GestionnaireDonnees(repertoire_telechargement="./data")
 
 # Exemple : Téléchargement et traitement des données
