@@ -13,6 +13,19 @@ Liste_des_stations = stations.tolist()
 print(Liste_des_stations)
 
 def choisir_station(prompt):
+    """
+    Description :
+    La fonction `choisir_station` permet à l'utilisateur de choisir une station parmi une liste prédéfinie appelée `Liste_des_stations`. 
+    Si l'utilisateur entre une station invalide, la fonction affiche un message d'erreur et redemande la saisie jusqu'à ce qu'une station valide soit sélectionnée.
+
+    Paramètres :
+    - prompt : str
+        Un message affiché à l'utilisateur pour lui demander de saisir une station.
+
+    Retourne :
+    - str
+        La station sélectionnée par l'utilisateur, qui est un élément valide de `Liste_des_stations`.
+    """
     while True:
         choix = input(prompt)
         if choix in Liste_des_stations:
@@ -42,6 +55,20 @@ route_back = ox.shortest_path(G, destination_node, origin_node)
 
 # Fonction pour convertir un itinéraire (liste de nœuds) en liste de coordonnées géographiques
 def route_to_coords(G, route):
+    """
+    Description :
+    La fonction `route_to_coords` convertit une liste de noeuds représentant une route dans un graphe en une liste de coordonnées géographiques (latitude, longitude).
+
+    Paramètres :
+    - G : networkx.Graph
+        Un graphe contenant des informations sur les noeuds. Chaque noeud doit avoir des attributs 'x' (longitude) et 'y' (latitude).
+    - route : list
+        Une liste de noeuds représentant une route dans le graphe `G`.
+
+    Retourne :
+    - list of tuple
+        Une liste de tuples contenant les coordonnées géographiques (latitude, longitude) pour chaque noeud de la route.
+    """
     route_coords = []
     for node in route:
         point = (G.nodes[node]['y'], G.nodes[node]['x'])  # latitude, longitude

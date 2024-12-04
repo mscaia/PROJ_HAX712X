@@ -6,7 +6,7 @@ import kaleido
 import numpy as np
 
 
-for i in range(5):
+for i in range(5):  #Parcourir les 5 jeux de donnés.
     if i==0 :
         chemin ="./data/CoursesVelomagg.csv"
         annee = 2024
@@ -30,7 +30,6 @@ for i in range(5):
     # Extraire les dates de départ
     df_coursesvelomagg_traité['Date'] = df_coursesvelomagg_traité['Departure'].dt.date
     df_bikes = df_coursesvelomagg_traité
-
     # Statistique sur le nombre de trajet effectué par jour
     # Compter le nombre de trajets par jour pour les départs
     trajets_depart = df_coursesvelomagg_traité.groupby('Date').size().reset_index(name='Nombre de trajets')
@@ -45,20 +44,16 @@ for i in range(5):
     plt.title(f"Nombre total de trajets par jour pour {annee}")
     plt.xlabel('Date')
     plt.ylabel('Nombre total de trajets')
-    plt.xticks(rotation=45)  # Rotation des étiquettes sur l'axe des x pour une meilleure lisibilité
-    plt.grid(axis='y')  # Ajouter une grille horizontale pour une meilleure lisibilité
-    plt.tight_layout()  # Pour ajuster les marges
+    plt.xticks(rotation=45)  
+    plt.grid(axis='y')  
+    plt.tight_layout() 
     plt.savefig(f"./Cycle3/images/Nbr_trajet_par_jour_{annee}")
     plt.show()
 
-
-
-    # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo
-
+    # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo comme sur la leçon disponible sur moodle.
     df_bikes = df_coursesvelomagg_traité.set_index('Departure')
     df_bikes["weekday"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6
     print(df_bikes.index.hour)
-
     # Regroupement par jour de la semaine et heure
     df_polar = (
         df_bikes.groupby(["weekday", df_bikes.index.hour])["Covered distance (m)"]

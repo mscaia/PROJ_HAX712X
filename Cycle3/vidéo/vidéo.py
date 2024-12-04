@@ -73,6 +73,19 @@ titre_ds_video = fig.text(0.5, 0.95, titre, fontsize=16, color="blue", ha="cente
 
 # Fonction chemin plus court
 def chemin_court(row):
+    """
+    Description :
+    La fonction `chemin_court` calcule le chemin le plus court entre deux points géographiques spécifiés par les colonnes d'une ligne de données. 
+    Elle utilise un graphe défini globalement (`G`) pour déterminer le chemin le plus court en termes de distance pondérée.
+
+    Paramètres :
+    - row : dictionnaire
+    Retourne :
+    - tuple : (list, int)
+        - Une liste représentant le chemin le plus court en termes de nœuds entre le point de départ et le point d'arrivée.
+        - La durée du trajet en secondes, issue de la colonne `Duration (sec.)` de la ligne.
+        Si une erreur survient, la fonction retourne `(None, None)`.
+    """
     try:
         depart_lat, depart_lon = row['latitude_depart'], row['longitude_depart']
         arrivee_lat, arrivee_lon = row['latitude_retour'], row['longitude_retour']
@@ -106,6 +119,17 @@ dure_frame = max(durations) / total_frames  # Durée par frame
 
 # Fonction d'initialisation
 def init():
+    """
+    Description :
+    La fonction `init` initialise les données associées à une liste d'objets `points`. 
+    Elle efface les données des points en les remplaçant par des listes vides pour les axes x et y.
+
+    Paramètres :
+    Retourne :
+    - list
+        Une liste des objets `points` après avoir réinitialisé leurs données.
+
+   """
     for point in points:
         point.set_data([], [])
     return points 
@@ -113,6 +137,19 @@ def init():
 
 # Fonction de mise à jour pour chaque frame
 def update(frame):
+    """
+    Description :
+    La fonction `update` met à jour les positions d'une liste de points au fur et à mesure d'une animation, en fonction de la progression d'un chemin dans un graphe. 
+    Elle déplace chaque point le long de son chemin associé, calculé à partir des nœuds du graphe.
+
+    Paramètres :
+    - frame : int
+        Le numéro de la frame actuelle dans l'animation. Il est utilisé pour calculer la progression sur le chemin.
+
+    Retourne :
+    - list
+        Une liste des objets `points` après avoir mis à jour leurs positions.
+    """
     for i, path in enumerate(paths):
         progress = min(frame / total_frames, 1)  # Progression en fonction de total_frames
         num_nodes = int(progress * len(path))

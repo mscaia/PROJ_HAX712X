@@ -5,7 +5,7 @@ import folium
 import networkx as nx
 import pandas as pd
 import sys,os
-# Ajouter la racine du projet au chemin Python
+# Ajouter la racine du projet au chemin Python pour lancer le code via le terminal.
 racine_du_projet = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 sys.path.insert(0, racine_du_projet)
 from src.fonctions_basedonnees import*
@@ -18,7 +18,7 @@ G = ox.graph_from_place(ville, network_type="all")
 m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du centre Montpellier
 
 #Extraire notre dataframe
-df_coursesvelomagg_traité = pd.read_csv("C:/Users/Fabian/HAX712X/PROJ_HAX712X/data/CoursesVelomagg.csv").dropna()
+df_coursesvelomagg_traité = pd.read_csv("./PROJ_HAX712X/data/CoursesVelomagg.csv").dropna()
 
 # Extraire les trajets avec les noms des stations aller et le nom des stations retours
 liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]
@@ -96,13 +96,12 @@ legend_html = """
 # Ajouter la légende HTML à la carte
 m.get_root().html.add_child(folium.Element(legend_html))
 
-
-
 # Sauvegarder la carte dans un fichier HTML
 m.save("./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html")
 
 # Afficher un message pour indiquer que la carte est prête
 print("La carte a été sauvegardée sous '../Cycle3/visualisation/carte_montpellier_trajet_via_BD.html'.")
 
+#Création d'un csv pour la suite du processus et obtenir une vidéo sur le jour qui nous interesse.
 data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]
 data.to_csv('./data/video.csv', index=False)
