@@ -72,6 +72,7 @@ fig, ax = ox.plot_graph(G, show=False, close=False, node_size=0, edge_color="gra
 titre_ds_video = fig.text(0.5, 0.95, titre, fontsize=16, color="blue", ha="center", va="top")
 
 # Fonction chemin plus court
+
 def chemin_court(row):
     """
     Description :
@@ -118,6 +119,7 @@ dure_frame = max(durations) / total_frames  # Durée par frame
 
 
 # Fonction d'initialisation
+
 def init():
     """
     Description :
@@ -136,6 +138,7 @@ def init():
 
 
 # Fonction de mise à jour pour chaque frame
+
 def update(frame):
     """
     Description :
@@ -168,3 +171,4 @@ os.makedirs(output_dir, exist_ok=True)
 writer = FFMpegWriter(fps=fps)
 ani.save(os.path.join(output_dir, "simulation_trajets.mp4"), writer=writer)
 print("La simulation a été sauvegardée sous forme de vidéo : simulation_trajets.mp4")
+
