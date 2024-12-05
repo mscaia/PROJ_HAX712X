@@ -12,4 +12,121 @@ Voici une visualisation vidéo des trajets simulés pour la journée du 2024-09-
   </video>
 </div>
 
+Vous pouvez également consulter les vidéos suivantes de notre galerie:
+
+1 version
+
+<div style="display: flex; overflow-x: auto; gap: 10px; padding: 10px; border: 1px solid #ccc; width: 100%;">
+
+  <video width="300" controls>
+    <source src="projet3_files/figure-html/simulation_trajets_01-10.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <video width="300" controls>
+    <source src="projet3_files/figure-html/simulation_trajets_03-26.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <video width="300" controls>
+    <source src="projet3_files/figure-html/simulation_trajets_05-23.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <video width="300" controls>
+    <source src="projet3_files/figure-html/simulation_trajets_09-25.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+</div>
+
+
 Pour en savoir plus sur la méthode employée pour générer cette vidéo, consultez la section **6.2.3 Vidéo** de la [documentation](docu.qmd#video).
+
+
+2nd version
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Gallery</title>
+  <style>
+    .gallery {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .gallery video {
+      max-width: 100%;
+      display: block;
+    }
+    .arrow-left, .arrow-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .arrow-left {
+      left: 10px;
+    }
+    .arrow-right {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="gallery">
+  <div class="arrow-left" onclick="prevVideo()">&#10094;</div>
+  
+  <video id="videoDisplay" controls>
+    <source id="videoSource" src="projet3_files/figure-html/simulation_trajets_01-10.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  
+  <div class="arrow-right" onclick="nextVideo()">&#10095;</div>
+</div>
+
+<script>
+  const videoList = [
+    "projet3_files/figure-html/simulation_trajets_01-10.mp4",
+    "projet3_files/figure-html/simulation_trajets_03-26.mp4",
+    "projet3_files/figure-html/simulation_trajets_05-23.mp4",
+    "projet3_files/figure-html/simulation_trajets_09-25.mp4"
+  ];
+
+  let currentVideoIndex = 0;
+
+  // Function to switch to the next video
+  function nextVideo() {
+    currentVideoIndex = (currentVideoIndex + 1) % videoList.length;
+    updateVideo();
+  }
+
+  // Function to switch to the previous video
+  function prevVideo() {
+    currentVideoIndex = (currentVideoIndex - 1 + videoList.length) % videoList.length;
+    updateVideo();
+  }
+
+  // Update the video source based on the index
+  function updateVideo() {
+    const videoElement = document.getElementById("videoDisplay");
+    const sourceElement = document.getElementById("videoSource");
+    sourceElement.src = videoList[currentVideoIndex];
+    videoElement.load();  // Reload the video to display it
+    videoElement.play();  // Automatically start playing the new video
+  }
+</script>
+
+</body>
+</html>
