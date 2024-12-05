@@ -48,21 +48,38 @@ for i in range(5):  #Parcourir les 5 jeux de donnés.
     plt.grid(axis='y')  
     plt.tight_layout() 
     plt.savefig(f"./Cycle3/images/Nbr_trajet_par_jour_{annee}")
-    plt.show()
 
     # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo comme sur la leçon disponible sur moodle.
     df_bikes = df_coursesvelomagg_traité.set_index('Departure')
-    df_bikes["weekday"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6
+    df_bikes["Jour"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6
     print(df_bikes.index.hour)
-    # Regroupement par jour de la semaine et heure
-    df_polar = (
-        df_bikes.groupby(["weekday", df_bikes.index.hour])["Covered distance (m)"]
-        .count()
-        .reset_index(name='Count')  # Renommer la colonne résultante
-    )
 
-    # Modification de la colonne "weekday" pour obtenir les abréviations
-    df_polar["weekday"] = df_polar["weekday"].apply(lambda x: calendar.day_abbr[x])
+    # Regroupement par jour de la semaine et heure avec moyenne
+    df_polar = (
+        df_bikes.groupby(["Jour", df_bikes.index.hour])
+        .agg(
+            Total_trajets=("Covered distance (m)", "count"),
+            Jours_distincts=("Date", "nunique")
+        )
+        .reset_index()
+    )
+    df_polar["Moyenne trajets"] = df_polar["Total_trajets"] / df_polar["Jours_distincts"]
+
+
+    # Modification de la colonne "weekday" pour obtenir les noms complets des jours
+    df_polar["Jour"] = df_polar["Jour"].apply(lambda x: calendar.day_name[x])
+
+    # Traduire les noms complets en français
+    traduction_jours_complets = {
+        "Monday": "Lundi",
+        "Tuesday": "Mardi",
+        "Wednesday": "Mercredi",
+        "Thursday": "Jeudi",
+        "Friday": "Vendredi",
+        "Saturday": "Samedi",
+        "Sunday": "Dimanche"
+    }
+    df_polar["Jour"] = df_polar["Jour"].replace(traduction_jours_complets)
 
     # Définition des couleurs
     n_colors = 8  # Nombre de couleurs
@@ -76,11 +93,11 @@ for i in range(5):  #Parcourir les 5 jeux de donnés.
     # Création de la figure
     fig = px.line_polar(
         df_polar,
-        r="Count",  # Utilisez le nombre de trajets comme rayon
+        r="Moyenne trajets",  # Utilisez le nombre de trajets comme rayon
         theta="heure",  # Utilisez l'heure comme angle
-        color="weekday",
+        color="Jour",
         line_close=True,
-        range_r=[0, df_polar["Count"].max() + 50],
+        range_r=[0, df_polar["Moyenne trajets"].max() + 5],
         start_angle=0,
         color_discrete_sequence=colors,
         template="seaborn",
