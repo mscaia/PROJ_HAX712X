@@ -1340,7 +1340,36 @@ En résumé, la classe `GestionnaireDonnees` centralise les opérations courante
 
 # 8. Performance Analysis
 
-[analys testing here]
+# Étude du temps et de la mémoire
+
+Les performances ont été analysées sur un PC équipé d'une puce Apple M1.
+
+À l'aide du package **memory-profiler**, il est possible de suivre la consommation de temps et de mémoire d'une fonction Python. Cependant, cette méthode ne permet pas d'analyser de tels critères sur des fichiers Quarto. Les tests réalisés sur les fichiers **vidéo.py** et **map_trajet_BD.py** à l'aide de la commande `mprof run` ont donné les graphiques suivants :
+
+## Pour **map_trajet_BD.py**
+
+Après avoir exécuté la commande `mprof run`, nous avons obtenu les graphiques suivants. Le premier a été généré en traçant environ une centaine de trajets, tandis que le second illustre un tracé comportant environ 600 trajets.
+
+![Image locale](./1.png) ![Image locale](./2.png)
+
+*(Les graphiques sont présentés côte à côte)*
+
+Dans cette section du code, on observe qu'un tracé de 500 trajets différents entraîne un écart de temps de 175 secondes, soit presque 3 minutes. Le temps d'exécution du fichier varie donc entre 1 minute (pour les jours avec moins de trajets) et 3 minutes (pour les jours les plus chargés). En ce qui concerne la mémoire utilisée, elle reste stable autour de 800 mébioctets (environ 800 Mo) par fichier Python. Ce chiffre est cohérent avec les machines modernes, mais pourrait devenir un facteur limitant sur des machines plus anciennes.
+
+## Pour **vidéo.py**
+
+Après avoir exécuté la commande `mprof run`, les graphiques suivants ont été obtenus. Ceux-ci correspondent à des fichiers avec un nombre variable de trajets, allant de 100 à 600 trajets.
+
+![Image locale](./3.png) ![Image locale](./4.png)  
+![Image locale](./5.png) ![Image locale](./6.png)  
+*(Les graphiques sont présentés deux par deux, côte à côte)*
+
+Ici, la consommation de mémoire reste similaire à celle du fichier précédent. Cependant, la différence réside dans le temps d'exécution. Malgré les tentatives d'optimisation du script, celui-ci s'exécute en environ 130 à 225 secondes pour charger une vidéo en format `.mp4`.
+
+## Conclusion
+
+Concernant l'efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que **ThreadPoolExecutor** et l'utilisation de **cache** ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l'importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec `requests`, afin d'améliorer la vitesse d'exécution.
+
 
 # 9. Guide de l’utilisateur
 
