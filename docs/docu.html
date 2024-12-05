@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-41ce87c438ccaeb35f64ae41c48547a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -211,6 +211,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">7. Testing</a></li>
   <li><a href="#performance-analysis" id="toc-performance-analysis" class="nav-link" data-scroll-target="#performance-analysis">8. Performance Analysis</a></li>
+  <li><a href="#étude-du-temps-et-de-la-mémoire" id="toc-étude-du-temps-et-de-la-mémoire" class="nav-link" data-scroll-target="#étude-du-temps-et-de-la-mémoire">Étude du temps et de la mémoire</a>
+  <ul class="collapse">
+  <li><a href="#pour-map_trajet_bd.py" id="toc-pour-map_trajet_bd.py" class="nav-link" data-scroll-target="#pour-map_trajet_bd.py">Pour <strong>map_trajet_BD.py</strong></a></li>
+  <li><a href="#pour-vidéo.py" id="toc-pour-vidéo.py" class="nav-link" data-scroll-target="#pour-vidéo.py">Pour <strong>vidéo.py</strong></a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
   <li><a href="#guide-de-lutilisateur" id="toc-guide-de-lutilisateur" class="nav-link" data-scroll-target="#guide-de-lutilisateur">9. Guide de l’utilisateur</a>
   <ul class="collapse">
   <li><a href="#accès-à-linterface-web" id="toc-accès-à-linterface-web" class="nav-link" data-scroll-target="#accès-à-linterface-web">9.1 Accès à l’interface web</a></li>
@@ -1468,7 +1474,30 @@ Cette méthode extrait un fichier ZIP dans un répertoire spécifié ou, si aucu
 </section>
 <section id="performance-analysis" class="level1">
 <h1>8. Performance Analysis</h1>
-<p>[analys testing here]</p>
+</section>
+<section id="étude-du-temps-et-de-la-mémoire" class="level1">
+<h1>Étude du temps et de la mémoire</h1>
+<p>Les performances ont été analysées sur un PC équipé d’une puce Apple M1.</p>
+<p>À l’aide du package <strong>memory-profiler</strong>, il est possible de suivre la consommation de temps et de mémoire d’une fonction Python. Cependant, cette méthode ne permet pas d’analyser de tels critères sur des fichiers Quarto. Les tests réalisés sur les fichiers <strong>vidéo.py</strong> et <strong>map_trajet_BD.py</strong> à l’aide de la commande <code>mprof run</code> ont donné les graphiques suivants :</p>
+<section id="pour-map_trajet_bd.py" class="level2">
+<h2 class="anchored" data-anchor-id="pour-map_trajet_bd.py">Pour <strong>map_trajet_BD.py</strong></h2>
+<p>Après avoir exécuté la commande <code>mprof run</code>, nous avons obtenu les graphiques suivants. Le premier a été généré en traçant environ une centaine de trajets, tandis que le second illustre un tracé comportant environ 600 trajets.</p>
+<p><img src="./1.png" class="img-fluid" alt="Image locale"> <img src="./2.png" class="img-fluid" alt="Image locale"></p>
+<p><em>(Les graphiques sont présentés côte à côte)</em></p>
+<p>Dans cette section du code, on observe qu’un tracé de 500 trajets différents entraîne un écart de temps de 175 secondes, soit presque 3 minutes. Le temps d’exécution du fichier varie donc entre 1 minute (pour les jours avec moins de trajets) et 3 minutes (pour les jours les plus chargés). En ce qui concerne la mémoire utilisée, elle reste stable autour de 800 mébioctets (environ 800 Mo) par fichier Python. Ce chiffre est cohérent avec les machines modernes, mais pourrait devenir un facteur limitant sur des machines plus anciennes.</p>
+</section>
+<section id="pour-vidéo.py" class="level2">
+<h2 class="anchored" data-anchor-id="pour-vidéo.py">Pour <strong>vidéo.py</strong></h2>
+<p>Après avoir exécuté la commande <code>mprof run</code>, les graphiques suivants ont été obtenus. Ceux-ci correspondent à des fichiers avec un nombre variable de trajets, allant de 100 à 600 trajets.</p>
+<p><img src="./3.png" class="img-fluid" alt="Image locale"> <img src="./4.png" class="img-fluid" alt="Image locale"><br>
+<img src="./5.png" class="img-fluid" alt="Image locale"> <img src="./6.png" class="img-fluid" alt="Image locale"><br>
+<em>(Les graphiques sont présentés deux par deux, côte à côte)</em></p>
+<p>Ici, la consommation de mémoire reste similaire à celle du fichier précédent. Cependant, la différence réside dans le temps d’exécution. Malgré les tentatives d’optimisation du script, celui-ci s’exécute en environ 130 à 225 secondes pour charger une vidéo en format <code>.mp4</code>.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Concernant l’efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que <strong>ThreadPoolExecutor</strong> et l’utilisation de <strong>cache</strong> ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l’importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec <code>requests</code>, afin d’améliorer la vitesse d’exécution.</p>
+</section>
 </section>
 <section id="guide-de-lutilisateur" class="level1">
 <h1>9. Guide de l’utilisateur</h1>
@@ -1519,19 +1548,12 @@ Cette méthode extrait un fichier ZIP dans un répertoire spécifié ou, si aucu
 
 </main> <!-- /main -->
 <footer>
-
     <p>© 2024 CycleVision3. Tous droits réservés.</p>
-
     <p>
-
         <a href="https://github.com/mscaia/PROJ_HAX712X">
-
             <img src="https://pngimg.com/uploads/github/github_PNG23.png" alt="GitHub">
-
         </a>
-
     </p>
-
 </footer>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1615,8 +1637,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1727,7 +1747,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

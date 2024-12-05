@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "projet3.html",
-    "href": "projet3.html",
-    "title": "Visualisation vidéo",
-    "section": "",
-    "text": "Voici une visualisation vidéo des trajets simulés pour la journée du 2024-09-05.\n\n  Your browser does not support the video tag. \n\nVous pouvez également consulter les vidéos suivantes de notre galerie:\n1 version\n\n  Your browser does not support the video tag. \n  Your browser does not support the video tag. \n  Your browser does not support the video tag. \n  Your browser does not support the video tag. \n\nPour en savoir plus sur la méthode employée pour générer cette vidéo, consultez la section 6.2.3 Vidéo de la documentation.\n2nd version\n\n\n\n\n\nVideo Gallery\n\n\n\n\n\n\n❮\n\n  Your browser does not support the video tag. \n\n❯"
-  },
-  {
     "objectID": "projet1.html",
     "href": "projet1.html",
     "title": "Quelques éléments d’analyse des données",
@@ -26,6 +19,13 @@
     "title": "Quelques éléments d’analyse des données",
     "section": "Comparaison des trajets journaliers entre les années.",
     "text": "Comparaison des trajets journaliers entre les années.\n\n\n\n\n\n\n\n\n\n\n\n\nOn remarque que les différents graphes ont globalement la même forme."
+  },
+  {
+    "objectID": "auteurs.html",
+    "href": "auteurs.html",
+    "title": "Contributeurs",
+    "section": "",
+    "text": "Nous sommes étudiants en Master 1 Statistique et Science des Données (SSD) à l’Université de Montpellier. Dans le cadre du cours Développement Logiciel, nous avons collaboré sur le projet CycleVision3, combinant nos compétences pour concevoir une solution innovante dédiée à l’analyse du trafic cycliste.\n\n\n\n\n\n\nARMAND Charlotte\n\n\nCréation de cartes interactives et prévisions de trafic.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\nCONDAMY Fabian\n\n\nDéveloppement et déploiement du site web.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\n\n\nSCAIA Matteo\n\n\nAnalyse de données et création de cartes interactives et vidéos.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\nSTETSUN Kateryna\n\n\nTests et documentation du projet, assistance développement du site web.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\n\n\nLICENCE\n\nCopyright 2024 SCAIA Matteo, ARMAND Charlotte, CONDAMY Fabian, STETSUN Kateryna\nPermission est accordée gratuitement à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le “Logiciel”), d’utiliser le Logiciel sans restriction, y compris, sans limitation, les droits d’utiliser, copier, modifier, fusionner, publier, distribuer, sous-licencier et/ou vendre des copies du Logiciel, sous réserve des conditions suivantes :\nLa notice de copyright ci-dessus et cette permission doivent être incluses dans toutes les copies ou parties substantielles du Logiciel.\nLE LOGICIEL EST FOURNI “EN L’ÉTAT”, SANS GARANTIE D’AUCUNE SORTE, EXPRESSE OU IMPLICITE, Y COMPRIS MAIS SANS S’Y LIMITER, LES GARANTIES DE QUALITÉ MARCHANDE, D’ADÉQUATION À UN USAGE PARTICULIER ET D’ABSENCE DE CONTREFAÇON. EN AUCUN CAS, LES AUTEURS OU DÉTENTEURS DU COPYRIGHT NE POURRONT ÊTRE TENUS RESPONSABLES DE TOUTE RÉCLAMATION, DOMMAGES OU AUTRE RESPONSABILITÉ, QUE CE SOIT DANS UNE ACTION CONTRACTUELLE, DÉLICTUELLE OU AUTRE, PROVENANT DU LOGICIEL OU DE SON UTILISATION OU D’AUTRES INTERACTIONS AVEC CELUI-CI."
   },
   {
     "objectID": "docu.html",
@@ -161,6 +161,27 @@
     "text": "6.3 Class “GestionnaireDonnees”\nLa classe GestionnaireDonnees a été créée pour gérer le téléchargement, la lecture et le traitement des jeux de données. Elle centralise les fonctions nécessaires à la gestion des données pour notre projet, en permettant le téléchargement de fichiers depuis des URLs, l’extraction de fichiers compressés, et le chargement de fichiers CSV tout en nettoyant les données manquantes. Elle simplifie ainsi les tâches courantes liées à la gestion des données dans notre système.\nLa classe GestionnaireDonnees a été créée pour gérer le téléchargement, la lecture et le traitement des jeux de données. Elle permet de :\n\nTélécharger des fichiers depuis des URLs.\nExtraire des fichiers compressés.\nCharger des fichiers CSV tout en nettoyant les données manquantes.\n\nCette classe centralise les fonctions nécessaires à la gestion des données pour notre projet et offre une solution modulaire pour ces tâches.\n\nMéthodes\n\n\n__init__(repertoire_telechargement=\"./data\")\n\nDescription:\nInitialise le répertoire de téléchargement pour stocker les fichiers téléchargés. Si le répertoire n’existe pas, il sera automatiquement créé.\nParamètres:\n- repertoire_telechargement (str) : Le chemin où les fichiers seront téléchargés. Par défaut, “./data”.\nRetourne:\n- Rien. Cette méthode configure uniquement les attributs d’instance.\nCode de la fonction:\ndef __init__(self, repertoire_telechargement=\"./data\"):\n    self.repertoire_telechargement = repertoire_telechargement\n    os.makedirs(self.repertoire_telechargement, exist_ok=True)\nExplication:\nLe constructeur utilise la fonction os.makedirs pour s’assurer que le répertoire de téléchargement existe avant toute opération. Cela évite des erreurs lors des téléchargements futurs.\nExemple d’utilisation:\ngestionnaire = GestionnaireDonnees()\nprint(gestionnaire.repertoire_telechargement)  # \"./data\"\n\n\n\ntelecharger_fichier(url, nom_fichier)\n\nDescription:\nTélécharge un fichier à partir d’une URL donnée et l’enregistre dans le répertoire de téléchargement.\nParamètres:\n- url (str) : L’URL du fichier à télécharger.\n- nom_fichier (str) : Le nom du fichier une fois téléchargé.\nRetourne:\n- chemin (str) : Le chemin complet du fichier téléchargé.\nCode de la fonction:\ndef telecharger_fichier(self, url, nom_fichier):\n    chemin = pooch.retrieve(\n        url=url,\n        known_hash=None,\n        fname=nom_fichier,\n        path=self.repertoire_telechargement\n    )\n    return chemin\nExplication:\nCette méthode utilise pooch.retrieve pour télécharger un fichier depuis une URL et le sauvegarder dans le répertoire défini. Le chemin complet du fichier est renvoyé.\nExemple d’utilisation:\ngestionnaire = GestionnaireDonnees()\nchemin = gestionnaire.telecharger_fichier(\"https://example.com/data.csv\", \"data.csv\")\nprint(chemin)  # \"./data/data.csv\"\n\n\n\ncharger_csv(chemin_fichier, supprimer_na=True)\n\nDescription:\nCharge un fichier CSV dans un DataFrame Pandas, avec la possibilité de supprimer les lignes contenant des valeurs manquantes.\nParamètres:\n- chemin_fichier (str) : Le chemin du fichier CSV à charger.\n- supprimer_na (bool) : Indique si les lignes contenant des valeurs manquantes doivent être supprimées (par défaut, True).\nRetourne:\n- dataframe (pd.DataFrame) : Le DataFrame contenant les données du fichier CSV.\nCode de la fonction:\ndef charger_csv(self, chemin_fichier, supprimer_na=True):\n    dataframe = pd.read_csv(chemin_fichier)\n    if supprimer_na:\n        dataframe = dataframe.dropna()\n    return dataframe\nExplication:\nCette méthode permet de charger un fichier CSV dans un DataFrame Pandas tout en offrant la possibilité de supprimer les lignes contenant des données manquantes, garantissant ainsi la qualité des données.\nExemple d’utilisation:\ngestionnaire = GestionnaireDonnees()\ndf = gestionnaire.charger_csv(\"./data/data.csv\", supprimer_na=True)\nprint(df.head())\n\n\n\nextraire_zip(chemin_zip, dossier_extraction=None)\n\nDescription:\nExtrait le contenu d’un fichier ZIP dans un répertoire spécifié.\nParamètres:\n- chemin_zip (str) : Le chemin du fichier ZIP à extraire.\n- dossier_extraction (str) : Le répertoire où les fichiers extraits seront stockés. Par défaut, les fichiers sont extraits dans un sous-dossier nommé extracted dans le répertoire de téléchargement.\nRetourne:\n- dossier_extraction (str) : Le chemin du dossier contenant les fichiers extraits.\nCode de la fonction:\ndef extraire_zip(self, chemin_zip, dossier_extraction=None):\n    if dossier_extraction is None:\n        dossier_extraction = os.path.join(self.repertoire_telechargement, \"extracted\")\n    os.makedirs(dossier_extraction, exist_ok=True)\n    with zipfile.ZipFile(chemin_zip, 'r') as zip_ref:\n        zip_ref.extractall(dossier_extraction)\n    os.remove(chemin_zip)\n    return dossier_extraction\nExplication:\nCette méthode extrait un fichier ZIP dans un répertoire spécifié ou, si aucun répertoire n’est précisé, dans un sous-dossier nommé extracted. Après extraction, le fichier ZIP est supprimé pour économiser de l’espace disque.\nExemple d’utilisation:\ngestionnaire = GestionnaireDonnees()\nchemin_extraction = gestionnaire.extraire_zip(\"./data/archive.zip\")\nprint(chemin_extraction)  # \"./data/extracted/\"\n\nEn résumé, la classe GestionnaireDonnees centralise les opérations courantes liées à la gestion des données dans notre projet, rendant le processus plus fluide et réutilisable. Elle offre des méthodes pour télécharger des fichiers, charger des données à partir de CSV et extraire des fichiers ZIP, ce qui constitue la base de notre système de traitement des données."
   },
   {
+    "objectID": "docu.html#pour-map_trajet_bd.py",
+    "href": "docu.html#pour-map_trajet_bd.py",
+    "title": "Documentation",
+    "section": "Pour map_trajet_BD.py",
+    "text": "Pour map_trajet_BD.py\nAprès avoir exécuté la commande mprof run, nous avons obtenu les graphiques suivants. Le premier a été généré en traçant environ une centaine de trajets, tandis que le second illustre un tracé comportant environ 600 trajets.\n \n(Les graphiques sont présentés côte à côte)\nDans cette section du code, on observe qu’un tracé de 500 trajets différents entraîne un écart de temps de 175 secondes, soit presque 3 minutes. Le temps d’exécution du fichier varie donc entre 1 minute (pour les jours avec moins de trajets) et 3 minutes (pour les jours les plus chargés). En ce qui concerne la mémoire utilisée, elle reste stable autour de 800 mébioctets (environ 800 Mo) par fichier Python. Ce chiffre est cohérent avec les machines modernes, mais pourrait devenir un facteur limitant sur des machines plus anciennes."
+  },
+  {
+    "objectID": "docu.html#pour-vidéo.py",
+    "href": "docu.html#pour-vidéo.py",
+    "title": "Documentation",
+    "section": "Pour vidéo.py",
+    "text": "Pour vidéo.py\nAprès avoir exécuté la commande mprof run, les graphiques suivants ont été obtenus. Ceux-ci correspondent à des fichiers avec un nombre variable de trajets, allant de 100 à 600 trajets.\n \n \n(Les graphiques sont présentés deux par deux, côte à côte)\nIci, la consommation de mémoire reste similaire à celle du fichier précédent. Cependant, la différence réside dans le temps d’exécution. Malgré les tentatives d’optimisation du script, celui-ci s’exécute en environ 130 à 225 secondes pour charger une vidéo en format .mp4."
+  },
+  {
+    "objectID": "docu.html#conclusion",
+    "href": "docu.html#conclusion",
+    "title": "Documentation",
+    "section": "Conclusion",
+    "text": "Conclusion\nConcernant l’efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que ThreadPoolExecutor et l’utilisation de cache ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l’importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec requests, afin d’améliorer la vitesse d’exécution."
+  },
+  {
     "objectID": "docu.html#accès-à-linterface-web",
     "href": "docu.html#accès-à-linterface-web",
     "title": "Documentation",
@@ -196,11 +217,32 @@
     "text": "9.5 Dépannage\nSi vous rencontrez des problèmes n’hésitez pas à nous contacter."
   },
   {
-    "objectID": "auteurs.html",
-    "href": "auteurs.html",
-    "title": "Contributeurs",
+    "objectID": "projet3.html",
+    "href": "projet3.html",
+    "title": "Visualisation vidéo",
     "section": "",
-    "text": "Nous sommes étudiants en Master 1 Statistique et Science des Données (SSD) à l’Université de Montpellier. Dans le cadre du cours Développement Logiciel, nous avons collaboré sur le projet CycleVision3, combinant nos compétences pour concevoir une solution innovante dédiée à l’analyse du trafic cycliste.\n\n\n\n\n\n\nARMAND Charlotte\n\n\nCréation de cartes interactives et prévisions de trafic.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\nCONDAMY Fabian\n\n\nDéveloppement et déploiement du site web.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\n\n\nSCAIA Matteo\n\n\nAnalyse de données et création de cartes interactives et vidéos.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\nSTETSUN Kateryna\n\n\nTests et documentation du projet, assistance développement du site web.\n\n\n\nEmail\n\n\nGitHub Profile\n\n\n\n\n\n\n\n\nLICENCE\n\nCopyright 2024 SCAIA Matteo, ARMAND Charlotte, CONDAMY Fabian, STETSUN Kateryna\nPermission est accordée gratuitement à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le “Logiciel”), d’utiliser le Logiciel sans restriction, y compris, sans limitation, les droits d’utiliser, copier, modifier, fusionner, publier, distribuer, sous-licencier et/ou vendre des copies du Logiciel, sous réserve des conditions suivantes :\nLa notice de copyright ci-dessus et cette permission doivent être incluses dans toutes les copies ou parties substantielles du Logiciel.\nLE LOGICIEL EST FOURNI “EN L’ÉTAT”, SANS GARANTIE D’AUCUNE SORTE, EXPRESSE OU IMPLICITE, Y COMPRIS MAIS SANS S’Y LIMITER, LES GARANTIES DE QUALITÉ MARCHANDE, D’ADÉQUATION À UN USAGE PARTICULIER ET D’ABSENCE DE CONTREFAÇON. EN AUCUN CAS, LES AUTEURS OU DÉTENTEURS DU COPYRIGHT NE POURRONT ÊTRE TENUS RESPONSABLES DE TOUTE RÉCLAMATION, DOMMAGES OU AUTRE RESPONSABILITÉ, QUE CE SOIT DANS UNE ACTION CONTRACTUELLE, DÉLICTUELLE OU AUTRE, PROVENANT DU LOGICIEL OU DE SON UTILISATION OU D’AUTRES INTERACTIONS AVEC CELUI-CI."
+    "text": "Voici une visualisation vidéo des trajets simulés pour la journée du 2024-09-05.\n\n  Your browser does not support the video tag. \n\nVous pouvez également consulter les vidéos suivantes de notre galerie:\n1 version\n\n  Your browser does not support the video tag. \n  Your browser does not support the video tag. \n  Your browser does not support the video tag. \n  Your browser does not support the video tag. \n\nPour en savoir plus sur la méthode employée pour générer cette vidéo, consultez la section 6.2.3 Vidéo de la documentation.\n2nd version\n\n\n\n\n\nVideo Gallery\n\n\n\n\n\n\n❮\n\n  Your browser does not support the video tag. \n\n❯"
+  },
+  {
+    "objectID": "projet2.html",
+    "href": "projet2.html",
+    "title": "Projet 2",
+    "section": "",
+    "text": "L’application Shiny est en ligne ici : Accéder à l’application Shiny"
+  },
+  {
+    "objectID": "projet2.html#carte-interactive-des-trajets",
+    "href": "projet2.html#carte-interactive-des-trajets",
+    "title": "Projet 2",
+    "section": "",
+    "text": "L’application Shiny est en ligne ici : Accéder à l’application Shiny"
+  },
+  {
+    "objectID": "projet2.html#cartes-prévisionnelles",
+    "href": "projet2.html#cartes-prévisionnelles",
+    "title": "Projet 2",
+    "section": "Cartes prévisionnelles",
+    "text": "Cartes prévisionnelles\n\n\n\nCarte des intensités\n\n\nSélectionner une date:  Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche \nSélectionner une heure:  00:00 01:00 02:00 03:00 04:00 05:00 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 \n\nAfficher la carte\n\n\n\n\n\n\n\nCarte des trajets\n\n\nSélectionner une date:  Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche \nSélectionner une heure:  00:00 01:00 02:00 03:00 04:00 05:00 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 \n\nAfficher la carte"
   },
   {
     "objectID": "index.html",
@@ -229,26 +271,5 @@
     "title": "Visualisation des trajets en vélo dans la ville de Montpellier.",
     "section": "Contact",
     "text": "Contact\nPour toute question ou suggestion, n’hésitez pas à nous contacter."
-  },
-  {
-    "objectID": "projet2.html",
-    "href": "projet2.html",
-    "title": "Projet 2",
-    "section": "",
-    "text": "L’application Shiny est en ligne ici : Accéder à l’application Shiny"
-  },
-  {
-    "objectID": "projet2.html#carte-interactive-des-trajets",
-    "href": "projet2.html#carte-interactive-des-trajets",
-    "title": "Projet 2",
-    "section": "",
-    "text": "L’application Shiny est en ligne ici : Accéder à l’application Shiny"
-  },
-  {
-    "objectID": "projet2.html#cartes-prévisionnelles",
-    "href": "projet2.html#cartes-prévisionnelles",
-    "title": "Projet 2",
-    "section": "Cartes prévisionnelles",
-    "text": "Cartes prévisionnelles\n\n\n\nCarte des intensités\n\n\nSélectionner une date:  Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche \nSélectionner une heure:  00:00 01:00 02:00 03:00 04:00 05:00 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 \n\nAfficher la carte\n\n\n\n\n\n\n\nCarte des trajets\n\n\nSélectionner une date:  Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche \nSélectionner une heure:  00:00 01:00 02:00 03:00 04:00 05:00 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 \n\nAfficher la carte"
   }
 ]
