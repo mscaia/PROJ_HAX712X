@@ -43,6 +43,7 @@ jobs:
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git pull origin main --rebase || echo "No changes to pull"
         git add docs/*
         git commit -m "Auto update" || echo "Rien à commit"
         git push origin main
