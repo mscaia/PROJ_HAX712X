@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-e07bc9fff430935c9eee92eab88d1fb8.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-4b95522ba669a24cde5e4eace6a877d5.css">
   <link rel="stylesheet" href="slides.css">
   <link href="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slide_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -124,6 +124,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="slide_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="slide_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="slide_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script>
   MathJax = {
     options: {
@@ -158,7 +161,135 @@
 <p><img data-src="images/logo_um.png" style="width:21.0%"></p>
 </div>
 <!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+<section>
+<section id="introduction-et-organisation" class="title-slide slide level1 section-background center">
+<h1>Introduction et organisation</h1>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+<section id="contribution-de-léquipe" class="title-slide slide level2 center">
+<h2>Contribution de l’équipe</h2>
+<hr>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:78%;">
+<ul>
+<li><strong>ARMAND Charlotte</strong> : Création de cartes interactives et prévisions de trafic.</li>
+</ul>
+</div><div class="column" style="width:19%;">
+<center>
+<img src="images/map_contrib.png" width="62%" align="middle">
+</center>
+</div></div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:78%;">
+<ul>
+<li><strong>CONDAMY Fabian</strong> : Développement et déploiement du site web.</li>
+</ul>
+</div><div class="column" style="width:19%;">
+<center>
+<img src="images/WEB-site.svg" width="70%" align="middle">
+</center>
+</div></div>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
 
+<section id="comparaison-des-diagrammes-de-gantt" class="title-slide slide level2 center">
+<h2>Comparaison des diagrammes de Gantt</h2>
+<hr>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">    gantt
+        title Group Project Retro Planning
+        dateFormat  YYYY-MM-DD
+        axisFormat  %d-%m
+        excludes weekends
+    section Critical Tasks
+        Data Gathering &amp; Processing (SM, AC) : done, 2024-10-20, 10d
+        Code Structure Design (AC, SM) : done, 2024-11-01, 4d
+        Interactive Map Features (AC, SM) : done, 2024-11-06, 8d
+        Traffic Prediction Algorithm (SM, AC) : done, 2024-11-16, 7d
+        Visualization of Prediction (AC) : done, 2024-11-23, 5d
+        *Video Creation of Traffic (SM) : done, 2024-11-28, 5d
+        WEB Integration (CF) : done, 2024-12-03, 7d
+
+    section Documentation
+        Docstrings (SK, SM) : done, 2024-11-30, 5d
+        API Documentation (SK, AC) : done, 2024-12-05, 3d
+        README Preparation (SK) : done, 2024-12-08, 2d
+
+    section Testing
+        Unit Tests (SK) : done, 2024-11-25, 6d
+        Full Testing (SK, CF) : done, 2024-12-03, 4d
+
+    section Delivery
+        Finalize GitHub Repo (AC, SM) : done, 2024-12-09, 1d
+        Slide Deck Prep (SK, AC): done, 2024-12-09, 2d
+        Presentation Rehearsal (AC, CF, SM, SK): done, 2024-12-12, 1d
+        Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">    gantt
+        title Group Project Retro Planning
+        dateFormat  YYYY-MM-DD
+        axisFormat  %d-%m
+        excludes weekends
+    section Critical Tasks
+        Data Gathering &amp; Processing (SM, AC) : done, 2024-10-20, 10d
+        Code Structure Design (AC, SM) : done, 2024-11-01, 4d
+        Interactive Map Features (SM, AC) : done, 2024-11-06, 6d
+        Traffic Prediction Algorithm (AC, SM) : done, 2024-11-13, 9d
+        Visualization of Prediction (AC) : 2024-11-22, 8d
+        Video Creation of Traffic (SM) : 2024-11-14, 9d
+        WEB Integration (CF) : 2024-10-23, 34d
+
+    section Documentation
+        Docstrings at the site (SK) : 2024-11-10, 21d
+        API Documentation (SK) : done, 2024-12-05, 3d
+        README Preparation (SK) : 2024-11-25, 5d
+
+    section Testing
+        Unit Tests (SK) : 2024-11-26, 2d
+        Full Testing (SK, SM) : 2024-12-01, 7d
+        Performance Analysis (SM) : 2024-12-04, 2d
+
+    section Delivery
+        Finalize GitHub Repo (SM, CF) : 2024-12-07, 1d
+        Slide Deck Prep (SK): 2024-12-03, 5d
+        Presentation Rehearsal (AC, CF, SM, SK): 2024-12-10, 3d
+        Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+</section>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
