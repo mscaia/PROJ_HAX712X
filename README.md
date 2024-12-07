@@ -61,6 +61,7 @@ Dans le dossier `./Cycle3/map/`, vous trouverez trois fichiers `.py` différents
  python ./Cycle3/map/carte.py 
 ```
 La carte générée est sauvegardée dans `./docs/montpellier_bike_stations_map.html.`
+
 2. `map.py` : Effectue une simulation de trajet. L'interactivité se fait via le terminal
 ```bash
  python ./Cycle3/map/map.py 
