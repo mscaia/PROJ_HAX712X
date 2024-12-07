@@ -1,5 +1,5 @@
 ---
-title: Projet 2
+title: Cartes
 format: html
 execute:
   enabled: false
@@ -17,7 +17,7 @@ L'application Shiny est en ligne ici : [Accéder à l'application Shiny](https:/
 
 ## Cartes prévisionnelles 
 
-<body>
+<body> 
     <!-- Carte des intensités -->
     <h2>Carte des intensités</h2>
     <form>
@@ -134,6 +134,12 @@ L'application Shiny est en ligne ici : [Accéder à l'application Shiny](https:/
             // Ajouter l'iframe à la div
             carteDiv.appendChild(iframe);
         }
+
+        window.onload = function() {
+            // Afficher la carte par défaut au chargement (exemple : première date et première heure)
+            afficherCarte('intensity');
+            afficherCarte('trajets');
+        };
     </script>
 </body>
 </html>
