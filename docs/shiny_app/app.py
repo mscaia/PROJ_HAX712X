@@ -6,7 +6,7 @@ import re
 import unicodedata
 from functools import lru_cache
 
-## FONCTIONS
+### Fonctions récupérées du dossier src à la racine du projet et légèrement modifiées
 
 @lru_cache(maxsize=None)
 def coordonne(station):
