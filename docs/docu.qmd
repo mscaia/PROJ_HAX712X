@@ -27,34 +27,40 @@ La structure du projet est conçue pour garantir une séparation claire des comp
 <details> <summary>Voir la structure</summary>
 
 ```
-main/                                           # Répertoire principal du projet
+PROJ_HAX712X//                                  # Répertoire principal du projet
 ├── .github/workflows/                          # Configuration pour l'intégration continue
-├── analyse_donnee/                             # Scripts pour l'analyse des données
 ├── cache/                                      # Fichiers temporaires
-├── data/                                       # Données des 3 jeux de données
-│   ├── extracted/                              # Données extraites
-│   ├── CoursesVelomagg.csv                     # Données des trajets VéloMagg
-│   ├── video.csv                               # Données vidéo brutes
-│   └── video_avec_coord.csv                    # Données vidéo enrichies avec coordonnées
+├── Cycle3
+│   ├── analyse_donnee/                         # Scripts pour l'analyse des données
+│   │   ├── __init__.py
+│   │   └── statistique.py
+│   ├── docs/ 
+│   │   ├── conf.py
+│   │   └── index.rst
+│   ├── images/                                 # Images utilisées dans le projet
+│   ├── map/                                    # Scripts pour les cartes interactives
+│   │   ├── __init__.py
+│   │   ├── carte.py 
+│   │   ├── map_trajet_BD.py
+│   │   └── map.py
+│   ├── video/ 
+│   │   ├── __init__.py
+│   │   └── video.py
+│   ├── visualisation/                          # Résultats des visualisations
+│   ├── data/                                   # Données des 3 jeux de données
+│   │   ├── extracted/                          # Données extraites
+│   │   ├── json/
+│   │   ├── CoursesVelomagg.csv                 # Données des trajets VéloMagg
+│   │   ├── video.csv                           # Données vidéo brutes
+│   │   └── video_avec_coord.csv                # Données vidéo enrichies avec coordonnées
 ├── docs/                                       # Répertoire des fichiers du site web
-│   ├── .gitignore                              # Liste des fichiers à ignorer par Git
-│   ├──                                         # 
-│   ├──                                         # 
-│   ├──                                         # 
-│   └── styles.css                              # Fichier CSS pour la mise en forme du site
-├── images/                                     # Images utilisées dans le projet
-├── map/                                        # Scripts pour les cartes interactives
 ├── roadmap/                                    # Fichier README.md avec la description .......
 ├── slide/                                      # 
 ├── src/                                        # Répertoire contenant le code source
 │   ├── __init__.py                             # Initialisation du package
 │   ├── donnée.py                               # Fonctions de traitement des données
 │   └── fonctions_basedonnees.py                # Fonctions pour les bases de données
-├── vidéo/                                      # 
-├── visualisation/                              # Résultats des visualisations
-├──.DS_Store                                    # 
-├──
-├──
+├── .DS_Store                                   # 
 ├── .Rhistory                                   # Fichier d'historique R
 ├── .gitignore                                  # Fichier Git ignore
 ├── README.md                                   # Documentation principale du projet
