@@ -55,7 +55,8 @@ fichiers=['./data/json/MMM_EcoCompt_ED223110495.json','./data/json/MMM_EcoCompt_
 donnee2024 = pd.read_csv("./data/CoursesVelomagg.csv")
 donnee2023= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2023.csv")
 donnee2022= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2022.csv")
-donnee2021= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2021.csv")
+donnee2021= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2021.csv", delimiter=';')
+print(donnee2021)
 
 # Sélectionner les colonnes 2, 5, et 6 (en indexation zéro, cela correspond aux indices 1, 4, et 5)
 donnee_utile_2024 = donnee2024.iloc[:, [1, 4, 5]]
