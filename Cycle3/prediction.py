@@ -56,26 +56,27 @@ donnee2024 = pd.read_csv("./data/CoursesVelomagg.csv")
 donnee2023= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2023.csv")
 donnee2022= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2022.csv")
 donnee2021= pd.read_csv("./data/extracted/TAM_MMM_CoursesVelomagg_2021.csv", delimiter=';')
-print(donnee2021)
+
 
 # Sélectionner les colonnes 2, 5, et 6 (en indexation zéro, cela correspond aux indices 1, 4, et 5)
-donnee_utile_2024 = donnee2024.iloc[:, [1, 4, 5]]
-donnee_utile_2023 = donnee2023.iloc[:, [1, 4, 5]]
-donnee_utile_2022 = donnee2022.iloc[:, [1, 4, 5]]
+donnee_utile_2024 = donnee2024.iloc[:, [2, 5, 6]]
+donnee_utile_2023 = donnee2023.iloc[:, [2, 5, 6]]
+donnee_utile_2022 = donnee2022.iloc[:, [2, 5, 6]]
 donnee_utile_2021 = donnee2021.iloc[:, [1, 4, 5]]
 
 # Sauvegarder dans un nouveau fichier CSV
-donnee_formate_2024= donnee_utile_2024.to_csv(sep=",", header= False, index=False)
-donnee_formate_2023= donnee_utile_2023.to_csv(sep=",", header= False, index=False)
-donnee_formate_2022= donnee_utile_2022.to_csv(sep=",", header= False, index=False)
-donnee_formate_2021= donnee_utile_2021.to_csv(sep=",", header= False, index=False)
+
+donnee_formate_2024= donnee_utile_2024.to_csv("./data/prediction/2024.csv",sep=",", header= False, index=False)
+donnee_formate_2023= donnee_utile_2023.to_csv("./data/prediction/2023.csv",sep=",", header= False, index=False)
+donnee_formate_2022= donnee_utile_2022.to_csv("./data/prediction/2022.csv",sep=",", header= False, index=False)
+donnee_formate_2021= donnee_utile_2021.to_csv("./data/prediction/2021.csv",sep=",", header= False, index=False)
 
 # Afficher un aperçu pour vérifier
-print(donnee_formate_2024)
 
 
 
-files=[donnee_formate_2021, donnee_formate_2022, donnee_formate_2023, donnee_formate_2024]
+
+files=["./data/prediction/2021.csv","./data/prediction/2022.csv", "./data/prediction/2023.csv","./data/prediction/2024.csv"]
 
 
 
@@ -120,7 +121,7 @@ for ligne in donnee:
                 donnees_utiles.append([intensite, date, coordinates])
 
 # Affichage du résultat
-print(donnees_utiles)
+
 
 
 
@@ -246,7 +247,7 @@ Sta=[]
 for i in stations:
     Sta.append(i[0])
     
-print (Sta)
+
 
 #%% jour_semaine(j)
 #jour_semaine prend en entrée un chiffre entre 0 et 6 0 pour lundi et 6 pour dimanche et retourne la liste de toutes les coordonnées et des intensités calculées dans tous les jours des archives correspondant à ce jour de la semaine 
@@ -383,7 +384,7 @@ def intensity_to_color(intens, min_in, max_in):
     return 'rgba({}, {}, {}, {})'.format(int(color[0] * 255), int(color[1] * 255), int(color[2] * 255), 1)
 
 #%%
-def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
+def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
     """
     Description: 
     La fonction 'map_jour' génère une carte des intensités moyennes observées un jour de la semaine j. 
@@ -393,6 +394,8 @@ def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec 
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - style : int
         Le numéro (0 ou 1) correspondant au style voulu. 0 donnera une carte avec uniquement des points de différentes couleur et 1 donnera une carte avec ces points mais également la carte de chaleur (Heatmap) associée. 
+    - jour : str
+        Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
     Retourne: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
@@ -455,14 +458,14 @@ def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec 
     #choix de chaleur ou non
     if style==0:
         nom=f'intensity_{j}.html'
-        m.save(nom)
+        m.save(f'./Cycle3/visualisation/{jour}/intensité/{nom}')
         return "La carte a été générée et sauvegardée sous le nom", nom
     
     else:
         heat_data = [[coord[1], coord[0], intensity] for intensity, coord in data]
         HeatMap(heat_data).add_to(m)
         nom=f'intensity_{j}_heat.html'
-        m.save(nom)
+        m.save(f'./Cycle3/visualisation/{jour}/intensité/{nom}')
         return"La carte a été générée et sauvegardée sous le nom", nom 
         
         
@@ -470,26 +473,26 @@ def map_jour(j, style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec 
 
 reply = input("Voulez-vous tracer les 14 cartes intensité par jour (avec et sans chaleur) ? (oui/non) : ")
 if reply.strip().lower() == "oui":
-    map_jour(0,0)
-    map_jour(0,1)
+    map_jour(0,0,'Lundi')
+    map_jour(0,1,'Lundi')
     print("Cartes pour lundi crées.")
-    map_jour(1,0)
-    map_jour(1,1)
+    map_jour(1,0,'Mardi')
+    map_jour(1,1,'Mardi')
     print("Cartes pour mardi crées.")
-    map_jour(2,0)
-    map_jour(2,1)
+    map_jour(2,0,'Mercredi')
+    map_jour(2,1,'Mercredi')
     print("Cartes pour mercredi crées.")
-    map_jour(3,0)
-    map_jour(3,1)
+    map_jour(3,0,'Jeudi')
+    map_jour(3,1,'Jeudi')
     print("Cartes pour jeudi crées. ")
-    map_jour(4,0)
-    map_jour(4,1)
+    map_jour(4,0,'Vendredi')
+    map_jour(4,1,'Vendredi')
     print("Cartes pour vendredi crées. ")
-    map_jour(5,0)
-    map_jour(5,1)
+    map_jour(5,0,'Samedi')
+    map_jour(5,1,'Samedi')
     print("Cartes pour samedi crées.")
-    map_jour(6,0)
-    map_jour(6,1)
+    map_jour(6,0,'Dimanche')
+    map_jour(6,1,'Dimanche')
     print("Cartes pour dimanche crées.")
 else:
     print("Les cartes des intensités n'ont pas été générées.")
@@ -513,15 +516,15 @@ def nb_tot_jour(j):
     D=[]
     for file in files:
         with open(file, 'r', encoding='utf-8') as f:
-            lecteur = csv.reader(f, delimiter=';')  # Définir le séparateur si nécessaire
+            lecteur = csv.reader(f, delimiter=',')  # Définir le séparateur si nécessaire
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
                 dat, heur = ligne[0].split(' ')
                 date=datetime.strptime(dat, '%Y-%m-%d')
                 jour=date.weekday()
                 if jour==j:
-                    dep=ligne[2].split(' ')[0]
-                    arr=ligne[3].split(' ')[0]
+                    dep=ligne[1].split(' ')[0]
+                    arr=ligne[2].split(' ')[0]
                     if dep!='' and arr!='':
                         if dep in Sta and arr in Sta:
                             if dat not in D:
@@ -561,15 +564,16 @@ def poids_par_h(j):
     D=[]
     for file in files:
         with open(file, 'r', encoding='utf-8') as f:
-            lecteur = csv.reader(f, delimiter=';')  
+            lecteur = csv.reader(f, delimiter=',')  
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
-                dat, heur = ligne[0].split(' ')
+                dat = ligne[0].split(' ')[0]
+                heur =ligne[0].split(' ')[1]
                 date=datetime.strptime(dat, '%Y-%m-%d')
                 jour=date.weekday()
                 if jour==j:
-                    dep=ligne[2].split(' ')[0]
-                    arr=ligne[3].split(' ')[0]
+                    dep=ligne[1].split(' ')[0]
+                    arr=ligne[2].split(' ')[0]
                     if dep!='' and arr!='':
                         if dep in Sta and arr in Sta:
                             if dat not in D:
@@ -596,7 +600,7 @@ else:
     print("Le poids des heures n'a pas été calculé.")
     
 #%%map_jour_h 
-def map_jour_h(j, h,style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
+def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
     """
     Description: 
     La fonction 'map_jour_h' génère une carte des intensités moyennes observées un jour de la semaine j à une heure h. 
@@ -608,6 +612,8 @@ def map_jour_h(j, h,style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-a
         Le numéro de l'heure voulue (entre 0 et 23, 0 étant la plage horraire 00h00- 00h59). 
     - style : int
         Le numéro (0 ou 1) correspondant au style voulu. 0 donnera une carte avec uniquement des points de différentes couleur et 1 donnera une carte avec ces points mais également la carte de chaleur (Heatmap) associée. 
+    - jour : str
+        Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
     Retourne: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
@@ -668,14 +674,14 @@ def map_jour_h(j, h,style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-a
     #choix de chaleur ou non
     if style==0:
         nom=f'intensity_{j}_{h}.html'
-        m.save(nom)
+        m.save(f'./Cycle3/visualisation/{jour}/intensité/{nom}')
         return "La carte a été générée et sauvegardée sous le nom", nom
     
     else:
         heat_data = [[coord[1], coord[0], intensity] for intensity, coord in data]
         HeatMap(heat_data).add_to(m)
         nom=f'intensity_{j}_{h}_heat.html'
-        m.save(nom)
+        m.save(f'./Cycle3/visualisation/{jour}/intensité/{nom}')
         return"La carte a été générée et sauvegardée sous le nom", nom 
 
 
@@ -683,10 +689,11 @@ def map_jour_h(j, h,style):#entrée 0-6 pour les jours de la semaine, 0-1 sans-a
 #%% tracer toutes les cartes avec intensité sur un jour avec ou sans chaleur 
 
 reply = input("Voulez-vous tracer les 168 cartes intensité par jour et par heure sans chaleur ? (oui/non) : (Cela n'influe pas la suite du code)")
+L=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
 if reply.strip().lower() == "oui":
     for i in range (0, 7):
         for j in range(0,24):
-                map_jour_h(i, j, 0)
+                map_jour_h(i, j, 0,L[i])
                 print('map', i, j, 'générée')
 else: 
     print("Les cartes n'ont pas été générées. ")
@@ -710,12 +717,12 @@ def trajets_parcourus_jour(j):
     D=[]
     for file in files:
         with open(file, 'r', encoding='utf-8') as f:
-            lecteur = csv.reader(f, delimiter=';')  # Définir le séparateur si nécessaire
+            lecteur = csv.reader(f, delimiter=',')  # Définir le séparateur si nécessaire
             next(lecteur) #ignorer l'entête 
             for ligne in lecteur: 
                 dat, heur = ligne[0].split(' ')
-                dep=ligne[2].split(' ')[0]
-                arr=ligne[3].split(' ')[0]
+                dep=ligne[1].split(' ')[0]
+                arr=ligne[2].split(' ')[0]
                 date=datetime.strptime(dat, '%Y-%m-%d')
                 jour=date.weekday()
                 if jour==j:
@@ -856,7 +863,7 @@ else:
     print("Les trajets et leurs occurrences n'ont pas été recensés. ")
     
 #%%
-def map_trajets(j, h):
+def map_trajets(j, h,jour):
     """
     Description: 
     La fonction 'map_trajets' génère une carte des trajets parcourus un jour de la semaine j et à une heure h, ainsi que la probabilité qu'il soit de nouveau parcouru (en tenant compte des archives). 
@@ -866,6 +873,8 @@ def map_trajets(j, h):
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
         Le numéro (0 ou 1) correspondant au style voulu. 0 donnera une carte avec uniquement des points de différentes couleur et 1 donnera une carte avec ces points mais également la carte de chaleur (Heatmap) associée. 
+    - jour : str
+        Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
     Retourne: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
@@ -990,7 +999,7 @@ def map_trajets(j, h):
 
     # Save la carte
     nom = f"trajets_couleurs_cumulées_j{j}_h{h}.html"
-    carte.save(nom)
+    carte.save(f'./Cycle3/visualisation/{jour}/Trajetscouleurs/{nom}')
     return f"Carte enregistrée sous '{nom}'."
 
 #%% 
@@ -998,7 +1007,7 @@ ask = input("Voulez-vous tracer les 168 cartes correspondant aux trajets par jou
 if ask.strip().lower() == "oui":
     for i in range(0, 7):
         for j in range(0, 24):
-            map_trajets(i, j)
+            map_trajets(i, j,L[i])
             print('map', i, j, 'générée')
 else: 
     print("Les cartes n'ont pas été générées.")
