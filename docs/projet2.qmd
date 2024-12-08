@@ -20,6 +20,59 @@ L'application Shiny est en ligne ici : [Accéder à l'application Shiny](https:/
 Voici d'autres cartes présentant des prévisions des stations les plus fréquentés et des trajets les plus effectués pour chaque jour et chaque heure de la semaine. Ces résultats ont été obtenus en calculant des moyennes à partir des données présentées sur la page d'accueil.
 :::
 
+<head>
+    <style>
+        /* Styles pour les boutons */
+        button {
+            background-color: #007BFF; /* Bleu */
+            color: white; /* Texte blanc */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Animation fluide */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Bleu foncé au survol */
+            transform: scale(1.05); /* Légère mise en relief */
+        }
+
+        button:active {
+            background-color: #003f7f; /* Couleur encore plus foncée lorsqu'on clique */
+            transform: scale(0.95); /* Effet d'enfoncement */
+        }
+
+        /* Pour aligner les boutons */
+        form {
+            margin-bottom: 20px;
+        }
+
+        /* Centrer les éléments */
+        #carte-intensity,
+        #carte-trajets {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Style des labels */
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Style des select */
+        select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
 <body> 
     <!-- Carte des intensités -->
     <h2>Carte des intensités</h2>
