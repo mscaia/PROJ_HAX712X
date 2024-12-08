@@ -1,5 +1,4 @@
-# Configuration file for the Sphinx documentation builder.
-#
+# Configuration file for the Sphinx documentation builder
 
 import os
 import sys
@@ -7,11 +6,11 @@ import pandas as pd
 
 # -- Path setup --------------------------------------------------------------
 # Add project directory to sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'analyse_donnee')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'map')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'video')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'data')))
+sys.path.insert(0, os.path.abspath('../../Cycle3'))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'analyse_donnee')))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'map')))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'video')))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Cycle3', 'data')))
 
 # -- Project information -----------------------------------------------------
 project = 'CycleVision3'

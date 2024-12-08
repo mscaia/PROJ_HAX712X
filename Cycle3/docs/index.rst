@@ -6,9 +6,14 @@
 CycleVision3 Documentation
 ==========================
 
-Welcome to the CycleVision3 documentation! Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Bienvenue dans la documentation de **CycleVision3**!
+
+L'ambition du projet est de développer des **visualisations interactives**, notamment une **carte prédictive des flux cyclistes**, accessibles via un site web dédié. Ces outils visent à :  
+
+- *Identifier les tendances de mobilité* pour mieux comprendre les habitudes des usagers.  
+- *Proposer des solutions pratiques* afin d'optimiser les infrastructures urbaines et de promouvoir l'usage du vélo comme moyen de transport durable.  
+
+En combinant innovation technologique et impact sociétal, **CycleVision3** s'inscrit dans une démarche adaptable à d'autres contextes urbains. Ce projet contribue ainsi à la réflexion autour de la mobilité intelligente et durable, répondant aux enjeux croissants des villes contemporaines.
 
 Contents
 --------
@@ -17,7 +22,10 @@ Contents
    :maxdepth: 2
    :caption: Contents:
 
-   modules
+   guide
+   bibliotheques
    analyse_donnee
    map
    video
+   class
+   credits
