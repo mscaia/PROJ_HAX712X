@@ -13,124 +13,87 @@ This project aims to analyze bike traffic in Montpellier, focusing on the invest
 - [**SCAIA Matteo**](https://github.com/mscaia)
 - [**STETSUN Kateryna**](https://github.com/KatyaStetsun)
 
-## 🚀 Getting Started
+## 🚀 Getting Started  
 
-Before beginning development and data analysis, you need to set up the working environment by installing all necessary dependencies. Follow these steps to prepare the project:
+Before beginning development and data analysis, you need to set up the working environment by installing all necessary dependencies. Follow these steps to quickly set up and run the project:
 
-# Guide d'utilisation de notre projet
-## 1. Introduction 
-Ce guide vous explique comment utiliser notre projet, lancer les commandes nécessaires et accéder aux résultats générés.
-## 2. Clone du répertoire Github
-Pour accéder au projet et à sa structure, commencez par cloner notre répertoire GitHub.
+### 1. **Clone the Repository**  
+First, clone the project repository:  
 ```bash
 git clone https://github.com/mscaia/PROJ_HAX712X.git
-cd ./PROJ_HAX712X
+cd PROJ_HAX712X
 ```
-## 3. Installation des packages nécessaire
-On vous conseille de créer un environnement virtuel, il permet d'isoler les dépendances d'un projet, d'éviter les conflits de versions, et de garantir un contrôle simple sur les paquets installés. Il assure la reproductibilité du projet, facilite la gestion des dépendances, et protège votre système.
+
+### 2. **Set Up the Environment**  
+Create and activate a virtual environment:  
 ```bash
 conda create --name Cycle3 python=3.9.18
 conda activate Cycle3
-```
-Ensuite, installez les packages nécessaires pour faire fonctionner le projet :
-```bash
 pip install -r requirements.txt
 ```
-Après cette commande, l'environnement virtuel `Cycle3` occupera environ 1 Go de votre espace. Vous êtes maintenant prêt à utiliser notre projet avec tous les packages nécessaires.
-## 4. Comment lancer certain script.
-Tous les scripts doivent être exécutés depuis le terminal. Assurez-vous que vous êtes dans la racine du projet, nommée `PROJ_HAX712X`. Dans les chemins relatifs, `./ `fait référence à la racine du projet.
-### Utilisation de notre class pour télécharger les données
-Téléchargez les données nécessaires pour travailler (nous avons choisi de les laisser sur GitHub) :
-```bash
- python ./src/donnée.py
-```
-### Voir nos éléments d'analyse de donnée.
-Pour voir les éléments d'analyse des données, lancez la commande suivante :
-```bash
-python ./Cycle3/analyse_donnee/statistique.py
-```
-Certaines sorties sont affichées dans le terminal (avec `print`), mais les graphiques sont disponibles dans le répertoire suivant :
-```bash
-cd ./docs/projet1_files/figure-html
-```
-Vous y trouverez des fichiers `.html` et `.png`.
-### Visualisation des cartes
-Dans le dossier `./Cycle3/map/`, vous trouverez trois fichiers `.py` différents pour travailler avec les cartes :
-1. `carte.py` : Affiche la disponibilité en temps réel des vélos dans les stations Vélomagg de Montpellier.
-```bash
- python ./Cycle3/map/carte.py 
-```
-La carte générée est sauvegardée dans `./docs/montpellier_bike_stations_map.html.`
 
-2. `map.py` : Effectue une simulation de trajet. L'interactivité se fait via le terminal
-```bash
- python ./Cycle3/map/map.py 
-```
-La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpellier_trajet.html`
+### 3. **Run the Scripts**  
+Example commands to use the project features:  
+- **Download Data**:  
+  ```bash
+  python ./src/donnée.py
+  ```  
+- **View Data Analysis Results**:  
+  ```bash
+  python ./Cycle3/analyse_donnee/statistique.py
+  ```  
+- **Visualize Maps**:  
+  ```bash
+  python ./Cycle3/map/carte.py
+  ```  
 
-### Création d'une vidéo
-Nous avons lié les scripts `./Cycle3/map/map_trajet_BD.py` et `./Cycle3/vidéo/vidéo.py` pour analyser les trajets d'un jour spécifique et les transformer en vidéo. 
-#### Etape 1 : Choisir le jour dans `map_trajet_BD.py`
-Lancez la commande suivante pour sélectionner le jour que vous souhaitez analyser. Vous aurez la possibilité de tracer ou non les trajets, et de définir le nombre de trajets à afficher.
-```bash
- python ./Cycle3/map/map_trajet_BD.py
-```
-La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html`
-#### Etape 2 : Création de la vidéo
-**Attention : Ce processus peut être long. Veuillez vous référer à la section 8. Performance Analysis de la documentation pour plus d'informations.**
-Lancez la commande suivante pour créer la vidéo :
-```bash
- python ./Cycle3/vidéo/vidéo.py
-```
-Vous pourrez choisir le nombre de trajets à afficher. La vidéo générée sera sauvegardée dans `./Cycle3/visualisation/simulation_trajets.mp4`.
-## 4. Création et utilisation du site 
-Voici quelques étapes pour la création et l'utilisation d'un site Quarto comme celui que nous avons créé.
-1. **Installation de Quarto**
+For more details on visualization and advanced usage, refer to the [full documentation](https://mscaia.github.io/PROJ_HAX712X/docu.html#guide-de-lutilisateur).
 
-Téléchargez et installez Quarto depuis [quarto.org/download](https://quarto.org/download). Prenez bien soin d'ajouter Quarto à vos variables d'environnements.
+## 🛠️ Code Snippet to Build the Website
 
-2. **Création du projet**
+Here are the steps to set up and deploy a Quarto-based website like the one we've created:
 
-Puis, ouvrez un terminal et exécutez les commandes suivantes :
+### 1. **Install Quarto**
+
+Download and install Quarto from [quarto.org/download](https://quarto.org/download). Ensure that Quarto is added to your system's environment variables.
+
+### 2. **Create a New Project**
+
+Open your terminal and execute the following commands:
+
 ```bash
 mkdir docs
 cd docs
-quarto create-project nom_du_projet --type website
-```
-3. **Ajout de contenu**
-- Ajoutez des fichiers .qmd dans le dossier docs pour enrichir le site.
-- Modifiez le fichier _quarto.yml pour personnaliser la structure et les paramètres du site.
-
-4. **Prévisualisation locale**
-
-Le site peut ensuite être lancé via la commande suivante dans le répertoire `./docs/`.
-```bash
- quarto preview
+quarto create-project project_name --type website
 ```
 
-5. **Déploiement sur GitHub**
+### 3. **Add Content**
 
-Dans les paramètres de votre projet Github, allez dans GitHub Pages puis dans la section *Build and Deployment*. Dans l'onglet "Source" sélectionnez *Deploy from a branch* et en dessous sélectionnez la branche *main* et le dossier *docs*.
-Vous pouvez ensuite taper les commandes suivantes (toujours dans le répertoire `./docs/`) dans un terminal :
-```bash
- quarto render
- ```
-Le site sera alors déployé à votre prochain push !
+- Place `.qmd` files in the `docs/` folder to enrich your website's content.  
+- Edit the `_quarto.yml` file to customize the site's structure and settings.
 
-## 5. Suppression de l'environnement virtuel
-1. Désactivez l'environnement
+### 4. **Local Preview**
+
+To preview the site locally, run the following command in the `./docs/` directory:
+
 ```bash
- conda deactivate
+quarto preview
 ```
-2. Supprimez l'environnement Conda
+
+### 5. **Deploy to GitHub Pages**
+
+1. Go to the **GitHub Pages** section in your repository's settings.  
+2. Under the **Build and Deployment** settings, select *Deploy from a branch*.  
+3. Choose the `main` branch and the `/docs` folder as the source.  
+
+Next, in the `./docs/` directory, run:
+
 ```bash
-conda env remove --name Cycle3
+quarto render
 ```
-3. Vérifiez que l'environnement a été supprimé
-```bash
-conda env list
-```
-Vous ne devez plus voir l'environnement `Cycle3`.
+
+Your site will be deployed on the next push to the `main` branch.
+
 ## 🔒 License
 
 This project is licensed under the terms specified in the file [LICENCE](https://github.com/mscaia/PROJ_HAX712X/blob/main/LICENCE). Please refer to the file for more details.

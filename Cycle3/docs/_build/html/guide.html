@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide d’utilisation de notre projet &mdash; CycleVision3 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=56c4699f" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bibliothèques utilisées" href="bibliotheques.html" />
+    <link rel="prev" title="CycleVision3 Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CycleVision3
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide d’utilisation de notre projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliotheques.html">Bibliothèques utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analyse_donnee.html">analyse_donnee package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="map.html">map package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video.html">video package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class.html">Classes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CycleVision3</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Guide d’utilisation de notre projet</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="guide-d-utilisation-de-notre-projet">
+<h1>Guide d’utilisation de notre projet<a class="headerlink" href="#guide-d-utilisation-de-notre-projet" title="Link to this heading"></a></h1>
+<p>1. ** Introduction **
+Ce guide vous explique comment utiliser notre projet, lancer les commandes nécessaires et accéder aux résultats générés.</p>
+<p>2. ** Clone du répertoire Github **
+Pour accéder au projet et à sa structure, commencez par cloner notre répertoire GitHub.
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/mscaia/PROJ_HAX712X.git</span>
+<span class="pre">cd</span> <span class="pre">./PROJ_HAX712X</span>
+<span class="pre">`</span></code>
+3. ** Installation des packages nécessaire **
+On vous conseil de créer un environnement virtuel, il permet d’isoler les dépendances d’un projet, d’éviter les conflits de versions, et de garantir un contrôle simple sur les paquets installés. Il assure la reproductibilité du projet, facilite la gestion des dépendances, et protège votre système.
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">Cycle3</span> <span class="pre">python=3.9.18</span>
+<span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">Cycle3</span>
+<span class="pre">`</span></code>
+Ensuite, installez les packages nécessaires pour faire fonctionner le projet :
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span>
+<span class="pre">`</span></code>
+Après cette commande, l’environnement virtuel <cite>Cycle3</cite> occupera environ 1 Go de votre espace. Vous êtes maintenant prêt à utiliser notre projet avec tous les packages nécessaires.</p>
+<p>4. ** Comment lancer certain script **
+Tous les scripts doivent être exécutés depuis le terminal. Assurez-vous que vous êtes dans la racine du projet, nommée <cite>PROJ_HAX712X</cite>. Dans les chemins relatifs, <a href="#id1"><span class="problematic" id="id2">`</span></a>./ <a href="#id3"><span class="problematic" id="id4">`</span></a>fait référence à la racine du projet.
+### Utilisation de notre class pour télécharger les données
+Téléchargez les données nécessaires pour travailler (nous avons choisi de les laisser sur GitHub) :
+<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a>bash</p>
+<blockquote>
+<div><p>python ./src/donnée.py</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">###</span> <span class="pre">Voir</span> <span class="pre">nos</span> <span class="pre">éléments</span> <span class="pre">d'analyse</span> <span class="pre">de</span> <span class="pre">donnée.</span>
+<span class="pre">Pour</span> <span class="pre">voir</span> <span class="pre">les</span> <span class="pre">éléments</span> <span class="pre">d'analyse</span> <span class="pre">des</span> <span class="pre">données,</span> <span class="pre">lancez</span> <span class="pre">la</span> <span class="pre">commande</span> <span class="pre">suivante</span> <span class="pre">:</span>
+<span class="pre">```bash</span>
+<span class="pre">python</span> <span class="pre">./Cycle3/analyse_donnee/statistique.py</span>
+<span class="pre">`</span></code>
+Certaines sorties sont affichées dans le terminal (avec <cite>print</cite>), mais les graphiques sont disponibles dans le répertoire suivant :
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">cd</span> <span class="pre">./docs/projet1_files/figure-html</span>
+<span class="pre">`</span></code>
+Vous y trouverez des fichiers <cite>.html</cite> et <cite>.png</cite>.
+### Visualisation des cartes
+Dans le dossier <cite>./Cycle3/map/</cite>, vous trouverez trois fichiers <cite>.py</cite> différents pour travailler avec les cartes :
+1. <cite>carte.py</cite> : Affiche la disponibilité en temps réel des vélos dans les stations Vélomagg de Montpellier.
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>bash</p>
+<blockquote>
+<div><p>python ./Cycle3/map/carte.py</p>
+</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a>`
+La carte générée est sauvegardée dans <cite>./docs/montpellier_bike_stations_map.html.</cite></p>
+<p>2. <cite>map.py</cite> : Effectue une simulation de trajet. L’interactivité se fait via le terminal
+<a href="#id15"><span class="problematic" id="id16">``</span></a><a href="#id17"><span class="problematic" id="id18">`</span></a>bash</p>
+<blockquote>
+<div><p>python ./Cycle3/map/map.py</p>
+</div></blockquote>
+<p><a href="#id19"><span class="problematic" id="id20">``</span></a>`
+La carte générée est sauvegardée dans <cite>./Cycle3/visualisation/carte_montpellier_trajet.html</cite></p>
+<p>### Création d’une vidéo
+Nous avons lié les scripts <cite>./Cycle3/map/map_trajet_BD.py</cite> et <cite>./Cycle3/vidéo/vidéo.py</cite> pour analyser les trajets d’un jour spécifique et les transformer en vidéo.
+#### Etape 1 : Choisir le jour dans <cite>map_trajet_BD.py</cite>
+Lancez la commande suivante pour sélectionner le jour que vous souhaitez analyser. Vous aurez la possibilité de tracer ou non les trajets, et de définir le nombre de trajets à afficher.
+<a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a>bash</p>
+<blockquote>
+<div><p>python ./Cycle3/map/map_trajet_BD.py</p>
+</div></blockquote>
+<p><a href="#id25"><span class="problematic" id="id26">``</span></a>`
+La carte générée est sauvegardée dans <cite>./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html</cite>
+#### Etape 2 : Création de la vidéo
+<strong>Attention : Ce processus peut être long. Veuillez vous référer à la section 8. Performance Analysis de la documentation pour plus d’informations.</strong>
+Lancez la commande suivante pour créer la vidéo :
+<a href="#id27"><span class="problematic" id="id28">``</span></a><a href="#id29"><span class="problematic" id="id30">`</span></a>bash</p>
+<blockquote>
+<div><p>python ./Cycle3/vidéo/vidéo.py</p>
+</div></blockquote>
+<p><a href="#id31"><span class="problematic" id="id32">``</span></a>`
+Vous pourrez choisir le nombre de trajets à afficher. La vidéo générée sera sauvegardée dans <cite>./Cycle3/visualisation/simulation_trajets.mp4</cite>.</p>
+<p>5. ** Utilisation du site **
+Le site peut être lancé via la commande suivante dans le répertoire <cite>./docs/</cite>.
+<a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a>bash</p>
+<blockquote>
+<div><p>quarto preview</p>
+</div></blockquote>
+<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
+<p>6. ** Suppression de l’environnement virtuel **
+1. Désactivez l’environnement
+<a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a>bash</p>
+<blockquote>
+<div><p>conda deactivate</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">2.</span> <span class="pre">Supprimez</span> <span class="pre">l'environnement</span> <span class="pre">Conda</span>
+<span class="pre">```bash</span>
+<span class="pre">conda</span> <span class="pre">env</span> <span class="pre">remove</span> <span class="pre">--name</span> <span class="pre">Cycle3</span>
+<span class="pre">`</span></code>
+3. Vérifiez que l’environnement a été supprimé
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">conda</span> <span class="pre">env</span> <span class="pre">list</span>
+<span class="pre">`</span></code>
+Vous ne devez plus voir l’environnement <cite>Cycle3</cite>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="CycleVision3 Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bibliotheques.html" class="btn btn-neutral float-right" title="Bibliothèques utilisées" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, ARMAND Charlotte, CONDAMY Fabian, SCAIA Matteo, STETSUN Kateryna.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

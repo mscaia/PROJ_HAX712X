@@ -20,7 +20,7 @@ En combinant innovation technologique et impact sociétal, **CycleVision3** s’
 
 # 2. Project Setup
 
-## 2.1 Structure du projet [WILL BE FINISHED AT THE END]
+## 2.1 Structure du projet
 
 La structure du projet est conçue pour garantir une séparation claire des composantes essentielles à l’analyse et à la création des visualisations. Voici un aperçu de l’organisation des fichiers et répertoires :
 
@@ -29,7 +29,33 @@ La structure du projet est conçue pour garantir une séparation claire des comp
 ```
 main/                                           # Répertoire principal du projet
 ├── .github/workflows/                          # Configuration pour l'intégration continue
-├── analyse_donnee/                             # Scripts pour l'analyse des données
+│   ├── update_and_deploy.yml                   #
+├── Cycle3/                                     # Scripts pour l'analyse des données
+│   ├── analyse_donnee/                         # Images utilisées dans le projet
+│   │   ├── cache/
+│   │   ├── __init__.py  
+│   │   └── statistique.py
+│   ├── docs/                                   #
+│   │   ├── build/html/
+│   │   ├── cache/
+│   │   ├── conf.py
+│   │   ├── make.bat
+│   │   ├── Makefile
+│   │   ├── index.rst
+│   │   └── ...                                 # D'autres fichiers au format .rst
+│   ├── images/                                 # Images utilisées dans le projet
+│   ├── map/                                    # Scripts pour les cartes interactives
+│   │   ├── __init__.py  
+│   │   ├── carte.py
+│   │   ├── map.py
+│   │   └── map_trajet_BD.py
+│   ├── prediction/
+│   │   ├── __init__.py  
+│   │   └── prediction.py                   
+│   ├── vidéo/
+│   │   ├── __init__.py  
+│   │   └── vidéo.py
+│   ├── visualisation/                          # Résultats des visualisations
 ├── cache/                                      # Fichiers temporaires
 ├── data/                                       # Données des 3 jeux de données
 │   ├── extracted/                              # Données extraites
@@ -37,26 +63,42 @@ main/                                           # Répertoire principal du proje
 │   ├── video.csv                               # Données vidéo brutes
 │   └── video_avec_coord.csv                    # Données vidéo enrichies avec coordonnées
 ├── docs/                                       # Répertoire des fichiers du site web
+│   ├── _freeze/
+│   ├── cache/  
+│   ├── docu_files/
+│   ├── index_files/
+│   ├── projet1_files/figure-html/
+│   ├── projet2_files/
+│   ├── projet3_files/figure-html/
+│   ├── shiny_app/
+│   ├── site_libs/
 │   ├── .gitignore                              # Liste des fichiers à ignorer par Git
-│   ├──                                         # 
-│   ├──                                         # 
-│   ├──                                         # 
-│   └── styles.css                              # Fichier CSS pour la mise en forme du site
-├── images/                                     # Images utilisées dans le projet
-├── map/                                        # Scripts pour les cartes interactives
-├── roadmap/                                    # Fichier README.md avec la description .......
+│   ├── ._quarto.yml.un~
+│   ├── _footer.html
+│   ├── _quarto.yml
+│   ├── _quarto.yml~
+│   ├── ...                                     # 
+│   ├── search.json                             # 
+│   ├── stationvelo.json                        # 
+│   └── styles.css                              # 
+├── roadmap/                                    # 
 ├── slide/                                      # 
+│   ├── cache/                                  # Fonctions de traitement des données
+│   ├── images/                                 # Fonctions pour les bases de données
+│   ├── slide_files/libs/
+│   ├── _metadata.yml
+│   ├── map.html
+│   ├── slide.css
+│   ├── slide.html
+│   ├── slide.qmd
+│   └── slides-styles.scss                      # 
 ├── src/                                        # Répertoire contenant le code source
-│   ├── __init__.py                             # Initialisation du package
+│   ├── __init__.py
 │   ├── donnée.py                               # Fonctions de traitement des données
-│   └── fonctions_basedonnees.py                # Fonctions pour les bases de données
-├── vidéo/                                      # 
-├── visualisation/                              # Résultats des visualisations
-├──.DS_Store                                    # 
-├──
-├──
-├── .Rhistory                                   # Fichier d'historique R
+│   ├── fonctions_basedonnees.py                # Fonctions pour les bases de données
+│   └── gestion_donnee.py                       # 
 ├── .gitignore                                  # Fichier Git ignore
+├── LICENCE                                     # Fichier Git ignore
 ├── README.md                                   # Documentation principale du projet
 └── requirements.txt                            # Dépendances du projet
 ```
@@ -1380,28 +1422,136 @@ Concernant l'efficacité temporelle, plusieurs problèmes ont été rencontrés 
 
 # 9. Guide de l’utilisateur
 
-Ce guide fournit des instructions pour utiliser les fonctionnalités principales du projet **CycleVision3**.
+Avant de commencer le développement et l'analyse des données, vous devez configurer l'environnement de travail en installant toutes les dépendances nécessaires. Ce guide vous explique comment utiliser notre projet, lancer les commandes nécessaires et accéder aux résultats générés. Suivez ces étapes pour préparer le projet :
 
-## 9.1 Accès à l’interface web
-1. Ouvrez un navigateur web (Chrome, Firefox, etc.).
-2. Entrez l’adresse suivante : [https://mscaia.github.io/PROJ_HAX712X/].
-3. Explorez les sections disponibles :
+## 9.1 Clone du répertoire Github
 
-## 9.2 Téléchargement et traitement des données
-1. Téléchargez les jeux de données sur la page X
-2. Utilisez le menu pour :
-   - Charger un fichier CSV.
-   - Prétraiter les données directement dans l’interface.
+Pour accéder au projet et à sa structure, commencez par cloner notre répertoire GitHub.
+```bash
+git clone https://github.com/mscaia/PROJ_HAX712X.git
+cd ./PROJ_HAX712X
+```
+## 9.2 Installation des packages nécessaire
 
-## 9.3 Génération de rapports
+On vous conseille de créer un environnement virtuel, il permet d'isoler les dépendances d'un projet, d'éviter les conflits de versions, et de garantir un contrôle simple sur les paquets installés. Il assure la reproductibilité du projet, facilite la gestion des dépendances, et protège votre système.
+```bash
+conda create --name Cycle3 python=3.9.18
+conda activate Cycle3
+```
+Ensuite, installez les packages nécessaires pour faire fonctionner le projet :
+```bash
+pip install -r requirements.txt
+```
+Après cette commande, l'environnement virtuel `Cycle3` occupera environ 1 Go de votre espace. Vous êtes maintenant prêt à utiliser notre projet avec tous les packages nécessaires.
 
+## 9.3 Comment lancer certain script.
 
-## 9.4 Utilisation des prédictions
+Tous les scripts doivent être exécutés depuis le terminal. Assurez-vous que vous êtes dans la racine du projet, nommée `PROJ_HAX712X`. Dans les chemins relatifs, `./ `fait référence à la racine du projet.
 
+### Utilisation de notre class pour télécharger les données
 
-## 9.5 Dépannage
-Si vous rencontrez des problèmes n'hésitez pas à [nous contacter](auteurs.qmd).
+Téléchargez les données nécessaires pour travailler (nous avons choisi de les laisser sur GitHub) :
+```bash
+ python ./src/donnée.py
+```
 
+### Voir nos éléments d'analyse de donnée.
+
+Pour voir les éléments d'analyse des données, lancez la commande suivante :
+```bash
+python ./Cycle3/analyse_donnee/statistique.py
+```
+Certaines sorties sont affichées dans le terminal (avec `print`), mais les graphiques sont disponibles dans le répertoire suivant :
+```bash
+cd ./docs/projet1_files/figure-html
+```
+Vous y trouverez des fichiers `.html` et `.png`.
+
+### Visualisation des cartes
+
+Dans le dossier `./Cycle3/map/`, vous trouverez trois fichiers `.py` différents pour travailler avec les cartes :
+1. `carte.py` : Affiche la disponibilité en temps réel des vélos dans les stations Vélomagg de Montpellier.
+```bash
+ python ./Cycle3/map/carte.py 
+```
+La carte générée est sauvegardée dans `./docs/montpellier_bike_stations_map.html.`
+
+2. `map.py` : Effectue une simulation de trajet. L'interactivité se fait via le terminal
+```bash
+ python ./Cycle3/map/map.py 
+```
+La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpellier_trajet.html`
+
+### Création d'une vidéo
+
+Nous avons lié les scripts `./Cycle3/map/map_trajet_BD.py` et `./Cycle3/vidéo/vidéo.py` pour analyser les trajets d'un jour spécifique et les transformer en vidéo. 
+
+#### Etape 1 : Choisir le jour dans `map_trajet_BD.py`
+
+Lancez la commande suivante pour sélectionner le jour que vous souhaitez analyser. Vous aurez la possibilité de tracer ou non les trajets, et de définir le nombre de trajets à afficher.
+```bash
+ python ./Cycle3/map/map_trajet_BD.py
+```
+La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html`
+
+#### Etape 2 : Création de la vidéo
+
+**Attention : Ce processus peut être long. Veuillez vous référer à la section 8. Performance Analysis de la documentation pour plus d'informations.**
+Lancez la commande suivante pour créer la vidéo :
+```bash
+ python ./Cycle3/vidéo/vidéo.py
+```
+Vous pourrez choisir le nombre de trajets à afficher. La vidéo générée sera sauvegardée dans `./Cycle3/visualisation/simulation_trajets.mp4`.
+
+## 9.4 Création et utilisation du site 
+
+Voici quelques étapes pour la création et l'utilisation d'un site Quarto comme celui que nous avons créé.
+1. **Installation de Quarto**
+
+Téléchargez et installez Quarto depuis [quarto.org/download](https://quarto.org/download). Prenez bien soin d'ajouter Quarto à vos variables d'environnements.
+
+2. **Création du projet**
+
+Puis, ouvrez un terminal et exécutez les commandes suivantes :
+```bash
+mkdir docs
+cd docs
+quarto create-project nom_du_projet --type website
+```
+3. **Ajout de contenu**
+- Ajoutez des fichiers .qmd dans le dossier docs pour enrichir le site.
+- Modifiez le fichier _quarto.yml pour personnaliser la structure et les paramètres du site.
+
+4. **Prévisualisation locale**
+
+Le site peut ensuite être lancé via la commande suivante dans le répertoire `./docs/`.
+```bash
+ quarto preview
+```
+
+5. **Déploiement sur GitHub**
+
+Dans les paramètres de votre projet Github, allez dans GitHub Pages puis dans la section *Build and Deployment*. Dans l'onglet "Source" sélectionnez *Deploy from a branch* et en dessous sélectionnez la branche *main* et le dossier *docs*.
+Vous pouvez ensuite taper les commandes suivantes (toujours dans le répertoire `./docs/`) dans un terminal :
+```bash
+ quarto render
+ ```
+Le site sera alors déployé à votre prochain push !
+
+## 9.5 Suppression de l'environnement virtuel
+1. Désactivez l'environnement
+```bash
+ conda deactivate
+```
+2. Supprimez l'environnement Conda
+```bash
+conda env remove --name Cycle3
+```
+3. Vérifiez que l'environnement a été supprimé
+```bash
+conda env list
+```
+Vous ne devez plus voir l'environnement `Cycle3`.
 
 # 10. Travaux futurs
 
