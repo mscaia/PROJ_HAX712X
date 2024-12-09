@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-8d0f65850490aeac40d772bfbdbd2f32.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-c017d5db46deefa2ad82f456c652a155.css">
   <link rel="stylesheet" href="slides.css">
   <link rel="stylesheet" href="slide.css">
   <link href="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -151,6 +151,61 @@
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 </section>
+<section id="section" class="title-slide slide level2 center">
+<h2></h2>
+<div style="text-align: center;">
+<p><span class="custom-subtitle33 center">🚴‍♂️ <strong>Vous êtes-vous déjà demandé…</strong></span> <br></p>
+</div>
+<div class="fragment">
+<blockquote>
+<em>… comment arriver à l’université à temps pour votre examen important lorsque vous êtes coincé dans un trafic de vélos à l’heure de pointe ?</em>
+<div style="text-align: center;">
+<p><img data-src="images/bikers-tj.jpg" style="width:80.0%"></p>
+</div>
+</blockquote>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="notre-mission" class="title-slide slide level2 center">
+<h2>Notre Mission</h2>
+<hr>
+<div>
+<ul>
+<li class="fragment"><strong>Nous analysons :</strong>
+<ul>
+<li class="fragment">Les flux de vélos en temps réel dans la ville de Montpellier.<br>
+</li>
+<li class="fragment">Les mouvements de cyclistes pour prévoir les situations de congestion.<br>
+</li>
+<li class="fragment">Des solutions pratiques pour optimiser vos trajets dans les embouteillages.<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Objectifs :</strong>
+<ul>
+<li class="fragment">Visualiser et analyser les flux cyclistes.<br>
+</li>
+<li class="fragment">Prévoir les mouvements de trafic avec une carte interactive.<br>
+</li>
+<li class="fragment">Proposer des solutions pour optimiser les infrastructures urbaines.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p>L’ambition du projet est de développer des <strong>visualisations interactives</strong>, notamment une <strong>carte prédictive des flux cyclistes</strong>, accessibles via un site web dédié.</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Identifier les tendances de mobilité pour mieux comprendre les habitudes des usagers.<br>
+</li>
+<li>Proposer des solutions pratiques afin d’optimiser les infrastructures urbaines et de promouvoir l’usage du vélo comme moyen de transport durable.</li>
+</ul>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
 <section>
 <section id="introduction-et-organisation" class="title-slide slide level1 section-background center">
 <h1>Introduction et organisation</h1>
@@ -162,21 +217,21 @@
 <hr>
 <div class="fragment">
 <div style="text-align: left;">
-<p><span class="custom-subtitle3"><strong>Objectifs</strong> :</span></p>
+<p>Le projet <strong>CycleVision3</strong> a pour objectif d’analyser et de prédire les flux cyclistes dans la ville de Montpellier à l’aide de données issues de trois sources principales :</p>
 </div>
 </div>
 <div>
 <ul>
-<li class="fragment">Visualiser et analyser les flux cyclistes<br>
+<li class="fragment"><strong>VéloMagg</strong> : Historique des trajets en vélos en libre-service.<br>
 </li>
-<li class="fragment">Prévoir les mouvements de trafic avec une carte interactive<br>
+<li class="fragment"><strong>Capteurs cyclistes/piétons</strong> : Données collectées aux points clés de la ville.<br>
 </li>
-<li class="fragment">Proposer des solutions pour optimiser les infrastructures urbaines</li>
+<li class="fragment"><strong>OpenStreetMap (OSM)</strong> : Données géographiques pour la cartographie.</li>
 </ul>
 </div>
 <div class="fragment">
 <div style="text-align: center;">
-<p><span class="custom-subtitle2"><strong>Schéma des résultats attendus :</strong></span> <br> <br> <img data-src="images/intro.svg" style="width:150.0%"> <br></p>
+<p><span class="custom-subtitle3"><strong>Schéma des résultats attendus :</strong></span> <img data-src="images/intro.svg" style="width:150.0%"></p>
 </div>
 </div>
 <!---------------------------------------------------------------------------->
@@ -241,6 +296,285 @@
 <!---------------------------------------------------------------------------->
 </section>
 
+<section id="structure-du-projet" class="title-slide slide level2 center">
+<h2>Structure du projet</h2>
+<hr>
+<div class="message1" style="text-align: center;">
+<pre>PROJ_HAX712X/                                   # Répertoire principal du projet
+├── .github/workflows/                          # Configuration pour l'intégration continue
+├── cache/                                      # Fichiers temporaires
+├── Cycle3                                      #
+│   ├── analyse_donnee/                         # Scripts pour l'analyse des données
+│   ├── docs/                                   #
+│   ├── images/                                 # Images utilisées dans le projet
+│   ├── map/                                    # Scripts pour les cartes interactives
+│   ├── video/                                  # 
+│   ├── visualisation/                          # Résultats des visualisations
+│   ├── data/                                   # Données des 3 jeux de données
+├── docs/                                       # Répertoire des fichiers du site web
+├── roadmap/                                    # Fichier README.md avec la description .......
+├── slide/                                      # 
+├── src/                                        # Répertoire contenant le code source
+├── .DS_Store                                   # 
+├── .Rhistory                                   # Fichier d'historique R
+├── .gitignore                                  # Fichier Git ignore
+├── README.md                                   # Documentation principale du projet
+└── requirements.txt                            # Dépendances du projet
+</pre>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+</section>
+<section>
+<section id="résultats-obtenus" class="title-slide slide level1 section-background center">
+<h1>Résultats obtenus</h1>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+<section id="analyse-des-datasets" class="title-slide slide level2 center">
+<h2>Analyse des datasets</h2>
+<hr>
+<div class="fragment">
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Nombre total de trajets des différentes années depuis 2020</strong></span></p>
+</div>
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:25%;">
+<div style="text-align: center;">
+<p><img src="images/analys_datasets/cell-2-output-6.png" width="100%" align="middle"></p>
+</div>
+</div><div class="column" style="width:25%;">
+<div style="text-align: center;">
+<p><img src="images/analys_datasets/cell-2-output-10.png" width="100%" align="middle"></p>
+</div>
+</div><div class="column" style="width:25%;">
+<div style="text-align: center;">
+<p><img src="images/analys_datasets/cell-2-output-14.png" width="100%" align="middle"></p>
+</div>
+</div><div class="column" style="width:25%;">
+<div style="text-align: center;">
+<p><img src="images/analys_datasets/cell-2-output-2.png" width="100%" align="middle"></p>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Distance moyenne parcourue et stations les plus populaires</strong></span></p>
+</div>
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:45%;">
+<div style="text-align: center;">
+<p><img src="images/analys_datasets/StationStat.png" width="60%" align="middle"></p>
+</div>
+</div><div class="column" style="width:45%;">
+<div style="text-align: center;">
+<p><img src="images/analys_datasets/Distance_par_mois_2021_2024.png" width="160%" align="middle"></p>
+</div>
+</div></div>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="creation-maps-interactives" class="title-slide slide level2 center">
+<h2>Creation maps interactives</h2>
+<hr>
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Stations de vélos à Montpellier</strong></span></p>
+</div>
+<div style="text-align: center;">
+<div id="d08dbead" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+
+        <iframe width="100%" height="450px" src="map.html" frameborder="0" allowfullscreen=""></iframe>
+        
+</div>
+</div>
+</div>
+<div class="message">
+<p><br> <br> Ci-dessous, vous trouverez une carte interactive présentant le <em>nombre de vélos en temps réel</em> disponibles dans les stations de la métropole de Montpellier. Cette carte offre une vue d’ensemble dynamique permettant de suivre l’état des stations en direct.</p>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="visualisation-vidéo" class="title-slide slide level2 center">
+<h2>Visualisation vidéo</h2>
+<hr>
+<div class="slide-content" style="text-align: center;">
+<p><video width="1000" controls=""> <source src="images/video_present.mp4" type="video/mp4"> Your browser does not support the video tag. </video></p>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="simulations-et-prédictions" class="title-slide slide level2 center">
+<h2>Simulations et prédictions</h2>
+<hr>
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Carte des intensités</strong></span> <img src="images/charl_1.png" width="100%" align="middle"></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Carte des trajets</strong></span> <img src="images/charl_2.png" width="100%" align="middle"></p>
+</div>
+</div></div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="web-integration" class="title-slide slide level2 center">
+<h2>WEB integration</h2>
+<hr>
+<p>VIDEO DE SITE</p>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="documentation-des-projet" class="title-slide slide level2 center">
+<h2>Documentation des projet</h2>
+<hr>
+<div>
+<ol type="1">
+<li class="fragment"><strong>Documentation Technique</strong>
+<ul>
+<li class="fragment">Détails des fonctions clés :
+<ul>
+<li class="fragment">cartes interactives (Folium)</li>
+<li class="fragment">prédictions avec analyse de données</li>
+<li class="fragment">gestion et analyse vidéo.</li>
+</ul></li>
+<li class="fragment">Documentation complète du class GestionnaireDonnees.<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Guide Utilisateur et ReadMe</strong> : Création d’un guide utilisateur et d’un ReadMe clair facilitant l’installation et l’utilisation.</li>
+<li class="fragment"><strong>Workflow et Pipeline de Traitement des Données</strong> : Documentation du Workflow du projet et du Pipeline de traitement avec explications pour chaque étape.</li>
+<li class="fragment"><strong>Tests et Performance Analysis</strong> : Documentation des tests pour valider le projet et analyse des performances dans divers scénarios.</li>
+<li class="fragment"><strong>Tentative avec Sphinx pour la Documentation</strong> : Mise en place initiale de la documentation avec Sphinx, même si elle n’a pas été finalisée.<br>
+</li>
+</ol>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+</section>
+<section>
+<section id="analysation-de-programm" class="title-slide slide level1 section-background center">
+<h1>Analysation de programm</h1>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+<section id="tests" class="title-slide slide level2 center">
+<h2>Tests</h2>
+<hr>
+<div>
+<ol type="1">
+<li class="fragment"><strong>Validation des dépendances</strong> : Test automatisé pour garantir l’installation correcte des bibliothèques listées dans <code>requirements.txt</code>.</li>
+<li class="fragment"><strong>Tests d’intégration des données</strong>
+<ul>
+<li class="fragment">Vérification de la connexion et du bon chargement des fichiers de données (CSV, JSON).</li>
+<li class="fragment">Validation du format et de la qualité des données en entrée.</li>
+</ul></li>
+<li class="fragment"><strong>Affichage des cartes interactives</strong> : Tests fonctionnels pour confirmer l’affichage et l’interactivité des cartes générées par Folium.</li>
+<li class="fragment"><strong>Automatisation avec GitHub Actions</strong> : Configuration d’un pipeline CI/CD pour exécuter des tests basiques à chaque mise à jour du code.</li>
+<li class="fragment"><strong>Tests de connectivité</strong> : Simulation d’accès utilisateur au site web pour vérifier la disponibilité et la navigation entre les sections.<br>
+</li>
+</ol>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="analyse-des-performances" class="title-slide slide level2 center">
+<h2>Analyse des performances</h2>
+<hr>
+<div class="fragment">
+<div style="text-align: center;">
+<p><br> <br> <span class="custom-subtitle3"><strong>Pour map_trajet_BD.py</strong></span></p>
+</div>
+</div>
+<div class="fragment">
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/1.png" width="100%" align="middle"></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/2.png" width="100%" align="middle"></p>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<p>Les graphiques montrent les performances pour différentes quantités de trajets.</p>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+
+<section id="analyse-des-performances-et-dutilisation-de-la-mémoire" class="title-slide slide level2 center">
+<h2>Analyse des performances et d’utilisation de la mémoire</h2>
+<hr>
+<div class="fragment">
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Pour map_trajet_BD.py</strong></span></p>
+</div>
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:30%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/1.png" width="50%" align="middle"></p>
+</div>
+</div><div class="column" style="width:30%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/2.png" width="50%" align="middle"></p>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<div style="text-align: center;">
+<p><span class="custom-subtitle3"><strong>Pour vidéo.py</strong></span></p>
+</div>
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:30%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/3.png" width="50%" align="middle"></p>
+</div>
+</div><div class="column" style="width:30%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/4.png" width="50%" align="middle"></p>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<div class="columns" style="display: flex; justify-content: center;">
+<div class="column" style="width:30%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/5.png" width="50%" align="middle"></p>
+</div>
+</div><div class="column" style="width:30%;">
+<div style="text-align: center;">
+<p><img src="images/perf_analys/6.png" width="50%" align="middle"></p>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<div class="message">
+<p><br> <br> <em>Concernant l’efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que <strong>ThreadPoolExecutor</strong> et l’utilisation de <strong>cache</strong> ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l’importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec <code>requests</code>, afin d’améliorer la vitesse d’exécution.</em></p>
+</div>
+</div>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
+</section>
+<section>
+<section id="conclusion" class="title-slide slide level1 section-background center">
+<h1>Conclusion</h1>
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+</section>
 <section id="comparaison-des-diagrammes-de-gantt" class="title-slide slide level2 center">
 <h2>Comparaison des diagrammes de Gantt</h2>
 <hr>
@@ -340,269 +674,15 @@
 <!---------------------------------------------------------------------------->
 </section>
 
-<section id="structure-du-projet" class="title-slide slide level2 center">
-<h2>Structure du projet</h2>
-<hr>
-<div class="message1" style="text-align: center;">
-<pre>PROJ_HAX712X/                                   # Répertoire principal du projet
-├── .github/workflows/                          # Configuration pour l'intégration continue
-├── cache/                                      # Fichiers temporaires
-├── Cycle3                                      #
-│   ├── analyse_donnee/                         # Scripts pour l'analyse des données
-│   ├── docs/                                   #
-│   ├── images/                                 # Images utilisées dans le projet
-│   ├── map/                                    # Scripts pour les cartes interactives
-│   ├── video/                                  # 
-│   ├── visualisation/                          # Résultats des visualisations
-│   ├── data/                                   # Données des 3 jeux de données
-├── docs/                                       # Répertoire des fichiers du site web
-├── roadmap/                                    # Fichier README.md avec la description .......
-├── slide/                                      # 
-├── src/                                        # Répertoire contenant le code source
-├── .DS_Store                                   # 
-├── .Rhistory                                   # Fichier d'historique R
-├── .gitignore                                  # Fichier Git ignore
-├── README.md                                   # Documentation principale du projet
-└── requirements.txt                            # Dépendances du projet
-</pre>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-</section>
-<section>
-<section id="résultats-obtenus" class="title-slide slide level1 section-background center">
-<h1>Résultats obtenus</h1>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-<section id="analyse-des-datasets" class="title-slide slide level2 center">
-<h2>Analyse des datasets</h2>
-<hr>
-<div class="fragment">
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Nombre total de trajets des différentes années depuis 2020</strong></span></p>
-</div>
-<div class="columns" style="display: flex; justify-content: center;">
-<div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/analys_datasets/cell-2-output-6.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/analys_datasets/cell-2-output-10.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/analys_datasets/cell-2-output-14.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/analys_datasets/cell-2-output-2.png" width="100%" align="middle"></p>
-</div>
-</div></div>
-</div>
-<div class="fragment">
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Distance moyenne parcourue et stations les plus populaires</strong></span></p>
-</div>
-<div class="columns" style="display: flex; justify-content: center;">
-<div class="column" style="width:45%;">
-<div style="text-align: center;">
-<p><img src="images/analys_datasets/StationStat.png" width="60%" align="middle"></p>
-</div>
-</div><div class="column" style="width:45%;">
-<div style="text-align: center;">
-<p><img src="images/analys_datasets/Distance_par_mois_2021_2024.png" width="160%" align="middle"></p>
-</div>
-</div></div>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-
-<section id="creation-maps-interactives" class="title-slide slide level2 center">
-<h2>Creation maps interactives</h2>
-<hr>
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Stations de vélos à Montpellier</strong></span></p>
-</div>
-<br>
-<div class="message">
-<p>Ci-dessous, vous trouverez une carte interactive présentant le <em>nombre de vélos en temps réel</em> disponibles dans les stations de la métropole de Montpellier. Cette carte offre une vue d’ensemble dynamique permettant de suivre l’état des stations en direct.</p>
-</div>
-<div style="text-align: center;">
-<div id="0c14e237" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-
-        <iframe width="950" height="450" src="map.html" frameborder="0" allowfullscreen=""></iframe>
-        
-</div>
-</div>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-
-<section id="visualisation-vidéo" class="title-slide slide level2 center">
-<h2>Visualisation vidéo</h2>
-<hr>
-<br>
-<div class="slide-content" style="text-align: center;">
-<p><video width="1010" controls=""> <source src="images/video_present.mp4" type="video/mp4"> Your browser does not support the video tag. </video></p>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-
-<section id="simulations-et-prédictions" class="title-slide slide level2 center">
-<h2>Simulations et prédictions</h2>
-<hr>
-<div class="columns" style="display: flex; justify-content: center;">
-<div class="column" style="width:50%;">
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Carte des intensités</strong></span> <img src="images/charl_1.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:50%;">
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Carte des trajets</strong></span> <img src="images/charl_2.png" width="100%" align="middle"></p>
-</div>
-</div></div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-
-<section id="web-integration" class="title-slide slide level2 center">
-<h2>WEB integration</h2>
-<hr>
-<p>VIDEO DE SITE</p>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-
-<section id="documentation-des-projet" class="title-slide slide level2 center">
-<h2>Documentation des projet</h2>
-<hr>
-<div>
-<ol type="1">
-<li class="fragment"><strong>Documentation Technique</strong>
-<ul>
-<li class="fragment">Détails des fonctions clés :
-<ul>
-<li class="fragment">cartes interactives (Folium)</li>
-<li class="fragment">prédictions avec analyse de données</li>
-<li class="fragment">gestion et analyse vidéo.</li>
-</ul></li>
-<li class="fragment">Documentation complète du class GestionnaireDonnees.<br>
-</li>
-</ul></li>
-<li class="fragment"><strong>Guide Utilisateur et ReadMe</strong> : Création d’un guide utilisateur et d’un ReadMe clair facilitant l’installation et l’utilisation.</li>
-<li class="fragment"><strong>Workflow et Pipeline de Traitement des Données</strong> : Documentation du Workflow du projet et du Pipeline de traitement avec explications pour chaque étape.</li>
-<li class="fragment"><strong>Tests et Performance Analysis</strong> : Documentation des tests pour valider le projet et analyse des performances dans divers scénarios.</li>
-<li class="fragment"><strong>Tentative avec Sphinx pour la Documentation</strong> : Mise en place initiale de la documentation avec Sphinx, même si elle n’a pas été finalisée.<br>
-</li>
-</ol>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-</section>
-<section>
-<section id="analysation-de-programm" class="title-slide slide level1 section-background center">
-<h1>Analysation de programm</h1>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-<section id="tests" class="title-slide slide level2 center">
-<h2>Tests</h2>
-<hr>
-<div>
-<ol type="1">
-<li class="fragment"><strong>Validation des dépendances</strong> : Test automatisé pour garantir l’installation correcte des bibliothèques listées dans <code>requirements.txt</code>.</li>
-<li class="fragment"><strong>Tests d’intégration des données</strong>
-<ul>
-<li class="fragment">Vérification de la connexion et du bon chargement des fichiers de données (CSV, JSON).</li>
-<li class="fragment">Validation du format et de la qualité des données en entrée.</li>
-</ul></li>
-<li class="fragment"><strong>Affichage des cartes interactives</strong> : Tests fonctionnels pour confirmer l’affichage et l’interactivité des cartes générées par Folium.</li>
-<li class="fragment"><strong>Automatisation avec GitHub Actions</strong> : Configuration d’un pipeline CI/CD pour exécuter des tests basiques à chaque mise à jour du code.</li>
-<li class="fragment"><strong>Tests de connectivité</strong> : Simulation d’accès utilisateur au site web pour vérifier la disponibilité et la navigation entre les sections.<br>
-</li>
-</ol>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-
-<section id="analyse-des-performances-et-dutilisation-de-la-mémoire" class="title-slide slide level2 center">
-<h2>Analyse des performances et d’utilisation de la mémoire</h2>
-<hr>
-<div class="fragment">
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Pour map_trajet_BD.py</strong></span></p>
-</div>
-<div class="columns" style="display: flex; justify-content: center;">
-<div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/perf_analys/1.png" width="50%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/perf_analys/2.png" width="50%" align="middle"></p>
-</div>
-</div></div>
-</div>
-<div class="fragment">
-<div style="text-align: center;">
-<p><span class="custom-subtitle3"><strong>Pour vidéo.py</strong></span></p>
-</div>
-<div class="columns">
-<div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/perf_analys/3.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/perf_analys/4.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/perf_analys/5.png" width="100%" align="middle"></p>
-</div>
-</div><div class="column" style="width:25%;">
-<div style="text-align: center;">
-<p><img src="images/perf_analys/6.png" width="100%" align="middle"></p>
-</div>
-</div></div>
-</div>
-<div class="fragment">
-<div class="message">
-<p><br> <br> <em>Concernant l’efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que <strong>ThreadPoolExecutor</strong> et l’utilisation de <strong>cache</strong> ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l’importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec <code>requests</code>, afin d’améliorer la vitesse d’exécution.</em></p>
-</div>
-</div>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
-</section>
-<section>
-<section id="conclusion" class="title-slide slide level1 section-background center">
-<h1>Conclusion</h1>
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-</section>
 <section id="problèmes-rencontrés" class="title-slide slide level2 center">
 <h2>Problèmes rencontrés</h2>
 <hr>
 <div>
 <ol type="1">
-<li class="fragment"><strong>Gestion des données :</strong>
-<ul>
-<li class="fragment">Problèmes avec les formats des données (json non formatés, csv ou dataframe) et les données manquantes.</li>
-</ul></li>
-<li class="fragment"><strong>Création de cartes interactives et prévisions de trafic :</strong>
-<ul>
-<li class="fragment">Longueur en temps des créations de cartes.</li>
-</ul></li>
+<li class="fragment"><strong>Gestion des données :</strong> Problèmes avec les formats des données (json non formatés, csv ou dataframe) et les données manquantes.<br>
+</li>
+<li class="fragment"><strong>Création de cartes interactives et prévisions de trafic :</strong> Longueur en temps des créations de cartes.<br>
+</li>
 <li class="fragment"><strong>Déploiement du site web :</strong>
 <ul>
 <li class="fragment">Déploiement du site au tout début (GitHub Pages).<br>
@@ -611,7 +691,9 @@
 </ul></li>
 <li class="fragment"><strong>Documentation du projet :</strong>
 <ul>
-<li class="fragment">[Ajouter les difficultés rencontrées par les membres de l’équipe ici]</li>
+<li class="fragment">Le grand nombre de fonctions a rendu leur formatage clair et lisible complexe.<br>
+</li>
+<li class="fragment">La configuration et la personnalisation des fichiers pour garantir un rendu cohérent (pour le <strong>Sphinx</strong>).</li>
 </ul></li>
 <li class="fragment">** :**
 <ul>
@@ -641,6 +723,24 @@
 <section id="conclusion-1" class="title-slide slide level2 center">
 <h2>Conclusion</h2>
 <hr>
+<div style="text-align: left;">
+<p><em>Ce projet collectif nous a permis d’atteindre plusieurs objectifs clés tout en renforçant la collaboration au sein de l’équipe.</em></p>
+</div>
+<div>
+<ul>
+<li class="fragment"><strong>Résultats obtenus :</strong> Analyse des données sur le trafic cycliste avec des visualisations interactives et cartes prédictives.<br>
+</li>
+<li class="fragment"><strong>Expérience en travail d’équipe :</strong> Renforcement des compétences en communication, répartition des tâches et collaboration.<br>
+</li>
+<li class="fragment"><strong>Compétences développées :</strong> Analyse avec Python, visualisation avec Folium et [Sphinx], et [configuration CI/CD avec GitHub Actions].<br>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="text-align: left;">
+<p>En somme, ce projet n’a pas seulement été une occasion d’appliquer des connaissances techniques, mais également une expérience enrichissante sur le plan personnel et collectif. Nous avons appris que la réussite d’un tel projet repose sur l’écoute, l’initiative, et la coopération.</p>
+</div>
+</div>
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 </section>
@@ -649,30 +749,32 @@
 <h2>Crédits</h2>
 <hr>
 <div>
-<ol type="1">
-<li class="fragment">🏆 <strong>Hébergement du projet</strong>
 <ul>
 <li class="fragment"><em>Dépôt GitHub du projet</em> : <a href="https://github.com/mscaia/PROJ_HAX712X">https://github.com/mscaia/PROJ_HAX712X</a><br>
 </li>
-</ul></li>
-<li class="fragment">🛠️ <strong>Outils et Ressources</strong>
-<ul>
-<li class="fragment"><em>Utilisation de ChatGPT</em> : ChatGPT a été utilisé comme ressource pour explorer des concepts techniques, résoudre des défis méthodologiques et optimiser certaines parties du code, ainsi que pour faciliter la recherche et la rédaction de la documentation.<br>
-</li>
 <li class="fragment"><em>Programme du cours</em> : <a href="https://josephsalmon.github.io/HAX712X/">https://josephsalmon.github.io/HAX712X/</a><br>
 </li>
-<li class="fragment"><em>Plateforme YouTube</em> : Des vidéos et tutoriels sur YouTube ont également été consultés afin de renforcer la compréhension de certaines étapes du projet et d’apprendre des pratiques pertinentes pour la mise en œuvre des visualisations interactives et l’intégration des fonctionnalités interactives.<br>
+<li class="fragment"><em>Plateforme YouTube</em> : Des vidéos et tutoriels sur YouTube ont été consultés afin de renforcer la compréhension de certaines étapes du projet.<br>
 </li>
-</ul></li>
-<li class="fragment">🤝 <strong>Contributions &amp; Références</strong>
-<ul>
-<li class="fragment">[Ajouter ici d’autres crédits si nécessaire.]</li>
-</ul></li>
-</ol>
+<li class="fragment"><em>Utilisation de ChatGPT</em> : ChatGPT a été utilisé comme ressource pour explorer des concepts techniques, résoudre des défis méthodologiques et optimiser certaines parties du code, ainsi que pour faciliter la recherche et la rédaction de la documentation.<br>
+</li>
+<li class="fragment">[Ajouter ici d’autres crédits si nécessaire.]<br>
+</li>
+<li class="fragment">Photo utilisée avec l’aimable autorisation de <a href="https://pixabay.com/fr/photos/motards-cycliste-cyclisme-activit%C3%A9-446362/">Pixabay</a></li>
+<li class="fragment">GIF: <a href="https://sl.bing.net/eA2waB7nBJY">sl.bing.net</a></li>
+<li class="fragment">Des petites icônes et logos ont été recherchés sur Internet pour représenter certaines fonctionnalités.</li>
+</ul>
 </div>
 <!---------------------------------------------------------------------------->
-
+<!---------------------------------------------------------------------------->
 </section>
+</section>
+<section id="merci-pour-votre-attention" class="title-slide slide level1 section-background1 center">
+<h1>Merci pour votre attention !</h1>
+<div style="text-align: center;">
+<p><span class="custom-title1 center"><strong>Merci pour votre attention !</strong></span> <br> <img data-src="images/6451064.gif" style="width:21.0%"> <br> <span class="custom-subtitle4">Nous espérons que vos prochaines aventures cyclistes seront plus fluides que nos premières analyses !</span></p>
+</div>
+
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
