@@ -66,10 +66,8 @@ intersphinx_mapping = {
 }
 
 # Autodoc settings
-autodoc_mock_imports = [
-    'osmnx', 'folium', 'networkx', 'pandas', 'numpy', 'matplotlib', 'seaborn',
-    'cycler', 'pooch', 'plotly', 'kaleido', 'ipywidgets', 'memory_profiler'
-]
+# autodoc_mock_imports = [ 'osmnx', 'folium', 'networkx', 'pandas', 'numpy', 'matplotlib', 'seaborn','cycler', 'pooch', 'plotly', 'kaleido', 'ipywidgets', 'memory_profiler'
+autodoc_mock_imports = ["map, video, analyse-donnee"]  # Si certains modules ne sont pas installés]
 
 autodoc_member_order = 'bysource'
 autodoc_inherit_docstrings = True
