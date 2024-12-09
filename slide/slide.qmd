@@ -4,11 +4,15 @@
 date: "2024-12-13"
 format:
   revealjs:
-    # preview-links: true
     code-link: true
     highlight-style: a11y
     center: false
     center-title-slide: true
+    include-assets: ["images/"]
+    css: ["slide.css"]
+    allow-html: true
+---
+
 ---
 
 ::: {.hidden}
@@ -23,87 +27,120 @@ format:
 
 <!---------------------------------------------------------------------------->
 
-#### {#title-slide data-menu-title="Title Slide" background="#053660" style="text-align: center;"}
-
-[CycleVision3]{.custom-title .center}
-
-
-<br>
+#### {#title-slide data-menu-title="Title Slide" style="text-align: center;"}
 <br>
 
 
+<br>
 <div style="text-align: center;">
-
-[Armand Charlotte, Condamy Fabian, Scaia Matteo, Stetsun Kateryna]{.custom-subtitle2}
-
 <br>
-
 <br>
-
-![](images/logo_um.png){width=21%}
+[CycleVision3]{.custom-title .center}
+<br>
+![](images/6451064.gif){width=21%}
+<br>
+[Armand Charlotte, Condamy Fabian, Scaia Matteo, Stetsun Kateryna]{.custom-subtitle3}
 </div>
 
-
 <!---------------------------------------------------------------------------->
-
-
 <!---------------------------------------------------------------------------->
 # Introduction et organisation {.section-background}
 <!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Présentation du projet
+<hr>
+::: fragment
+<div style="text-align: left;">
+[**Objectifs** :]{.custom-subtitle3}
+</div> 
+:::
 
+::: {.incremental} 
+- Visualiser et analyser les flux cyclistes  
+- Prévoir les mouvements de trafic avec une carte interactive  
+- Proposer des solutions pour optimiser les infrastructures urbaines
+:::
 
+::: fragment
+<div style="text-align: center;">
+[**Schéma des résultats attendus :**]{.custom-subtitle2}
+<br>
+<br>
+![](images/intro.svg){width=150%}
+<br>
+</div>
+:::
+<!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 ## Contribution de l'équipe
 <hr>
-
-<br>
-
-:::: {.columns}
-
-::: {.column width="78%"}
+::: {.columns}
+::: {.column width="9%"}
+<div style="text-align: center;">
+![](images/map_contrib.png){width=60%}
+</div>
+:::
+::: {.column width="90%"}
 - **ARMAND Charlotte** : Création de cartes interactives et prévisions de trafic.
 :::
-::: {.column width="19%"}
-<center>
-<img src="images/map_contrib.png" width="62%" align="middle">
-</center>
 :::
-
-::::
 
 ::: fragment
-
-:::: columns
-
-::: {.column width="78%"}
+::: {.columns}
+::: {.column width="9%"}
+<div style="text-align: center;">
+<img src="images/WEB-site.svg" width="60%" align="middle">
+</div>
+:::
+::: {.column width="90%"}
 - **CONDAMY Fabian** : Développement et déploiement du site web.
 :::
-::: {.column width="19%"}
-<center>
-<img src="images/WEB-site.svg" width="70%" align="middle">
-</center>
+:::
 :::
 
-::::
-
+::: fragment
+::: {.columns}
+::: {.column width="9%"}
+<div style="text-align: center;">
+![](images/images_video.png){width=60%}
+</div>
+:::
+::: {.column width="90%"}
+- **SCAIA Matteo** : Analyse de données et création de cartes interactives et vidéos.
+:::
+:::
 :::
 
+::: fragment
+::: {.columns}
+::: {.column width="9%"}
+<div style="text-align: center;">
+<img src="images/docum_contrib.png" width="50%" align="middle">
+</div>
+:::
+::: {.column width="90%"}
+- **STETSUN Kateryna** : Documentation du projet et assistance développement du site web.
+:::
+:::
+:::
 
-<!---------------------------------------------------------------------------->
-
-
-<!---------------------------------------------------------------------------->
-## Comparaison des diagrammes de Gantt
-<hr>
-
+::: fragment
+<div class="message1">
 <br>
-
+<br>
+*Note importante : Bien que les tâches principales soient spécifiées pour chaque membre, tous les participants ont collaboré de manière active et apporté leur soutien mutuel dans la résolution des défis rencontrés tout au long du projet.*
+</div>
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Comparaison des diagrammes de Gantt 
+<hr>
 :::: {.columns}
-
-::: {.column width="50%"}
+::: {.column width="48%"}
+<div style="text-align: center;">
+**Planification initiale du projet**
     ```{mermaid}
     gantt
-        title Group Project Retro Planning
         dateFormat  YYYY-MM-DD
         axisFormat  %d-%m
         excludes weekends
@@ -131,12 +168,13 @@ format:
         Presentation Rehearsal (AC, CF, SM, SK): done, 2024-12-12, 1d
         Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
     ```
+</div>
 :::
-
-::: {.column width="50%"}
+::: {.column width="48%"}
+<div style="text-align: center;">
+**Plan réalisé après exécution**
     ```{mermaid}
     gantt
-        title Group Project Retro Planning
         dateFormat  YYYY-MM-DD
         axisFormat  %d-%m
         excludes weekends
@@ -165,18 +203,22 @@ format:
         Presentation Rehearsal (AC, CF, SM, SK): 2024-12-10, 3d
         Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
     ```
+</div>
 :::
-
 ::::
-
+::: fragment
+<div class="message">
+*Les blocs bleus dans les deux diagrammes représentent les tâches qui ont subi des changements, ajustements ou délais supplémentaires pendant la réalisation du projet.*
+</div>
+:::
 <!---------------------------------------------------------------------------->
-
-
 <!---------------------------------------------------------------------------->
 ## Structure du projet
+<hr>
 
-```
-main/                                           # Répertoire principal du projet
+<div class="message1" style="text-align: center;">
+<pre>
+PROJ_HAX712X/                                   # Répertoire principal du projet
 ├── .github/workflows/                          # Configuration pour l'intégration continue
 ├── cache/                                      # Fichiers temporaires
 ├── Cycle3                                      #
@@ -196,41 +238,332 @@ main/                                           # Répertoire principal du proje
 ├── .gitignore                                  # Fichier Git ignore
 ├── README.md                                   # Documentation principale du projet
 └── requirements.txt                            # Dépendances du projet
-```
-
+</pre>
+</div>
 <!---------------------------------------------------------------------------->
-
-
 <!---------------------------------------------------------------------------->
 # Résultats obtenus {.section-background}
 <!---------------------------------------------------------------------------->
-
-
-<!---------------------------------------------------------------------------->
-## Page principale
-
-
-
-<!---------------------------------------------------------------------------->
-
-
 <!---------------------------------------------------------------------------->
 ## Analyse des datasets
+<hr>
 
+::: fragment
+<div style="text-align: center;">
+[**Nombre total de trajets des différentes années depuis 2020**]{.custom-subtitle3}
+</div>
+::: {.columns style="display: flex; justify-content: center;"}
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/analys_datasets/cell-2-output-6.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/analys_datasets/cell-2-output-10.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/analys_datasets/cell-2-output-14.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/analys_datasets/cell-2-output-2.png" width="100%" align="middle">
+</div>
+:::
+:::
+:::
 
-
+::: fragment
+<div style="text-align: center;">
+[**Distance moyenne parcourue et stations les plus populaires**]{.custom-subtitle3}
+</div>
+::: {.columns style="display: flex; justify-content: center;"}
+::: {.column width="45%"}
+<div style="text-align: center;">
+<img src="images/analys_datasets/StationStat.png" width="60%" align="middle">
+</div>
+:::
+::: {.column width="45%"}
+<div style="text-align: center;">
+<img src="images/analys_datasets/Distance_par_mois_2021_2024.png" width="160%" align="middle">
+</div>
+:::
+:::
+:::
 
 <!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Creation maps interactives
+<hr>
+<div style="text-align: center;">
+[**Stations de vélos à Montpellier**]{.custom-subtitle3}
+</div>
+<br>
+<div class="message">
+Ci-dessous, vous trouverez une carte interactive présentant le *nombre de vélos en temps réel* disponibles dans les stations de la métropole de Montpellier. Cette carte offre une vue d’ensemble dynamique permettant de suivre l’état des stations en direct.
+</div>
 
+<div style="text-align: center;">
+```{python}
+import osmnx as ox
+import folium
+import requests
+from IPython.display import IFrame
 
+# Définir l'endroit
+ville = "Montpellier, France"
+
+# Récupérer le polygone des limites de Montpellier
+frontiere = ox.geocode_to_gdf(ville)
+
+# Obtenir les coordonnées du centre de Montpellier
+location = ox.geocode(ville)
+
+# Créer une carte Folium
+m = folium.Map(location=location, zoom_start=14)
+
+# Extraire les coordonnées des limites de la ville
+coords = frontiere.geometry.values[0].exterior.coords[:]
+folium.Polygon(
+    locations=[(lat, lon) for lon, lat in coords],
+    color='black',
+    fill=False,
+    weight=2.5,
+).add_to(m)
+
+# URL de l'API
+url = "https://portail-api-data.montpellier3m.fr/bikestation?limit=1000"
+fichier = requests.get(url, headers={"accept": "application/json"})
+
+# Ajouter des marqueurs
+if fichier.status_code == 200:
+    data = fichier.json()
+    for station in data:
+        address = station['address']['value']['streetAddress']
+        velo_present = station['availableBikeNumber']['value']
+        total_place = station['freeSlotNumber']['value']
+        rapport = (velo_present / total_place) * 100 if total_place > 0 else 0
+        popup_text = f"""
+        <div style="font-size: 14px; font-weight: bold; color: black;">
+            <p><b>Station:</b> {address}</p>
+            <p><b>Vélos disponibles:</b> {velo_present}</p>
+            <p><b>Vélos total:</b> {total_place}</p>
+            <p><b>Pourcentage de vélos disponibles:</b> {rapport:.2f}%</p>
+        </div>
+        """
+        coords = station['location']['value']['coordinates']
+        folium.Marker(
+            location=(coords[1], coords[0]),
+            popup=folium.Popup(popup_text, max_width=300),
+            icon=folium.Icon(color='blue', icon='info-sign')
+        ).add_to(m)
+
+m.save("map.html")
+
+# iframe
+display(IFrame("map.html", width="950", height="450"))
+```
+</div>
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Visualisation vidéo
+<hr>
+<br>
+<div class="slide-content" style="text-align: center;">
+  <video width="1010" controls>
+    <source src="images/video_present.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+</div>
+
+<!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 ## Simulations et prédictions
+<hr>
 
+::: {.columns style="display: flex; justify-content: center;"}
+
+::: {.column width="50%"}
+<div style="text-align: center;">
+[**Carte des intensités**]{.custom-subtitle3}
+<img src="images/charl_1.png" width="100%" align="middle">
+</div>
+:::
+
+::: {.column width="50%"}
+<div style="text-align: center;">
+[**Carte des trajets**]{.custom-subtitle3}
+<img src="images/charl_2.png" width="100%" align="middle">
+</div>
+:::
+
+:::
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## WEB integration
+<hr>
+
+VIDEO DE SITE
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Documentation des projet
+<hr>
+
+::: {.incremental} 
+1. **Documentation Technique**  
+   - Détails des fonctions clés : 
+        - cartes interactives (Folium)
+        - prédictions avec analyse de données 
+        - gestion et analyse vidéo.
+   - Documentation complète du class GestionnaireDonnees.  
+2. **Guide Utilisateur et ReadMe** : Création d’un guide utilisateur et d’un ReadMe clair facilitant l’installation et l’utilisation.
+3. **Workflow et Pipeline de Traitement des Données** : Documentation du Workflow du projet et du Pipeline de traitement avec explications pour chaque étape.
+4. **Tests et Performance Analysis** : Documentation des tests pour valider le projet et analyse des performances dans divers scénarios.
+5. **Tentative avec Sphinx pour la Documentation** : Mise en place initiale de la documentation avec Sphinx, même si elle n'a pas été finalisée.   
+:::
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+# Analysation de programm {.section-background}
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Tests
+<hr>
+
+::: {.incremental}  
+1. **Validation des dépendances**  : Test automatisé pour garantir l'installation correcte des bibliothèques listées dans `requirements.txt`.
+2. **Tests d’intégration des données**  
+   - Vérification de la connexion et du bon chargement des fichiers de données (CSV, JSON).
+   - Validation du format et de la qualité des données en entrée.
+3. **Affichage des cartes interactives** : Tests fonctionnels pour confirmer l’affichage et l’interactivité des cartes générées par Folium.
+4. **Automatisation avec GitHub Actions** : Configuration d’un pipeline CI/CD pour exécuter des tests basiques à chaque mise à jour du code.
+5. **Tests de connectivité** : Simulation d'accès utilisateur au site web pour vérifier la disponibilité et la navigation entre les sections.  
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Analyse des performances et d'utilisation de la mémoire
+<hr>
+
+::: fragment
+<div style="text-align: center;">
+[**Pour map_trajet_BD.py**]{.custom-subtitle3}
+</div>
+::: {.columns style="display: flex; justify-content: center;"}
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/1.png" width="50%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/2.png" width="50%" align="middle">
+</div>
+:::
+:::
+:::
+
+::: fragment
+<div style="text-align: center;">
+[**Pour vidéo.py**]{.custom-subtitle3}
+</div>
+::: {.columns}
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/3.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/4.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/5.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="25%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/6.png" width="100%" align="middle">
+</div>
+:::
+:::
+:::
+
+::: fragment
+<div class="message">
+<br>
+<br>
+*Concernant l'efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que **ThreadPoolExecutor** et l'utilisation de **cache** ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l'importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec `requests`, afin d'améliorer la vitesse d'exécution.*
+</div>
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+# Conclusion {.section-background}
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Problèmes rencontrés
+<hr>
+
+::: {.incremental}  
+1. **Gestion des données :**  
+    - Problèmes avec les formats des données (json non formatés, csv ou dataframe) et les données manquantes.  
+
+2. **Création de cartes interactives et prévisions de trafic :**  
+    - Longueur en temps des créations de cartes.  
+
+3. **Déploiement du site web :**  
+     - Déploiement du site au tout début (GitHub Pages).  
+    - Intégration des cartes, surtout celle avec l'application Shiny.  
+
+4. **Documentation du projet :**  
+    - [Ajouter les difficultés rencontrées par les membres de l'équipe ici]  
+
+5. ** :**  
+     - [Ajouter les difficultés rencontrées par les membres de l'équipe ici]  
+
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Améliorations futures
+<hr>
+
+::: {.incremental}
+
+- **Renforcement des modèles de prédiction** : Une amélioration des modèles actuels pourrait être réalisée en intégrant des données supplémentaires, comme les conditions météorologiques ou les événements locaux, afin d'obtenir des prévisions plus précises.
+- **Ajout de données en temps réel** : L'intégration de données en temps réel, telles que les flux de trafic ou les perturbations temporaires, pourrait rendre les analyses plus dynamiques et adaptées à l'évolution des conditions.
+- **Application à d'autres contextes urbains** : Étendre cette méthodologie à d'autres villes permettrait de comparer les tendances cyclistes et d'identifier des spécificités locales ou des modèles universels.
+- **Amélioration de l'expérience utilisateur** : Le site Web pourrait être enrichi de fonctionnalités interactives supplémentaires, telles que la visualisation des prévisions de trafic ou des recommandations d'itinéraires alternatifs.
+
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Conclusion
+<hr>
 
 
 
 <!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Crédits
+<hr>
 
+::: {.incremental}  
+1. 🏆 **Hébergement du projet**  
+    - *Dépôt GitHub du projet* :  [https://github.com/mscaia/PROJ_HAX712X](https://github.com/mscaia/PROJ_HAX712X)  
+2.  🛠️ **Outils et Ressources**  
+    - *Utilisation de ChatGPT* : ChatGPT a été utilisé comme ressource pour explorer des concepts techniques, résoudre des défis méthodologiques et optimiser certaines parties du code, ainsi que pour faciliter la recherche et la rédaction de la documentation.  
+    - *Programme du cours* : [https://josephsalmon.github.io/HAX712X/](https://josephsalmon.github.io/HAX712X/)  
+    - *Plateforme YouTube* : Des vidéos et tutoriels sur YouTube ont également été consultés afin de renforcer la compréhension de certaines étapes du projet et d'apprendre des pratiques pertinentes pour la mise en œuvre des visualisations interactives et l'intégration des fonctionnalités interactives.  
+3. 🤝 **Contributions & Références** 
+    - [Ajouter ici d'autres crédits si nécessaire.]  
+
+:::
 
 <!---------------------------------------------------------------------------->
-## Documentation
