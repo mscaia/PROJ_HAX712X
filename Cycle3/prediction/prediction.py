@@ -6,11 +6,11 @@ import csv
 import os 
 from datetime import datetime 
 import folium
-from folium import PolyLine #a rajouter dans 6.1
+from folium import PolyLine
 import matplotlib.pyplot as plt
-from folium.plugins import HeatMap #a rajouter dans 6.1
+from folium.plugins import HeatMap 
 import osmnx as ox
-from collections import defaultdict #a rajouter dans 6.1
+from collections import defaultdict 
 import networkx as nx
 import pandas as pd
 import numpy as np
@@ -73,19 +73,9 @@ donnee_formate_2021= donnee_utile_2021.to_csv("./data/prediction/2021.csv",sep="
 
 # Afficher un aperçu pour vérifier
 
-
-
-
 files=["./data/prediction/2021.csv","./data/prediction/2022.csv", "./data/prediction/2023.csv","./data/prediction/2024.csv"]
 
-
-
-
-
-
-
-
-#%% récupération uniquement des données voulues 
+#%% Récupération uniquement des données voulues 
 donnee=[]
 for filename in fichiers:
     if os.path.exists(filename):  # Vérifie si le fichier existe
@@ -125,7 +115,7 @@ for ligne in donnee:
 
 
 
-#%%récupération et gestion des stations, de leurs noms et de leurs coordonnées 
+#%% Récupération et gestion des stations, de leurs noms et de leurs coordonnées 
 stations = [['054' ,[ 3.853317342, 43.5882630621 ]],
     ['055', [ 3.9640091778, 43.5578827375 ]],
     ['058', [ 3.9640091778, 43.5578827375 ]],
@@ -242,7 +232,7 @@ name_sta=[['054', 'Providence-Ovalie'],
 
 
 
-# récupération des numéros des stations uniquement 
+# Récupération des numéros des stations uniquement 
 Sta=[]
 for i in stations:
     Sta.append(i[0])
@@ -250,17 +240,17 @@ for i in stations:
 
 
 #%% jour_semaine(j)
-#jour_semaine prend en entrée un chiffre entre 0 et 6 0 pour lundi et 6 pour dimanche et retourne la liste de toutes les coordonnées et des intensités calculées dans tous les jours des archives correspondant à ce jour de la semaine 
+# jour_semaine prend en entrée un chiffre entre 0 et 6 0 pour lundi et 6 pour dimanche et retourne la liste de toutes les coordonnées et des intensités calculées dans tous les jours des archives correspondant à ce jour de la semaine 
 def jour_semaine(j):
     """
     Description: 
     La fonction 'jour_semaine' renvoie une liste des intensités et leurs coordonnées qui ont été mesurées à une date correspondant au jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns:
     - list 
         Une liste contenant toutes les données étant rattachées à une date correspondant au jour de la semaine voulu. Les données sont l'intensité et les coordonnées auxquelles elle est liée. 
     """
@@ -310,11 +300,11 @@ def coor_unique(j):
     Description: 
     La fonction 'coor_unique' extrait toutes les coordonnées prises sur un jour j de façon unique 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - list 
         Une liste contenant toutes les coordonnées apparaissant dans les données prises un jour de la semaine j de façon unique. 
     """
@@ -331,11 +321,11 @@ def mean_intens(j):
     Description: 
     La fonction 'mean_intens' renvoie une liste des moyennes des intensités par coordonnées mesurées à une date correspondant au jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - list 
         Une liste contenant toutes les moyennes d'intensité et les coordonnées auxquelles elle sont liées. 
     """
@@ -367,7 +357,7 @@ def intensity_to_color(intens, min_in, max_in):
     Description: 
     La fonction 'intensity_to_color' renvoie un code couleur pour une intensité donnée.  
     
-    Paramètres: 
+    Args: 
     - intens : int
         L'intensité qu'on cherche à représenter. 
     - min_in : int
@@ -375,7 +365,7 @@ def intensity_to_color(intens, min_in, max_in):
     - max_in : int
         L'intensité maximale à représenter. Elle correspond au maximum de l'échelle de couleur. 
         
-    Retourne: 
+    Returns: 
     - 'rgba({}, {}, {}, {})' : str
         Le code couleur RGB associé à l'intensité à représenter. 
     """
@@ -384,12 +374,12 @@ def intensity_to_color(intens, min_in, max_in):
     return 'rgba({}, {}, {}, {})'.format(int(color[0] * 255), int(color[1] * 255), int(color[2] * 255), 1)
 
 #%%
-def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
+def map_jour(j, style,jour):# entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
     """
     Description: 
     La fonction 'map_jour' génère une carte des intensités moyennes observées un jour de la semaine j. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - style : int
@@ -397,7 +387,7 @@ def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-
     - jour : str
         Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
-    Retourne: 
+    Returns: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
         Un message de validation de création de la carte et le nom sous lequel elle a été enregistrée. 
     """
@@ -406,7 +396,7 @@ def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-
     min_in = min(intensities)
     max_in = max(intensities)
 
-    # centrer 
+    # Centrer 
     ville = "Montpellier, France"
     location = ox.geocode(ville)
     m = folium.Map(location=location, zoom_start=12)
@@ -455,7 +445,7 @@ def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-
     """
 
     m.get_root().html.add_child(folium.Element(legend_html))
-    #choix de chaleur ou non
+    # Choix de chaleur ou non
     if style==0:
         nom=f'intensity_{j}.html'
         m.save(f'./Cycle3/visualisation/{jour}/intensité/{nom}')
@@ -469,7 +459,7 @@ def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-
         return"La carte a été générée et sauvegardée sous le nom", nom 
         
         
-#%% tracer toutes les cartes avec intensité sur un jour avec ou sans chaleur 
+#%% Tracer toutes les cartes avec intensité sur un jour avec ou sans chaleur 
 
 reply = input("Voulez-vous tracer les 14 cartes intensité par jour (avec et sans chaleur) ? (oui/non) : ")
 if reply.strip().lower() == "oui":
@@ -504,11 +494,11 @@ def nb_tot_jour(j):
     Description: 
     La fonction 'nb_tot_jour' renvoie le nombre de dates comptées dans les donnnées correspondants au jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - int 
         Le nombre de jour j comptés dans les données.
     """
@@ -517,7 +507,7 @@ def nb_tot_jour(j):
     for file in files:
         with open(file, 'r', encoding='utf-8') as f:
             lecteur = csv.reader(f, delimiter=',')  # Définir le séparateur si nécessaire
-            next(lecteur) #ignorer l'entête 
+            next(lecteur) # Ignorer l'entête 
             for ligne in lecteur: 
                 dat, heur = ligne[0].split(' ')
                 date=datetime.strptime(dat, '%Y-%m-%d')
@@ -552,11 +542,11 @@ def poids_par_h(j):
     Description: 
     La fonction 'poids_par_h' compte la participation de chaque heure dans la journée. Elle donne la proportion de l'activité journalière calculée par heure pour le jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - matrix 
         Une matrice avec pour colonne les heures et le pourcentage de l'activité journalière associée à chacune de ces heures. 
     """
@@ -600,12 +590,12 @@ else:
     print("Le poids des heures n'a pas été calculé.")
     
 #%%map_jour_h 
-def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
+def map_jour_h(j, h,style,jour):# Entrée 0-6 pour les jours de la semaine, 0-1 sans-avec chaleur
     """
     Description: 
     La fonction 'map_jour_h' génère une carte des intensités moyennes observées un jour de la semaine j à une heure h. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
@@ -615,7 +605,7 @@ def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 s
     - jour : str
         Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
-    Retourne: 
+    Returns: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
         Un message de validation de création de la carte et le nom sous lequel elle a été enregistrée. 
     """    
@@ -625,7 +615,7 @@ def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 s
     min_in = min(intensities)
     max_in = max(intensities)
 
-    # centrer 
+    # Centrer 
     ville = "Montpellier, France"
     location = ox.geocode(ville)
     m = folium.Map(location=location, zoom_start=12)
@@ -671,7 +661,7 @@ def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 s
     """
 
     m.get_root().html.add_child(folium.Element(legend_html))
-    #choix de chaleur ou non
+    # Choix de chaleur ou non
     if style==0:
         nom=f'intensity_{j}_{h}.html'
         m.save(f'./Cycle3/visualisation/{jour}/intensité/{nom}')
@@ -686,7 +676,7 @@ def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 s
 
 
 
-#%% tracer toutes les cartes avec intensité sur un jour avec ou sans chaleur 
+#%% Tracer toutes les cartes avec intensité sur un jour avec ou sans chaleur 
 
 reply = input("Voulez-vous tracer les 168 cartes intensité par jour et par heure sans chaleur ? (oui/non) : (Cela n'influe pas la suite du code)")
 L=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
@@ -706,11 +696,11 @@ def trajets_parcourus_jour(j):
     Description: 
     La fonction 'trajets_parcourus_jour' recense tous les trajets ayant eut lieu un jour j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
      
-    Retourne: 
+    Returns: 
     - matrix
         Une matrice avec chaque ligne de la forme [heure de départ, station de départ, station d'arrivée]. 
     """
@@ -752,13 +742,13 @@ def trajets_parcourus(j,h):
     Description: 
     La fonction 'trajets_parcourus' recense les trajets ayant eu lieu un jour j à une heure h et leur occurence. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
         Le numéro (de 0 à 23) de l'heure voulue. 
         
-    Retourne: 
+    Returns: 
     - matrix 
         Une matrice avec chaque ligne de la forme [[station de départ, station d'arrivée], occurrence]
     """
@@ -789,13 +779,13 @@ def TRAJETS(j, h):
     Description: 
     La fonction 'TRAJETS' recense les trajets ayant eu lieu un jour j à une heure h. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
         Le numéro (de 0 à 23) de l'heure voulue. 
         
-    Retourne: 
+    Returns: 
     - matrix 
         Une matrice avec chaque ligne de la forme [station de départ, station d'arrivée]
     """
@@ -824,13 +814,13 @@ def traj_mult(j, h):
     Description: 
     La fonction 'trajets_mult' recense les trajets ayant eu lieu un jour j à une heure h et leur occurrence. 
         
-    Paramètres: 
+    Args: 
         - j : int
             Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         - h : int
             Le numéro (de 0 à 23) de l'heure voulue. 
     
-    Retourne: 
+    Returns: 
         - matrix 
         Une matrice avec chaque ligne de la forme [[station de départ, station d'arrivée], occurrence] uniquement si l'occurrence est supérieure à 8 ( 2 fois pas an).
     """
@@ -848,7 +838,7 @@ def traj_mult(j, h):
                 c+=1
         F.append([s,c])
     for i in F:
-        if i[1]>=8: #min une fois par semestre 
+        if i[1]>=8: # min une fois par semestre 
             G.append(i)
     return G
     
@@ -868,7 +858,7 @@ def map_trajets(j, h,jour):
     Description: 
     La fonction 'map_trajets' génère une carte des trajets parcourus un jour de la semaine j et à une heure h, ainsi que la probabilité qu'il soit de nouveau parcouru (en tenant compte des archives). 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
@@ -876,7 +866,7 @@ def map_trajets(j, h,jour):
     - jour : str
         Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
-    Retourne: 
+    Returns: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
         Un message de validation de création de la carte et le nom sous lequel elle a été enregistrée. 
     """
@@ -903,7 +893,7 @@ def map_trajets(j, h,jour):
     graphe = ox.graph_from_point(location, dist=10000, network_type="all", simplify=True)
     carte = folium.Map(location=location, zoom_start=14)
 
-    #nb passages 
+    # nb passages 
     edges_passages = defaultdict(int)
 
     for trajet in trajets:
@@ -923,11 +913,11 @@ def map_trajets(j, h,jour):
             # Ajouter chaque segment du chemin au compteur de passages
             for u, v in zip(path[:-1], path[1:]):
                 edges_passages[(u, v)] += intensity
-                edges_passages[(v, u)] += intensity  #on compte les passages dans les deux sens 
+                edges_passages[(v, u)] += intensity  # Compte les passages dans les deux sens 
 
-    #couleurs en fonction du nb de passages
+    # Couleurs en fonction du nb de passages
     for (u, v), passage_count in edges_passages.items():
-        # récup coordonnées des segments
+        # Récup coordonnées des segments
         coords = [
             (graphe.nodes[u]['y'], graphe.nodes[u]['x']),
             (graphe.nodes[v]['y'], graphe.nodes[v]['x'])
@@ -935,15 +925,15 @@ def map_trajets(j, h,jour):
 
         # Calcul de la couleur
         if passage_count < 0.05:
-           color= "#0000ff" #bleu si faible
+           color= "#0000ff" # bleu si faible
         elif passage_count < 0.15:
             color= "#008000" # vert 
         elif passage_count < 0.25:
-            color="#ffff00" #jaune
+            color="#ffff00" # jaune
         elif passage_count < 0.35: 
-            color="#ff80000" #orange 
+            color="#ff80000" # orange 
         elif passage_count < 1: 
-            color="#ff0000" #rouge si fort 
+            color="#ff0000" # rouge si fort 
         else:
             passage_count=1
             color="#000000"
@@ -997,7 +987,7 @@ def map_trajets(j, h,jour):
     """
     carte.get_root().html.add_child(folium.Element(legend_html))
 
-    # Save la carte
+    # Sauvergarder la carte
     nom = f"trajets_couleurs_cumulées_j{j}_h{h}.html"
     carte.save(f'./Cycle3/visualisation/{jour}/Trajetscouleurs/{nom}')
     return f"Carte enregistrée sous '{nom}'."

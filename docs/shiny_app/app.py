@@ -5,6 +5,7 @@ from shiny import App, render, ui
 import re
 import unicodedata
 from functools import lru_cache
+from shinyswatch import theme
 
 ### Fonctions récupérées du dossier src à la racine du projet et légèrement modifiées
 
@@ -131,7 +132,7 @@ app_ui = ui.page_fluid(
     ),
     ui.input_checkbox("tracer", "Tracer les trajets ?"),
     ui.input_slider("nb_trajets", "Nombre de trajets :", min=1, max=10, value=5),
-    ui.input_action_button("tracer_btn", "Afficher la carte"),
+    ui.input_action_button("tracer_btn", "Afficher la carte", class_="btn-success"),
     ui.output_ui("carte_output")
 )
 

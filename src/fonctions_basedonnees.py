@@ -11,19 +11,19 @@ import folium
 import osmnx as ox
 from functools import lru_cache
 
-#Fonction qui donne le colonne i du tableau voulu: 
+# Fonction qui donne le colonne i du tableau voulu 
 def colonne(i, w_file):
     """
     Description :
     La fonction `colonne` extrait toutes les valeurs d'une colonne spécifique d'un fichier CSV et les retourne sous forme de liste.
 
-    Paramètres :
+    Args :
     - i : int
         L'indice (0-based) de la colonne à extraire.
     - w_file : str
         Le chemin vers le fichier CSV à lire.
 
-    Retourne :
+    Returns:
     - list
         Une liste contenant les valeurs extraites de la colonne spécifiée. Chaque valeur est une chaîne de caractères (str).
     """
@@ -34,13 +34,13 @@ def colonne(i, w_file):
             L.append(x[i])
     return L         
 
-#Fonction qui retourne toutes les valeurs dans la colonne j quand l'argument de la colonne i est k 
+# Fonction qui retourne toutes les valeurs dans la colonne j quand l'argument de la colonne i est k 
 def arg(k,i,j, w_file):
     """
     Description :
     La fonction `arg` extrait des valeurs spécifiques d'une colonne dans un fichier CSV en fonction d'une condition appliquée sur une autre colonne.
 
-    Paramètres :
+    Args :
     - k : str
         La valeur cible pour la condition.
     - i : int
@@ -50,7 +50,7 @@ def arg(k,i,j, w_file):
     - w_file : str
         Le chemin vers le fichier CSV à lire.
 
-    Retourne :
+    Returns:
     - list
         Une liste contenant les valeurs extraites de la colonne `j` lorsque la condition `x[i] == k` est satisfaite.
     """
@@ -63,19 +63,19 @@ def arg(k,i,j, w_file):
                 L.append(x[j])
     return L 
 
-# Fonction qui permet de transforme les donnée date du dataframe en donnée exploitable.
+# Fonction qui permet de transformer les données 'date' du dataframe en données exploitables
 def pd_to_datetime(df, colonne_date):
     """
     Description :
     La fonction `pd_to_datetime` convertit une colonne de dates dans un DataFrame pandas en un format datetime, crée une nouvelle colonne avec uniquement la date, et supprime la colonne d'origine.
 
-    Paramètres :
+    Args :
     - df : pandas.DataFrame
         Le DataFrame contenant les données.
     - colonne_date : str
         Le nom de la colonne contenant les dates à convertir.
 
-    Retourne :
+    Returns :
     - pandas.DataFrame
         Le DataFrame modifié avec une colonne 'Date' contenant les dates extraites, et sans la colonne d'origine `colonne_date`.
     """
@@ -85,17 +85,17 @@ def pd_to_datetime(df, colonne_date):
     df = df.drop(columns=[colonne_date])
     return df
 
-#Fonction qui permet d'enleve les bruits dans les chaines de caractère d'un dataframe
+# Fonction qui permet d'enlever les bruits dans les chaînes de caractère d'un dataframe
 def nettoyer_adresse_normalise(adresse):
     """
     Description :
     Nettoie et normalise une adresse en supprimant les numéros au début, 
     en normalisant les caractères Unicode.
     
-    Paramètre :
+    Args :
     adresse (str) : La chaîne d'adresse à normaliser.
     
-    Retourne :
+    Returns : 
     str : L'adresse nettoyée et normalisée.
     """
     # Tenter de corriger l'encodage si nécessaire
@@ -120,18 +120,28 @@ def nettoyer_adresse_normalise(adresse):
 # Créer une fonction pour générer la carte pour chaque trajet
 def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,couleur):
     """
-    Description :
-    La fonction `pd_to_datetime` convertit une colonne de dates dans un DataFrame pandas en un format datetime, crée une nouvelle colonne avec uniquement la date, et supprime la colonne d'origine.
+    Génère une carte interactive affichant le trajet le plus court entre deux points.
 
-    Paramètres :
-    - df : pandas.DataFrame
-        Le DataFrame contenant les données.
-    - colonne_date : str
-        Le nom de la colonne contenant les dates à convertir.
+    La fonction utilise les coordonnées géographiques des points de départ et d'arrivée extraits des colonnes d'une ligne donnée. 
+    Elle utilise un graphe routier (`G`) pour calculer le chemin le plus court et ajoute l'itinéraire, ainsi que des marqueurs, à une carte Folium (`m`).
 
-    Retourne :
-    - pandas.DataFrame
-        Le DataFrame modifié avec une colonne 'Date' contenant les dates extraites, et sans la colonne d'origine `colonne_date`.
+    Args:
+        ligne (list): 
+            Une ligne contenant les informations nécessaires, y compris les noms des stations de départ et d'arrivée.
+        G (networkx.DiGraph): 
+            Un graphe routier utilisé pour calculer les trajets.
+        m (folium.Map): 
+            Une carte Folium sur laquelle le trajet sera affiché.
+        index_colonne_départ (int): 
+            Index de la colonne correspondant au point de départ dans `ligne`.
+        index_colonne_arrive (int): 
+            Index de la colonne correspondant au point d'arrivée dans `ligne`.
+        couleur (str): 
+            Couleur de la ligne représentant le trajet sur la carte.
+
+    Returns:
+        folium.Map: 
+            La carte mise à jour avec le trajet et les marqueurs des points de départ et d'arrivée.
     """
     # Essayer de géocoder les stations de départ et d'arrivée
     try:
@@ -143,14 +153,14 @@ def gen_carte_trajet(ligne, G, m, index_colonne_départ, index_colonne_arrive,co
             print(f"Erreur de géocodage pour les stations : {ligne[index_colonne_départ]} ou {ligne[index_colonne_arrive]}")
             return m
         
-        # Trouver les nœuds les plus proches de l'origine et de la destination
+        # Trouver les noeuds les plus proches de l'origine et de la destination
         origin_node = ox.nearest_nodes(G, origin[1], origin[0])  # longitude, latitude
         destination_node = ox.nearest_nodes(G, destination[1], destination[0])  # longitude, latitude
 
         # Calculer l'itinéraire aller et retour
         route = ox.shortest_path(G, origin_node, destination_node)
 
-        # Fonction pour convertir un itinéraire (liste de nœuds) en liste de coordonnées géographiques
+        # Fonction pour convertir un itinéraire (liste de noeuds) en liste de coordonnées géographiques
         def route_to_coords(G, route):
             route_coords = []
             for node in route:
@@ -182,11 +192,11 @@ def coordonne(station):
     Description :
     La fonction `coordonne` utilise le géocodage pour obtenir les coordonnées géographiques (latitude, longitude) d'une station donnée dans la ville de Montpellier, France.
 
-    Paramètres :
+    Args :
     - station : str
         Le nom de la station dont on souhaite obtenir les coordonnées.
 
-    Retourne :
+    Returns :
     - tuple
         Un tuple contenant la latitude et la longitude de la station. Si une erreur survient pendant le géocodage, la fonction retourne `(None, None)`.
     """

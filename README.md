@@ -27,7 +27,7 @@ git clone https://github.com/mscaia/PROJ_HAX712X.git
 cd ./PROJ_HAX712X
 ```
 ## 3. Installation des packages nécessaire
-On vous conseil de créer un environnement virtuel, il permet d'isoler les dépendances d'un projet, d'éviter les conflits de versions, et de garantir un contrôle simple sur les paquets installés. Il assure la reproductibilité du projet, facilite la gestion des dépendances, et protège votre système.
+On vous conseille de créer un environnement virtuel, il permet d'isoler les dépendances d'un projet, d'éviter les conflits de versions, et de garantir un contrôle simple sur les paquets installés. Il assure la reproductibilité du projet, facilite la gestion des dépendances, et protège votre système.
 ```bash
 conda create --name Cycle3 python=3.9.18
 conda activate Cycle3
@@ -83,11 +83,39 @@ Lancez la commande suivante pour créer la vidéo :
  python ./Cycle3/vidéo/vidéo.py
 ```
 Vous pourrez choisir le nombre de trajets à afficher. La vidéo générée sera sauvegardée dans `./Cycle3/visualisation/simulation_trajets.mp4`.
-## 4. Utilisation du site 
-Le site peut être lancé via la commande suivante dans le répertoire `./docs/`.
+## 4. Création et utilisation du site 
+Voici quelques étapes pour la création et l'utilisation d'un site Quarto comme celui que nous avons créé.
+1. **Installation de Quarto**
+
+Téléchargez et installez Quarto depuis [quarto.org/download](https://quarto.org/download). Prenez bien soin d'ajouter Quarto à vos variables d'environnements.
+
+2. **Création du projet**
+
+Puis, ouvrez un terminal et exécutez les commandes suivantes :
+```bash
+mkdir docs
+cd docs
+quarto create-project nom_du_projet --type website
+```
+3. **Ajout de contenu**
+- Ajoutez des fichiers .qmd dans le dossier docs pour enrichir le site.
+- Modifiez le fichier _quarto.yml pour personnaliser la structure et les paramètres du site.
+
+4. **Prévisualisation locale**
+
+Le site peut ensuite être lancé via la commande suivante dans le répertoire `./docs/`.
 ```bash
  quarto preview
 ```
+
+5. **Déploiement sur GitHub**
+
+Dans les paramètres de votre projet Github, allez dans GitHub Pages puis dans la section *Build and Deployment*. Dans l'onglet "Source" sélectionnez *Deploy from a branch* et en dessous sélectionnez la branche *main* et le dossier *docs*.
+Vous pouvez ensuite taper les commandes suivantes (toujours dans le répertoire `./docs/`) dans un terminal :
+```bash
+ quarto render
+ ```
+Le site sera alors déployé à votre prochain push !
 
 ## 5. Suppression de l'environnement virtuel
 1. Désactivez l'environnement

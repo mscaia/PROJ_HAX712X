@@ -6,8 +6,8 @@ import kaleido
 import numpy as np
 
 #%%
-#Script pour tracer les diagrammes en bar et pour faire les diagramme circulaire du cour.
-for i in range(4):  #Parcourir les 4 jeux de donnés.
+# Script pour tracer les diagrammes en barre et pour faire les diagrammes circulaires du cours HAX712X.
+for i in range(4):  # Parcourir les 4 jeux de données.
     if i==0 :
         chemin ="./data/CoursesVelomagg.csv"
         annee = 2024
@@ -21,16 +21,16 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
         chemin ="./data/extracted/TAM_MMM_CoursesVelomagg_2023.csv"
         annee = 2023
     # Traitement du dataframe
-    #Extraire notre dataframe
     df_coursesvelomagg = pd.read_csv(chemin)
     if i==1:
-        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') #Mauvais format
+        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') # Mauvais format
     df_coursesvelomagg_traité = df_coursesvelomagg
     # Convertir la colonne 'Departure' en datetime
     df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure'])
     # Extraire les dates de départ
     df_coursesvelomagg_traité['Date'] = df_coursesvelomagg_traité['Departure'].dt.date
     df_bikes = df_coursesvelomagg_traité
+
     # Statistique sur le nombre de trajet effectué par jour
     # Compter le nombre de trajets par jour pour les départs
     trajets_depart = df_coursesvelomagg_traité.groupby('Date').size().reset_index(name='Nombre de trajets')
@@ -51,9 +51,9 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
     plt.savefig(f"./docs/projet1_files/figure-html/Nb_trajet_par_{annee}")
     plt.close()
 
-    # Traitement donnée pour avoir un graphique avec les jours,heures et le nombre de vélo comme sur la leçon disponible sur moodle.
+    # Traitement des données pour avoir un graphique avec les jours, heures et le nombre de vélos comme sur la leçon disponible sur moodle.
     df_bikes = df_coursesvelomagg_traité.set_index('Departure')
-    df_bikes["Jour"] = df_bikes.index.dayofweek  # Monday=0, Sunday=6
+    df_bikes["Jour"] = df_bikes.index.dayofweek  #[0-6] -> Lundi - Dimanche
 
     # Regroupement par jour de la semaine et heure avec moyenne
     df_polar = (
@@ -80,7 +80,7 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
         "Saturday": "Samedi",
         "Sunday": "Dimanche"
     }
-    df_polar["Jour"] = df_polar["Jour"].replace(traduction_jours_complets)
+    df_polar["Jour"] = df_polar["Jour"].replace(traduction_jours_complets) # Traduction des jours
 
     # Définition des couleurs
     n_colors = 8  # Nombre de couleurs
@@ -89,13 +89,13 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
     )
 
     # Conversion des heures en degrés (0 à 360 degrés)
-    df_polar['heure'] = df_polar['Departure'] * 15  # Chaque heure = 15 degrés
+    df_polar['heure'] = df_polar['Departure'] * 15  # Chaque heure = 15 degrés (360/24)
 
     # Création de la figure
     fig = px.line_polar(
         df_polar,
-        r="Moyenne trajets",  # Utilisez le nombre de trajets comme rayon
-        theta="heure",  # Utilisez l'heure comme angle
+        r="Moyenne trajets",  # Utiliser le nombre de trajets comme rayon
+        theta="heure",  # Utiliser l'heure comme angle
         color="Jour",
         line_close=True,
         range_r=[0, df_polar["Moyenne trajets"].max() + 5],
@@ -109,11 +109,11 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
     fig.write_html(f"./docs/projet1_files/figure-html/graphique_distance_jour_{annee}.html")
 
 #%%
-# Initialisation des dictionnaires
+# Initialisation d'un dictionnaire et d'une liste 
 compteur_stations_cumulé = {}
 distance = []
-# Script pour savoir qu'elles stations sont les plus utilisés et la distance moyenne parcourus en vélo au fil des années, des mois.
-for i in range(4):  #Parcourir les 5 jeux de donnés.
+# Script pour savoir quelles stations sont les plus utilisées et la distance moyenne parcourue en vélo au fil des années, des mois.
+for i in range(4):  # Parcourir les 5 jeux de données.
     if i==0 :
         chemin ="./data/extracted/TAM_MMM_CoursesVelomagg_2021.csv"
         annee = 2021
@@ -127,19 +127,19 @@ for i in range(4):  #Parcourir les 5 jeux de donnés.
         chemin ="./data/CoursesVelomagg.csv"
         annee = 2024
     # Traitement du dataframe
-    #Extraire notre dataframe
+    # Extraire notre dataframe
     df_coursesvelomagg = pd.read_csv(chemin)
     if i==0:
-        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') #Mal représenté
+        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') # Mal représenté
     df_coursesvelomagg_traité = df_coursesvelomagg
-    # Prendre le nom de nos station, et on prend seulement les valeurs uniques (sans doublons de station)
+    # Prendre le nom de nos stations, et prendre seulement les valeurs uniques (sans doublons de station)
     Stations = df_coursesvelomagg_traité['Departure station']
     Stations = Stations.unique()
-    # On va compter le nombre de trajet vers une station.
+    # Compter le nombre de trajet vers une station.
     compteur_stations = {station: 0 for station in Stations}
     for station in Stations:
         trajet_vers_station = df_coursesvelomagg_traité['Return station'].value_counts().get(station, 0)
-        # Ajouter ou mettre à jour le compteur dans le dictionnaire cumulatif
+        # Ajouter ou mettre à jour le compteur dans le dictionnaire 
         if station in compteur_stations_cumulé:
             compteur_stations_cumulé[station] += trajet_vers_station
         else:
@@ -149,7 +149,7 @@ for i in range(4):  #Parcourir les 5 jeux de donnés.
     df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure']) # Format datetime
     # Extraire le mois et l'année de la colonne 'Departure'
     df_coursesvelomagg_traité['Mois'] = df_coursesvelomagg_traité['Departure'].dt.to_period('M')  # 'M' pour mois
-    # Calculer la somme de la distance parcourue par mois
+    # Calculer la somme de la distance parcourue par mois et conversion en kilomètre.
     nombre_trajets_par_mois = df_coursesvelomagg_traité.groupby('Mois')['Covered distance (m)'].count()
     somme_distance_par_mois = ((df_coursesvelomagg_traité.groupby('Mois')['Covered distance (m)'].sum())/1000)/nombre_trajets_par_mois
     # Ajouter une colonne pour l'année pour chaque mois
@@ -162,15 +162,13 @@ compteur_stations_cumulé = dict(filter(lambda item: item[1] >= 20000, compteur_
 # Tracer le graphique
 stations = list(compteur_stations_cumulé.keys())  # Stations sur l'axe des x
 trajets = list(compteur_stations_cumulé.values())  # Nombre de trajets sur l'axe des y
-#Tracer pour les sations
-# Création du graphique à barres
+# Tracer pour les stations
+# Création du graphique
 plt.figure(figsize=(10, 6))
 plt.bar(stations, trajets, color='skyblue')
-# Ajouter des labels et un titre
 plt.xlabel('Stations')
 plt.ylabel('Nombre de trajets')
 plt.title('Nombre total de trajets vers chaque station')
-# Rotation des labels pour une meilleure lisibilité
 plt.xticks(rotation=45, ha="right")
 # Afficher le graphique
 plt.savefig("./docs/projet1_files/figure-html/StationStat")
@@ -182,15 +180,15 @@ df_distance = pd.concat(distance)
 df_distance.reset_index()
 df_distance = df_distance.drop_duplicates(['Mois'])
 print(df_distance)
-# Tracer un seul graphique avec toutes les distances mensuelles de 2021 à 2024
+# Tracer un seul graphique avec toutes les distances de 2021 à 2024
 plt.figure(figsize=(12, 6))
 
-# Tracer chaque année sans couleur spécifique
+# Tracer chaque année
 for annee in [2021, 2022, 2023, 2024]:
     x = df_distance[df_distance['Annee'] == annee]
     plt.plot(x['Mois'].astype(str), x['Covered distance (m)'], marker='o')
 
-# Ajouter des labels et un titre
+# plot
 plt.xlabel('Mois')
 plt.ylabel('Distance parcourue en moyenne (km)')
 plt.title('Distance parcourue en moyenne par mois de 2021 à 2024')
