@@ -44,30 +44,63 @@ format:
 
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
+##
+<div style="text-align: center;">
+[🚴‍♂️ **Vous êtes-vous déjà demandé...**]{.custom-subtitle33 .center}
+<br> 
+</div>
+::: fragment
+>*... comment arriver à l'université à temps pour votre examen important lorsque vous êtes coincé dans un trafic de vélos à l'heure de pointe ?*
+<div style="text-align: center;">
+![](images/bikers-tj.jpg){ width=80% }
+</div>
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+## Notre Mission
+<hr>
+::: {.incremental} 
+- **Nous analysons :**  
+  - Les flux de vélos en temps réel dans la ville de Montpellier.  
+  - Les mouvements de cyclistes pour prévoir les situations de congestion.  
+  - Des solutions pratiques pour optimiser vos trajets dans les embouteillages.  
+- **Objectifs :**  
+  - Visualiser et analyser les flux cyclistes.  
+  - Prévoir les mouvements de trafic avec une carte interactive.  
+  - Proposer des solutions pour optimiser les infrastructures urbaines.
+:::
+
+::: fragment
+L’ambition du projet est de développer des **visualisations interactives**, notamment une **carte prédictive des flux cyclistes**, accessibles via un site web dédié.  
+:::
+::: fragment
+- Identifier les tendances de mobilité pour mieux comprendre les habitudes des usagers.  
+- Proposer des solutions pratiques afin d’optimiser les infrastructures urbaines et de promouvoir l’usage du vélo comme moyen de transport durable.
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 # Introduction et organisation {.section-background}
 <!---------------------------------------------------------------------------->
+
 <!---------------------------------------------------------------------------->
 ## Présentation du projet
 <hr>
 ::: fragment
 <div style="text-align: left;">
-[**Objectifs** :]{.custom-subtitle3}
+Le projet **CycleVision3** a pour objectif d’analyser et de prédire les flux cyclistes dans la ville de Montpellier à l’aide de données issues de trois sources principales :  
 </div> 
 :::
 
 ::: {.incremental} 
-- Visualiser et analyser les flux cyclistes  
-- Prévoir les mouvements de trafic avec une carte interactive  
-- Proposer des solutions pour optimiser les infrastructures urbaines
+- **VéloMagg** : Historique des trajets en vélos en libre-service.  
+- **Capteurs cyclistes/piétons** : Données collectées aux points clés de la ville.  
+- **OpenStreetMap (OSM)** : Données géographiques pour la cartographie.
 :::
 
 ::: fragment
 <div style="text-align: center;">
-[**Schéma des résultats attendus :**]{.custom-subtitle2}
-<br>
-<br>
+[**Schéma des résultats attendus :**]{.custom-subtitle3}
 ![](images/intro.svg){width=150%}
-<br>
 </div>
 :::
 <!---------------------------------------------------------------------------->
@@ -129,86 +162,6 @@ format:
 <br>
 <br>
 *Note importante : Bien que les tâches principales soient spécifiées pour chaque membre, tous les participants ont collaboré de manière active et apporté leur soutien mutuel dans la résolution des défis rencontrés tout au long du projet.*
-</div>
-:::
-<!---------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------->
-## Comparaison des diagrammes de Gantt 
-<hr>
-:::: {.columns}
-::: {.column width="48%"}
-<div style="text-align: center;">
-**Planification initiale du projet**
-    ```{mermaid}
-    gantt
-        dateFormat  YYYY-MM-DD
-        axisFormat  %d-%m
-        excludes weekends
-    section Critical Tasks
-        Data Gathering & Processing (SM, AC) : done, 2024-10-20, 10d
-        Code Structure Design (AC, SM) : done, 2024-11-01, 4d
-        Interactive Map Features (AC, SM) : done, 2024-11-06, 8d
-        Traffic Prediction Algorithm (SM, AC) : done, 2024-11-16, 7d
-        Visualization of Prediction (AC) : done, 2024-11-23, 5d
-        *Video Creation of Traffic (SM) : done, 2024-11-28, 5d
-        WEB Integration (CF) : done, 2024-12-03, 7d
-
-    section Documentation
-        Docstrings (SK, SM) : done, 2024-11-30, 5d
-        API Documentation (SK, AC) : done, 2024-12-05, 3d
-        README Preparation (SK) : done, 2024-12-08, 2d
-
-    section Testing
-        Unit Tests (SK) : done, 2024-11-25, 6d
-        Full Testing (SK, CF) : done, 2024-12-03, 4d
-
-    section Delivery
-        Finalize GitHub Repo (AC, SM) : done, 2024-12-09, 1d
-        Slide Deck Prep (SK, AC): done, 2024-12-09, 2d
-        Presentation Rehearsal (AC, CF, SM, SK): done, 2024-12-12, 1d
-        Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
-    ```
-</div>
-:::
-::: {.column width="48%"}
-<div style="text-align: center;">
-**Plan réalisé après exécution**
-    ```{mermaid}
-    gantt
-        dateFormat  YYYY-MM-DD
-        axisFormat  %d-%m
-        excludes weekends
-    section Critical Tasks
-        Data Gathering & Processing (SM, AC) : done, 2024-10-20, 10d
-        Code Structure Design (AC, SM) : done, 2024-11-01, 4d
-        Interactive Map Features (SM, AC) : done, 2024-11-06, 6d
-        Traffic Prediction Algorithm (AC, SM) : done, 2024-11-13, 9d
-        Visualization of Prediction (AC) : 2024-11-22, 8d
-        Video Creation of Traffic (SM) : 2024-11-14, 9d
-        WEB Integration (CF) : 2024-10-23, 34d
-
-    section Documentation
-        Docstrings at the site (SK) : 2024-11-10, 21d
-        API Documentation (SK) : done, 2024-12-05, 3d
-        README Preparation (SK) : 2024-11-25, 5d
-
-    section Testing
-        Unit Tests (SK) : 2024-11-26, 2d
-        Full Testing (SK, SM) : 2024-12-01, 7d
-        Performance Analysis (SM) : 2024-12-04, 2d
-
-    section Delivery
-        Finalize GitHub Repo (SM, CF) : 2024-12-07, 1d
-        Slide Deck Prep (SK): 2024-12-03, 5d
-        Presentation Rehearsal (AC, CF, SM, SK): 2024-12-10, 3d
-        Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
-    ```
-</div>
-:::
-::::
-::: fragment
-<div class="message">
-*Les blocs bleus dans les deux diagrammes représentent les tâches qui ont subi des changements, ajustements ou délais supplémentaires pendant la réalisation du projet.*
 </div>
 :::
 <!---------------------------------------------------------------------------->
@@ -301,10 +254,6 @@ PROJ_HAX712X/                                   # Répertoire principal du proje
 <div style="text-align: center;">
 [**Stations de vélos à Montpellier**]{.custom-subtitle3}
 </div>
-<br>
-<div class="message">
-Ci-dessous, vous trouverez une carte interactive présentant le *nombre de vélos en temps réel* disponibles dans les stations de la métropole de Montpellier. Cette carte offre une vue d’ensemble dynamique permettant de suivre l’état des stations en direct.
-</div>
 
 <div style="text-align: center;">
 ```{python}
@@ -364,20 +313,24 @@ if fichier.status_code == 200:
 m.save("map.html")
 
 # iframe
-display(IFrame("map.html", width="950", height="450"))
+display(IFrame("map.html", width="100%", height="450px"))
 ```
 </div>
 
+<div class="message">
+<br>
+<br>
+Ci-dessous, vous trouverez une carte interactive présentant le *nombre de vélos en temps réel* disponibles dans les stations de la métropole de Montpellier. Cette carte offre une vue d’ensemble dynamique permettant de suivre l’état des stations en direct.
+</div>
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 ## Visualisation vidéo
 <hr>
-<br>
 <div class="slide-content" style="text-align: center;">
-  <video width="1010" controls>
+  <video width="1000" controls>
     <source src="images/video_present.mp4" type="video/mp4">
     Your browser does not support the video tag.
-    </video>
+  </video>
 </div>
 
 <!---------------------------------------------------------------------------->
@@ -447,6 +400,40 @@ VIDEO DE SITE
 :::
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
+## Analyse des performances
+<hr>
+
+::: fragment
+<div style="text-align: center;">
+<br>
+<br>
+[**Pour map_trajet_BD.py**]{.custom-subtitle3}
+</div>
+:::
+
+::: fragment
+::: {.columns style="display: flex; justify-content: center;"}
+::: {.column width="50%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/1.png" width="100%" align="middle">
+</div>
+:::
+::: {.column width="50%"}
+<div style="text-align: center;">
+<img src="images/perf_analys/2.png" width="100%" align="middle">
+</div>
+:::
+:::
+:::
+
+::: fragment
+Les graphiques montrent les performances pour différentes quantités de trajets.
+:::
+<!---------------------------------------------------------------------------->
+
+
+
+<!---------------------------------------------------------------------------->
 ## Analyse des performances et d'utilisation de la mémoire
 <hr>
 
@@ -455,12 +442,12 @@ VIDEO DE SITE
 [**Pour map_trajet_BD.py**]{.custom-subtitle3}
 </div>
 ::: {.columns style="display: flex; justify-content: center;"}
-::: {.column width="25%"}
+::: {.column width="30%"}
 <div style="text-align: center;">
 <img src="images/perf_analys/1.png" width="50%" align="middle">
 </div>
 :::
-::: {.column width="25%"}
+::: {.column width="30%"}
 <div style="text-align: center;">
 <img src="images/perf_analys/2.png" width="50%" align="middle">
 </div>
@@ -472,25 +459,30 @@ VIDEO DE SITE
 <div style="text-align: center;">
 [**Pour vidéo.py**]{.custom-subtitle3}
 </div>
-::: {.columns}
-::: {.column width="25%"}
+::: {.columns style="display: flex; justify-content: center;"}
+::: {.column width="30%"}
 <div style="text-align: center;">
-<img src="images/perf_analys/3.png" width="100%" align="middle">
+<img src="images/perf_analys/3.png" width="50%" align="middle">
 </div>
 :::
-::: {.column width="25%"}
+::: {.column width="30%"}
 <div style="text-align: center;">
-<img src="images/perf_analys/4.png" width="100%" align="middle">
+<img src="images/perf_analys/4.png" width="50%" align="middle">
 </div>
 :::
-::: {.column width="25%"}
+:::
+:::
+
+::: fragment
+::: {.columns style="display: flex; justify-content: center;"}
+::: {.column width="30%"}
 <div style="text-align: center;">
-<img src="images/perf_analys/5.png" width="100%" align="middle">
+<img src="images/perf_analys/5.png" width="50%" align="middle">
 </div>
 :::
-::: {.column width="25%"}
+::: {.column width="30%"}
 <div style="text-align: center;">
-<img src="images/perf_analys/6.png" width="100%" align="middle">
+<img src="images/perf_analys/6.png" width="50%" align="middle">
 </div>
 :::
 :::
@@ -508,23 +500,98 @@ VIDEO DE SITE
 # Conclusion {.section-background}
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
+## Comparaison des diagrammes de Gantt 
+<hr>
+:::: {.columns}
+::: {.column width="48%"}
+<div style="text-align: center;">
+**Planification initiale du projet**
+    ```{mermaid}
+    gantt
+        dateFormat  YYYY-MM-DD
+        axisFormat  %d-%m
+        excludes weekends
+    section Critical Tasks
+        Data Gathering & Processing (SM, AC) : done, 2024-10-20, 10d
+        Code Structure Design (AC, SM) : done, 2024-11-01, 4d
+        Interactive Map Features (AC, SM) : done, 2024-11-06, 8d
+        Traffic Prediction Algorithm (SM, AC) : done, 2024-11-16, 7d
+        Visualization of Prediction (AC) : done, 2024-11-23, 5d
+        *Video Creation of Traffic (SM) : done, 2024-11-28, 5d
+        WEB Integration (CF) : done, 2024-12-03, 7d
+
+    section Documentation
+        Docstrings (SK, SM) : done, 2024-11-30, 5d
+        API Documentation (SK, AC) : done, 2024-12-05, 3d
+        README Preparation (SK) : done, 2024-12-08, 2d
+
+    section Testing
+        Unit Tests (SK) : done, 2024-11-25, 6d
+        Full Testing (SK, CF) : done, 2024-12-03, 4d
+
+    section Delivery
+        Finalize GitHub Repo (AC, SM) : done, 2024-12-09, 1d
+        Slide Deck Prep (SK, AC): done, 2024-12-09, 2d
+        Presentation Rehearsal (AC, CF, SM, SK): done, 2024-12-12, 1d
+        Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
+    ```
+</div>
+:::
+::: {.column width="48%"}
+<div style="text-align: center;">
+**Plan réalisé après exécution**
+    ```{mermaid}
+    gantt
+        dateFormat  YYYY-MM-DD
+        axisFormat  %d-%m
+        excludes weekends
+    section Critical Tasks
+        Data Gathering & Processing (SM, AC) : done, 2024-10-20, 10d
+        Code Structure Design (AC, SM) : done, 2024-11-01, 4d
+        Interactive Map Features (SM, AC) : done, 2024-11-06, 6d
+        Traffic Prediction Algorithm (AC, SM) : done, 2024-11-13, 9d
+        Visualization of Prediction (AC) : 2024-11-22, 8d
+        Video Creation of Traffic (SM) : 2024-11-14, 9d
+        WEB Integration (CF) : 2024-10-23, 34d
+
+    section Documentation
+        Docstrings at the site (SK) : 2024-11-10, 21d
+        API Documentation (SK) : done, 2024-12-05, 3d
+        README Preparation (SK) : 2024-11-25, 5d
+
+    section Testing
+        Unit Tests (SK) : 2024-11-26, 2d
+        Full Testing (SK, SM) : 2024-12-01, 7d
+        Performance Analysis (SM) : 2024-12-04, 2d
+
+    section Delivery
+        Finalize GitHub Repo (SM, CF) : 2024-12-07, 1d
+        Slide Deck Prep (SK): 2024-12-03, 5d
+        Presentation Rehearsal (AC, CF, SM, SK): 2024-12-10, 3d
+        Oral Presentation (AC, CF, SM, SK): milestone, 2024-12-13, 1d
+    ```
+</div>
+:::
+::::
+::: fragment
+<div class="message">
+*Les blocs bleus dans les deux diagrammes représentent les tâches qui ont subi des changements, ajustements ou délais supplémentaires pendant la réalisation du projet.*
+</div>
+:::
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
 ## Problèmes rencontrés
 <hr>
 
 ::: {.incremental}  
-1. **Gestion des données :**  
-    - Problèmes avec les formats des données (json non formatés, csv ou dataframe) et les données manquantes.  
-
-2. **Création de cartes interactives et prévisions de trafic :**  
-    - Longueur en temps des créations de cartes.  
-
+1. **Gestion des données :** Problèmes avec les formats des données (json non formatés, csv ou dataframe) et les données manquantes.  
+2. **Création de cartes interactives et prévisions de trafic :** Longueur en temps des créations de cartes.  
 3. **Déploiement du site web :**  
-     - Déploiement du site au tout début (GitHub Pages).  
-    - Intégration des cartes, surtout celle avec l'application Shiny.  
-
+    - Déploiement du site au tout début (GitHub Pages).  
+    - Intégration des cartes, surtout celle avec l'application Shiny.
 4. **Documentation du projet :**  
-    - [Ajouter les difficultés rencontrées par les membres de l'équipe ici]  
-
+    - Le grand nombre de fonctions a rendu leur formatage clair et lisible complexe.  
+    - La configuration et la personnalisation des fichiers pour garantir un rendu cohérent (pour le **Sphinx**).
 5. ** :**  
      - [Ajouter les difficultés rencontrées par les membres de l'équipe ici]  
 
@@ -544,26 +611,47 @@ VIDEO DE SITE
 :::
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
-## Conclusion
+## Conclusion 
 <hr>
+<div style="text-align: left;">
+*Ce projet collectif nous a permis d'atteindre plusieurs objectifs clés tout en renforçant la collaboration au sein de l'équipe.*
+</div>
 
+::: {.incremental}
+- **Résultats obtenus :** Analyse des données sur le trafic cycliste avec des visualisations interactives et cartes prédictives.  
+- **Expérience en travail d'équipe :** Renforcement des compétences en communication, répartition des tâches et collaboration.  
+- **Compétences développées :** Analyse avec Python, visualisation avec Folium et [Sphinx], et [configuration CI/CD avec GitHub Actions].  
+:::
 
-
+::: fragment
+<div style="text-align: left;">
+En somme, ce projet n'a pas seulement été une occasion d'appliquer des connaissances techniques, mais également une expérience enrichissante sur le plan personnel et collectif. Nous avons appris que la réussite d'un tel projet repose sur l'écoute, l'initiative, et la coopération.  
+</div>
+:::
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 ## Crédits
 <hr>
 
-::: {.incremental}  
-1. 🏆 **Hébergement du projet**  
-    - *Dépôt GitHub du projet* :  [https://github.com/mscaia/PROJ_HAX712X](https://github.com/mscaia/PROJ_HAX712X)  
-2.  🛠️ **Outils et Ressources**  
-    - *Utilisation de ChatGPT* : ChatGPT a été utilisé comme ressource pour explorer des concepts techniques, résoudre des défis méthodologiques et optimiser certaines parties du code, ainsi que pour faciliter la recherche et la rédaction de la documentation.  
-    - *Programme du cours* : [https://josephsalmon.github.io/HAX712X/](https://josephsalmon.github.io/HAX712X/)  
-    - *Plateforme YouTube* : Des vidéos et tutoriels sur YouTube ont également été consultés afin de renforcer la compréhension de certaines étapes du projet et d'apprendre des pratiques pertinentes pour la mise en œuvre des visualisations interactives et l'intégration des fonctionnalités interactives.  
-3. 🤝 **Contributions & Références** 
-    - [Ajouter ici d'autres crédits si nécessaire.]  
-
+::: {.incremental}
+- *Dépôt GitHub du projet* :  [https://github.com/mscaia/PROJ_HAX712X](https://github.com/mscaia/PROJ_HAX712X)  
+- *Programme du cours* : [https://josephsalmon.github.io/HAX712X/](https://josephsalmon.github.io/HAX712X/)  
+- *Plateforme YouTube* : Des vidéos et tutoriels sur YouTube ont été consultés afin de renforcer la compréhension de certaines étapes du projet.  
+- *Utilisation de ChatGPT* : ChatGPT a été utilisé comme ressource pour explorer des concepts techniques, résoudre des défis méthodologiques et optimiser certaines parties du code, ainsi que pour faciliter la recherche et la rédaction de la documentation.  
+- [Ajouter ici d'autres crédits si nécessaire.]  
+- Photo utilisée avec l'aimable autorisation de [Pixabay](https://pixabay.com/fr/photos/motards-cycliste-cyclisme-activit%C3%A9-446362/)
+- GIF: [sl.bing.net](https://sl.bing.net/eA2waB7nBJY)
+- Des petites icônes et logos ont été recherchés sur Internet pour représenter certaines fonctionnalités.
 :::
 
 <!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+# Merci pour votre attention ! {.section-background1}
+
+<div style="text-align: center;">
+[**Merci pour votre attention !**]{.custom-title1 .center}
+<br>
+![](images/6451064.gif){width=21%}
+<br>
+[Nous espérons que vos prochaines aventures cyclistes seront plus fluides que nos premières analyses !]{.custom-subtitle4}
+</div>
