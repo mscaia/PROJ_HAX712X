@@ -18,11 +18,11 @@ def choisir_station(prompt):
     La fonction `choisir_station` permet à l'utilisateur de choisir une station parmi une liste prédéfinie appelée `Liste_des_stations`. 
     Si l'utilisateur entre une station invalide, la fonction affiche un message d'erreur et redemande la saisie jusqu'à ce qu'une station valide soit sélectionnée.
 
-    Paramètres :
+    Args :
     - prompt : str
         Un message affiché à l'utilisateur pour lui demander de saisir une station.
 
-    Retourne :
+    Returns:
     - str
         La station sélectionnée par l'utilisateur, qui est un élément valide de `Liste_des_stations`.
     """
@@ -41,7 +41,7 @@ arrivé = choisir_station("Entrez le lieu d'arrivée : ")
 origin = ox.geocode(f"{départ}, Montpellier, France")
 destination = ox.geocode(f"{arrivé}, Montpellier, France")
 
-# Trouver les nœuds les plus proches de l'origine et de la destination
+# Trouver les noeuds les plus proches de l'origine et de la destination
 origin_node = ox.nearest_nodes(G, origin[1], origin[0])
 destination_node = ox.nearest_nodes(G, destination[1], destination[0])
 
@@ -53,19 +53,19 @@ print("Destination:", destination)
 route = ox.shortest_path(G, origin_node, destination_node)
 route_back = ox.shortest_path(G, destination_node, origin_node)
 
-# Fonction pour convertir un itinéraire (liste de nœuds) en liste de coordonnées géographiques
+# Fonction pour convertir un itinéraire (liste de noeuds) en liste de coordonnées géographiques
 def route_to_coords(G, route):
     """
     Description :
     La fonction `route_to_coords` convertit une liste de noeuds représentant une route dans un graphe en une liste de coordonnées géographiques (latitude, longitude).
 
-    Paramètres :
+    Args :
     - G : networkx.Graph
         Un graphe contenant des informations sur les noeuds. Chaque noeud doit avoir des attributs 'x' (longitude) et 'y' (latitude).
     - route : list
         Une liste de noeuds représentant une route dans le graphe `G`.
 
-    Retourne :
+    Returns: :
     - list of tuple
         Une liste de tuples contenant les coordonnées géographiques (latitude, longitude) pour chaque noeud de la route.
     """

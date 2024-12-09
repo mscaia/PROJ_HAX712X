@@ -6,11 +6,11 @@ import csv
 import os 
 from datetime import datetime 
 import folium
-from folium import PolyLine #a rajouter dans 6.1
+from folium import PolyLine
 import matplotlib.pyplot as plt
-from folium.plugins import HeatMap #a rajouter dans 6.1
+from folium.plugins import HeatMap 
 import osmnx as ox
-from collections import defaultdict #a rajouter dans 6.1
+from collections import defaultdict 
 import networkx as nx
 import pandas as pd
 import numpy as np
@@ -256,11 +256,11 @@ def jour_semaine(j):
     Description: 
     La fonction 'jour_semaine' renvoie une liste des intensités et leurs coordonnées qui ont été mesurées à une date correspondant au jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns:
     - list 
         Une liste contenant toutes les données étant rattachées à une date correspondant au jour de la semaine voulu. Les données sont l'intensité et les coordonnées auxquelles elle est liée. 
     """
@@ -310,11 +310,11 @@ def coor_unique(j):
     Description: 
     La fonction 'coor_unique' extrait toutes les coordonnées prises sur un jour j de façon unique 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - list 
         Une liste contenant toutes les coordonnées apparaissant dans les données prises un jour de la semaine j de façon unique. 
     """
@@ -331,11 +331,11 @@ def mean_intens(j):
     Description: 
     La fonction 'mean_intens' renvoie une liste des moyennes des intensités par coordonnées mesurées à une date correspondant au jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - list 
         Une liste contenant toutes les moyennes d'intensité et les coordonnées auxquelles elle sont liées. 
     """
@@ -367,7 +367,7 @@ def intensity_to_color(intens, min_in, max_in):
     Description: 
     La fonction 'intensity_to_color' renvoie un code couleur pour une intensité donnée.  
     
-    Paramètres: 
+    Args: 
     - intens : int
         L'intensité qu'on cherche à représenter. 
     - min_in : int
@@ -375,7 +375,7 @@ def intensity_to_color(intens, min_in, max_in):
     - max_in : int
         L'intensité maximale à représenter. Elle correspond au maximum de l'échelle de couleur. 
         
-    Retourne: 
+    Returns: 
     - 'rgba({}, {}, {}, {})' : str
         Le code couleur RGB associé à l'intensité à représenter. 
     """
@@ -389,7 +389,7 @@ def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-
     Description: 
     La fonction 'map_jour' génère une carte des intensités moyennes observées un jour de la semaine j. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - style : int
@@ -397,7 +397,7 @@ def map_jour(j, style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 sans-
     - jour : str
         Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
-    Retourne: 
+    Returns: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
         Un message de validation de création de la carte et le nom sous lequel elle a été enregistrée. 
     """
@@ -504,11 +504,11 @@ def nb_tot_jour(j):
     Description: 
     La fonction 'nb_tot_jour' renvoie le nombre de dates comptées dans les donnnées correspondants au jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - int 
         Le nombre de jour j comptés dans les données.
     """
@@ -552,11 +552,11 @@ def poids_par_h(j):
     Description: 
     La fonction 'poids_par_h' compte la participation de chaque heure dans la journée. Elle donne la proportion de l'activité journalière calculée par heure pour le jour de la semaine j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         
-    Retourne: 
+    Returns: 
     - matrix 
         Une matrice avec pour colonne les heures et le pourcentage de l'activité journalière associée à chacune de ces heures. 
     """
@@ -605,7 +605,7 @@ def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 s
     Description: 
     La fonction 'map_jour_h' génère une carte des intensités moyennes observées un jour de la semaine j à une heure h. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
@@ -615,7 +615,7 @@ def map_jour_h(j, h,style,jour):#entrée 0-6 pour les jours de la semaine, 0-1 s
     - jour : str
         Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
-    Retourne: 
+    Returns: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
         Un message de validation de création de la carte et le nom sous lequel elle a été enregistrée. 
     """    
@@ -706,11 +706,11 @@ def trajets_parcourus_jour(j):
     Description: 
     La fonction 'trajets_parcourus_jour' recense tous les trajets ayant eut lieu un jour j. 
     
-    Paramètre: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
      
-    Retourne: 
+    Returns: 
     - matrix
         Une matrice avec chaque ligne de la forme [heure de départ, station de départ, station d'arrivée]. 
     """
@@ -752,13 +752,13 @@ def trajets_parcourus(j,h):
     Description: 
     La fonction 'trajets_parcourus' recense les trajets ayant eu lieu un jour j à une heure h et leur occurence. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
         Le numéro (de 0 à 23) de l'heure voulue. 
         
-    Retourne: 
+    Returns: 
     - matrix 
         Une matrice avec chaque ligne de la forme [[station de départ, station d'arrivée], occurrence]
     """
@@ -789,13 +789,13 @@ def TRAJETS(j, h):
     Description: 
     La fonction 'TRAJETS' recense les trajets ayant eu lieu un jour j à une heure h. 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
         Le numéro (de 0 à 23) de l'heure voulue. 
         
-    Retourne: 
+    Returns: 
     - matrix 
         Une matrice avec chaque ligne de la forme [station de départ, station d'arrivée]
     """
@@ -824,13 +824,13 @@ def traj_mult(j, h):
     Description: 
     La fonction 'trajets_mult' recense les trajets ayant eu lieu un jour j à une heure h et leur occurrence. 
         
-    Paramètres: 
+    Args: 
         - j : int
             Le numéro du jour de la semaine (entre 0 et 6) voulu. 
         - h : int
             Le numéro (de 0 à 23) de l'heure voulue. 
     
-    Retourne: 
+    Returns: 
         - matrix 
         Une matrice avec chaque ligne de la forme [[station de départ, station d'arrivée], occurrence] uniquement si l'occurrence est supérieure à 8 ( 2 fois pas an).
     """
@@ -868,7 +868,7 @@ def map_trajets(j, h,jour):
     Description: 
     La fonction 'map_trajets' génère une carte des trajets parcourus un jour de la semaine j et à une heure h, ainsi que la probabilité qu'il soit de nouveau parcouru (en tenant compte des archives). 
     
-    Paramètres: 
+    Args: 
     - j : int
         Le numéro du jour de la semaine (entre 0 et 6) voulu. 
     - h : int
@@ -876,7 +876,7 @@ def map_trajets(j, h,jour):
     - jour : str
         Le nom du jour correspondant (par exemple, "Lundi", "Mardi", etc.), utilisé pour nommer les fichiers générés.
         
-    Retourne: 
+    Returns: 
     - 'La carte a été générée et sauvegardée sous le nom', nom : str, str 
         Un message de validation de création de la carte et le nom sous lequel elle a été enregistrée. 
     """

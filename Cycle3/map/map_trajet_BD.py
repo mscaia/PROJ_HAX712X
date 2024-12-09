@@ -19,8 +19,7 @@ m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du cen
 
 #Extraire notre dataframe
 df_coursesvelomagg_traité = pd.read_csv("./data/CoursesVelomagg.csv").dropna()
-a = df_coursesvelomagg_traité.head()
-print(a)
+
 
 # Extraire les trajets avec les noms des stations aller et le nom des stations retours
 liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]
@@ -28,11 +27,11 @@ liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station',
 #Convertir + nettoyer les colonnes
 #Convertie les donnée date en datetime pour que la machine puisse comprendre les dates
 liste_des_trajet_DBF =liste_des_trajets #pd_to_datetime(df_coursesvelomagg_traité, 'Departure')
-#Nettoie le dataframe des mauvais caractère qui bruitent l'analyse
+#Nettoie le dataframe des mauvais caractères qui bruitent l'analyse
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].apply(nettoyer_adresse_normalise)
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].apply(nettoyer_adresse_normalise)
 
-# Traite un cas particulier.
+# Traite un cas.
 # Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
@@ -43,7 +42,6 @@ liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure stat
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace(
     r".*Gare Saint-Roch$", "Gare Saint-Roch", regex=True
 )
-
 
 Liste_des_dates = liste_des_trajet_DBF['Departure'].str[:10].unique()
 print(Liste_des_dates)
@@ -102,7 +100,7 @@ m.get_root().html.add_child(folium.Element(legend_html))
 m.save("./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html")
 
 # Afficher un message pour indiquer que la carte est prête
-print("La carte a été sauvegardée sous '../Cycle3/visualisation/carte_montpellier_trajet_via_BD.html'.")
+print("La carte a été sauvegardée sous './Cycle3/visualisation/carte_montpellier_trajet_via_BD.html'.")
 
 #Création d'un csv pour la suite du processus et obtenir une vidéo sur le jour qui nous interesse.
 data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]

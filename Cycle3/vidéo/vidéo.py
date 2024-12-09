@@ -21,11 +21,11 @@ data = pd.read_csv("./data/video.csv").dropna()
 data= data[data['Departure station'] != 'AtelierTAM']
 data= data[data['Return station'] != 'AtelierTAM']
 data = data.dropna(subset=['Duration (sec.)'])
-data['Departure'] = pd.to_datetime(data['Departure'])
-data = data.sort_values(by='Departure', ascending=True)
-data.reset_index(drop=True, inplace=True)
+data['Departure'] = pd.to_datetime(data['Departure']) 
+data = data.sort_values(by='Departure', ascending=True)      # trie par date
+data.reset_index(drop=True, inplace=True)                    # Nouvelle numérotation
 
-# Obtenir les noms de stations uniques (départ et arrivée)
+# Obtenir les noms de stations uniques
 unique_stations = data['Departure station'].unique()
 
 # Dictionnaire pour stocker les coordonnées de chaque station
@@ -48,12 +48,12 @@ data.to_csv("./data/video_avec_coord.csv", index=False)
 nombre_lignes = len(data)
 print(f"Le DataFrame contient {nombre_lignes} lignes.")
 min_trajets = int(input("Combien de trajets voulez-vous afficher sur votre journée ? "))
-df = data.iloc[:min_trajets]  # Sélectionne les n premières lignes, où n est le nombre spécifié
+df = data.iloc[:min_trajets]  # Sélectionne les min_trajets premières lignes, où min_trajets est le nombre spécifié
 df.reset_index(drop=True, inplace=True)
 
 
 # Créer le répertoire s'il n'existe pas
-output_dir = "./visualisation"
+output_dir = "./Cycle3/visualisation"
 os.makedirs(output_dir, exist_ok=True)
 
 
@@ -79,9 +79,9 @@ def chemin_court(row):
     La fonction `chemin_court` calcule le chemin le plus court entre deux points géographiques spécifiés par les colonnes d'une ligne de données. 
     Elle utilise un graphe défini globalement (`G`) pour déterminer le chemin le plus court en termes de distance pondérée.
 
-    Paramètres :
+    Args :
     - row : dictionnaire
-    Retourne :
+    Returns :
     - tuple : (list, int)
         - Une liste représentant le chemin le plus court en termes de nœuds entre le point de départ et le point d'arrivée.
         - La durée du trajet en secondes, issue de la colonne `Duration (sec.)` de la ligne.
@@ -126,8 +126,8 @@ def init():
     La fonction `init` initialise les données associées à une liste d'objets `points`. 
     Elle efface les données des points en les remplaçant par des listes vides pour les axes x et y.
 
-    Paramètres :
-    Retourne :
+    Args :
+    Returns :
     - list
         Une liste des objets `points` après avoir réinitialisé leurs données.
 
@@ -145,11 +145,11 @@ def update(frame):
     La fonction `update` met à jour les positions d'une liste de points au fur et à mesure d'une animation, en fonction de la progression d'un chemin dans un graphe. 
     Elle déplace chaque point le long de son chemin associé, calculé à partir des nœuds du graphe.
 
-    Paramètres :
+    Args :
     - frame : int
         Le numéro de la frame actuelle dans l'animation. Il est utilisé pour calculer la progression sur le chemin.
 
-    Retourne :
+    Returns :
     - list
         Une liste des objets `points` après avoir mis à jour leurs positions.
     """
