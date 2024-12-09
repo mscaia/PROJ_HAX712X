@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-41ce87c438ccaeb35f64ae41c48547a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -194,6 +194,8 @@ ul.task-list li input[type="checkbox"] {
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s; /* Animation fluide */
+            align-self: flex-start; /* Aligne le bouton à gauche, si souhaité */
+            width: 100%;
         }
 
         button:hover {
@@ -208,10 +210,14 @@ ul.task-list li input[type="checkbox"] {
 
         /* Pour aligner les boutons */
         form {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column; /* Aligne les éléments en colonne */
+            gap: 10px; /* Ajoute un espace entre les éléments */
+            margin-bottom: 20px; /* Ajoute un espace entre le formulaire et la carte */
         }
 
         /* Centrer les éléments */
+        #carte-intensity-heat,
         #carte-intensity,
         #carte-trajets {
             margin-top: 20px;
@@ -231,20 +237,28 @@ ul.task-list li input[type="checkbox"] {
             border: 1px solid #ccc;
             font-size: 14px;
             margin-right: 10px;
+            width: 100%;
         }
     </style>
 
 
+<!-- Carte des intensités moyennes avec chaleur -->
+<h2 class="anchored">
+Carte des intensités moyennes
+</h2>
+<form>
+<label for="date-intensity-heat">Sélectionner un jour :</label> <select id="date-intensity-heat"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select> <button type="button" onclick="afficherCarte('intensity-heat')">Afficher la carte</button>
+</form>
+<div id="carte-intensity-heat">
+
+</div>
 <!-- Carte des intensités -->
 <h2 class="anchored">
 Carte des intensités
 </h2>
 <form>
-<p><label for="date-intensity">Sélectionner une date:</label> <select id="date-intensity"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select></p>
-<p><label for="heure-intensity">Sélectionner une heure:</label> <select id="heure-intensity"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="03">03:00</option> <option value="04">04:00</option> <option value="05">05:00</option> <option value="06">06:00</option> <option value="07">07:00</option> <option value="08">08:00</option> <option value="09">09:00</option> <option value="10">10:00</option> <option value="11">11:00</option> <option value="12">12:00</option> <option value="13">13:00</option> <option value="14">14:00</option> <option value="15">15:00</option> <option value="16">16:00</option> <option value="17">17:00</option> <option value="18">18:00</option> <option value="19">19:00</option> <option value="20">20:00</option> <option value="21">21:00</option> <option value="22">22:00</option> <option value="23">23:00</option> </select></p>
-<button type="button" onclick="afficherCarte('intensity')">
-Afficher la carte
-</button>
+<p><label for="date-intensity">Sélectionner un jour :</label> <select id="date-intensity"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select></p>
+<label for="heure-intensity">Sélectionner une heure :</label> <select id="heure-intensity"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="03">03:00</option> <option value="04">04:00</option> <option value="05">05:00</option> <option value="06">06:00</option> <option value="07">07:00</option> <option value="08">08:00</option> <option value="09">09:00</option> <option value="10">10:00</option> <option value="11">11:00</option> <option value="12">12:00</option> <option value="13">13:00</option> <option value="14">14:00</option> <option value="15">15:00</option> <option value="16">16:00</option> <option value="17">17:00</option> <option value="18">18:00</option> <option value="19">19:00</option> <option value="20">20:00</option> <option value="21">21:00</option> <option value="22">22:00</option> <option value="23">23:00</option> </select> <button type="button" onclick="afficherCarte('intensity')">Afficher la carte</button>
 </form>
 <div id="carte-intensity">
 
@@ -254,42 +268,46 @@ Afficher la carte
 Carte des trajets
 </h2>
 <form>
-<p><label for="date-trajets">Sélectionner une date:</label> <select id="date-trajets"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select></p>
-<p><label for="heure-trajets">Sélectionner une heure:</label> <select id="heure-trajets"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="03">03:00</option> <option value="04">04:00</option> <option value="05">05:00</option> <option value="06">06:00</option> <option value="07">07:00</option> <option value="08">08:00</option> <option value="09">09:00</option> <option value="10">10:00</option> <option value="11">11:00</option> <option value="12">12:00</option> <option value="13">13:00</option> <option value="14">14:00</option> <option value="15">15:00</option> <option value="16">16:00</option> <option value="17">17:00</option> <option value="18">18:00</option> <option value="19">19:00</option> <option value="20">20:00</option> <option value="21">21:00</option> <option value="22">22:00</option> <option value="23">23:00</option> </select></p>
-<button type="button" onclick="afficherCarte('trajets')">
-Afficher la carte
-</button>
+<p><label for="date-trajets">Sélectionner un jour :</label> <select id="date-trajets"> <option value="01">Lundi</option> <option value="02">Mardi</option> <option value="03">Mercredi</option> <option value="04">Jeudi</option> <option value="05">Vendredi</option> <option value="06">Samedi</option> <option value="07">Dimanche</option> </select></p>
+<label for="heure-trajets">Sélectionner une heure :</label> <select id="heure-trajets"> <option value="00">00:00</option> <option value="01">01:00</option> <option value="02">02:00</option> <option value="03">03:00</option> <option value="04">04:00</option> <option value="05">05:00</option> <option value="06">06:00</option> <option value="07">07:00</option> <option value="08">08:00</option> <option value="09">09:00</option> <option value="10">10:00</option> <option value="11">11:00</option> <option value="12">12:00</option> <option value="13">13:00</option> <option value="14">14:00</option> <option value="15">15:00</option> <option value="16">16:00</option> <option value="17">17:00</option> <option value="18">18:00</option> <option value="19">19:00</option> <option value="20">20:00</option> <option value="21">21:00</option> <option value="22">22:00</option> <option value="23">23:00</option> </select> <button type="button" onclick="afficherCarte('trajets')">Afficher la carte</button>
 </form>
 <div id="carte-trajets">
 
 </div>
 <script>
         function afficherCarte(type) {
-            // Sélectionner les bons éléments en fonction du type
-            const date = document.getElementById(`date-${type}`).value;
-            const heure = document.getElementById(`heure-${type}`).value;
+            // Sélectionner les éléments en fonction du type de carte
             const carteDiv = document.getElementById(`carte-${type}`);
+            let fichierCarte;
 
-            // Générer le chemin du fichier correspondant
-            const fichierCarte = (type === 'intensity') 
-                ? `projet2_files/cartes_intensity/intensity_${date}_${heure}.html`
-                : `projet2_files/cartes_trajets/trajets_${date}_${heure}.html`;
+            if (type === 'intensity-heat') {
+                // Pour la carte heat, uniquement la date est utilisée
+                const date = document.getElementById('date-intensity-heat').value;
+                fichierCarte = `projet2_files/cartes_intensity_heat/intensity_heat_${date}.html`;
+            } else {
+                // Pour les autres cartes, la date et l'heure sont utilisées
+                const date = document.getElementById(`date-${type}`).value;
+                const heure = document.getElementById(`heure-${type}`).value;
+                fichierCarte = (type === 'intensity')
+                    ? `projet2_files/cartes_intensity/intensity_${date}_${heure}.html`
+                    : `projet2_files/cartes_trajets/trajets_${date}_${heure}.html`;
+            }
 
-            // Supprimer l'iframe existante (si elle existe)
+            // Supprimer l'iframe existante (s'il y en a une)
             carteDiv.innerHTML = '';
 
-            // Créer une nouvelle iframe
+            // Créer une nouvelle iframe et l'ajouter
             const iframe = document.createElement('iframe');
             iframe.src = fichierCarte;
             iframe.width = '100%';
             iframe.height = '500px';
 
-            // Ajouter l'iframe à la div
             carteDiv.appendChild(iframe);
         }
 
         window.onload = function() {
-            // Afficher la carte par défaut au chargement (exemple : première date et première heure)
+            // Afficher les cartes par défaut au chargement (par exemple, Lundi 00:00)
+            afficherCarte('intensity-heat');
             afficherCarte('intensity');
             afficherCarte('trajets');
         };
@@ -302,15 +320,25 @@ Afficher la carte
 
 </main> <!-- /main -->
 <footer> 
+
     <div class="footer-left">
+
         <p>© 2024 CycleVision3. Tous droits réservés.</p>
+
     </div>
+
     <div class="footer-right">
+
         Code Source :
+
         <a href="https://github.com/mscaia/PROJ_HAX712X" target="_blank">
+
             <img src="https://pngimg.com/uploads/github/github_PNG23.png" alt="GitHub Logo">
+
         </a>
+
     </div>
+
 </footer>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -394,6 +422,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -504,6 +534,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

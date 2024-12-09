@@ -20,6 +20,7 @@ L'application Shiny est en ligne ici : [Accéder à l'application Shiny](https:/
 Voici d'autres cartes présentant des prévisions des stations les plus fréquentés et des trajets les plus effectués pour chaque jour et chaque heure de la semaine. Ces résultats ont été obtenus en calculant des moyennes à partir des données présentées sur la page d'accueil.
 :::
 
+
 <head>
     <style>
         /* Styles pour les boutons */
@@ -32,6 +33,8 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s; /* Animation fluide */
+            align-self: flex-start; /* Aligne le bouton à gauche, si souhaité */
+            width: 100%;
         }
 
         button:hover {
@@ -46,10 +49,14 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
 
         /* Pour aligner les boutons */
         form {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column; /* Aligne les éléments en colonne */
+            gap: 10px; /* Ajoute un espace entre les éléments */
+            margin-bottom: 20px; /* Ajoute un espace entre le formulaire et la carte */
         }
 
         /* Centrer les éléments */
+        #carte-intensity-heat,
         #carte-intensity,
         #carte-trajets {
             margin-top: 20px;
@@ -69,15 +76,33 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
             border: 1px solid #ccc;
             font-size: 14px;
             margin-right: 10px;
+            width: 100%;
         }
     </style>
 </head>
 
-<body> 
+<body>
+    <!-- Carte des intensités moyennes avec chaleur -->
+    <h2>Carte des intensités moyennes</h2>
+    <form>
+        <label for="date-intensity-heat">Sélectionner un jour :</label>
+        <select id="date-intensity-heat">
+            <option value="01">Lundi</option>
+            <option value="02">Mardi</option>
+            <option value="03">Mercredi</option>
+            <option value="04">Jeudi</option>
+            <option value="05">Vendredi</option>
+            <option value="06">Samedi</option>
+            <option value="07">Dimanche</option>
+        </select>
+        <button type="button" onclick="afficherCarte('intensity-heat')">Afficher la carte</button>
+    </form>
+    <div id="carte-intensity-heat"></div>
+
     <!-- Carte des intensités -->
     <h2>Carte des intensités</h2>
     <form>
-        <label for="date-intensity">Sélectionner une date:</label>
+        <label for="date-intensity">Sélectionner un jour :</label>
         <select id="date-intensity">
             <option value="01">Lundi</option>
             <option value="02">Mardi</option>
@@ -88,7 +113,7 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
             <option value="07">Dimanche</option>
         </select>
         
-        <label for="heure-intensity">Sélectionner une heure:</label>
+        <label for="heure-intensity">Sélectionner une heure :</label>
         <select id="heure-intensity">
             <option value="00">00:00</option>
             <option value="01">01:00</option>
@@ -115,7 +140,6 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
             <option value="22">22:00</option>
             <option value="23">23:00</option>
         </select>
-        
         <button type="button" onclick="afficherCarte('intensity')">Afficher la carte</button>
     </form>
     <div id="carte-intensity"></div>
@@ -123,7 +147,7 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
     <!-- Carte des trajets -->
     <h2>Carte des trajets</h2>
     <form>
-        <label for="date-trajets">Sélectionner une date:</label>
+        <label for="date-trajets">Sélectionner un jour :</label>
         <select id="date-trajets">
             <option value="01">Lundi</option>
             <option value="02">Mardi</option>
@@ -134,7 +158,7 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
             <option value="07">Dimanche</option>
         </select>
         
-        <label for="heure-trajets">Sélectionner une heure:</label>
+        <label for="heure-trajets">Sélectionner une heure :</label>
         <select id="heure-trajets">
             <option value="00">00:00</option>
             <option value="01">01:00</option>
@@ -161,38 +185,44 @@ Voici d'autres cartes présentant des prévisions des stations les plus fréquen
             <option value="22">22:00</option>
             <option value="23">23:00</option>
         </select>
-        
         <button type="button" onclick="afficherCarte('trajets')">Afficher la carte</button>
     </form>
     <div id="carte-trajets"></div>
 
     <script>
         function afficherCarte(type) {
-            // Sélectionner les bons éléments en fonction du type
-            const date = document.getElementById(`date-${type}`).value;
-            const heure = document.getElementById(`heure-${type}`).value;
+            // Sélectionner les éléments en fonction du type de carte
             const carteDiv = document.getElementById(`carte-${type}`);
+            let fichierCarte;
 
-            // Générer le chemin du fichier correspondant
-            const fichierCarte = (type === 'intensity') 
-                ? `projet2_files/cartes_intensity/intensity_${date}_${heure}.html`
-                : `projet2_files/cartes_trajets/trajets_${date}_${heure}.html`;
+            if (type === 'intensity-heat') {
+                // Pour la carte heat, uniquement la date est utilisée
+                const date = document.getElementById('date-intensity-heat').value;
+                fichierCarte = `projet2_files/cartes_intensity_heat/intensity_heat_${date}.html`;
+            } else {
+                // Pour les autres cartes, la date et l'heure sont utilisées
+                const date = document.getElementById(`date-${type}`).value;
+                const heure = document.getElementById(`heure-${type}`).value;
+                fichierCarte = (type === 'intensity')
+                    ? `projet2_files/cartes_intensity/intensity_${date}_${heure}.html`
+                    : `projet2_files/cartes_trajets/trajets_${date}_${heure}.html`;
+            }
 
-            // Supprimer l'iframe existante (si elle existe)
+            // Supprimer l'iframe existante (s'il y en a une)
             carteDiv.innerHTML = '';
 
-            // Créer une nouvelle iframe
+            // Créer une nouvelle iframe et l'ajouter
             const iframe = document.createElement('iframe');
             iframe.src = fichierCarte;
             iframe.width = '100%';
             iframe.height = '500px';
 
-            // Ajouter l'iframe à la div
             carteDiv.appendChild(iframe);
         }
 
         window.onload = function() {
-            // Afficher la carte par défaut au chargement (exemple : première date et première heure)
+            // Afficher les cartes par défaut au chargement (par exemple, Lundi 00:00)
+            afficherCarte('intensity-heat');
             afficherCarte('intensity');
             afficherCarte('trajets');
         };
