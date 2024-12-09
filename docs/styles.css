@@ -1,8 +1,25 @@
 /* css styles */
-body {
-    background-color: #f8f9fa00; /* Couleur de fond */
-    color: #333; /* Couleur du texte */
+
+/* CONTENU PRINCIPAL */
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 60px;
+    box-sizing: border-box;
 }
+
+.main-container {
+    max-width: 1600px; /* Largeur maximale */
+    margin: 0 auto;    /* Centre le contenu */
+    padding: 0 20px;   /* Ajoute un padding uniquement sur les côtés */
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px; /* Augmente la taille de la police */
+    line-height: 1.6; /* Améliore la lisibilité */
+}
+
+
+/* NAVBAR */
 
 .navbar {
     background-color: #007BFF; /* Couleur de la barre de navigation */
@@ -10,40 +27,35 @@ body {
 
 .navbar a {
     color: white; /* Couleur des liens dans la barre de navigation */
+    padding:10px 15px;
+    transition: background-color 0.3s ease;
 }
 
-.container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.navbar a:hover {
+    background-color: #0158b4; /* Couleur de survol */
+    border-radius: 4px; /* Coins arrondis au survol */
 }
 
-h1 {
-    margin-top: 20px; /* Marge au-dessus du titre */
-}
-
-/* Exemple de styles CSS pour le menu déroulant */
+/*menu déroulant */
 .navbar .dropdown-menu {
+    display:none; /* Masqué par défaut */
     background-color: #007bff; /* Couleur de fond */
     border-radius: 8px; /* Coins arrondis */
-  }
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
   
-  .navbar .dropdown-item:hover {
-    background-color: #007bff; /* Couleur de survol */
-  }
+.navbar .dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+}
 
-/* Ajuster la largeur du conteneur principal */
-.main-container {
-    max-width: 1600px; /* Largeur maximale */
-    margin: 0 auto;    /* Centre le contenu */
-    padding: 0 20px;   /* Ajoute un padding uniquement sur les côtés */
-}
-  
-.crop-bottom {
-    clip-path: inset(0 0 20% 0); /* Rogner 20% du bas */
-}
-  
+/* FOOTER */
 footer {
+    height: 60px;
     background-color: #007bff;
     padding: 10px;
     display: flex; /* Active Flexbox pour le footer */
@@ -93,7 +105,29 @@ footer img:hover {
     transform: scale(1.2); /* Zoom au survol */
 }
 
+/* AUTRES */
+
 .wide-text {
     width: 100%;
-    text-align: justify;
+    text-align: justify; /* Format justifié pour le texte */
+}
+
+.crop-bottom {
+    clip-path: inset(0 0 20% 0); /* Rogner 20% du bas */
+}
+
+h1 {
+    margin-top: 20px; /* Marge au-dessus du titre */
+}
+
+/* Optimisation pour les appareils mobiles */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar a {
+        margin: 5px 0; /* Espacement plus petit sur mobile */
+    }
 }
