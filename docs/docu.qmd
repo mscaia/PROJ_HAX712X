@@ -28,14 +28,14 @@ La structure du projet est conçue pour garantir une séparation claire des comp
 
 ```
 main/                                           # Répertoire principal du projet
-├── .github/workflows/                          # Configuration pour l'intégration continue
-│   ├── update_and_deploy.yml                   #
-├── Cycle3/                                     # Scripts pour l'analyse des données
-│   ├── analyse_donnee/                         # Images utilisées dans le projet
+├── .github/workflows/                          # Automatisation des actions GitHub
+│   ├── update_and_deploy.yml                   # Configuration pour les mises à jour et déploiements automatiques
+├── Cycle3/                                     # Dossier principal avec les codes de programme
+│   ├── analyse_donnee/                         # Scripts pour l'analyse exploratoire des données
 │   │   ├── cache/
-│   │   ├── __init__.py  
+│   │   ├── __init__.py
 │   │   └── statistique.py
-│   ├── docs/                                   #
+│   ├── docs/                                   # Configuration et génération de la documentation avec Sphinx
 │   │   ├── build/html/
 │   │   ├── cache/
 │   │   ├── conf.py
@@ -49,99 +49,105 @@ main/                                           # Répertoire principal du proje
 │   │   ├── carte.py
 │   │   ├── map.py
 │   │   └── map_trajet_BD.py
-│   ├── prediction/
+│   ├── prediction/                            # Scripts pour les cartes de prediction
 │   │   ├── __init__.py  
 │   │   └── prediction.py                   
-│   ├── vidéo/
+│   ├── vidéo/                                 # Scripts pour les video
 │   │   ├── __init__.py  
 │   │   └── vidéo.py
 │   ├── visualisation/                          # Résultats des visualisations
-├── cache/                                      # Fichiers temporaires
-├── data/                                       # Données des 3 jeux de données
+├── cache/
+├── data/                                       # Données pour l'analyse
 │   ├── extracted/                              # Données extraites
 │   ├── CoursesVelomagg.csv                     # Données des trajets VéloMagg
-│   ├── video.csv                               # Données vidéo brutes
+│   ├── video.csv                               # Données vidéo
 │   └── video_avec_coord.csv                    # Données vidéo enrichies avec coordonnées
-├── docs/                                       # Répertoire des fichiers du site web
+├── docs/                                       # Contenu et configuration du site web
 │   ├── _freeze/
 │   ├── cache/  
-│   ├── docu_files/
-│   ├── index_files/
-│   ├── projet1_files/figure-html/
-│   ├── projet2_files/
-│   ├── projet3_files/figure-html/
-│   ├── shiny_app/
-│   ├── site_libs/
-│   ├── .gitignore                              # Liste des fichiers à ignorer par Git
-│   ├── ._quarto.yml.un~
-│   ├── _footer.html
-│   ├── _quarto.yml
-│   ├── _quarto.yml~
-│   ├── ...                                     # 
-│   ├── search.json                             # 
-│   ├── stationvelo.json                        # 
-│   └── styles.css                              # 
-├── roadmap/                                    # 
-├── slide/                                      # 
-│   ├── cache/                                  # Fonctions de traitement des données
-│   ├── images/                                 # Fonctions pour les bases de données
+│   ├── docu_files/                             # Fichiers affichés sur la page "Documentation"
+│   ├── ...                                     # Fichiers affichés pour d'autres pages
+│   ├── shiny_app/                              # Application interactive pour explorer les données
+│   ├── styles.css                              # Feuille de style pour le site
+│   └── ...                                     # Autres fichiers nécessaires
+├── roadmap/                                    # Documentation de la planification initiale du projet
+├── slide/                                      # Fichiers liés à la présentation finale
+│   ├── cache/
+│   ├── images/
 │   ├── slide_files/libs/
-│   ├── _metadata.yml
-│   ├── map.html
-│   ├── slide.css
-│   ├── slide.html
-│   ├── slide.qmd
-│   └── slides-styles.scss                      # 
+│   ├── slide.html                              # Version exportée des diapositives
+│   ├── slide.qmd                               # Contenu principal des diapositives
+│   ├── slides-styles.scss                      # Feuille de style pour la personnalisation des diapositives
+│   ├── slide.css                               # Feuille de style pour la personnalisation des diapositives
+│   └── ...                                     # Autres fichiers nécessaires
 ├── src/                                        # Répertoire contenant le code source
 │   ├── __init__.py
 │   ├── donnée.py                               # Fonctions de traitement des données
 │   ├── fonctions_basedonnees.py                # Fonctions pour les bases de données
-│   └── gestion_donnee.py                       # 
-├── .gitignore                                  # Fichier Git ignore
-├── LICENCE                                     # Fichier Git ignore
-├── README.md                                   # Documentation principale du projet
-└── requirements.txt                            # Dépendances du projet
+│   └── gestion_donnee.py                       # Classe "GestionnaireDonnees" pour le traitement des données
+├── .gitignore                                  # Liste des fichiers ignorés par Git
+├── LICENCE                                     # Informations sur la licence du projet
+├── README.md                                   # Résumé et instructions pour exécuter le projet
+└── requirements.txt                            # Liste des bibliothèques et dépendances nécessaires
 ```
 </details>
 
 ## 2.2 Installation et dépendances
 
-Avant de commencer le développement et l'analyse des données, il est nécessaire de configurer l'environnement de travail en installant toutes les dépendances nécessaires. Voici les étapes à suivre pour préparer le projet :
+Avant de commencer le développement et l’analyse des données, il est nécessaire de configurer l’environnement de travail en installant toutes les dépendances requises. Suivez les étapes ci-dessous pour configurer rapidement et exécuter le projet :
 
-### Étapes de Préparation :
-1. **Cloner le Dépôt Git** :  
-   Téléchargez le projet en exécutant :
-   ```bash
-   git clone https://github.com/mscaia/PROJ_HAX712X.git
-   ```
+1. **Cloner le dépôt**
 
-2. **Installer les Dépendances** :  
-   Installez les bibliothèques nécessaires :
-   ```bash
-   pip install -r requirements.txt
-   ```
+Clonez le répertoire du projet et accédez-y
 
-3. **Prévisualiser le Site Web** :  
-   Vérifiez l’environnement en lançant le serveur Quarto :
-   ```bash
-   quarto preview
-   ```
+```bash
+git clone https://github.com/mscaia/PROJ_HAX712X.git
+cd PROJ_HAX712X
+```
 
-## 2.3 Configuration des fichiers [**Sphinx** - CHEKED]
+2. **Configurer l’environnement**
 
-Le projet est configuré de manière à utiliser **Quarto** pour la création du site web interactif et [**Sphinx** pour la documentation générée automatiquement]. Le fichier `_quarto.yml` contient les paramètres de configuration du projet Quarto, tandis que le fichier `index.qmd` contient le contenu principal de la page d'accueil du site.
+Créez et activez un environnement virtuel avec Conda
 
-## 2.4 Base de données et traitement des données [SHOULD BE RECHEKED AFTER]
+```bash
+conda create --name Cycle3 python=3.9.18
+conda activate Cycle3
+```
+
+Installez les dépendances listées dans `requirements.txt`
+
+```bash
+pip install -r requirements.txt
+```
+
+3. **Exécuter les scripts**
+
+Pour plus de détails sur les visualisations et les fonctionnalités avancées, consultez la [section 9](#guide-de-lutilisateur).
+
+## 2.3 Configuration des fichiers
+
+Le projet est configuré de manière à utiliser **Quarto** pour la création du site web interactif et **Sphinx** pour tenter une génération automatique de la documentation. Toute la documentation a été initialement rédigée en utilisant des fichiers `.qmd`, en cohérence avec le reste du site. 
+
+Le fichier `_quarto.yml` contient les paramètres de configuration du projet Quarto, tandis que le fichier `index.qmd` contient le contenu principal de la page d'accueil du site.
+
+## 2.4 Base de données et traitement des données
 
 Les principaux jeux de données sont stockés dans le répertoire `data/` et comprennent :
 
 - **CoursesVelomagg.csv** : Historique des trajets en vélos libres.  
 - **video.csv** et **video_avec_coord.csv** : Données vidéo pour l’analyse spatiale.
 
-Les scripts situés dans `src/` effectuent :
+Le traitement des données est assuré par les scripts situés dans le répertoire `src/` :
 
-- Le nettoyage des données.  
-- La conversion des formats pour l’analyse.  
+- **donnée.py** : Fonctions pour gérer et structurer les données brutes.  
+- **fonctions_basedonnees.py** : Fonctions spécifiques aux bases de données.  
+- **gestion_donnee.py** : Classe principale pour le traitement et la transformation des données.
+
+Les résultats de l’analyse sont exploités dans le répertoire `Cycle3/`, qui contient notamment des scripts pour :
+
+- L’analyse exploratoire des données (`analyse_donnee/`).  
+- La visualisation cartographique (`map/`).  
+- La modélisation prédictive (`prediction/`). 
 
 ## 2.5 Exécution du projet
 
@@ -150,7 +156,7 @@ L’exécution du projet génère des visualisations interactives et des cartes 
 - *Folium* : Création de cartes interactives.  
 - *Matplotlib* : Graphiques statistiques.  
 
-Les résultats sont stockés dans `visualisation/` et incluent des cartes des trajets et des prévisions de trafic.
+Les résultats sont stockés dans `Cycle3/visualisation/` et incluent des cartes des trajets et des prévisions de trafic.
 
 ## 2.6 Documentation et tests [FINISH AND RECHECKED]
 
@@ -159,7 +165,7 @@ Pour garantir la qualité du code, le projet intègre :
 - **Tests Unitaires** : Vérification des fonctionnalités principales.  
 - **Documentation Technique** : Générée avec **Sphinx** et **Quarto** pour détailler les API, les méthodes et les résultats.
 
-# 3. Description des Données [RECHECK ABOUT THE DATASETS WITH TEAM]
+# 3. Description des Données
 
 L’analyse repose sur l’exploitation de trois ensembles de données principaux, chacun jouant un rôle clé dans l’étude des trajets cyclistes à Montpellier :
 
@@ -172,7 +178,7 @@ L’analyse repose sur l’exploitation de trois ensembles de données principau
 - **Données géographiques OpenStreetMap (OSM)** : Ces données géographiques offrent une cartographie précise des rues, pistes cyclables et points d’intérêt de la ville. Elles sont cruciales pour la visualisation et la spatialisation des trajets étudiés.  
   *Source*: [OpenStreetMap](https://www.openstreetmap.org/#map=6/46.45/2.21)  
 
-Ces trois ensembles de données, complémentaires par nature, permettent une analyse approfondie et multidimensionnelle du trafic cycliste à Montpellier.
+Ces trois ensembles de données, permettent une analyse approfondie et multidimensionnelle du trafic cycliste à Montpellier.
 
 # 4. Workflow du Projet
 
@@ -1444,7 +1450,7 @@ pip install -r requirements.txt
 ```
 Après cette commande, l'environnement virtuel `Cycle3` occupera environ 1 Go de votre espace. Vous êtes maintenant prêt à utiliser notre projet avec tous les packages nécessaires.
 
-## 9.3 Comment lancer certain script.
+## 9.3 Comment lancer certain script
 
 Tous les scripts doivent être exécutés depuis le terminal. Assurez-vous que vous êtes dans la racine du projet, nommée `PROJ_HAX712X`. Dans les chemins relatifs, `./ `fait référence à la racine du projet.
 
@@ -1470,13 +1476,18 @@ Vous y trouverez des fichiers `.html` et `.png`.
 ### Visualisation des cartes
 
 Dans le dossier `./Cycle3/map/`, vous trouverez trois fichiers `.py` différents pour travailler avec les cartes :
-1. `carte.py` : Affiche la disponibilité en temps réel des vélos dans les stations Vélomagg de Montpellier.
+
+1. `carte.py` 
+
+Affiche la disponibilité en temps réel des vélos dans les stations Vélomagg de Montpellier.
 ```bash
  python ./Cycle3/map/carte.py 
 ```
 La carte générée est sauvegardée dans `./docs/montpellier_bike_stations_map.html.`
 
-2. `map.py` : Effectue une simulation de trajet. L'interactivité se fait via le terminal
+2. `map.py`
+
+Effectue une simulation de trajet. L'interactivité se fait via le terminal
 ```bash
  python ./Cycle3/map/map.py 
 ```
@@ -1486,7 +1497,7 @@ La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpell
 
 Nous avons lié les scripts `./Cycle3/map/map_trajet_BD.py` et `./Cycle3/vidéo/vidéo.py` pour analyser les trajets d'un jour spécifique et les transformer en vidéo. 
 
-#### Etape 1 : Choisir le jour dans `map_trajet_BD.py`
+1. **Choisir le jour dans `map_trajet_BD.py`**
 
 Lancez la commande suivante pour sélectionner le jour que vous souhaitez analyser. Vous aurez la possibilité de tracer ou non les trajets, et de définir le nombre de trajets à afficher.
 ```bash
@@ -1494,7 +1505,7 @@ Lancez la commande suivante pour sélectionner le jour que vous souhaitez analys
 ```
 La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html`
 
-#### Etape 2 : Création de la vidéo
+2. **Création de la vidéo**
 
 **Attention : Ce processus peut être long. Veuillez vous référer à la section 8. Performance Analysis de la documentation pour plus d'informations.**
 Lancez la commande suivante pour créer la vidéo :
@@ -1506,6 +1517,7 @@ Vous pourrez choisir le nombre de trajets à afficher. La vidéo générée sera
 ## 9.4 Création et utilisation du site 
 
 Voici quelques étapes pour la création et l'utilisation d'un site Quarto comme celui que nous avons créé.
+
 1. **Installation de Quarto**
 
 Téléchargez et installez Quarto depuis [quarto.org/download](https://quarto.org/download). Prenez bien soin d'ajouter Quarto à vos variables d'environnements.
@@ -1539,19 +1551,27 @@ Vous pouvez ensuite taper les commandes suivantes (toujours dans le répertoire 
 Le site sera alors déployé à votre prochain push !
 
 ## 9.5 Suppression de l'environnement virtuel
-1. Désactivez l'environnement
+
+Si vous n'avez plus besoin de l'environnement virtuel et souhaitez le supprimer définitivement, suivez les étapes ci-dessous :
+
+1. **Désactivez l'environnement**
+
 ```bash
  conda deactivate
 ```
-2. Supprimez l'environnement Conda
+
+2. **Supprimez l'environnement Conda**
+
 ```bash
 conda env remove --name Cycle3
 ```
-3. Vérifiez que l'environnement a été supprimé
+3. **Vérifiez que l'environnement a été supprimé**
+
 ```bash
 conda env list
 ```
-Vous ne devez plus voir l'environnement `Cycle3`.
+
+Si l'environnement `Cycle3` a été correctement supprimé, vous ne le verrez plus dans la liste des environnements disponibles.
 
 # 10. Travaux futurs
 
