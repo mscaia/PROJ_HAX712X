@@ -86,26 +86,30 @@ Vous pourrez choisir le nombre de trajets à afficher. La vidéo générée sera
 ## 4. Création et utilisation du site 
 Voici quelques étapes pour la création et l'utilisation d'un site Quarto comme celui que nous avons créé.
 1. **Installation de Quarto**
+
 Téléchargez et installez Quarto depuis [quarto.org/download](https://quarto.org/download). Prenez bien soin d'ajouter Quarto à vos variables d'environnements.
 
-2. **Création du projet**
+1. **Création du projet**
+
 Puis, ouvrez un terminal et exécutez les commandes suivantes :
 ```bash
 mkdir docs
 cd docs
 quarto create-project nom_du_projet --type website
 ```
-3. **Ajout de contenu**
+1. **Ajout de contenu**
 - Ajoutez des fichiers .qmd dans le dossier docs pour enrichir le site.
 - Modifiez le fichier _quarto.yml pour personnaliser la structure et les paramètres du site.
 
-4. **Prévisualisation locale**
+1. **Prévisualisation locale**
+
 Le site peut ensuite être lancé via la commande suivante dans le répertoire `./docs/`.
 ```bash
  quarto preview
 ```
 
-5. **Déploiement sur GitHub**
+1. **Déploiement sur GitHub**
+
 Dans les paramètres de votre projet Github, allez dans GitHub Pages puis dans la section *Build and Deployment*. Dans l'onglet "Source" sélectionnez *Deploy from a branch* et en dessous sélectionnez la branche *main* et le dossier *docs*.
 Vous pouvez ensuite taper les commandes suivantes (toujours dans le répertoire `./docs/`) dans un terminal :
 ```bash
