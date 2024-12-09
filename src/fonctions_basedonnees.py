@@ -11,7 +11,7 @@ import folium
 import osmnx as ox
 from functools import lru_cache
 
-#Fonction qui donne le colonne i du tableau voulu: 
+# Fonction qui donne le colonne i du tableau voulu 
 def colonne(i, w_file):
     """
     Description :
@@ -34,7 +34,7 @@ def colonne(i, w_file):
             L.append(x[i])
     return L         
 
-#Fonction qui retourne toutes les valeurs dans la colonne j quand l'argument de la colonne i est k 
+# Fonction qui retourne toutes les valeurs dans la colonne j quand l'argument de la colonne i est k 
 def arg(k,i,j, w_file):
     """
     Description :
@@ -63,7 +63,7 @@ def arg(k,i,j, w_file):
                 L.append(x[j])
     return L 
 
-# Fonction qui permet de transforme les données date du dataframe en donnée exploitable.
+# Fonction qui permet de transformer les données 'date' du dataframe en données exploitables
 def pd_to_datetime(df, colonne_date):
     """
     Description :
@@ -85,7 +85,7 @@ def pd_to_datetime(df, colonne_date):
     df = df.drop(columns=[colonne_date])
     return df
 
-#Fonction qui permet d'enlever les bruits dans les chaines de caractère d'un dataframe
+# Fonction qui permet d'enlever les bruits dans les chaînes de caractère d'un dataframe
 def nettoyer_adresse_normalise(adresse):
     """
     Description :

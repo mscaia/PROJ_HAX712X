@@ -6,7 +6,7 @@ import networkx as nx
 ville = "Montpellier, France"
 G = ox.graph_from_place(ville, network_type="all")
 
-# Import des noms de station de vélo
+# Import des noms de stations de vélos
 stations = ox.geometries_from_place(ville, tags={'amenity': 'bicycle_rental'})
 stations = stations['name'].dropna()
 Liste_des_stations = stations.tolist()

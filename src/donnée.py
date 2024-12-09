@@ -2,6 +2,7 @@ import os,sys
 # Ajouter la racine du projet au chemin Python
 racine_du_projet = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 sys.path.insert(0, racine_du_projet)
+
 # Import de la classe GestionnaireDonnees
 from src.gestion_donnee import *
 

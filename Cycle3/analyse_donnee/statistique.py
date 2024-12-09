@@ -6,8 +6,8 @@ import kaleido
 import numpy as np
 
 #%%
-#Script pour tracer les diagrammes en barre et pour faire les diagrammes circulaires du cour HAX712X.
-for i in range(4):  #Parcourir les 4 jeux de donnés.
+# Script pour tracer les diagrammes en barre et pour faire les diagrammes circulaires du cours HAX712X.
+for i in range(4):  # Parcourir les 4 jeux de données.
     if i==0 :
         chemin ="./data/CoursesVelomagg.csv"
         annee = 2024
@@ -23,7 +23,7 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
     # Traitement du dataframe
     df_coursesvelomagg = pd.read_csv(chemin)
     if i==1:
-        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') #Mauvais format
+        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') # Mauvais format
     df_coursesvelomagg_traité = df_coursesvelomagg
     # Convertir la colonne 'Departure' en datetime
     df_coursesvelomagg_traité['Departure'] = pd.to_datetime(df_coursesvelomagg_traité['Departure'])
@@ -51,7 +51,7 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
     plt.savefig(f"./docs/projet1_files/figure-html/Nb_trajet_par_{annee}")
     plt.close()
 
-    # Traitement de donnée pour avoir un graphique avec les jours,heures et le nombre de vélo comme sur la leçon disponible sur moodle.
+    # Traitement des données pour avoir un graphique avec les jours, heures et le nombre de vélos comme sur la leçon disponible sur moodle.
     df_bikes = df_coursesvelomagg_traité.set_index('Departure')
     df_bikes["Jour"] = df_bikes.index.dayofweek  #[0-6] -> Lundi - Dimanche
 
@@ -80,7 +80,7 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
         "Saturday": "Samedi",
         "Sunday": "Dimanche"
     }
-    df_polar["Jour"] = df_polar["Jour"].replace(traduction_jours_complets) #traduction des jours
+    df_polar["Jour"] = df_polar["Jour"].replace(traduction_jours_complets) # Traduction des jours
 
     # Définition des couleurs
     n_colors = 8  # Nombre de couleurs
@@ -94,8 +94,8 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
     # Création de la figure
     fig = px.line_polar(
         df_polar,
-        r="Moyenne trajets",  # Utilisez le nombre de trajets comme rayon
-        theta="heure",  # Utilisez l'heure comme angle
+        r="Moyenne trajets",  # Utiliser le nombre de trajets comme rayon
+        theta="heure",  # Utiliser l'heure comme angle
         color="Jour",
         line_close=True,
         range_r=[0, df_polar["Moyenne trajets"].max() + 5],
@@ -113,7 +113,7 @@ for i in range(4):  #Parcourir les 4 jeux de donnés.
 compteur_stations_cumulé = {}
 distance = []
 # Script pour savoir quelles stations sont les plus utilisées et la distance moyenne parcourue en vélo au fil des années, des mois.
-for i in range(4):  #Parcourir les 5 jeux de donnés.
+for i in range(4):  # Parcourir les 5 jeux de données.
     if i==0 :
         chemin ="./data/extracted/TAM_MMM_CoursesVelomagg_2021.csv"
         annee = 2021
@@ -127,15 +127,15 @@ for i in range(4):  #Parcourir les 5 jeux de donnés.
         chemin ="./data/CoursesVelomagg.csv"
         annee = 2024
     # Traitement du dataframe
-    #Extraire notre dataframe
+    # Extraire notre dataframe
     df_coursesvelomagg = pd.read_csv(chemin)
     if i==0:
-        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') #Mal représenté
+        df_coursesvelomagg = pd.read_csv(chemin, delimiter=';') # Mal représenté
     df_coursesvelomagg_traité = df_coursesvelomagg
-    # Prendre le nom de nos station, et on prend seulement les valeurs uniques (sans doublons de station)
+    # Prendre le nom de nos stations, et prendre seulement les valeurs uniques (sans doublons de station)
     Stations = df_coursesvelomagg_traité['Departure station']
     Stations = Stations.unique()
-    # On va compter le nombre de trajet vers une station.
+    # Compter le nombre de trajet vers une station.
     compteur_stations = {station: 0 for station in Stations}
     for station in Stations:
         trajet_vers_station = df_coursesvelomagg_traité['Return station'].value_counts().get(station, 0)
@@ -162,7 +162,7 @@ compteur_stations_cumulé = dict(filter(lambda item: item[1] >= 20000, compteur_
 # Tracer le graphique
 stations = list(compteur_stations_cumulé.keys())  # Stations sur l'axe des x
 trajets = list(compteur_stations_cumulé.values())  # Nombre de trajets sur l'axe des y
-#Tracer pour les sations
+# Tracer pour les stations
 # Création du graphique
 plt.figure(figsize=(10, 6))
 plt.bar(stations, trajets, color='skyblue')

@@ -17,21 +17,21 @@ G = ox.graph_from_place(ville, network_type="all")
 # Créer une carte globale centrée sur Montpellier
 m = folium.Map(location=[43.6114, 3.8767], zoom_start=13)  # Coordonnées du centre Montpellier
 
-#Extraire notre dataframe
+# Extraire notre dataframe
 df_coursesvelomagg_traité = pd.read_csv("./data/CoursesVelomagg.csv").dropna()
 
 
 # Extraire les trajets avec les noms des stations aller et le nom des stations retours
 liste_des_trajets = df_coursesvelomagg_traité[['Departure','Departure station', 'Return station','Covered distance (m)', 'Duration (sec.)']]
 
-#Convertir + nettoyer les colonnes
-#Convertie les donnée date en datetime pour que la machine puisse comprendre les dates
-liste_des_trajet_DBF =liste_des_trajets #pd_to_datetime(df_coursesvelomagg_traité, 'Departure')
-#Nettoie le dataframe des mauvais caractères qui bruitent l'analyse
+# Convertir + nettoyer les colonnes
+# Convertie les données date en datetime pour que la machine puisse comprendre les dates
+liste_des_trajet_DBF =liste_des_trajets # pd_to_datetime(df_coursesvelomagg_traité, 'Departure')
+# Nettoyer le dataframe des mauvais caractères qui bruitent l'analyse
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].apply(nettoyer_adresse_normalise)
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].apply(nettoyer_adresse_normalise)
 
-# Traite un cas.
+# Traite un cas
 # Remplacer les valeurs dans les colonnes 'Departure station' et 'Return station'
 liste_des_trajet_DBF['Departure station'] = liste_des_trajet_DBF['Departure station'].replace("FacdesSciences", "Faculté des sciences")
 liste_des_trajet_DBF['Return station'] = liste_des_trajet_DBF['Return station'].replace("FacdesSciences", "Faculté des sciences")
@@ -51,7 +51,7 @@ date = input("Veuillez choisir une date parmi la liste des dates (AAAA-MM-JJ) : 
 
 # Sélectionner les trajets du jour
 trajets_du_jour = liste_des_trajet_DBF[liste_des_trajet_DBF['Departure'].str.startswith(date)]
-trajets_du_jour = trajets_du_jour.reset_index(drop=True) #Evite les erreurs pour les index
+trajets_du_jour = trajets_du_jour.reset_index(drop=True) # Evite les erreurs pour les index
 
 nb_ref = len(trajets_du_jour)
 print(f"Nous avons {nb_ref} référence(s) à cette date.")
@@ -102,6 +102,6 @@ m.save("./Cycle3/visualisation/carte_montpellier_trajet_via_BD.html")
 # Afficher un message pour indiquer que la carte est prête
 print("La carte a été sauvegardée sous './Cycle3/visualisation/carte_montpellier_trajet_via_BD.html'.")
 
-#Création d'un csv pour la suite du processus et obtenir une vidéo sur le jour qui nous interesse.
+# Création d'un csv pour la suite du processus et obtenir une vidéo sur le jour qui nous intéresse.
 data = trajets_du_jour[['Departure', 'Departure station', 'Return station', 'Covered distance (m)', 'Duration (sec.)']]
 data.to_csv('./data/video.csv', index=False)

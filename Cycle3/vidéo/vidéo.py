@@ -13,16 +13,16 @@ from src.fonctions_basedonnees import *
 import datetime
 coordonne.cache_clear()
 
-#Recupère le dataframe créer lors du fichier map_trajet_BD.py
+# Recupère le dataframe créer lors du fichier map_trajet_BD.py
 data = pd.read_csv("./data/video.csv").dropna()
 
-#Traitement de cette nouvelle base de donnée pour optimiser la vidéo.
-#On enlève les trajets vers AtelierTAM
+# Traitement de cette nouvelle base de donnée pour optimiser la vidéo.
+# On enlève les trajets vers AtelierTAM
 data= data[data['Departure station'] != 'AtelierTAM']
 data= data[data['Return station'] != 'AtelierTAM']
 data = data.dropna(subset=['Duration (sec.)'])
 data['Departure'] = pd.to_datetime(data['Departure']) 
-data = data.sort_values(by='Departure', ascending=True)      # trie par date
+data = data.sort_values(by='Departure', ascending=True)      # Trie par date
 data.reset_index(drop=True, inplace=True)                    # Nouvelle numérotation
 
 # Obtenir les noms de stations uniques
