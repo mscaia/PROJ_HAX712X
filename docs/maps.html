@@ -103,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Analyse des données</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projet2.html">
+    <a class="dropdown-item" href="./maps.html">
  <span class="dropdown-text">Cartes</span></a>
   </li>  
         <li>
@@ -284,14 +284,14 @@ Carte des trajets
             if (type === 'intensity-heat') {
                 // Pour la carte heat, uniquement la date est utilisée
                 const date = document.getElementById('date-intensity-heat').value;
-                fichierCarte = `projet2_files/cartes_intensity_heat/intensity_heat_${date}.html`;
+                fichierCarte = `maps_files/figure-html/cartes_intensity_heat/intensity_heat_${date}.html`;
             } else {
                 // Pour les autres cartes, la date et l'heure sont utilisées
                 const date = document.getElementById(`date-${type}`).value;
                 const heure = document.getElementById(`heure-${type}`).value;
                 fichierCarte = (type === 'intensity')
-                    ? `projet2_files/cartes_intensity/intensity_${date}_${heure}.html`
-                    : `projet2_files/cartes_trajets/trajets_${date}_${heure}.html`;
+                    ? `maps_files/figure-html/cartes_intensity/intensity_${date}_${heure}.html`
+                    : `maps_files/figure-html/cartes_trajets/trajets_${date}_${heure}.html`;
             }
 
             // Supprimer l'iframe existante (s'il y en a une)
