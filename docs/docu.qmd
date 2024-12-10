@@ -1383,9 +1383,76 @@ print(chemin_extraction)  # "./data/extracted/"
 
 En résumé, la classe `GestionnaireDonnees` centralise les opérations courantes liées à la gestion des données dans notre projet, rendant le processus plus fluide et réutilisable. Elle offre des méthodes pour télécharger des fichiers, charger des données à partir de CSV et extraire des fichiers ZIP, ce qui constitue la base de notre système de traitement des données.
 
-# 7. Testing
+# 7. Tests
 
-[tests]
+## 7.1 Introduction
+
+Les tests jouent un rôle essentiel dans le développement du projet **CycleVision3**. Ils garantissent la fiabilité des modules, réduisent les risques d’erreurs et assurent une qualité élevée du code. Dans ce projet, nous avons mis l’accent sur les tests unitaires, couvrant les principaux composants fonctionnels.
+
+Les tests réalisés incluent la validation des fonctionnalités suivantes :
+
+- Traitement des données ;
+- Gestion des données via des classes spécifiques ;
+- Génération de cartes interactives ;
+- Prédictions basées sur des algorithmes ;
+- Analyse statistique ;
+- Visualisation vidéo.
+
+## 7.2 Organisation des tests
+
+Les tests sont organisés dans le dossier `tests/`, qui contient plusieurs fichiers, chacun dédié à un module spécifique du projet :
+
+- `test_donnée.py` : Vérifie les fonctions du fichier `donnée.py` ;
+- `test_gestion_donnee.py` : Teste la classe `GestionnaireDonnees` du fichier `gestion_donnee.py` ;
+- `test_map.py` : Valide les fonctionnalités de création de cartes dans `map.py` ;
+- `test_prediction.py` : Vérifie les algorithmes de prédiction ;
+- `test_statistique.py` : Analyse les fonctions statistiques de `statistique.py` ;
+- `test_video.py` : Teste les outils de traitement vidéo de `video.py`.
+
+## 7.3 Description des tests par fichier
+
+<details>
+<summary> `test_donnée.py`</summary>
+
+- **Objectif** : Valider les fonctions liées au traitement des données brutes.
+
+- **Scénarios principaux** :
+  - Chargement et validation des formats de données ;
+  - Gestion des erreurs pour des fichiers incorrects ou incomplets.
+</details>
+
+
+### `test_gestion_donnee.py`
+- **Objectif** : Tester les méthodes de la classe `GestionnaireDonnees`.
+- **Scénarios principaux** :
+  - Initialisation avec différents types de données (valides et invalides) ;
+  - Filtrage, tri et exportation des données ;
+  - Gestion des exceptions.
+
+### `test_map.py`
+- **Objectif** : Vérifier les fonctions de création de cartes interactives.
+- **Scénarios principaux** :
+  - Génération de cartes avec des données correctes ;
+  - Validation des couches et éléments interactifs ;
+  - Gestion des cas où les données sont manquantes.
+
+(... ajoute des sections similaires pour les autres fichiers testés.)
+
+## 7.4 Résultats des tests [RECHEK]
+
+Tous les modules ont été testés avec succès, et les bugs identifiés ont été corrigés. Une couverture élevée du code a été atteinte grâce à l’utilisation de [outil utilisé, par ex. `pytest-cov`].  
+La commande suivante permet d’exécuter tous les tests :
+
+```bash
+pytest tests/
+```
+## 7.5 Intégration continue [RECHEK]
+
+Les tests sont intégrés au processus d’intégration continue (CI) via GitHub Actions. Cela garantit que chaque mise à jour du code est automatiquement testée, minimisant ainsi les risques d’introduire des régressions.
+
+## 7.6 Conclusion
+
+Les tests réalisés ont permis de valider la majorité des fonctionnalités critiques du projet. Toutefois, des améliorations supplémentaires pourraient être envisagées, notamment pour couvrir des cas d’utilisation moins fréquents ou des scénarios extrêmes.
 
 # 8. Performance Analysis
 
