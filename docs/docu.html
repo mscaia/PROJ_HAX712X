@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -64,15 +64,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./favicon/favicon-32x32.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f3c2ea88cadbcfb37ba28ffa2c97cfc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -212,12 +213,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#class-gestionnairedonnees" id="toc-class-gestionnairedonnees" class="nav-link" data-scroll-target="#class-gestionnairedonnees">6.3 Class “GestionnaireDonnees”</a></li>
   </ul></li>
-  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">7. Testing</a></li>
+  <li><a href="#tests" id="toc-tests" class="nav-link" data-scroll-target="#tests">7. Tests</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">7.1 Introduction</a></li>
+  <li><a href="#organisation-des-tests" id="toc-organisation-des-tests" class="nav-link" data-scroll-target="#organisation-des-tests">7.2 Organisation des tests</a></li>
+  <li><a href="#description-des-tests-par-fichier" id="toc-description-des-tests-par-fichier" class="nav-link" data-scroll-target="#description-des-tests-par-fichier">7.3 Description des tests par fichier</a></li>
+  <li><a href="#résultats-des-tests" id="toc-résultats-des-tests" class="nav-link" data-scroll-target="#résultats-des-tests">7.4 Résultats des tests</a></li>
+  <li><a href="#intégration-continue-rechek" id="toc-intégration-continue-rechek" class="nav-link" data-scroll-target="#intégration-continue-rechek">7.5 Intégration continue [RECHEK]</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">7.6 Conclusion</a></li>
+  </ul></li>
   <li><a href="#performance-analysis" id="toc-performance-analysis" class="nav-link" data-scroll-target="#performance-analysis">8. Performance Analysis</a>
   <ul class="collapse">
   <li><a href="#pour-map_trajet_bd.py" id="toc-pour-map_trajet_bd.py" class="nav-link" data-scroll-target="#pour-map_trajet_bd.py">8.1 Pour <strong>map_trajet_BD.py</strong></a></li>
   <li><a href="#pour-vidéo.py" id="toc-pour-vidéo.py" class="nav-link" data-scroll-target="#pour-vidéo.py">8.2 Pour <strong>vidéo.py</strong></a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">8.3 Conclusion</a></li>
+  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1">8.3 Conclusion</a></li>
   </ul></li>
   <li><a href="#guide-de-lutilisateur" id="toc-guide-de-lutilisateur" class="nav-link" data-scroll-target="#guide-de-lutilisateur">9. Guide de l’utilisateur</a>
   <ul class="collapse">
@@ -344,6 +353,7 @@ Voir la structure
 │   ├── donnée.py                               # Fonctions de traitement des données
 │   ├── fonctions_basedonnees.py                # Fonctions pour les bases de données
 │   └── gestion_donnee.py                       # Classe "GestionnaireDonnees" pour le traitement des données
+├── test/                                       # Répertoire contenant le code pour les tests
 ├── .gitignore                                  # Liste des fichiers ignorés par Git
 ├── LICENCE                                     # Informations sur la licence du projet
 ├── README.md                                   # Résumé et instructions pour exécuter le projet
@@ -1335,76 +1345,76 @@ Convertit une colonne d’un DataFrame Pandas en type datetime. Supprime les val
 <code>chemin_court(row)</code>
 </summary>
 <p><strong>Description</strong>:<br>
-Calcule le chemin le plus court entre deux stations à l’aide du graphe routier de Montpellier, basé sur leurs coordonnées géographiques.</p>
+Cette fonction calcule le chemin le plus court entre deux stations à l’aide du graphe routier de Montpellier. Les coordonnées géographiques des stations sont utilisées comme points de départ et d’arrivée.</p>
 <p><strong>Paramètres</strong>:<br>
-- <code>row</code> (pandas.Series) : Une ligne du DataFrame contenant les coordonnées des stations de départ et d’arrivée.</p>
+- <code>row (pandas.Series)</code> : Une ligne issue du DataFrame contenant les coordonnées de départ et d’arrivée des trajets.</p>
 <p><strong>Retourne</strong>:<br>
-- <code>chemin</code> (list) : Une liste d’identifiants de nœuds représentant le chemin.<br>
-- <code>duration</code> (float) : La durée du trajet en secondes.</p>
-<p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> chemin_court(row):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        depart_lat, depart_lon <span class="op">=</span> row[<span class="st">'latitude_depart'</span>], row[<span class="st">'longitude_depart'</span>]</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        arrivee_lat, arrivee_lon <span class="op">=</span> row[<span class="st">'latitude_retour'</span>], row[<span class="st">'longitude_retour'</span>]</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        duration <span class="op">=</span> row[<span class="st">'Duration (sec.)'</span>]</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        noeud_deb <span class="op">=</span> ox.distance.nearest_nodes(G, depart_lon, depart_lat)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        noeud_fin <span class="op">=</span> ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        chemin <span class="op">=</span> nx.shortest_path(G, noeud_deb, noeud_fin, weight<span class="op">=</span><span class="st">"length"</span>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> chemin, duration</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Erreur pour le trajet entre </span><span class="sc">{</span>row[<span class="st">'Departure station'</span>]<span class="sc">}</span><span class="ss"> et </span><span class="sc">{</span>row[<span class="st">'Return station'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>, <span class="va">None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Exemple d’utilisation</strong>:<br>
-Pour une ligne contenant les colonnes <code>latitude_depart</code>, <code>longitude_depart</code>, etc., cette fonction renvoie le chemin le plus court entre deux points.</p>
-[PUT ILLUSTRATION OF GRAPH ROUTE HERE]
+- <code>chemin (list)</code> : Une liste d’identifiants représentant le chemin optimal.<br>
+- <code>duration (float)</code> : La durée totale en secondes pour le trajet donné.</p>
+<p><strong>Code de la fonction</strong>:<br>
+```python def chemin_court(row): try: depart_lat, depart_lon = row[‘latitude_depart’], row[‘longitude_depart’] arrivee_lat, arrivee_lon = row[‘latitude_retour’], row[‘longitude_retour’] duration = row[‘Duration (sec.)’]</p>
+<pre><code>    noeud_deb = ox.distance.nearest_nodes(G, depart_lon, depart_lat)
+        noeud_fin = ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)
+        
+        chemin = nx.shortest_path(G, noeud_deb, noeud_fin, weight="length")
+        return chemin, duration
+    except Exception as e:
+        print(f"Erreur pour le trajet entre {row['Departure station']} et {row['Return station']}: {e}")
+        return None, None
+```
+
+**Exemple d'utilisation**:  
+Lorsqu'une ligne du DataFrame est passée, cette fonction renvoie le chemin le plus court calculé sur la base du graphe routier et la durée du trajet.</code></pre>
 </details>
 <details>
 <summary>
 <code>init()</code>
 </summary>
 <p><strong>Description</strong>:<br>
-Initialise les points de départ pour chaque trajet dans la visualisation.</p>
+Initialise l’animation en réinitialisant la position des points. Les points sont effacés pour chaque frame, leur état est remis à vide pour commencer l’animation depuis le début.</p>
 <p><strong>Retourne</strong>:<br>
-- <code>points</code> (list) : Une liste d’objets matplotlib représentant les points animés.</p>
-<p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init():</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> point <span class="kw">in</span> points:</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        point.set_data([], [])</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    time_text.set_text(<span class="st">''</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points <span class="op">+</span> [time_text]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-[PUT ILLUSTRATION OF INITIALIZATION STEP HERE]
+- <code>points (list)</code> : Une liste d’objets <code>matplotlib</code> représentant les points à animer.</p>
+<p><strong>Code de la fonction</strong>:<br>
+<code>python     def init():         for point in points:             point.set_data([], [])         return points</code></p>
+<p><strong>Exemple d’utilisation</strong>:<br>
+Cette fonction est utilisée comme étape préliminaire pour configurer l’état de l’animation avant chaque itération.</p>
 </details>
 <details>
 <summary>
 <code>update(frame)</code>
 </summary>
 <p><strong>Description</strong>:<br>
-Met à jour les positions des points dans l’animation en fonction de la progression du chemin pour chaque trajet.</p>
+Met à jour dynamiquement les positions des points pour chaque frame dans l’animation. Chaque point suit sa progression en fonction de la simulation temporelle et de la base de données des trajets.</p>
 <p><strong>Paramètres</strong>:<br>
-- <code>frame</code> (int) : L’indice actuel de la frame dans l’animation.</p>
+- <code>frame (int)</code> : L’index de la frame actuelle dans la séquence d’animation.</p>
 <p><strong>Retourne</strong>:<br>
-- <code>points</code> (list) : Les points mis à jour pour la frame actuelle.</p>
-<p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update(frame):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculer l'heure actuelle</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    current_time <span class="op">=</span> start_time <span class="op">+</span> datetime.timedelta(seconds<span class="op">=</span>frame <span class="op">*</span> frame_duration)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    time_text.set_text(current_time.strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>))</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, path <span class="kw">in</span> <span class="bu">enumerate</span>(paths):</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        progress <span class="op">=</span> <span class="bu">min</span>(frame <span class="op">/</span> total_frames, <span class="dv">1</span>)  <span class="co"># Progression en fonction de total_frames</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        num_nodes <span class="op">=</span> <span class="bu">int</span>(progress <span class="op">*</span> <span class="bu">len</span>(path))</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> num_nodes <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>            current_node <span class="op">=</span> path[num_nodes <span class="op">-</span> <span class="dv">1</span>]</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            x, y <span class="op">=</span> G.nodes[current_node][<span class="st">'x'</span>], G.nodes[current_node][<span class="st">'y'</span>]</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            points[i].set_data([x], [y])</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<strong>Exemple d’utilisation</strong>:<br>
-Chaque frame de l’animation appelle cette fonction pour mettre à jour les points. La progression est calculée en fonction de <code>frame</code> et du nombre total de frames.
+- <code>points (list)</code> : Les nouvelles positions des points mis à jour pour l’animation.</p>
+<p><strong>Code de la fonction</strong>:<br>
+```python def update(frame): current_time = start_time + datetime.timedelta(seconds=frame * frame_duration) time_text.set_text(current_time.strftime(‘%Y-%m-%d %H:%M:%S’))</p>
+<pre><code>for i, path in enumerate(paths):
+        progress = min(frame / total_frames, 1)  
+        num_nodes = int(progress * len(path))
+
+        if num_nodes &gt; 0:
+            current_node = path[num_nodes - 1]
+            x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
+            points[i].set_data([x], [y])
+
+    return points
+```
+
+**Exemple d'utilisation**:  
+Chaque frame appelée dans la boucle d'animation utilise cette fonction pour déplacer les points selon la progression de leur chemin respectif.</code></pre>
 </details>
+<section id="contexte-et-explications-supplémentaires" class="level4">
+<h4 class="anchored" data-anchor-id="contexte-et-explications-supplémentaires">Contexte et Explications supplémentaires</h4>
+<p>Cette section traite du fonctionnement global :</p>
+<ul>
+<li>Les trajets sont analysés grâce à un graphe routier avec la base OSM.</li>
+<li>Chaque point représente un véhicule dans le réseau routier avec ses trajets correspondant à la base donnée <code>video_avec_coord.csv</code>.</li>
+<li>L’animation est synchronisée avec la base de données et simule la trajectoire temporelle.</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="class-gestionnairedonnees" class="level2">
@@ -1430,14 +1440,14 @@ Initialise le répertoire de téléchargement pour stocker les fichiers téléch
 <p><strong>Retourne</strong>:<br>
 - Rien. Cette méthode configure uniquement les attributs d’instance.</p>
 <p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, repertoire_telechargement<span class="op">=</span><span class="st">"./data"</span>):</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.repertoire_telechargement <span class="op">=</span> repertoire_telechargement</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="va">self</span>.repertoire_telechargement, exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, repertoire_telechargement<span class="op">=</span><span class="st">"./data"</span>):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.repertoire_telechargement <span class="op">=</span> repertoire_telechargement</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="va">self</span>.repertoire_telechargement, exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Explication</strong>:<br>
 Le constructeur utilise la fonction <code>os.makedirs</code> pour s’assurer que le répertoire de téléchargement existe avant toute opération. Cela évite des erreurs lors des téléchargements futurs.</p>
 <p><strong>Exemple d’utilisation</strong>:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gestionnaire.repertoire_telechargement)  <span class="co"># "./data"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gestionnaire.repertoire_telechargement)  <span class="co"># "./data"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>
@@ -1451,20 +1461,20 @@ Télécharge un fichier à partir d’une URL donnée et l’enregistre dans le 
 <p><strong>Retourne</strong>:<br>
 - <code>chemin</code> (str) : Le chemin complet du fichier téléchargé.</p>
 <p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> telecharger_fichier(<span class="va">self</span>, url, nom_fichier):</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    chemin <span class="op">=</span> pooch.retrieve(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        url<span class="op">=</span>url,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        known_hash<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        fname<span class="op">=</span>nom_fichier,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        path<span class="op">=</span><span class="va">self</span>.repertoire_telechargement</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chemin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> telecharger_fichier(<span class="va">self</span>, url, nom_fichier):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    chemin <span class="op">=</span> pooch.retrieve(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        url<span class="op">=</span>url,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        known_hash<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        fname<span class="op">=</span>nom_fichier,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        path<span class="op">=</span><span class="va">self</span>.repertoire_telechargement</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chemin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Explication</strong>:<br>
 Cette méthode utilise <code>pooch.retrieve</code> pour télécharger un fichier depuis une URL et le sauvegarder dans le répertoire défini. Le chemin complet du fichier est renvoyé.</p>
 <p><strong>Exemple d’utilisation</strong>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>chemin <span class="op">=</span> gestionnaire.telecharger_fichier(<span class="st">"https://example.com/data.csv"</span>, <span class="st">"data.csv"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chemin)  <span class="co"># "./data/data.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>chemin <span class="op">=</span> gestionnaire.telecharger_fichier(<span class="st">"https://example.com/data.csv"</span>, <span class="st">"data.csv"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chemin)  <span class="co"># "./data/data.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>
@@ -1478,17 +1488,17 @@ Charge un fichier CSV dans un DataFrame Pandas, avec la possibilité de supprime
 <p><strong>Retourne</strong>:<br>
 - <code>dataframe</code> (pd.DataFrame) : Le DataFrame contenant les données du fichier CSV.</p>
 <p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> charger_csv(<span class="va">self</span>, chemin_fichier, supprimer_na<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    dataframe <span class="op">=</span> pd.read_csv(chemin_fichier)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> supprimer_na:</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        dataframe <span class="op">=</span> dataframe.dropna()</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dataframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> charger_csv(<span class="va">self</span>, chemin_fichier, supprimer_na<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    dataframe <span class="op">=</span> pd.read_csv(chemin_fichier)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> supprimer_na:</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        dataframe <span class="op">=</span> dataframe.dropna()</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dataframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Explication</strong>:<br>
 Cette méthode permet de charger un fichier CSV dans un DataFrame Pandas tout en offrant la possibilité de supprimer les lignes contenant des données manquantes, garantissant ainsi la qualité des données.</p>
 <p><strong>Exemple d’utilisation</strong>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> gestionnaire.charger_csv(<span class="st">"./data/data.csv"</span>, supprimer_na<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> gestionnaire.charger_csv(<span class="st">"./data/data.csv"</span>, supprimer_na<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>
@@ -1502,28 +1512,378 @@ Extrait le contenu d’un fichier ZIP dans un répertoire spécifié.</p>
 <p><strong>Retourne</strong>:<br>
 - <code>dossier_extraction</code> (str) : Le chemin du dossier contenant les fichiers extraits.</p>
 <p><strong>Code de la fonction</strong>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extraire_zip(<span class="va">self</span>, chemin_zip, dossier_extraction<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dossier_extraction <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        dossier_extraction <span class="op">=</span> os.path.join(<span class="va">self</span>.repertoire_telechargement, <span class="st">"extracted"</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    os.makedirs(dossier_extraction, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(chemin_zip, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(dossier_extraction)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    os.remove(chemin_zip)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dossier_extraction</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extraire_zip(<span class="va">self</span>, chemin_zip, dossier_extraction<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dossier_extraction <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        dossier_extraction <span class="op">=</span> os.path.join(<span class="va">self</span>.repertoire_telechargement, <span class="st">"extracted"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    os.makedirs(dossier_extraction, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(chemin_zip, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(dossier_extraction)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    os.remove(chemin_zip)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dossier_extraction</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Explication</strong>:<br>
 Cette méthode extrait un fichier ZIP dans un répertoire spécifié ou, si aucun répertoire n’est précisé, dans un sous-dossier nommé <code>extracted</code>. Après extraction, le fichier ZIP est supprimé pour économiser de l’espace disque.</p>
 <p><strong>Exemple d’utilisation</strong>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>chemin_extraction <span class="op">=</span> gestionnaire.extraire_zip(<span class="st">"./data/archive.zip"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chemin_extraction)  <span class="co"># "./data/extracted/"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>gestionnaire <span class="op">=</span> GestionnaireDonnees()</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>chemin_extraction <span class="op">=</span> gestionnaire.extraire_zip(<span class="st">"./data/archive.zip"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chemin_extraction)  <span class="co"># "./data/extracted/"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <p>En résumé, la classe <code>GestionnaireDonnees</code> centralise les opérations courantes liées à la gestion des données dans notre projet, rendant le processus plus fluide et réutilisable. Elle offre des méthodes pour télécharger des fichiers, charger des données à partir de CSV et extraire des fichiers ZIP, ce qui constitue la base de notre système de traitement des données.</p>
 </section>
 </section>
 </section>
-<section id="testing" class="level1">
-<h1>7. Testing</h1>
-<p>[tests]</p>
+<section id="tests" class="level1">
+<h1>7. Tests</h1>
+<section id="introduction-1" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-1">7.1 Introduction</h2>
+<p>Les tests jouent un rôle essentiel dans le développement du projet <strong>CycleVision3</strong>. Ils garantissent la fiabilité des modules, réduisent les risques d’erreurs et assurent une qualité élevée du code. Dans ce projet, nous avons mis l’accent sur les tests unitaires, couvrant les principaux composants fonctionnels.</p>
+</section>
+<section id="organisation-des-tests" class="level2">
+<h2 class="anchored" data-anchor-id="organisation-des-tests">7.2 Organisation des tests</h2>
+<p>Les tests jouent un rôle essentiel dans le développement du projet <strong>CycleVision3</strong> en garantissant la fiabilité des modules, en réduisant les risques d’erreurs et en assurant une qualité élevée du code. Un accent particulier a été mis sur les <strong>tests unitaires</strong>, couvrant des fonctionnalités clés telles que le traitement des données, la gestion via des classes spécifiques, la génération de cartes interactives, les prédictions algorithmiques, l’analyse statistique et la visualisation vidéo.</p>
+<p>Pour organiser ces tests, un répertoire <code>tests/</code> a été créé. Ce dernier contient plusieurs fichiers, chacun dédié à un module particulier du projet :</p>
+<ul>
+<li><code>test_donnée.py</code> : Tests des fonctions dans <code>donnée.py</code> ;<br>
+</li>
+<li><code>test_gestion_donnee.py</code> : Tests de la classe <code>GestionnaireDonnees</code> dans <code>gestion_donnee.py</code> ;<br>
+</li>
+<li><code>test_map.py</code> : Tests des fonctionnalités de création de cartes dans <code>map.py</code> ;<br>
+</li>
+<li><code>test_prediction.py</code> : Tests des algorithmes de prédiction ;<br>
+</li>
+<li><code>test_statistique.py</code> : Tests des fonctions statistiques de <code>statistique.py</code> ;<br>
+</li>
+<li><code>test_video.py</code> : Tests des outils de traitement vidéo dans <code>video.py</code>.</li>
+</ul>
+<p>Cette organisation garantit une bonne couverture et une séparation claire des préoccupations, tout en facilitant le suivi et le débogage des différentes fonctionnalités du projet.</p>
+</section>
+<section id="description-des-tests-par-fichier" class="level2">
+<h2 class="anchored" data-anchor-id="description-des-tests-par-fichier">7.3 Description des tests par fichier</h2>
+<details>
+<summary>
+<code>test_donnée.py</code>
+</summary>
+<ul>
+<li><p><strong>Objectif</strong> : Valider les fonctions liées au traitement et à la gestion des fichiers de données brutes.</p></li>
+<li><p><strong>Scénarios principaux</strong> :</p>
+<ul>
+<li>Téléchargement de fichiers depuis une URL spécifiée ;</li>
+<li>Chargement et validation des fichiers CSV, incluant la vérification du contenu ;</li>
+<li>Extraction correcte des fichiers compressés au format ZIP.</li>
+</ul></li>
+<li><p><strong>Tests inclus</strong> :</p>
+<ol type="1">
+<li><code>test_telecharger_fichier</code>
+<ul>
+<li><strong>But</strong> : Vérifier la capacité de la méthode <code>telecharger_fichier</code> à télécharger un fichier depuis une URL et à le sauvegarder localement.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Le fichier est téléchargé sans erreurs ;<br>
+</li>
+<li>Le chemin du fichier téléchargé est retourné correctement.</li>
+</ul></li>
+</ul></li>
+<li><code>test_charger_csv</code>
+<ul>
+<li><strong>But</strong> : Tester la méthode <code>charger_csv</code> pour s’assurer que les fichiers CSV sont correctement chargés en tant que DataFrame.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Le DataFrame n’est pas vide ;<br>
+</li>
+<li>Les dimensions du DataFrame et les noms des colonnes correspondent aux attentes.</li>
+</ul></li>
+</ul></li>
+<li><code>test_extraire_zip</code>
+<ul>
+<li><strong>But</strong> : Valider la méthode <code>extraire_zip</code> pour extraire correctement les fichiers contenus dans une archive ZIP.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Les fichiers extraits sont présents dans le répertoire cible ;<br>
+</li>
+<li>Le contenu de l’archive correspond aux attentes (par exemple, <code>test.csv</code> est extrait correctement).</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+</details>
+<details>
+<summary>
+<code>test_gestion_donnee.py</code>
+</summary>
+<ul>
+<li><p><strong>Objectif</strong> : Valider les fonctionnalités du gestionnaire de données, implémentées dans la classe <code>GestionnaireDonnees</code>.</p></li>
+<li><p><strong>Scénarios principaux</strong> :</p>
+<ul>
+<li>Vérification de la méthode de chargement des fichiers CSV dans un DataFrame ;</li>
+<li>Validation des structures des données et de leur contenu après chargement.</li>
+</ul></li>
+<li><p><strong>Tests inclus</strong> :</p>
+<ol type="1">
+<li><code>test_charger_csv</code>
+<ul>
+<li><strong>But</strong> : Tester la méthode <code>charger_csv</code> pour s’assurer qu’elle charge correctement un fichier CSV en tant que DataFrame Pandas.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Le DataFrame résultant n’est pas vide ;<br>
+</li>
+<li>La structure (dimensions et colonnes) du DataFrame correspond aux attentes ;<br>
+</li>
+<li>Aucune erreur n’est générée lors du traitement d’un fichier CSV valide.</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+</details>
+<details>
+<summary>
+<code>test_map.py</code>
+</summary>
+<ul>
+<li><p><strong>Objectif</strong> : Valider les fonctions liées à la gestion des cartes interactives et des trajets en utilisant des graphes.</p></li>
+<li><p><strong>Scénarios principaux</strong> :</p>
+<ul>
+<li>Conversion correcte des nœuds d’un trajet en coordonnées géographiques ;</li>
+<li>Création d’un graphe urbain à partir de données géographiques spécifiques.</li>
+</ul></li>
+<li><p><strong>Tests inclus</strong> :</p>
+<ol type="1">
+<li><code>test_route_to_coords</code>
+<ul>
+<li><strong>But</strong> : Vérifier que la fonction <code>route_to_coords</code> convertit correctement une séquence de nœuds de graphe en une liste de coordonnées géographiques.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Les coordonnées générées correspondent exactement aux nœuds fournis ;<br>
+</li>
+<li>Les données de position (latitude, longitude) sont correctement extraites des attributs du graphe.</li>
+</ul></li>
+</ul></li>
+<li><code>test_graph_creation</code>
+<ul>
+<li><strong>But</strong> : Tester la génération d’un graphe à partir des données géographiques d’une ville en utilisant la bibliothèque OSMnx.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Le graphe créé contient au moins un nœud ;<br>
+</li>
+<li>Aucun problème de récupération des données OSM n’est rencontré.</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+</details>
+<details>
+<summary>
+<code>test_prediction.py</code>
+</summary>
+<ul>
+<li><p><strong>Objectif</strong> : Valider les fonctions liées aux prévisions d’intensité du trafic cycliste et l’analyse selon les jours spécifiques.</p></li>
+<li><p><strong>Scénarios principaux</strong> :</p>
+<ul>
+<li>Vérification des valeurs renvoyées par la fonction <code>jour_semaine</code> pour un jour donné ;<br>
+</li>
+<li>Validation de la fonction <code>coor_unique</code> pour extraire les coordonnées uniques en fonction d’un jour ;<br>
+</li>
+<li>Vérification de la cohérence de la moyenne d’intensité avec la fonction <code>mean_intens</code>.</li>
+</ul></li>
+<li><p><strong>Tests inclus</strong> :</p>
+<ol type="1">
+<li><strong><code>test_jour_semaine</code></strong>
+<ul>
+<li><strong>But</strong> : Vérifier que la fonction <code>jour_semaine</code> renvoie correctement les données correspondant au jour spécifique (ici, mercredi).<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Les valeurs des données attendues doivent correspondre exactement aux données simulées.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_coor_unique</code></strong>
+<ul>
+<li><strong>But</strong> : Tester la fonction <code>coor_unique</code> pour extraire correctement les coordonnées uniques correspondant à un jour spécifique (ici, vendredi).<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Les coordonnées extraites doivent correspondre exactement aux valeurs attendues.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_mean_intens</code></strong>
+<ul>
+<li><strong>But</strong> : Vérifier la bonne estimation de la moyenne d’intensité avec la fonction <code>mean_intens</code> pour un jour donné (ici, mercredi).<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>La longueur des résultats doit correspondre aux valeurs attendues ;<br>
+</li>
+<li>Les valeurs numériques doivent être proches des valeurs simulées avec une précision acceptable.</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+</details>
+<details>
+<summary>
+<code>test_statistique.py</code>
+</summary>
+<ul>
+<li><p><strong>Objectif</strong> : Valider le traitement des données, la sauvegarde de graphiques et la gestion d’erreurs dans le traitement des données pour les visualisations statistiques.</p></li>
+<li><p><strong>Scénarios principaux</strong> :</p>
+<ul>
+<li>Vérification du traitement des données avec des opérations de groupe ;<br>
+</li>
+<li>Validation de la sauvegarde d’un graphique en barres avec Matplotlib ;<br>
+</li>
+<li>Test de la sauvegarde d’un graphique polaire avec Plotly ;<br>
+</li>
+<li>Vérification de la gestion des erreurs avec un fichier inexistant.</li>
+</ul></li>
+<li><p><strong>Tests inclus</strong> :</p>
+<ol type="1">
+<li><strong><code>test_process_data</code></strong>
+<ul>
+<li><strong>But</strong> : Tester la transformation des données, notamment la conversion de la colonne <code>Departure</code> en datetime et la création de la nouvelle colonne <code>Date</code>.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>La conversion doit réussir sans erreur ;<br>
+</li>
+<li>Les valeurs dans la colonne <code>Date</code> doivent correspondre correctement aux dates extraites.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_save_bar_chart</code></strong>
+<ul>
+<li><strong>But</strong> : Tester la sauvegarde d’un graphique en barres avec Matplotlib.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Vérifier que la fonction <code>savefig</code> a bien été appelée avec le chemin attendu.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_save_polar_chart</code></strong>
+<ul>
+<li><strong>But</strong> : Tester la sauvegarde d’un graphique polaire avec Plotly.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Vérifier que la fonction <code>write_html</code> est bien appelée avec le chemin attendu.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_missing_file</code></strong>
+<ul>
+<li><strong>But</strong> : Vérifier que l’ouverture d’un fichier inexistant génère une erreur correcte (<code>FileNotFoundError</code>).<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>L’erreur doit être déclenchée correctement lorsqu’un fichier absent est tenté d’être lu avec <code>pd.read_csv</code>.</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+</details>
+<details>
+<summary>
+<code>test_video.py</code>
+</summary>
+<ul>
+<li><p><strong>Objectif</strong> : Tester le module vidéo de <code>Cycle3/video/video.py</code>, en se concentrant sur les aspects de traitement des données, la création et le test de graphes, la gestion de la logique avec les chemins, l’animation et la gestion des interactions avec l’utilisateur.</p></li>
+<li><p><strong>Scénarios principaux</strong> :</p>
+<ul>
+<li>Vérifier la bonne conversion et le traitement de données ;<br>
+</li>
+<li>Tester le module de chemin court avec OSMnx et NetworkX ;<br>
+</li>
+<li>Simuler la création de graphes pour analyser la carte ;<br>
+</li>
+<li>Vérifier la sauvegarde de vidéos avec Matplotlib ;<br>
+</li>
+<li>Simuler l’interaction avec des fonctions utilisant <code>input()</code>.</li>
+</ul></li>
+<li><p><strong>Tests inclus</strong> :</p>
+<ol type="1">
+<li><strong><code>test_video_module</code></strong>
+<ul>
+<li><strong>But</strong> : Charger dynamiquement le module vidéo <code>video.py</code> pour permettre les tests avec un environnement simulé.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Le module doit être chargé correctement avec <code>importlib.util.spec_from_file_location</code>.<br>
+</li>
+<li>Tester l’existence des fonctions attendues (<code>chemin_court</code>, <code>init</code>, <code>update</code>).</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_data_processing</code></strong>
+<ul>
+<li><strong>But</strong> : Valider la bonne lecture et conversion des données de test.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Vérifier que la colonne <code>Departure</code> est convertie en datetime.<br>
+</li>
+<li>Assurer que le DataFrame simulé est non vide.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_chemin_court</code></strong>
+<ul>
+<li><strong>But</strong> : Simuler le calcul du chemin le plus court avec OSMnx et NetworkX.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Vérifier que le chemin attendu est renvoyé.<br>
+</li>
+<li>Confirmer la valeur de durée correspondante.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_create_graph</code></strong>
+<ul>
+<li><strong>But</strong> : Valider la création de graphes avec OSMnx.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Vérifier que le graphe est bien de type <code>nx.MultiDiGraph</code>.<br>
+</li>
+<li>Assurer que le graphe n’est pas vide après la création.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_input_handling</code></strong>
+<ul>
+<li><strong>But</strong> : Simuler l’interaction avec <code>input()</code> pour vérifier le flux de l’entrée utilisateur.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>S’assurer que <code>input()</code> est bien simulé avec la valeur attendue.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>test_save_video</code></strong>
+<ul>
+<li><strong>But</strong> : Tester la logique de sauvegarde avec Matplotlib pour les animations.<br>
+</li>
+<li><strong>Critères de succès</strong> :
+<ul>
+<li>Vérifier que l’animation est simulée correctement sans appels non nécessaires à la fonction <code>save</code>.<br>
+</li>
+<li>Confirmer que la sauvegarde n’a pas été appelée avant la logique de test.</li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+</details>
+</section>
+<section id="résultats-des-tests" class="level2">
+<h2 class="anchored" data-anchor-id="résultats-des-tests">7.4 Résultats des tests</h2>
+<p>Tous les modules ont été testés avec succès, et les bugs identifiés ont été corrigés. Une couverture élevée des fonctionnalités a été obtenue grâce à une série de tests unitaires exécutés avec l’outil <code>pytest</code>.<br>
+La commande suivante permet d’exécuter tous les tests :</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> tests/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="intégration-continue-rechek" class="level2">
+<h2 class="anchored" data-anchor-id="intégration-continue-rechek">7.5 Intégration continue [RECHEK]</h2>
+<p>Les tests sont intégrés au processus d’intégration continue (CI) via GitHub Actions. Cela garantit que chaque mise à jour du code est automatiquement testée, minimisant ainsi les risques d’introduire des régressions.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">7.6 Conclusion</h2>
+<p>Les tests réalisés ont permis de valider la majorité des fonctionnalités critiques du projet. Toutefois, des améliorations supplémentaires pourraient être envisagées, notamment pour couvrir des cas d’utilisation moins fréquents ou des scénarios extrêmes.</p>
+</section>
 </section>
 <section id="performance-analysis" class="level1">
 <h1>8. Performance Analysis</h1>
@@ -1552,8 +1912,8 @@ Cette méthode extrait un fichier ZIP dans un répertoire spécifié ou, si aucu
 </div>
 <p>Ici, la consommation de mémoire reste similaire à celle du fichier précédent. Cependant, la différence réside dans le temps d’exécution. Malgré les tentatives d’optimisation du script, celui-ci s’exécute en environ 130 à 225 secondes pour charger une vidéo en format <code>.mp4</code>.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">8.3 Conclusion</h2>
+<section id="conclusion-1" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-1">8.3 Conclusion</h2>
 <p>Concernant l’efficacité temporelle, plusieurs problèmes ont été rencontrés lors des premiers essais. Pour y remédier, des outils tels que <strong>ThreadPoolExecutor</strong> et l’utilisation de <strong>cache</strong> ont été mis en place. De plus, un choix stratégique a été fait en privilégiant l’importation directe des bases de données, plutôt que de les appeler via des requêtes HTTP avec <code>requests</code>, afin d’améliorer la vitesse d’exécution.</p>
 </section>
 </section>
@@ -1793,8 +2153,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1905,7 +2263,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

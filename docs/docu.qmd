@@ -1134,98 +1134,108 @@ Appeler `trajets_parcourus(3, 12)` retourne une matrice dont l'une des lignes es
 
 ### 6.2.3 Video
 
-<details> 
-  <summary>`chemin_court(row)`</summary>
+  <details> 
+    <summary>`chemin_court(row)`</summary>
 
-**Description**:  
-Calcule le chemin le plus court entre deux stations à l'aide du graphe routier de Montpellier, basé sur leurs coordonnées géographiques.
+    **Description**:  
+    Cette fonction calcule le chemin le plus court entre deux stations à l'aide du graphe routier de Montpellier. Les coordonnées géographiques des stations sont utilisées comme points de départ et d'arrivée.
 
-**Paramètres**:  
-- `row` (pandas.Series) : Une ligne du DataFrame contenant les coordonnées des stations de départ et d'arrivée.
+    **Paramètres**:  
+    - `row (pandas.Series)` : Une ligne issue du DataFrame contenant les coordonnées de départ et d'arrivée des trajets.
 
-**Retourne**:  
-- `chemin` (list) : Une liste d'identifiants de nœuds représentant le chemin.  
-- `duration` (float) : La durée du trajet en secondes.  
+    **Retourne**:  
+    - `chemin (list)` : Une liste d'identifiants représentant le chemin optimal.  
+    - `duration (float)` : La durée totale en secondes pour le trajet donné.
 
-**Code de la fonction**:  
-```python
-def chemin_court(row):
-    try:
-        depart_lat, depart_lon = row['latitude_depart'], row['longitude_depart']
-        arrivee_lat, arrivee_lon = row['latitude_retour'], row['longitude_retour']
-        duration = row['Duration (sec.)']
-        
-        noeud_deb = ox.distance.nearest_nodes(G, depart_lon, depart_lat)
-        noeud_fin = ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)
-        
-        chemin = nx.shortest_path(G, noeud_deb, noeud_fin, weight="length")
-        return chemin, duration
-    except Exception as e:
-        print(f"Erreur pour le trajet entre {row['Departure station']} et {row['Return station']}: {e}")
-        return None, None
-```
+    **Code de la fonction**:  
+    ```python
+    def chemin_court(row):
+        try:
+            depart_lat, depart_lon = row['latitude_depart'], row['longitude_depart']
+            arrivee_lat, arrivee_lon = row['latitude_retour'], row['longitude_retour']
+            duration = row['Duration (sec.)']
+            
+            noeud_deb = ox.distance.nearest_nodes(G, depart_lon, depart_lat)
+            noeud_fin = ox.distance.nearest_nodes(G, arrivee_lon, arrivee_lat)
+            
+            chemin = nx.shortest_path(G, noeud_deb, noeud_fin, weight="length")
+            return chemin, duration
+        except Exception as e:
+            print(f"Erreur pour le trajet entre {row['Departure station']} et {row['Return station']}: {e}")
+            return None, None
+    ```
 
-**Exemple d'utilisation**:  
-Pour une ligne contenant les colonnes `latitude_depart`, `longitude_depart`, etc., cette fonction renvoie le chemin le plus court entre deux points.  
+    **Exemple d'utilisation**:  
+    Lorsqu'une ligne du DataFrame est passée, cette fonction renvoie le chemin le plus court calculé sur la base du graphe routier et la durée du trajet.
 
-[PUT ILLUSTRATION OF GRAPH ROUTE HERE]
-</details>
+  </details>
 
-<details> 
-  <summary>`init()`</summary>
 
-**Description**:  
-Initialise les points de départ pour chaque trajet dans la visualisation.  
+  <details> 
+    <summary>`init()`</summary>
 
-**Retourne**:  
-- `points` (list) : Une liste d'objets matplotlib représentant les points animés.  
+    **Description**:  
+    Initialise l'animation en réinitialisant la position des points. Les points sont effacés pour chaque frame, leur état est remis à vide pour commencer l'animation depuis le début.
 
-**Code de la fonction**:  
-```python
-def init():
-    for point in points:
-        point.set_data([], [])
-    time_text.set_text('')
-    return points + [time_text]
-```
+    **Retourne**:  
+    - `points (list)` : Une liste d'objets `matplotlib` représentant les points à animer.  
 
-[PUT ILLUSTRATION OF INITIALIZATION STEP HERE]
-</details>
+    **Code de la fonction**:  
+    ```python
+    def init():
+        for point in points:
+            point.set_data([], [])
+        return points
+    ```
 
-<details> 
-  <summary>`update(frame)`</summary>
+    **Exemple d'utilisation**:  
+    Cette fonction est utilisée comme étape préliminaire pour configurer l'état de l'animation avant chaque itération.
 
-**Description**:  
-Met à jour les positions des points dans l'animation en fonction de la progression du chemin pour chaque trajet.
+  </details>
 
-**Paramètres**:  
-- `frame` (int) : L'indice actuel de la frame dans l'animation.  
 
-**Retourne**:  
-- `points` (list) : Les points mis à jour pour la frame actuelle.  
+  <details> 
+    <summary>`update(frame)`</summary>
 
-**Code de la fonction**:  
-```python
-def update(frame):
-    # Calculer l'heure actuelle
-    current_time = start_time + datetime.timedelta(seconds=frame * frame_duration)
-    time_text.set_text(current_time.strftime('%Y-%m-%d %H:%M:%S'))
+    **Description**:  
+    Met à jour dynamiquement les positions des points pour chaque frame dans l'animation. Chaque point suit sa progression en fonction de la simulation temporelle et de la base de données des trajets.
 
-    for i, path in enumerate(paths):
-        progress = min(frame / total_frames, 1)  # Progression en fonction de total_frames
-        num_nodes = int(progress * len(path))
+    **Paramètres**:  
+    - `frame (int)` : L'index de la frame actuelle dans la séquence d'animation.
 
-        if num_nodes > 0:
-            current_node = path[num_nodes - 1]
-            x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
-            points[i].set_data([x], [y])
+    **Retourne**:  
+    - `points (list)` : Les nouvelles positions des points mis à jour pour l'animation.
 
-    return points
-```
+    **Code de la fonction**:  
+    ```python
+    def update(frame):
+        current_time = start_time + datetime.timedelta(seconds=frame * frame_duration)
+        time_text.set_text(current_time.strftime('%Y-%m-%d %H:%M:%S'))
 
-**Exemple d'utilisation**:  
-Chaque frame de l'animation appelle cette fonction pour mettre à jour les points. La progression est calculée en fonction de `frame` et du nombre total de frames.  
-</details>
+        for i, path in enumerate(paths):
+            progress = min(frame / total_frames, 1)  
+            num_nodes = int(progress * len(path))
+
+            if num_nodes > 0:
+                current_node = path[num_nodes - 1]
+                x, y = G.nodes[current_node]['x'], G.nodes[current_node]['y']
+                points[i].set_data([x], [y])
+
+        return points
+    ```
+
+    **Exemple d'utilisation**:  
+    Chaque frame appelée dans la boucle d'animation utilise cette fonction pour déplacer les points selon la progression de leur chemin respectif.
+
+  </details>
+  
+#### Contexte et Explications supplémentaires
+
+  Cette section traite du fonctionnement global :
+  
+  - Les trajets sont analysés grâce à un graphe routier avec la base OSM.
+  - Chaque point représente un véhicule dans le réseau routier avec ses trajets correspondant à la base donnée `video_avec_coord.csv`.
+  - L'animation est synchronisée avec la base de données et simule la trajectoire temporelle.
 
 ## 6.3 Class "GestionnaireDonnees"
 
@@ -1344,7 +1354,6 @@ print(df.head())
 </details>
 
 
-
 <details>
 <summary>`extraire_zip(chemin_zip, dossier_extraction=None)`</summary>
 
@@ -1389,58 +1398,212 @@ En résumé, la classe `GestionnaireDonnees` centralise les opérations courante
 
 Les tests jouent un rôle essentiel dans le développement du projet **CycleVision3**. Ils garantissent la fiabilité des modules, réduisent les risques d’erreurs et assurent une qualité élevée du code. Dans ce projet, nous avons mis l’accent sur les tests unitaires, couvrant les principaux composants fonctionnels.
 
-Les tests réalisés incluent la validation des fonctionnalités suivantes :
-
-- Traitement des données ;
-- Gestion des données via des classes spécifiques ;
-- Génération de cartes interactives ;
-- Prédictions basées sur des algorithmes ;
-- Analyse statistique ;
-- Visualisation vidéo.
-
 ## 7.2 Organisation des tests
 
-Les tests sont organisés dans le dossier `tests/`, qui contient plusieurs fichiers, chacun dédié à un module spécifique du projet :
+Les tests jouent un rôle essentiel dans le développement du projet **CycleVision3** en garantissant la fiabilité des modules, en réduisant les risques d’erreurs et en assurant une qualité élevée du code. Un accent particulier a été mis sur les **tests unitaires**, couvrant des fonctionnalités clés telles que le traitement des données, la gestion via des classes spécifiques, la génération de cartes interactives, les prédictions algorithmiques, l'analyse statistique et la visualisation vidéo.
 
-- `test_donnée.py` : Vérifie les fonctions du fichier `donnée.py` ;
-- `test_gestion_donnee.py` : Teste la classe `GestionnaireDonnees` du fichier `gestion_donnee.py` ;
-- `test_map.py` : Valide les fonctionnalités de création de cartes dans `map.py` ;
-- `test_prediction.py` : Vérifie les algorithmes de prédiction ;
-- `test_statistique.py` : Analyse les fonctions statistiques de `statistique.py` ;
-- `test_video.py` : Teste les outils de traitement vidéo de `video.py`.
+Pour organiser ces tests, un répertoire `tests/` a été créé. Ce dernier contient plusieurs fichiers, chacun dédié à un module particulier du projet :
+
+- `test_donnée.py` : Tests des fonctions dans `donnée.py` ;  
+- `test_gestion_donnee.py` : Tests de la classe `GestionnaireDonnees` dans `gestion_donnee.py` ;  
+- `test_map.py` : Tests des fonctionnalités de création de cartes dans `map.py` ;  
+- `test_prediction.py` : Tests des algorithmes de prédiction ;  
+- `test_statistique.py` : Tests des fonctions statistiques de `statistique.py` ;  
+- `test_video.py` : Tests des outils de traitement vidéo dans `video.py`.  
+
+Cette organisation garantit une bonne couverture  et une séparation claire des préoccupations, tout en facilitant le suivi et le débogage des différentes fonctionnalités du projet.
 
 ## 7.3 Description des tests par fichier
 
 <details>
 <summary> `test_donnée.py`</summary>
 
-- **Objectif** : Valider les fonctions liées au traitement des données brutes.
+- **Objectif** : Valider les fonctions liées au traitement et à la gestion des fichiers de données brutes.
 
 - **Scénarios principaux** :
-  - Chargement et validation des formats de données ;
-  - Gestion des erreurs pour des fichiers incorrects ou incomplets.
+  - Téléchargement de fichiers depuis une URL spécifiée ;
+  - Chargement et validation des fichiers CSV, incluant la vérification du contenu ;
+  - Extraction correcte des fichiers compressés au format ZIP.
+
+- **Tests inclus** :
+  1. `test_telecharger_fichier`  
+     - **But** : Vérifier la capacité de la méthode `telecharger_fichier` à télécharger un fichier depuis une URL et à le sauvegarder localement.  
+     - **Critères de succès** :  
+       - Le fichier est téléchargé sans erreurs ;  
+       - Le chemin du fichier téléchargé est retourné correctement.  
+
+  2. `test_charger_csv`  
+     - **But** : Tester la méthode `charger_csv` pour s'assurer que les fichiers CSV sont correctement chargés en tant que DataFrame.  
+     - **Critères de succès** :  
+       - Le DataFrame n'est pas vide ;  
+       - Les dimensions du DataFrame et les noms des colonnes correspondent aux attentes.
+
+  3. `test_extraire_zip`  
+     - **But** : Valider la méthode `extraire_zip` pour extraire correctement les fichiers contenus dans une archive ZIP.  
+     - **Critères de succès** :  
+       - Les fichiers extraits sont présents dans le répertoire cible ;  
+       - Le contenu de l'archive correspond aux attentes (par exemple, `test.csv` est extrait correctement).
+
 </details>
 
+<details>
+<summary> `test_gestion_donnee.py`</summary>
 
-### `test_gestion_donnee.py`
-- **Objectif** : Tester les méthodes de la classe `GestionnaireDonnees`.
+- **Objectif** : Valider les fonctionnalités du gestionnaire de données, implémentées dans la classe `GestionnaireDonnees`.
+
 - **Scénarios principaux** :
-  - Initialisation avec différents types de données (valides et invalides) ;
-  - Filtrage, tri et exportation des données ;
-  - Gestion des exceptions.
+  - Vérification de la méthode de chargement des fichiers CSV dans un DataFrame ;
+  - Validation des structures des données et de leur contenu après chargement.
 
-### `test_map.py`
-- **Objectif** : Vérifier les fonctions de création de cartes interactives.
+- **Tests inclus** :
+  1. `test_charger_csv`  
+     - **But** : Tester la méthode `charger_csv` pour s'assurer qu'elle charge correctement un fichier CSV en tant que DataFrame Pandas.  
+     - **Critères de succès** :  
+       - Le DataFrame résultant n'est pas vide ;  
+       - La structure (dimensions et colonnes) du DataFrame correspond aux attentes ;  
+       - Aucune erreur n'est générée lors du traitement d'un fichier CSV valide.
+</details>
+
+<details>
+<summary> `test_map.py`</summary>
+
+- **Objectif** : Valider les fonctions liées à la gestion des cartes interactives et des trajets en utilisant des graphes.
+
 - **Scénarios principaux** :
-  - Génération de cartes avec des données correctes ;
-  - Validation des couches et éléments interactifs ;
-  - Gestion des cas où les données sont manquantes.
+  - Conversion correcte des nœuds d’un trajet en coordonnées géographiques ;
+  - Création d’un graphe urbain à partir de données géographiques spécifiques.
 
-(... ajoute des sections similaires pour les autres fichiers testés.)
+- **Tests inclus** :
+  1. `test_route_to_coords`  
+     - **But** : Vérifier que la fonction `route_to_coords` convertit correctement une séquence de nœuds de graphe en une liste de coordonnées géographiques.  
+     - **Critères de succès** :  
+       - Les coordonnées générées correspondent exactement aux nœuds fournis ;  
+       - Les données de position (latitude, longitude) sont correctement extraites des attributs du graphe.
 
-## 7.4 Résultats des tests [RECHEK]
+  2. `test_graph_creation`  
+     - **But** : Tester la génération d’un graphe à partir des données géographiques d'une ville en utilisant la bibliothèque OSMnx.  
+     - **Critères de succès** :  
+       - Le graphe créé contient au moins un nœud ;  
+       - Aucun problème de récupération des données OSM n’est rencontré.
+</details>
 
-Tous les modules ont été testés avec succès, et les bugs identifiés ont été corrigés. Une couverture élevée du code a été atteinte grâce à l’utilisation de [outil utilisé, par ex. `pytest-cov`].  
+<details>
+<summary> `test_prediction.py` </summary>
+
+- **Objectif** : Valider les fonctions liées aux prévisions d'intensité du trafic cycliste et l'analyse selon les jours spécifiques.  
+
+- **Scénarios principaux** :  
+  - Vérification des valeurs renvoyées par la fonction `jour_semaine` pour un jour donné ;  
+  - Validation de la fonction `coor_unique` pour extraire les coordonnées uniques en fonction d'un jour ;  
+  - Vérification de la cohérence de la moyenne d'intensité avec la fonction `mean_intens`.  
+
+- **Tests inclus** :  
+
+  1. **`test_jour_semaine`**  
+     - **But** : Vérifier que la fonction `jour_semaine` renvoie correctement les données correspondant au jour spécifique (ici, mercredi).  
+     - **Critères de succès** :  
+       - Les valeurs des données attendues doivent correspondre exactement aux données simulées.  
+
+  2. **`test_coor_unique`**  
+     - **But** : Tester la fonction `coor_unique` pour extraire correctement les coordonnées uniques correspondant à un jour spécifique (ici, vendredi).  
+     - **Critères de succès** :  
+       - Les coordonnées extraites doivent correspondre exactement aux valeurs attendues.  
+
+  3. **`test_mean_intens`**  
+     - **But** : Vérifier la bonne estimation de la moyenne d'intensité avec la fonction `mean_intens` pour un jour donné (ici, mercredi).  
+     - **Critères de succès** :  
+       - La longueur des résultats doit correspondre aux valeurs attendues ;  
+       - Les valeurs numériques doivent être proches des valeurs simulées avec une précision acceptable.
+</details>
+
+<details>
+<summary> `test_statistique.py` </summary>
+
+- **Objectif** : Valider le traitement des données, la sauvegarde de graphiques et la gestion d'erreurs dans le traitement des données pour les visualisations statistiques.  
+
+- **Scénarios principaux** :  
+  - Vérification du traitement des données avec des opérations de groupe ;  
+  - Validation de la sauvegarde d'un graphique en barres avec Matplotlib ;  
+  - Test de la sauvegarde d'un graphique polaire avec Plotly ;  
+  - Vérification de la gestion des erreurs avec un fichier inexistant.  
+
+- **Tests inclus** :  
+
+  1. **`test_process_data`**  
+     - **But** : Tester la transformation des données, notamment la conversion de la colonne `Departure` en datetime et la création de la nouvelle colonne `Date`.  
+     - **Critères de succès** :  
+       - La conversion doit réussir sans erreur ;  
+       - Les valeurs dans la colonne `Date` doivent correspondre correctement aux dates extraites.  
+
+  2. **`test_save_bar_chart`**  
+     - **But** : Tester la sauvegarde d'un graphique en barres avec Matplotlib.  
+     - **Critères de succès** :  
+       - Vérifier que la fonction `savefig` a bien été appelée avec le chemin attendu.  
+
+  3. **`test_save_polar_chart`**  
+     - **But** : Tester la sauvegarde d'un graphique polaire avec Plotly.  
+     - **Critères de succès** :  
+       - Vérifier que la fonction `write_html` est bien appelée avec le chemin attendu.  
+
+  4. **`test_missing_file`**  
+     - **But** : Vérifier que l'ouverture d'un fichier inexistant génère une erreur correcte (`FileNotFoundError`).  
+     - **Critères de succès** :  
+       - L'erreur doit être déclenchée correctement lorsqu'un fichier absent est tenté d'être lu avec `pd.read_csv`.
+</details>
+
+<details>
+<summary> `test_video.py` </summary>
+
+- **Objectif** : Tester le module vidéo de `Cycle3/video/video.py`, en se concentrant sur les aspects de traitement des données, la création et le test de graphes, la gestion de la logique avec les chemins, l'animation et la gestion des interactions avec l'utilisateur.  
+
+- **Scénarios principaux** :  
+  - Vérifier la bonne conversion et le traitement de données ;  
+  - Tester le module de chemin court avec OSMnx et NetworkX ;  
+  - Simuler la création de graphes pour analyser la carte ;  
+  - Vérifier la sauvegarde de vidéos avec Matplotlib ;  
+  - Simuler l'interaction avec des fonctions utilisant `input()`.  
+
+- **Tests inclus** :  
+
+  1. **`test_video_module`**  
+     - **But** : Charger dynamiquement le module vidéo `video.py` pour permettre les tests avec un environnement simulé.  
+     - **Critères de succès** :  
+       - Le module doit être chargé correctement avec `importlib.util.spec_from_file_location`.  
+       - Tester l'existence des fonctions attendues (`chemin_court`, `init`, `update`).  
+
+  2. **`test_data_processing`**  
+     - **But** : Valider la bonne lecture et conversion des données de test.  
+     - **Critères de succès** :  
+       - Vérifier que la colonne `Departure` est convertie en datetime.  
+       - Assurer que le DataFrame simulé est non vide.  
+
+  3. **`test_chemin_court`**  
+     - **But** : Simuler le calcul du chemin le plus court avec OSMnx et NetworkX.  
+     - **Critères de succès** :  
+       - Vérifier que le chemin attendu est renvoyé.  
+       - Confirmer la valeur de durée correspondante.  
+
+  4. **`test_create_graph`**  
+     - **But** : Valider la création de graphes avec OSMnx.  
+     - **Critères de succès** :  
+       - Vérifier que le graphe est bien de type `nx.MultiDiGraph`.  
+       - Assurer que le graphe n'est pas vide après la création.  
+
+  5. **`test_input_handling`**  
+     - **But** : Simuler l'interaction avec `input()` pour vérifier le flux de l'entrée utilisateur.  
+     - **Critères de succès** :  
+       - S'assurer que `input()` est bien simulé avec la valeur attendue.  
+
+  6. **`test_save_video`**  
+     - **But** : Tester la logique de sauvegarde avec Matplotlib pour les animations.  
+     - **Critères de succès** :  
+       - Vérifier que l'animation est simulée correctement sans appels non nécessaires à la fonction `save`.  
+       - Confirmer que la sauvegarde n'a pas été appelée avant la logique de test.
+</details>
+
+## 7.4 Résultats des tests
+
+Tous les modules ont été testés avec succès, et les bugs identifiés ont été corrigés. Une couverture élevée des fonctionnalités a été obtenue grâce à une série de tests unitaires exécutés avec l’outil `pytest`.  
 La commande suivante permet d’exécuter tous les tests :
 
 ```bash
