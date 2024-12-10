@@ -4,6 +4,7 @@ import sys
 import os
 import pytest
 import zipfile
+from typing import Any 
 
 # Specify the absolute path to the module gestion_donnee.py
 module_path = os.path.join(os.path.dirname(__file__), "../src/gestion_donnee.py")
@@ -41,7 +42,7 @@ def setup_test_files(tmp_path: Path):
     }
 
 
-def test_charger_csv(gestionnaire: sys.Any, setup_test_files: dict[str, str]):
+def test_charger_csv(gestionnaire: Any, setup_test_files: dict[str, str]):
     csv_path = setup_test_files["csv"]
     df = gestionnaire.charger_csv(csv_path)
     
