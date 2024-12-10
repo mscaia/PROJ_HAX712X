@@ -48,7 +48,7 @@ for i in range(4):  # Parcourir les 4 jeux de données.
     plt.xticks(rotation=45)  
     plt.grid(axis='y')  
     plt.tight_layout() 
-    plt.savefig(f"./docs/projet1_files/figure-html/Nb_trajet_par_{annee}")
+    plt.savefig(f"./docs/analyse_donnees_files/figure-html/Nb_trajet_par_{annee}")
     plt.close()
 
     # Traitement des données pour avoir un graphique avec les jours, heures et le nombre de vélos comme sur la leçon disponible sur moodle.
@@ -106,7 +106,7 @@ for i in range(4):  # Parcourir les 4 jeux de données.
     )
     fig.update_layout(polar=dict(angularaxis=dict(tickvals=list(range(0, 360, 15)), ticktext=[f"{i}:00" for i in range(24)])))
     # Sauvegarde de la figure
-    fig.write_html(f"./docs/projet1_files/figure-html/graphique_distance_jour_{annee}.html")
+    fig.write_html(f"./docs/analyse_donnees_files/figure-html/graphique_distance_jour_{annee}.html")
 
 #%%
 # Initialisation d'un dictionnaire et d'une liste 
@@ -171,7 +171,7 @@ plt.ylabel('Nombre de trajets')
 plt.title('Nombre total de trajets vers chaque station')
 plt.xticks(rotation=45, ha="right")
 # Afficher le graphique
-plt.savefig("./docs/projet1_files/figure-html/StationStat")
+plt.savefig("./docs/analyse_donnees_files/figure-html/StationStat")
 plt.close()
 
 
@@ -195,7 +195,7 @@ plt.title('Distance parcourue en moyenne par mois de 2021 à 2024')
 plt.xticks(rotation=45, ha="right")
 plt.tight_layout()
 plt.grid(True)
-plt.savefig("./docs/projet1_files/figure-html/Distance_par_mois_2021_2024.png")
+plt.savefig("./docs/analyse_donnees_files/figure-html/Distance_par_mois_2021_2024.png")
 plt.close()
 
 # %%

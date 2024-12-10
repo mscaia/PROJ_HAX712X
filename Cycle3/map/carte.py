@@ -84,7 +84,7 @@ for station in data:
 
 
 # Sauvegarder la carte dans un fichier HTML
-m.save('./docs/montpellier_bike_stations_map.html')
+m.save('./docs/index_files/montpellier_bike_stations_map.html')
 
 # Afficher un message de confirmation
 print("Carte avec les bornes de vélo enregistrée sous le nom 'montpellier_bike_stations_map.html'.")
