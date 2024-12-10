@@ -123,11 +123,11 @@ pip install -r requirements.txt
 
 3. **Exécuter les scripts**
 
-Pour plus de détails sur les visualisations et les fonctionnalités avancées, consultez la [section 9](#guide-de-lutilisateur).
+Pour plus de détails sur les visualisations et les fonctionnalités avancées, consultez la section [9. Guide de l’utilisateur](#guide-de-lutilisateur).
 
 ## 2.3 Configuration des fichiers
 
-Le projet est configuré de manière à utiliser **Quarto** pour la création du site web interactif et **Sphinx** pour tenter une génération automatique de la documentation. Toute la documentation a été initialement rédigée en utilisant des fichiers `.qmd`, en cohérence avec le reste du site. 
+Le projet est configuré de manière à utiliser **Quarto** pour la création du site web interactif. Toute la documentation a été initialement rédigée en utilisant des fichiers `.qmd`, en cohérence avec le reste du site. 
 
 Le fichier `_quarto.yml` contient les paramètres de configuration du projet Quarto, tandis que le fichier `index.qmd` contient le contenu principal de la page d'accueil du site.
 
@@ -148,7 +148,8 @@ Les résultats de l’analyse sont exploités dans le répertoire `Cycle3/`, qui
 
 - L’analyse exploratoire des données (`analyse_donnee/`).  
 - La visualisation cartographique (`map/`).  
-- La modélisation prédictive (`prediction/`). 
+- La modélisation prédictive (`prediction/`).
+- La génération de vidéos (`video/`).   
 
 ## 2.5 Exécution du projet
 
@@ -2061,14 +2062,14 @@ Après cette commande, l'environnement virtuel `Cycle3` occupera environ 1 Go de
 
 Tous les scripts doivent être exécutés depuis le terminal. Assurez-vous que vous êtes dans la racine du projet, nommée `PROJ_HAX712X`. Dans les chemins relatifs, `./ `fait référence à la racine du projet.
 
-### Utilisation de notre class pour télécharger les données
+### 9.3.1 Utilisation de notre class pour télécharger les données
 
 Téléchargez les données nécessaires pour travailler (nous avons choisi de les laisser sur GitHub) :
 ```bash
  python ./src/donnée.py
 ```
 
-### Voir nos éléments d'analyse de données
+### 9.3.2 Voir nos éléments d'analyse de données
 
 Pour voir les éléments d'analyse des données, lancez la commande suivante :
 ```bash
@@ -2080,7 +2081,7 @@ cd ./docs/projet1_files/figure-html
 ```
 Vous y trouverez des fichiers `.html` et `.png`.
 
-### Visualisation des cartes
+### 9.3.3 Visualisation des cartes
 
 Dans le dossier `./Cycle3/map/`, vous trouverez trois fichiers `.py` différents pour travailler avec les cartes :
 
@@ -2100,7 +2101,7 @@ Effectue une simulation de trajet. L'interactivité se fait via le terminal
 ```
 La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpellier_trajet.html`
 
-### Création d'une vidéo
+### 9.3.4 Création d'une vidéo
 
 Nous avons lié les scripts `./Cycle3/map/map_trajet_BD.py` et `./Cycle3/vidéo/vidéo.py` pour analyser les trajets d'un jour spécifique et les transformer en vidéo. 
 
@@ -2114,7 +2115,7 @@ La carte générée est sauvegardée dans `./Cycle3/visualisation/carte_montpell
 
 2. **Création de la vidéo**
 
-**Attention : Ce processus peut être long. Veuillez vous référer à la section [8. Analyse des performances](#performance-analysis) de la documentation pour plus d'informations.**
+**Attention : Ce processus peut être long. Veuillez vous référer à la section [8. Analyse des performances](#analyse-des-performances) de la documentation pour plus d'informations.**
 Lancez la commande suivante pour créer la vidéo :
 ```bash
  python ./Cycle3/vidéo/vidéo.py
@@ -2194,4 +2195,3 @@ Ce projet constitue une première étape dans l'analyse du trafic cycliste à Mo
 
 
 Ces propositions, bien qu'ambitieuses, restent accessibles et permettent d'assurer la pertinence et la durabilité du projet tout en renforçant son impact pour les usagers et les décideurs locaux.
-
