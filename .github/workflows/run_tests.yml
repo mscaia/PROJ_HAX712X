@@ -1,9 +1,9 @@
-name: Run Pytest Tests
-
+name: Run Pytest Tests # L'objectif de ce workflow est de lancer les tests avec pytest quand quelque chose est modifiée dans les dossiers qui contiennent les fonctions
+                       # Il n'est malheureusement pas fonctionnel
 on:
   push:
     branches:
-      - main  # Remplacez "main" par le nom de votre branche par défaut si nécessaire
+      - main 
     paths:
       - 'Cycle3/**'  # Inclure tous les fichiers dans Cycle3 et ses sous-dossiers
       - 'tests/**'
@@ -28,7 +28,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.12  # Spécifiez la version de Python que vous utilisez
+        python-version: 3.12 
 
     - name: Install dependencies
       run: |
